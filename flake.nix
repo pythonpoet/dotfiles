@@ -1,5 +1,5 @@
 {
-  description = "fufexan's NixOS and Home-Manager flake";
+  description = "fufexan's NixOS and Home-Manager flake, Modified by pythonpoet";
 
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
@@ -88,20 +88,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
-
     nixpkgs-howdy.url = "github:fufexan/nixpkgs/howdy";
 
-    nix-matlab = {
-      url = "gitlab:doronbehar/nix-matlab";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
@@ -156,23 +144,15 @@
       };
     };
 
-    tailray = {
-      url = "github:NotAShelf/tailray";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-
     zen-browser = {
       url = "github:fufexan/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Disko disk manager
+    disko =  {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }
   };
 }

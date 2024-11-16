@@ -8,7 +8,9 @@
 
     initrd = {
       systemd.enable = true;
-      supportedFilesystems = ["ext4"];
+      supportedFilesystems = ["brtfs"];
+      # I think I didnt enabled lvm
+      #services.lvm.enable = true;
     };
 
     # use latest kernel

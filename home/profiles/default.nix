@@ -4,6 +4,11 @@
     ./io
   ];
 
+  "david@alpakabook" = [
+    ../.
+    ./alpakabook
+  ];
+
   server = [
     ../.
     ./server

@@ -55,6 +55,41 @@
         ];
     };
 
+    alpakabook = nixosSystem {
+      inherit specialArgs;
+      modules =
+        laptop
+        ++ [
+          ./io
+          "${mod}/core/lanzaboote.nix"
+
+          "${mod}/programs/hyprland.nix"
+
+          "${mod}/network/spotify.nix"
+          "${mod}/network/syncthing.nix"
+
+          "${mod}/services/kanata"
+          "${mod}/services/gnome-services.nix"
+          "${mod}/services/location.nix"
+
+          {
+            home-manager = {
+              users.david.imports = homeImports."david@alpakabook";
+              extraSpecialArgs = specialArgs;
+            };
+          }
+
+          # enable unmerged Howdy
+          {disabledModules = ["security/pam.nix"];}
+          "${howdy}/nixos/modules/security/pam.nix"
+          "${howdy}/nixos/modules/services/security/howdy"
+          "${howdy}/nixos/modules/services/misc/linux-enable-ir-emitter.nix"
+
+          inputs.agenix.nixosModules.default
+          inputs.chaotic.nixosModules.default
+        ];
+    };
+
     nixos = nixosSystem {
       inherit specialArgs;
       modules = [
