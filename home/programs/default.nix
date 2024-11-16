@@ -11,6 +11,7 @@
     ./gtk.nix
     ./office
     ./qt.nix
+    ./devtools
   ];
 
   home.packages = with pkgs; [

@@ -81,7 +81,8 @@ in {
     };
 
     input = {
-      kb_layout = "ro";
+      kb_layout = "ch";
+      kb_variant = "de";
 
       # focus change on cursor move
       follow_mouse = 1;
