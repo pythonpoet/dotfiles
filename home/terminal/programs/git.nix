@@ -101,8 +101,8 @@ in {
       pull.rebase = true;
     };
 
-    userEmail = "mihai@fufexan.net";
-    userName = "Mihai Fufezan";
+    userEmail = "david_wild@gmx.ch";
+    userName = "David Wild";
   };
 
   xdg.configFile."git/allowed_signers".text = ''

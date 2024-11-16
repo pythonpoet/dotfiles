@@ -12,7 +12,7 @@
 in {
   programs.firefox = {
     enable = true;
-    profiles.mihai = {
+    profiles.david = {
       settings = {
         "apz.overscroll.enabled" = true;
         "browser.aboutConfig.showWarning" = false;
@@ -23,5 +23,5 @@ in {
     };
   };
 
-  home.file.".mozilla/firefox/${config.programs.firefox.profiles.mihai.path}/chrome".source = "${shyfox}/chrome";
+  home.file.".mozilla/firefox/${config.programs.firefox.profiles.david.path}/chrome".source = "${shyfox}/chrome";
 }

@@ -13,7 +13,7 @@
 
     # audio
     amberol
-    spotify
+    #spotify
 
     # images
     loupe

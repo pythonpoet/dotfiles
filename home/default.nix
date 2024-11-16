@@ -29,6 +29,9 @@
   # let HM manage itself when in standalone mode
   programs.home-manager.enable = true;
 
+  # Set catppucin falvour;
+  catppuccin.flavor = "mocha";
+
   nixpkgs.overlays = [
     (final: prev: {
       lib = prev.lib // {colors = import "${self}/lib/colors" lib;};

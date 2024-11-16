@@ -1,4 +1,8 @@
 {
+  inputs,
+  ...
+}:
+{
   imports = [
     # editors
     ../../editors/helix
@@ -30,6 +34,9 @@
     ../../services/wayland/hyprpaper.nix
     ../../services/wayland/hypridle.nix
     ../../services/wayland/wluma.nix
+
+    # Catppuccin colors
+    inputs.catppuccin.homeManagerModules.catppuccin
 
     # terminal emulators
     ../../terminal/emulators/foot.nix
