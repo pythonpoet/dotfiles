@@ -24,7 +24,7 @@
     mission-center
     wineWowPackages.wayland
 
-    inputs.nix-matlab.packages.${pkgs.system}.matlab
+    #inputs.nix-matlab.packages.${pkgs.system}.matlab
   ];
 
 }

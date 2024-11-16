@@ -8,14 +8,14 @@
     ./specialisations.nix
     ./terminal
     inputs.nix-index-db.hmModules.nix-index
-    inputs.tailray.homeManagerModules.default
+    # inputs.tailray.homeManagerModules.default
     self.nixosModules.theme
   ];
 
   home = {
     username = "david";
     homeDirectory = "/home/david";
-    stateVersion = "24.04";
+    stateVersion = "24.05";
     extraOutputsToInstall = ["doc" "devdoc"];
   };
 
