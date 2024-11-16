@@ -1,7 +1,7 @@
 {
   pkgs,
   self,
-  # inputs,
+  #inputs,
   lib,
   ...
 }: {

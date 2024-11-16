@@ -1,7 +1,7 @@
 let
   desktop = [
      ./core/default.nix
-    # ./core/boot.nix
+     ./core/boot.nix
 
     # ./hardware/fwupd.nix
     # ./hardware/graphics.nix

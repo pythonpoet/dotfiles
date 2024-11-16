@@ -4,17 +4,18 @@
   ...
 }: {
   boot = {
-    bootspec.enable = true;
+    #bootspec.enable = true;
+    # boot.loader.grub.device = "nodev";
 
-    initrd = {
-      systemd.enable = true;
-      supportedFilesystems = ["brtfs"];
-      # I think I didnt enabled lvm
-      #services.lvm.enable = true;
-    };
+    # initrd = {
+    #   systemd.enable = true;
+    #   supportedFilesystems = ["brtfs"];
+    #   # I think I didnt enabled lvm
+    #   #services.lvm.enable = true;
+    # };
 
     # use latest kernel
-    kernelPackages = pkgs.linuxPackages_latest;
+    #kernelPackages = pkgs.linuxPackages_latest;
 
     consoleLogLevel = 3;
     kernelParams = [
@@ -29,7 +30,7 @@
       systemd-boot.enable = true;
     };
 
-    plymouth.enable = true;
+    # plymouth.enable = true;
   };
 
   environment.systemPackages = [config.boot.kernelPackages.cpupower];

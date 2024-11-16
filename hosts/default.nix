@@ -61,7 +61,7 @@
         laptop
         ++ [
           inputs.catppuccin.nixosModules.catppuccin
-
+          ./alpakabook
           # "${mod}/core/lanzaboote.nix"
 
           "${mod}/programs/hyprland.nix"
@@ -88,7 +88,7 @@
 
           # inputs.agenix.nixosModules.default
           inputs.chaotic.nixosModules.default
-          
+          inputs.disko.nixosModules.disko
         ];
     };
 

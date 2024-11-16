@@ -48,15 +48,15 @@ in {
         popups_ignorealpha = 0.2;
       };
 
-      shadow = {
-        enabled = true;
-        color = "rgba(00000055)";
-        ignore_window = true;
-        offset = "0 15";
-        range = 100;
-        render_power = 2;
-        scale = 0.97;
-      };
+      #shadow = {
+      #  enabled = true;
+      #  color = "rgba(00000055)";
+      #  ignore_window = true;
+      #  offset = "0 15";
+      #  range = 100;
+      #  render_power = 2;
+      #  scale = 0.97;
+      #};
     };
 
     animations = {
@@ -108,7 +108,7 @@ in {
       vrr = 1;
     };
 
-    render.direct_scanout = true;
+      # render.direct_scanout = true;
 
     # touchpad gestures
     gestures = {

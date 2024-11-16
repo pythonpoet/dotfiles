@@ -72,12 +72,12 @@
       "size 640 400, class:^(.*jetbrains.*)$, title:^(splash)$"
 
       # Matlab
-      "tile, title:MATLAB"
-      "noanim on, class:MATLAB, title:DefaultOverlayManager.JWindow"
-      "noblur on, class:MATLAB, title:DefaultOverlayManager.JWindow"
-      "noborder on, class:MATLAB, title:DefaultOverlayManager.JWindow"
-      "noshadow on, class:MATLAB, title:DefaultOverlayManager.JWindow"
-      "plugin:hyprbars:nobar, class:MATLAB, title:DefaultOverlayManager.JWindow"
+      # "tile, title:MATLAB"
+      #"noanim on, class:MATLAB, title:DefaultOverlayManager.JWindow"
+      #"noblur on, class:MATLAB, title:DefaultOverlayManager.JWindow"
+      #"noborder on, class:MATLAB, title:DefaultOverlayManager.JWindow"
+      #"noshadow on, class:MATLAB, title:DefaultOverlayManager.JWindow"
+      # "plugin:hyprbars:nobar, class:MATLAB, title:DefaultOverlayManager.JWindow"
 
       # don't render hyprbars on tiling windows
       "plugin:hyprbars:nobar, floating:0"
