@@ -79,6 +79,8 @@
 
     shellAliases =
       {
+        htop = "btop";
+        cd = "z";
         g = "git";
         grep = "grep --color";
         ip = "ip --color";

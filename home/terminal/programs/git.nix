@@ -102,7 +102,7 @@ in {
     };
     
     userEmail = "32130052+pythonpoet@users.noreply.github.com";
-    userName = "Pythonpoet";
+    userName = "pythonpoet";
   };
 
   xdg.configFile."git/allowed_signers".text = ''
