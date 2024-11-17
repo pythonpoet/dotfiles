@@ -3,7 +3,6 @@
   pkgs,
   lib,
   config,
-  self,
   ...
 }: let
   requiredDeps = with pkgs; [
@@ -41,7 +40,7 @@ in {
   #programs.ags.extraPackages = dependencies;
   programs.ags = {
     enable = true;
-    configDir = config.lib.file.mkOutOfStoreSymlink /home/${user}/Documents/dotfiles/home/${self}/services/ags; 
+    configDir = ./ags; #config.lib.file.mkOutOfStoreSymlink /home/david/Documents/dotfiles/home/services/ags; 
     extraPackages = dependencies;
     systemd.enable = true;
   };
