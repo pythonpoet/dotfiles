@@ -41,9 +41,10 @@ in {
   programs.ags = {
     enable = true;
     configDir = ./ags; #config.lib.file.mkOutOfStoreSymlink /home/david/Documents/dotfiles/home/services/ags; 
-    extraPackages = dependencies;
-    systemd.enable = true;
+    #extraPackages = dependencies;
+    #systemd.enable = true;
   };
+  #home.file.".cache/ags/options-nix.json".text = (builtins.toJSON agsOptions);
 
 
   # systemd.user.services.ags = {

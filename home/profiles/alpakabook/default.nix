@@ -12,7 +12,7 @@
     ../../programs/wayland
 
     # services
-    ../../services/ags.nix
+    ../../services/ags
     # ../../services/cinny.nix
 
     # media services
