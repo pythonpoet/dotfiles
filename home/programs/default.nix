@@ -24,7 +24,9 @@
     overskride
     mission-center
     wineWowPackages.wayland
-
+    
+    bitwarden-desktop
+    thunderbird
     #inputs.nix-matlab.packages.${pkgs.system}.matlab
   ];
 

@@ -8,5 +8,6 @@
     ./skim.nix
     ./yazi
     ./xdg.nix
+    ./fastfetch.nix
   ];
 }
