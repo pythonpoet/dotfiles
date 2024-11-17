@@ -8,9 +8,6 @@ import SystemMenu from "./windows/system-menu/main.js";
 const scss = App.configDir + "/style.scss";
 const css = App.configDir + "/style.css";
 
-console.log(`sass ${scss} ${css}`);
-
-
 Utils.exec(`sass ${scss} ${css}`);
 
 App.connect("config-parsed", () => print("config parsed"));
