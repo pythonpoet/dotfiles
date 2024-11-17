@@ -55,14 +55,14 @@ class BrightnessService extends Service {
     super();
 
     this.#updateScreenValue();
-    // Utils.monitorFile(this.#brightness, () => this.#onChange());
-    Utils.subprocess([
-      "inotifywait",
-      "--event",
-      "create,modify",
-      "-m",
-      this.#brightness,
-    ], () => this.#onChange());
+    Utils.monitorFile(this.#brightness, () => this.#onChange());
+    // Utils.subprocess([
+    //   "inotifywait",
+    //   "--event",
+    //   "create,modify",
+    //   "-m",
+    //   this.#brightness,
+    // ], () => this.#onChange());
   }
 
   #updateScreenValue() {

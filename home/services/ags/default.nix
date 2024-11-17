@@ -33,34 +33,36 @@ in {
     inputs.ags.homeManagerModules.default
   ];
 
-  #programs.ags.enable = true;
+ # home.packages = dependencies;
+
+  programs.ags.enable = true;
 
   #programs.ags.configDir = ../ags;
 
   #programs.ags.extraPackages = dependencies;
-  programs.ags = {
-    enable = true;
-    configDir = ./ags; #config.lib.file.mkOutOfStoreSymlink /home/david/Documents/dotfiles/home/services/ags; 
-    #extraPackages = dependencies;
-    #systemd.enable = true;
-  };
+  # programs.ags = {
+  #   enable = true;
+  # #  configDir =../ags; #config.lib.file.mkOutOfStoreSymlink /home/david/Documents/dotfiles/home/services/ags; 
+  #   extraPackages = dependencies;
+  #   systemd.enable = true;
+  # };
   #home.file.".cache/ags/options-nix.json".text = (builtins.toJSON agsOptions);
 
 
-  # systemd.user.services.ags = {
-  #   Unit = {
-  #     Description = "Aylur's Gtk Shell";
-  #     PartOf = [
-  #       "tray.target"
-  #       "graphical-session.target"
-  #     ];
-  #     After = "graphical-session.target";
-  #   };
-  #   Service = {
-  #     Environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
-  #     ExecStart = "${cfg.package}/bin/ags";
-  #     Restart = "on-failure";
-  #   };
-  #   Install.WantedBy = ["graphical-session.target"];
-  # };
+  systemd.user.services.ags = {
+    Unit = {
+      Description = "Aylur's Gtk Shell";
+      PartOf = [
+        "tray.target"
+        "graphical-session.target"
+      ];
+      After = "graphical-session.target";
+    };
+    Service = {
+      Environment = "PATH=/run/wrappers/bin:${lib.makeBinPath dependencies}";
+      ExecStart = "${cfg.package}/bin/ags";
+      Restart = "on-failure";
+    };
+    Install.WantedBy = ["graphical-session.target"];
+  };
 }

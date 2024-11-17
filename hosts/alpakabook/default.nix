@@ -11,6 +11,23 @@
     ./powersave.nix
   ];
 
+  # environment.systemPackages = with pkgs; [
+  #   bash
+  #   coreutils
+  #   dart-sass
+  #   gawk
+  #   imagemagick
+  #   inotify-tools
+  #   procps
+  #   ripgrep
+  #   util-linux
+  #   gnome-control-center
+  #   mission-center
+  #   overskride
+  #   wlogout
+  # ];
+
+
   # age.secrets.spotify = {
   #   file = "${self}/secrets/spotify.age";
   #   owner = "david";

@@ -7,7 +7,9 @@ let
         in
           builtins.toString (x + 1 - (c * 10));
       in [
+        # Switch to workspace with mod nr
         "$mod, ${ws}, workspace, ${toString (x + 1)}"
+        # Curret window to new workspace
         "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
       ]
     )
