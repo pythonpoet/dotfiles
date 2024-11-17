@@ -19,9 +19,9 @@ in {
         "general.autoScroll" = true;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
-      extraConfig = builtins.readFile "${shyfox}/user.js";
+      #extraConfig = builtins.readFile "${shyfox}/user.js";
     };
   };
 
-  home.file.".mozilla/firefox/${config.programs.firefox.profiles.david.path}/chrome".source = "${shyfox}/chrome";
+  #home.file.".mozilla/firefox/${config.programs.firefox.profiles.david.path}/chrome".source = "${shyfox}/chrome";
 }

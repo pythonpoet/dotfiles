@@ -35,6 +35,12 @@ in {
 
   programs.ags.enable = true;
 
+  programs.ags.configDir = "../ags";
+
+  programs.ags.extraPackages = dependencies;
+
+
+
   systemd.user.services.ags = {
     Unit = {
       Description = "Aylur's Gtk Shell";

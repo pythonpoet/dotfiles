@@ -29,7 +29,7 @@ in {
         {
           monitor = "eDP-1";
 
-          size = "300, 50";
+          #size = "300, 50";
 
           outline_thickness = 1;
 

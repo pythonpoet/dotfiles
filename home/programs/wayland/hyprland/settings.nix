@@ -71,7 +71,7 @@ in {
 
     group = {
       groupbar = {
-        font_size = 10;
+        font_size = 15;
         gradients = false;
         text_color = "rgb(b6c4ff)";
       };
