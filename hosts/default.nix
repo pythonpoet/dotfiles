@@ -62,7 +62,7 @@
         ++ [
           inputs.catppuccin.nixosModules.catppuccin
           ./alpakabook
-          # "${mod}/core/lanzaboote.nix"
+           #"${mod}/core/lanzaboote.nix"
 
           "${mod}/programs/hyprland.nix"
 

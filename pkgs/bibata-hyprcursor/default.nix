@@ -5,6 +5,7 @@
   fetchFromGitHub,
   python3,
   python3Packages,
+  
   hyprcursor,
   variant ? "modern",
   baseColor ? "#000000",
