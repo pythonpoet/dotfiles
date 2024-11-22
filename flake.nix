@@ -154,8 +154,12 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    catppuccin ={
+    catppuccin = { 
       url = "github:catppuccin/nix";
+    };
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
     };
   };
 }

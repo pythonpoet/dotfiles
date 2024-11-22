@@ -60,6 +60,8 @@
       modules =
         laptop
         ++ [
+          # Include surface book specific configuration (only commons)
+          inputs.nixos-hardware.nixosModules.microsoft-surface-common
           inputs.catppuccin.nixosModules.catppuccin
           ./alpakabook
            #"${mod}/core/lanzaboote.nix"
