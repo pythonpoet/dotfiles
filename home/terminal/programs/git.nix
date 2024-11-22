@@ -70,7 +70,7 @@ in {
       ri = "rebase --interactive";
 
       rs = "reset";
-      rsh = "reset --hard";
+      rsh = "reset --hard"; 
 
       s = "status --short --branch";
       ss = "status";
