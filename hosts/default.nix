@@ -97,7 +97,7 @@
     nixos = nixosSystem {
       inherit specialArgs;
       modules = [
-        ./wsl
+        ./alpakapi5
         "${mod}/core/users.nix"
         "${mod}/nix"
         "${mod}/programs/zsh.nix"
