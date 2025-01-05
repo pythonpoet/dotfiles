@@ -94,9 +94,11 @@
         ];
     };
 
-    nixos = nixosSystem {
+   alpakapi5 = nixosSystem {
+      system = "aarch64-linux";
       inherit specialArgs;
       modules = [
+        inputs.catppuccin.nixosModules.catppuccin
         ./alpakapi5
         "${mod}/core/users.nix"
         "${mod}/nix"
