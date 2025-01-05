@@ -1,7 +1,11 @@
 {inputs, ...}:{
   imports = [
     ../../editors/helix
-    ../../../modules/immich
+
+     # media services
+    # This app hosts immages
+    ../../services/media/immich.nix
+
     inputs.catppuccin.homeManagerModules.catppuccin
      ];
 }
