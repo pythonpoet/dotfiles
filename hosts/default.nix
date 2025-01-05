@@ -64,7 +64,7 @@
           inputs.nixos-hardware.nixosModules.microsoft-surface-common
           inputs.catppuccin.nixosModules.catppuccin
           ./alpakabook
-           #"${mod}/core/lanzaboote.nix"
+          #"${mod}/core/lanzaboote.nix"
 
           "${mod}/programs/hyprland.nix"
 
@@ -94,7 +94,7 @@
         ];
     };
 
-   alpakapi5 = nixosSystem {
+    alpakapi5 = nixosSystem {
       system = "aarch64-linux";
       inherit specialArgs;
       modules = [
@@ -104,6 +104,8 @@
         "${mod}/nix"
         "${mod}/programs/zsh.nix"
         "${mod}/programs/home-manager.nix"
+
+        "${mod}/modules/immich.nix"
         {
           home-manager = {
             users.david.imports = homeImports.server;
