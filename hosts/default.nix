@@ -114,5 +114,21 @@
         }
       ];
     };
+    
+    bernina-rpi4 = nixosSystem {
+	system = "aarch64-linux";
+	inherit specialArgs;
+	modules = [
+	  ./bernina-rpi4
+	  vscode-server.nixosModules.default
+
+          "${mod}/core/users.nix"
+          "${mod}/nix"
+          "${mod}/programs/zsh.nix"
+          "${mod}/programs/home-manager.nix"
+		({ config, pkgs, ... }: {
+          services.vscode-server.enable = true;
+        })
+	];
   };
 }
