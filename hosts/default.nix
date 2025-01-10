@@ -115,7 +115,7 @@
       ];
     };
     
-    bernina-rpi4 = nixosSystem {
+    alpakapi4 = nixosSystem {
 	system = "aarch64-linux";
 	inherit specialArgs;
 	modules = [
