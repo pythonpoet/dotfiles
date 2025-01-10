@@ -119,7 +119,7 @@
 	system = "aarch64-linux";
 	inherit specialArgs;
 	modules = [
-	  ./bernina-rpi4
+	  ./alpakapi4
 	  inputs.vscode-server.nixosModules.default
 
           "${mod}/core/users.nix"
