@@ -1,22 +1,17 @@
 {pkgs, ...}: {
   fonts = {
-    packages = with pkgs; [
+
+      packages = with pkgs; [
       # icon fonts
-      material-symbols
+      material-design-icons
 
-      # Sans(Serif) fonts
-      libertinus
+      # normal fonts
       noto-fonts
-      noto-fonts-cjk-sans
+      noto-fonts-cjk
       noto-fonts-emoji
-      roboto
-      (google-fonts.override {fonts = ["Inter"];})
-
-      # monospace fonts
-      jetbrains-mono
 
       # nerdfonts
-      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly" "JetBrainsMono"];})
+      (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
     ];
 
     # causes more issues than it solves
