@@ -11,6 +11,8 @@
 }: let
   # List of ports to enable
   ports = [
+    9980
+    9300
     9200 # ocis
     9142 # gateway
     9150 # sharing
@@ -48,6 +50,38 @@
   ];
 in {
   networking.firewall.allowedTCPPorts = ports;
+  
+
+    virtualisation.oci-containers.containers.collabora = {
+      image = "docker.io/collabora";
+      ports = [ "9980:9980" ];
+      autoStart = true;
+      environment = {
+        # This limits it to this NC instance AFAICT
+        #aliasgroup1 = "https://127.0.01:443";
+        # Must disable SSL as it's behind a reverse proxy
+        extra_params = "--o:ssl.enable=false";
+      };
+    };
+    
+
+    #virtualisation.oci-containers.containers.wopi-server = {
+    #  image = "docker.io/owncloud/ocis-rolling:latest";
+    #  ports = [ "9300:9300" ];
+    #  autoStart = true;
+    #  environment = {
+        # This limits it to this NC instance AFAICT
+    #    aliasgroup1 = "https://${ncDomain}:443";
+        # Must disable SSL as it's behind a reverse proxy
+     #   extra_params = "--o:ssl.enable=false";
+     # };
+      #cmd = [ "ocis collaboration server" ];
+    #};
+
+
+
+
+  
   services.ocis = {
     enable = true;
     address = "0.0.0.0";
