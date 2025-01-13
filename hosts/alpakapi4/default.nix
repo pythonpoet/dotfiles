@@ -4,7 +4,12 @@
 
 { config, pkgs, ... }:
 
-{
+let nixosHardwareVersion = "master"; #"7f1836531b126cfcf584e7d7d71bf8758bb58969";
+    timeZone = "Europe/Zurich";
+  defaultLocale = "en_US.UTF-8";
+
+
+in{
   imports =
     [
     #  ../../modules/system.nix
@@ -18,16 +23,44 @@
       #../../modules/dnsmasq.nix
       #../../modules/i3.nix
       # Include networking
-      #./host.nix
+     # ./host.nix
 
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-    ];
+    "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/${nixosHardwareVersion}.tar.gz"}/raspberry-pi/4"];
+     console.keyMap = "de_CH-latin1";
+
+  time.timeZone = timeZone;
+
+  i18n = {
+    defaultLocale = defaultLocale;
+    extraLocaleSettings = {
+      LC_ADDRESS = defaultLocale;
+      LC_IDENTIFICATION = defaultLocale;
+      LC_MEASUREMENT = defaultLocale;
+      LC_MONETARY = defaultLocale;
+      LC_NAME = defaultLocale;
+      LC_NUMERIC = defaultLocale;
+      LC_PAPER = defaultLocale;
+      LC_TELEPHONE = defaultLocale;
+      LC_TIME = defaultLocale;
+    };
+  };
+
 
   environment.systemPackages = with pkgs; [
     haskellPackages.gpio
     libraspberrypi
+    helix
+    git
   ];
+
+  # Enable GPU acceleration
+  hardware.raspberry-pi."4".fkms-3d.enable = true;
+
+  
+    hardware.pulseaudio.enable = false;
+
   # service to control the fan
   systemd.services.fan-control = {
     description = "Control the fan depending on the temperature";
@@ -64,7 +97,8 @@
   # Enable networking
   networking.networkmanager.enable = true;
   #networking.defaultGateway = "192.168.0.254";
-
+  services.openssh.enable = true;
+  services.openssh.settings.PasswordAuthentication = true; 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
