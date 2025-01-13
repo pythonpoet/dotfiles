@@ -124,31 +124,14 @@
 	  #inputs.vscode-server.nixosModules.default
 
           "${mod}/core/users.nix"
-    #      "${mod}/nix"
+          "${mod}/nix"
           "${mod}/programs/zsh.nix"
           "${mod}/programs/home-manager.nix"
-#{
-#   home-manager = {
-#		users.test.imports = "home.manager.nix";
-#		extraSpecialArgs = specialArgs;
-#		};
-#         }i
-    ({ config, pkgs, ... }: {
-      home-manager = {
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        users.david = {
-          home.username = "david";
-          home.homeDirectory = "/home/david";
-          home.stateVersion = "24.11"; # Ensure this matches your system state version
-
-          # Minimal configuration
-          home.packages = with pkgs; [
-            htop
-          ];
-        };
-      };
-    })
+{
+   home-manager = {
+		users.david = import ./home-manager.nix; #imports = homeImports.server;
+		};
+         }
 #		({ config, pkgs, ... }: {
 #          services.vscode-server.enable = true;
 #        })
