@@ -9,6 +9,10 @@
     ./alpakabook
   ];
 
+  "david@alpakapi4" = [
+    ./alpakapi4
+  ];
+
   server = [
     ../.
     ./server

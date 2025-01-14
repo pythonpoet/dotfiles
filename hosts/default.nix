@@ -129,7 +129,7 @@
           "${mod}/programs/home-manager.nix"
 {
    home-manager = {
-		users.david = import ./home-manager.nix; #imports = homeImports.server;
+		users.david.imports =  homeImports."david@alpakapi4";
 		};
          }
 #		({ config, pkgs, ... }: {
