@@ -1,17 +1,8 @@
 { config, pkgs,inputs, ... }:
 {
   imports = [
+
     ../../editors/helix/stable.nix
+    inputs.catppuccin.homeManagerModules.catppuccin
   ];
-  home.username = "david";
-  home.homeDirectory = "/home/david";
-  home.stateVersion = "24.11";
-
-  home.packages = with pkgs; [
-    helix
-    git
-  ];
-
-  programs.git.enable = true;
-  programs.zsh.enable = true;
 }

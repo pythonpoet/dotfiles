@@ -119,7 +119,7 @@
 	system = "aarch64-linux";
 	inherit specialArgs;
 	modules = [
-        # inputs.catppuccin.nixosModules.catppuccin
+         inputs.catppuccin.nixosModules.catppuccin
 	  ./alpakapi4
 	  #inputs.vscode-server.nixosModules.default
 

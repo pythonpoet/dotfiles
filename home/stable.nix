@@ -30,11 +30,11 @@
   programs.home-manager.enable = true;
 
   # Set catppucin falvour;
-  catppuccin.flavor = "mocha";
+#  catppuccin.flavor = "mocha";
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      lib = prev.lib // {colors = import "${self}/lib/colors" lib;};
-    })
-  ];
+#  nixpkgs.overlays = [
+ #   (final: prev: {
+ #     lib = prev.lib // {colors = import "${self}/lib/colors" lib;};
+ #   })
+ # ];
 }
