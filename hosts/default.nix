@@ -130,6 +130,7 @@
 {
    home-manager = {
 		users.david.imports =  homeImports."david@alpakapi4";
+    extraSpecialArgs = specialArgs;
 		};
          }
 #		({ config, pkgs, ... }: {

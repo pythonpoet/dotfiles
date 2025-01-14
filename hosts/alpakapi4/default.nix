@@ -51,7 +51,7 @@ in{
   environment.systemPackages = with pkgs; [
     haskellPackages.gpio
     libraspberrypi
-    helix
+   # helix
     git
   ];
 
