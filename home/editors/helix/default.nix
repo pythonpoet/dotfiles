@@ -3,17 +3,16 @@
   pkgs,
   ...
 }: {
-  
-imports = [./languages.nix];
+  imports = [./languages.nix];
 
   programs.helix = {
     enable = true;
     package = inputs.helix.packages.${pkgs.system}.default;
     extraPackages = with pkgs; [
-#      markdown-oxide
+      markdown-oxide
       nodePackages.vscode-langservers-extracted
-#      shellcheck
-   ];#
+      shellcheck
+    ]; #
 
     settings = {
       theme = "zed_onedark";

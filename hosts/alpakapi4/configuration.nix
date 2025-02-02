@@ -6,7 +6,6 @@
 }: let
   hostname = "alpakapi4";
   user = "david";
-  password = "Spacco007";
   nixosHardwareVersion = "7f1836531b126cfcf584e7d7d71bf8758bb58969";
 
   timeZone = "Europe/Zurich";
@@ -30,12 +29,12 @@ in {
     git
     helix
   ];
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = true;
-  
-	  console.keyMap = "de_CH-latin1";
+
+  console.keyMap = "de_CH-latin1";
 
   time.timeZone = timeZone;
 
@@ -58,7 +57,7 @@ in {
     mutableUsers = false;
     users."${user}" = {
       isNormalUser = true;
-      password = password;
+      #password = password;
       extraGroups = ["wheel"];
     };
   };
@@ -77,10 +76,9 @@ in {
   ];
 
   # Enable GPU acceleration
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  # hardware.raspberry-pi."4".fkms-3d.enable = true;
 
-  
-    hardware.pulseaudio.enable = false;
+  #  hardware.pulseaudio.enable = false;
 
-	  system.stateVersion = "24.11";
+  system.stateVersion = "24.11";
 }

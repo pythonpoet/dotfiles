@@ -1,34 +1,39 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
+{
+  config,
+  pkgs,
+  ...
+}: let
+  nixosHardwareVersion = "master"; #"7f1836531b126cfcf584e7d7d71bf8758bb58969";
+  hostname = "alpakapi4";
+  user = "david";
 
-{ config, pkgs, ... }:
-
-let nixosHardwareVersion = "master"; #"7f1836531b126cfcf584e7d7d71bf8758bb58969";
-    timeZone = "Europe/Zurich";
+  timeZone = "Europe/Zurich";
   defaultLocale = "en_US.UTF-8";
-
-
-in{
-  imports =
-    [
+in {
+  imports = [
     #  ../../modules/system.nix
     #  ../../modules/wireguard.nix
     #  ../../modules/tailscale.nix
-      #../../modules/ad-guard.nix
+    #../../modules/ad-guard.nix
     #  ../../modules/reverse-proxy.nix
     #  ../../modules/elixir-server.nix
-      #../../modules/dns.nix
-      #../../modules/caddy.nix
-      #../../modules/dnsmasq.nix
-      #../../modules/i3.nix
-      # Include networking
-     # ./host.nix
+    #../../modules/dns.nix
+    #../../modules/caddy.nix
+    #../../modules/dnsmasq.nix
+    #../../modules/i3.nix
+    # Include networking
+    # ./host.nix
+    #./configuration.nix
 
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/${nixosHardwareVersion}.tar.gz"}/raspberry-pi/4"];
-     console.keyMap = "de_CH-latin1";
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/${nixosHardwareVersion}.tar.gz"}/raspberry-pi/4"
+  ];
+  networking.hostName = hostname;
+  console.keyMap = "de_CH-latin1";
 
   time.timeZone = timeZone;
 
@@ -46,20 +51,31 @@ in{
       LC_TIME = defaultLocale;
     };
   };
-
-
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "server";
+  };
   environment.systemPackages = with pkgs; [
     haskellPackages.gpio
     libraspberrypi
-   # helix
+    borgbackup
+    #tailscale
+    # helix
     git
   ];
+  users = {
+    mutableUsers = false;
+    users."${user}" = {
+      isNormalUser = true;
+      password = "Spacco007";
+      extraGroups = ["wheel"];
+    };
+  };
 
   # Enable GPU acceleration
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  #hardware.raspberry-pi."4".fkms-3d.enable = true;
 
-  
-    hardware.pulseaudio.enable = false;
+  #hardware.pulseaudio.enable = false;
 
   # service to control the fan
   systemd.services.fan-control = {
@@ -84,7 +100,7 @@ in{
       Persistent = true;
       Unit = "fan-control.service";
     };
-    wantedBy = [ "timers.target" ];
+    wantedBy = ["timers.target"];
   };
 
   #networking.hostName = "bernina-rpi4"; # Define your hostname.
@@ -98,7 +114,7 @@ in{
   networking.networkmanager.enable = true;
   #networking.defaultGateway = "192.168.0.254";
   services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = true; 
+  services.openssh.settings.PasswordAuthentication = true;
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -106,7 +122,4 @@ in{
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }
-
-

@@ -10,7 +10,7 @@
   ];
 
   "david@alpakapi4" = [
-    ../stable.nix	
+    ../.
     ./alpakapi4
   ];
 
