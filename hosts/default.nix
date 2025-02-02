@@ -105,7 +105,13 @@
         "${mod}/programs/zsh.nix"
         "${mod}/programs/home-manager.nix"
 
-        "${mod}/modules/immich.nix"
+        "${self}/modules/immich.nix"
+        "${self}/modules/postgresql.nix"
+
+        "${self}/modules/nextcloud.nix"
+        "${self}/modules/owncloud.nix"
+        
+        "${self}/modules/reverse-proxy.nix"
         {
           home-manager = {
             users.david.imports = homeImports.server;
@@ -115,7 +121,7 @@
       ];
     };
     
-    alpakapi4 = nixosSystem {
+    alpakapia4 = nixosSystem {
 	system = "aarch64-linux";
 	inherit specialArgs;
 	modules = [
