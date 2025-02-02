@@ -1,11 +1,12 @@
 # stolen from https://github.com/diniamo/niqspkgs/blob/544c3b2c69fd1b5ab3407e7b35c76060801a8bcf/pkgs/bibata-hyprcursor/default.nix
+# windows like cursor: https://gitlab.com/Enthymeme/hackneyed-x11-cursors
+# Interesting one: https://www.michieldb.nl/other/cursors/ https://git.disroot.org/lwad/nixos/commit/93dfaee0787d09c9f99ee8e61fe916424a2586b1
 {
   lib,
   stdenvNoCC,
   fetchFromGitHub,
   python3,
   python3Packages,
-  
   hyprcursor,
   variant ? "modern",
   baseColor ? "#000000",

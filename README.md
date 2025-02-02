@@ -1,5 +1,8 @@
 <h1 align="center">fufexan/dotfiles</h1>
 
+# TODO
+- implement clipman: https://mynixos.com/home-manager/option/services.clipman.enable
+
 # 🗒 About
 
 In-house baked configs for Home-Manager and NixOS. Borrowed bits sprinkled on
