@@ -18,4 +18,10 @@
     ../.
     ./server
   ];
+ "minimal" = [
+    ../.
+    ./server
+  ];
+
+
 }

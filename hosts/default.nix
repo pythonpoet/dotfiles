@@ -139,10 +139,29 @@
     extraSpecialArgs = specialArgs;
 		};
          }
-#		({ config, pkgs, ... }: {
-#          services.vscode-server.enable = true;
-#        })
+
 	];
 	};
+     hal = nixosSystem {
+      inherit specialArgs;
+      modules =
+         [
+          ./hal
+           "${mod}/core/users.nix"
+          "${mod}/nix"
+          "${mod}/programs/zsh.nix"
+          "${mod}/programs/home-manager.nix"
+                  {
+            home-manager = {
+              users.david.imports = homeImports."minimal";
+              extraSpecialArgs = specialArgs;
+            };
+          }
+          
+          inputs.agenix.nixosModules.default
+          inputs.chaotic.nixosModules.default
+        ];
+    };
+
   };
 }
