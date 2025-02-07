@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   email = "biobrotmithonig@gmail.com";
   extraConfig = ''
     proxy_set_header Host $host;
@@ -14,12 +17,24 @@ let
     enableACME = true;
   };
 in {
-
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [8080 80 443];
   services.nginx = {
     enable = true;
+    #defaultSSLListenPort = 8080;
 
     virtualHosts = {
+      "blog.chaosdam.net" = {
+        inherit (sslSettings) addSSL enableACME;
+        locations."/" = {
+          root = pkgs.writeTextDir "index.html" ''
+            <!DOCTYPE html>
+            <html>
+              <head><title>Welcome</title></head>
+              <body><h1>Hello from NixOS!</h1></body>
+            </html>
+          '';
+        };
+      };
       #"exdetail.chaosdam.net" = {
       #  inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
       #  locations."/" = {
@@ -29,30 +44,22 @@ in {
       #  };
       #};
 
-      "immich.chaosdam.net" = {
-        inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:2283"; # Ensure Immich is accessible at this address
-          proxyWebsockets = true;
-          extraConfig = extraConfig;
-        };
-      };
-      "cloud.chaosdam.net" = {
-	      inherit (sslSettings) addSSL enableACME;
-	      locations."/" = {
-	        proxyPass = "http://192.168.0.29";
-	        proxyWebsockets = true;
-          extraConfig = extraConfig;
-	      };
-      };
-      "ocis.chaosdam.net" = { 
-        inherit (sslSettings) addSSL enableACME;
-	      locations."/" = {
-	      proxyPass = "https://192.168.0.26:9200";
-	      proxyWebsockets = true;
-	      extraConfig = extraConfig;
-	      };
-      };
+      #  "immich.chaosdam.net" = {
+      #    inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
+      #    locations."/" = {
+      #      proxyPass = "http://127.0.0.1:2283"; # Ensure Immich is accessible at this address
+      #      proxyWebsockets = true;
+      #      extraConfig = extraConfig;
+      #    };
+      #  };
+      #  "ocis.chaosdam.net" = {
+      #    inherit (sslSettings) addSSL enableACME;
+      #    locations."/" = {
+      #      proxyPass = "https://192.168.0.26:9200";
+      #      proxyWebsockets = true;
+      #      extraConfig = extraConfig;
+      #    };
+      #  };
     };
   };
 

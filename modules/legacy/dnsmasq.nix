@@ -1,10 +1,8 @@
-{ config, pkgs, ...}:{
-services = {
-    dnsmasq = {
-      enable = true;
-      extraConfig = ''
-        interface=wg0
-      '';
-    };
-  };
+{
+  config,
+  pkgs,
+  ...
+}: {
+  services.dnsmasq.enable = true;
+  services.dnsmasq.settings.interface = ["wg0"];
 }

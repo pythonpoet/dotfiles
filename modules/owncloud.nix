@@ -10,78 +10,60 @@
   ...
 }: let
   # List of ports to enable
-  ports = [
-    9980
-    9300
-    9200 # ocis
-    9142 # gateway
-    9150 # sharing
-    9242 # app-registry
-    45023 # ocdav
-    9166 # auth-machine
-    9215 # storage-system
-    9115 # webdav
-    46871 # webfinger
-    9216 # storage-system
-    9100 # web
-    33177 # eventhistory
-    9110 # ocs
-    9178 # storage-publiclink
-    9190 # settings
-    9282 # ocm
-    9191 # settings
-    9280 # ocm
-    9164 # app-provider
-    9157 # storage-users
-    9199 # auth-service
-    9186 # thumbnails
-    9185 # thumbnails
-    9154 # storage-shares
-    46833 # sse
-    45363 # userlog
-    9220 # search
-    #9200  # proxy
-    9130 # idp
-    9140 # frontend
-    9160 # groups
-    9120 # graph
-    9144 # users
-    9146 # auth-basic
-  ];
 in {
-  networking.firewall.allowedTCPPorts = ports;
-  
+  networking.firewall.allowedTCPPorts = [9980 9200];
 
-    virtualisation.oci-containers.containers.collabora = {
-      image = "docker.io/collabora";
-      ports = [ "9980:9980" ];
-      autoStart = true;
-      environment = {
-        # This limits it to this NC instance AFAICT
-        #aliasgroup1 = "https://127.0.01:443";
-        # Must disable SSL as it's behind a reverse proxy
-        extra_params = "--o:ssl.enable=false";
+  virtualisation.oci-container = {
+    backend = "podman";
+    containers = {
+      ocis = {
+        image = "owncloud/ocis:7.0@sha256:01812e1147aeb2e5b527f19f645326c0e4c8d701800b4546001d64d0ae1307dc";
+        ports = ["9200:9200"];
+
+        environment = {
+          OCIS_INSECURE = "true";
+          TLS_INSECURE = "true";
+          TLS_SKIP_VERIFY_CLIENT_CERT = "true";
+          WEBDAV_ALLOW_INSECURE = "true";
+
+          # Collabora
+          COLLABORATION_APP_NAME = "Collabora";
+          COLLABORATION_APP_PRODUCT = "Collabora";
+          COLLABORATION_APP_DESCRIPTION = "Open office documents with Collabora";
+          COLLABORATION_APP_ICON = "image-edit";
+          COLLABORATION_APP_ADDR = "http://127.0.0.1:9980";
+          COLLABORATION_APP_INSECURE = "true";
+          COLLABORATION_APP_PROOF_DISABLE = "true";
+        };
+      };
+
+      collabora = {
+        image = "docker.io/collabora";
+        ports = ["9980:9980"];
+        autoStart = true;
+        environment = {
+          # This limits it to this NC instance AFAICT
+          #aliasgroup1 = "https://127.0.01:443";
+          # Must disable SSL as it's behind a reverse proxy
+          extra_params = "--o:ssl.enable=false";
+        };
       };
     };
-    
+  };
 
-    #virtualisation.oci-containers.containers.wopi-server = {
-    #  image = "docker.io/owncloud/ocis-rolling:latest";
-    #  ports = [ "9300:9300" ];
-    #  autoStart = true;
-    #  environment = {
-        # This limits it to this NC instance AFAICT
-    #    aliasgroup1 = "https://${ncDomain}:443";
-        # Must disable SSL as it's behind a reverse proxy
-     #   extra_params = "--o:ssl.enable=false";
-     # };
-      #cmd = [ "ocis collaboration server" ];
-    #};
+  #virtualisation.oci-containers.containers.wopi-server = {
+  #  image = "docker.io/owncloud/ocis-rolling:latest";
+  #  ports = [ "9300:9300" ];
+  #  autoStart = true;
+  #  environment = {
+  # This limits it to this NC instance AFAICT
+  #    aliasgroup1 = "https://${ncDomain}:443";
+  # Must disable SSL as it's behind a reverse proxy
+  #   extra_params = "--o:ssl.enable=false";
+  # };
+  #cmd = [ "ocis collaboration server" ];
+  #};
 
-
-
-
-  
   services.ocis = {
     enable = true;
     address = "0.0.0.0";

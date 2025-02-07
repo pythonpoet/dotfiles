@@ -28,8 +28,14 @@
       options = ["noatime"];
     };
   };
-  fileSystems."/data" = {
+  fileSystems."/backup" = {
     device = "/dev/disk/by-uuid/839e6d96-16ec-4529-9230-bfd74012a914";
+    fsType = "ext4";
+    options = ["nofail"]; # "dmask=0077" "fmask=0077"];
+  };
+
+  fileSystems."/data" = {
+    device = "/dev/disk/by-uuid/575abdac-97eb-4727-a4db-44c366b7da72";
     fsType = "ext4";
     options = ["nofail"]; # "dmask=0077" "fmask=0077"];
   };

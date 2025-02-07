@@ -110,7 +110,7 @@
 
         "${self}/modules/nextcloud.nix"
         "${self}/modules/owncloud.nix"
-        
+
         "${self}/modules/reverse-proxy.nix"
         {
           home-manager = {
@@ -120,29 +120,33 @@
         }
       ];
     };
-    
-    alpakapia4 = nixosSystem {
-	system = "aarch64-linux";
-	inherit specialArgs;
-	modules = [
-         inputs.catppuccin.nixosModules.catppuccin
-	  ./alpakapi4
-	  #inputs.vscode-server.nixosModules.default
 
-          "${mod}/core/users.nix"
-          "${mod}/nix"
-          "${mod}/programs/zsh.nix"
-          "${mod}/programs/home-manager.nix"
-{
-   home-manager = {
-		users.david.imports =  homeImports."david@alpakapi4";
-    extraSpecialArgs = specialArgs;
-		};
-         }
+    alpakapi4 = nixosSystem {
+      system = "aarch64-linux";
+      inherit specialArgs;
+      modules = [
+        inputs.catppuccin.nixosModules.catppuccin
+        ./alpakapi4
+        #inputs.vscode-server.nixosModules.default
 
-	];
-	};
-     hal = nixosSystem {
+        "${mod}/core/users.nix"
+        "${mod}/nix"
+        "${mod}/programs/zsh.nix"
+        "${mod}/programs/home-manager.nix"
+
+        #"${self}/modules/owncloud.nix"
+        "${self}/modules/reverse-proxy.nix"
+        "${self}/modules/wireguard.nix"
+        "${self}/modules/legacy/dnsmasq.nix"
+        {
+          home-manager = {
+            users.david.imports = homeImports."david@alpakapi4";
+            extraSpecialArgs = specialArgs;
+          };
+        }
+      ];
+    };
+    hal = nixosSystem {
       inherit specialArgs;
       modules =
          [
