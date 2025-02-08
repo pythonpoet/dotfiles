@@ -158,10 +158,19 @@
         "${self}/modules/owncloud.nix"
         "${self}/modules/vaultwarden.nix"
         "${self}/modules/borg.nix"
+        "${self}/modules/vikunja.nix"
         {
           home-manager = {
             users.david.imports = homeImports."minimal";
             extraSpecialArgs = specialArgs;
+          };
+          borg.enable = true;
+          borg.startAt = "16:05:00";
+
+          vikunja = {
+            enable = true;
+            db_path = "/var/lib/vikunja/db";
+            files_path = "/var/lib/vikunja/files";
           };
         }
 

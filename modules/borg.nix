@@ -1,8 +1,10 @@
 {
   config,
   pkgs,
+  lib,
   ...
-}: let
+}:
+with lib; let
   borgDefaults = {
     paths = [
       "/var/log/ocis"
@@ -12,17 +14,41 @@
     passfile = "cat /root/borgbackup/passcode";
     startAt = "daily";
   };
-  borgConfig = config.borg // borgDefaults;
 in {
-  services.borgbackup.jobs."borgbase" = {
-    paths = borgConfig.paths;
-    repo = "ssh://${borgConfig.repo_host}:${borgConfig.repo_dir}";
-    encryption = {
-      mode = "repokey-blake2";
-      passCommand = borgConfig.passfile;
+  options.borg = {
+    enable = mkEnableOption "Enable borg backup";
+    paths = mkOption {
+      type = types.listOf types.str;
+      default = borgDefaults.paths;
     };
-    environment.BORG_RSH = "ssh -i /root/borgbackup/ssh_key";
-    compression = "auto,zstd";
-    startAt = borgConfig.startAt;
+    repo_host = mkOption {
+      type = types.str;
+      default = borgDefaults.repo_host;
+    };
+    repo_dir = mkOption {
+      type = types.str;
+      default = borgDefaults.repo_dir;
+    };
+    passfile = mkOption {
+      type = types.str;
+      default = borgDefaults.passfile;
+    };
+    startAt = mkOption {
+      type = types.str;
+      default = borgDefaults.startAt;
+    };
+    borg.config = mkIf cfg.enable {
+      services.borgbackup.jobs."borgbase" = {
+        paths = cfg.paths;
+        repo = "ssh://${cfg.repo_host}:${cfg.repo_dir}";
+        encryption = {
+          mode = "repokey-blake2";
+          passCommand = cfg.passfile;
+        };
+        environment.BORG_RSH = "ssh -i /root/borgbackup/ssh_key";
+        compression = "auto,zstd";
+        startAt = cfg.startAt;
+      };
+    };
   };
 }
