@@ -124,6 +124,8 @@
         "${self}/modules/borg.nix"
         "${self}/modules/vikunja.nix"
         "${self}/modules/ollama.nix"
+        "${self}/modules/sandbox.nix"
+
         {
           home-manager = {
             users.david.imports = homeImports."minimal";
@@ -146,6 +148,7 @@
             data_dir = "/var/lib/ocis/data";
             config_file = "/var/lib/ocis/config/ocis.yaml";
           };
+
           ollama = {
             enable = true;
             db_path = "/var/lib/ollama";
@@ -155,6 +158,7 @@
               "deepseek-r1:14b"
             ];
           };
+          sandbox.enable = true;
           #  networking.firewall.allowedTCPPorts =  [ 3456 ];
         }
 

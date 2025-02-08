@@ -41,6 +41,10 @@ in {
       type = types.bool;
       default = false;
     };
+    enable_full_text_search = mkOption {
+      type = types.bool;
+      default = false;
+    };
   };
   config = mkIf cfg.enable {
     virtualisation.oci-containers = {
@@ -69,6 +73,11 @@ in {
             COLLABORATION_APP_ADDR = mkIf cfg.enable_collabora "http://127.0.0.1:9980";
             COLLABORATION_APP_INSECURE = mkIf cfg.enable_collabora "true";
             COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_collabora "true";
+
+            # Tika
+            SEARCH_EXTRACTOR_TYPE = mkIf cfg.enable_full_text_search "tika";
+            SEARCH_EXTRACTOR_TIKA_TIKA_URL = mkIf cfg.enable_full_text_search "http://tika:9998";
+            FRONTEND_FULL_TEXT_SEARCH_ENABLED = mkIf cfg.enable_full_text_search "true";
           };
         };
 
@@ -79,6 +88,10 @@ in {
           environment = {
             extra_params = "--o:ssl.enable=false";
           };
+        };
+        tika = mkIf cfg.enable_full_text_search {
+          image = "apache/tika:latest-full";
+          ports = ["9998:9998"];
         };
       };
     };
