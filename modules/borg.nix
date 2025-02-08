@@ -7,13 +7,16 @@
 with lib; let
   borgDefaults = {
     paths = [
-      "/var/log/ocis"
+      "/var/lib/ocis"
+      "/var/lib/vikunja"
+      "/var/lib/vaultwarden"
     ];
     repo_host = "david@100.121.205.61";
     repo_dir = "/backup/hal_backup";
     passfile = "cat /root/borgbackup/passcode";
     startAt = "daily";
   };
+  cfg = config.borg // borgDefaults;
 in {
   options.borg = {
     enable = mkEnableOption "Enable borg backup";
@@ -37,18 +40,18 @@ in {
       type = types.str;
       default = borgDefaults.startAt;
     };
-    borg.config = mkIf cfg.enable {
-      services.borgbackup.jobs."borgbase" = {
-        paths = cfg.paths;
-        repo = "ssh://${cfg.repo_host}:${cfg.repo_dir}";
-        encryption = {
-          mode = "repokey-blake2";
-          passCommand = cfg.passfile;
-        };
-        environment.BORG_RSH = "ssh -i /root/borgbackup/ssh_key";
-        compression = "auto,zstd";
-        startAt = cfg.startAt;
+  };
+  config = mkIf cfg.enable {
+    services.borgbackup.jobs."borgbase" = {
+      paths = cfg.paths;
+      repo = "ssh://${cfg.repo_host}//${cfg.repo_dir}";
+      encryption = {
+        mode = "repokey-blake2";
+        passCommand = cfg.passfile;
       };
+      environment.BORG_RSH = "ssh -i /root/borgbackup/ssh_key";
+      compression = "auto,zstd";
+      startAt = cfg.startAt;
     };
   };
 }

@@ -165,13 +165,23 @@
             extraSpecialArgs = specialArgs;
           };
           borg.enable = true;
-          borg.startAt = "16:05:00";
+          borg.startAt = "17:15:00";
 
           vikunja = {
             enable = true;
             db_path = "/var/lib/vikunja/db";
             files_path = "/var/lib/vikunja/files";
           };
+          vaultwarden = {
+            enable = true;
+            data_dir = "/var/lib/vaultwarden";
+          };
+          ocis = {
+            enable = true;
+            data_dir = "/var/lib/ocis/data";
+            config_file = "/var/lib/ocis/config/ocis.yaml";
+          };
+          #  networking.firewall.allowedTCPPorts =  [ 3456 ];
         }
 
         inputs.agenix.nixosModules.default

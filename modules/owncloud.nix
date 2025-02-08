@@ -8,62 +8,86 @@
 # https://fariszr.com/owncloud-infinite-scale-docker-setup/
 {
   config,
-  pkgs,
+  lib,
   ...
-}: let
+}:
+with lib; let
   # List of ports to enable
+  #
+  cfg = config.ocis;
 in {
-  networking.firewall.allowedTCPPorts = [9980 9200];
-  systemd.tmpfiles.rules = [
-    "d /var/lib/ocis/config 0777 - - -"
-    "Z /var/lib/ocis/data 0777 - - -"
-    "C /var/lib/ocis/data 0777 - - -"
-  ];
+  options.ocis = {
+    enable = mkEnableOption "Enable ownCloud infininty Scale (ocis)";
+    data_dir = mkOption {
+      type = types.str;
+    };
+    config_file = mkOption {
+      type = types.str;
+    };
+    image = mkOption {
+      type = types.str;
+      default = "owncloud/ocis:7.0";
+    };
+    port = mkOption {
+      type = types.port;
+      default = 9200;
+    };
+    domain = mkOption {
+      type = types.str;
+      default = "https://cloud.chaosdam.net";
+    };
 
-  virtualisation.oci-containers = {
-    backend = "podman";
-    containers = {
-      #  storage.settings.
-      ocis = {
-        image = "owncloud/ocis:7.0";
-        ports = ["9200:9200"];
+    enable_collabora = mkOption {
+      type = types.bool;
+      default = false;
+    };
+  };
+  config = mkIf cfg.enable {
+    virtualisation.oci-containers = {
+      backend = "podman";
+      containers = {
+        ocis = {
+          image = cfg.image;
+          ports = ["${toString cfg.port}:9200"];
+          volumes = [
+            "${cfg.config_file}:/etc/ocis/ocis.yaml"
+            "${cfg.data_dir}:/var/lib/ocis"
+          ];
+          environment = {
+            OCIS_URL = cfg.domain;
+            OCIS_LOG_LEVEL = "error";
+            OCIS_INSECURE = "true";
+            TLS_INSECURE = "true";
+            TLS_SKIP_VERIFY_CLIENT_CERT = "true";
+            WEBDAV_ALLOW_INSECURE = "true";
 
-        volumes = [
-          "/var/lib/ocis/config/ocis.yaml:/etc/ocis/ocis.yaml"
-          "/var/lib/ocis/data:/var/lib/ocis"
-        ];
-
-        environment = {
-          OCIS_URL = "https://cloud.chaosdam.net";
-          OCIS_LOG_LEVEL = "info";
-          #PROXY_TLS = "false";
-          OCIS_INSECURE = "true";
-          TLS_INSECURE = "true";
-          TLS_SKIP_VERIFY_CLIENT_CERT = "true";
-          WEBDAV_ALLOW_INSECURE = "true";
-
-          # Collabora
-          COLLABORATION_APP_NAME = "Collabora";
-          COLLABORATION_APP_PRODUCT = "Collabora";
-          COLLABORATION_APP_DESCRIPTION = "Open office documents with Collabora";
-          COLLABORATION_APP_ICON = "image-edit";
-          COLLABORATION_APP_ADDR = "http://127.0.0.1:9980";
-          COLLABORATION_APP_INSECURE = "true";
-          COLLABORATION_APP_PROOF_DISABLE = "true";
+            # Collabora
+            COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "Collabora";
+            COLLABORATION_APP_PRODUCT = mkIf cfg.enable_collabora "Collabora";
+            COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_collabora "Open office documents with Collabora";
+            COLLABORATION_APP_ICON = mkIf cfg.enable_collabora "image-edit";
+            COLLABORATION_APP_ADDR = mkIf cfg.enable_collabora "http://127.0.0.1:9980";
+            COLLABORATION_APP_INSECURE = mkIf cfg.enable_collabora "true";
+            COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_collabora "true";
+          };
         };
-      };
 
-      collabora = {
-        image = "collabora/code";
-        ports = ["9980:9980"];
-        autoStart = true;
-        environment = {
-          # This limits it to this NC instance AFAICT
-          #aliasgroup1 = "https://127.0.01:443";
-          # Must disable SSL as it's behind a reverse proxy
-          extra_params = "--o:ssl.enable=false";
+        collabora = mkIf cfg.enable_collabora {
+          image = "collabora/code";
+          ports = ["9980:9980"];
+          autoStart = true;
+          environment = {
+            extra_params = "--o:ssl.enable=false";
+          };
         };
       };
     };
+    networking.firewall.allowedTCPPorts =
+      (
+        if cfg.enable
+        then [9980]
+        else []
+      )
+      ++ [9200];
   };
 }

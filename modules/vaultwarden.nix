@@ -1,35 +1,60 @@
-# doc: https://github.com/NixOS/nixpkgs/pull/296679
-# doc: https://mynixos.com/nixpkgs/options/services.ocis
-# doc: https://github.com/NixOS/nixpkgs/blob/33b9d57c656e65a9c88c5f34e4eb00b83e2b0ca9/nixos/modules/services/web-apps/ocis.md
-# TODO Filesystem has to get a bit more sophisticated. see :https://doc.owncloud.com/ocis/next/deployment/storage/general-considerations.html
-#     1. NFS, low complexity somewhat scaleable: https://nixos.wiki/wiki/NFS
-#     2. Alternatively, ocis supports the s3 protocol, could use cehp or seeweedfs but they are significantly more complex.
 {
   config,
+  lib,
   pkgs,
   ...
-}: let
-  # List of ports to enable
+}:
+with lib; let
+  cfg = config.vaultwarden;
 in {
-  networking.firewall.allowedTCPPorts = [9988];
+  options.vaultwarden = {
+    enable = mkEnableOption "Enable Vaultwarden service";
 
-  virtualisation.oci-containers = {
-    backend = "podman";
-    containers = {
-      vaultwarden = {
-        image = "vaultwarden/server";
-        ports = ["9988:80"];
+    image = mkOption {
+      type = types.str;
+      default = "vaultwarden/server";
+    };
+    data_dir = mkOption {
+      type = types.str;
+    };
+    port = mkOption {
+      type = types.port;
+      default = 9988;
+    };
+    domain = mkOption {
+      type = types.str;
+      default = "vault.chaosdam.net";
+    };
+    signups_allowed = mkOption {
+      type = types.bool;
+      default = false;
+    };
+    admin_token = mkOption {
+      type = types.str;
+      default = "c5574019f9ad4be18b7d10bb82dae4d7200652dcae9829216a9e2844ee0fdd9d";
+    };
+  };
+  config = mkIf cfg.enable {
+    # Virtualisation config for OCI containers
+    virtualisation.oci-containers = {
+      backend = "podman";
+      containers = {
+        vaultwarden = {
+          image = cfg.image;
+          ports = ["${toString cfg.port}:80"];
 
-        volumes = [
-          "/var/lib/vaultwarden/:/data/"
-        ];
+          volumes = [
+            "${cfg.data_dir}:/data/"
+          ];
 
-        environment = {
-          DOMAIN = "vault.chaosdam.net";
-          SIGNUPS_ALLOWED = "false";
-          ADMIN_TOKEN = "7JYcU*NZ6mRoo46hnw8cKRk$L#ynQ6^h2%79Edws";
+          environment = {
+            DOMAIN = cfg.domain;
+            SIGNUPS_ALLOWED = toString cfg.signups_allowed;
+            ADMIN_TOKEN = cfg.admin_token;
+          };
         };
       };
     };
+    networking.firewall.allowedTCPPorts = [cfg.port];
   };
 }

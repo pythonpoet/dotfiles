@@ -7,15 +7,17 @@
 }:
 with lib; let
   # Default values
-  vaultDefaults = {
-    enable = true;
-    storage_dir = "/var/lib/vaultwarden/";
-    port = 9988;
-    domain = "vault.chaosdam.net";
-    docker_image = "vaultwarden/server";
-    # backup = true;
-  };
-  cfg = config.vikunja;
+  cfg =
+    config.vikunja
+    or {
+      enable = false;
+      image = "vikunja/vikunja";
+      service_jwtsecret = "<a super secure random secret>";
+      url = "vikunja.chaosdam.net";
+      db_path = "/var/lib/vikunja/db";
+      files_path = "/var/lib/vikunja/files";
+      port = 3456;
+    };
 in {
   options.vikunja = {
     enable = mkEnableOption "Enable Vikunja";
@@ -44,14 +46,12 @@ in {
     };
   };
 
-  config.vikunja = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [cfg.port];
-
+  config = mkIf cfg.enable {
     virtualisation.oci-containers = {
       backend = "podman";
       containers.vikunja = {
         image = cfg.image;
-        ports = ["${cfg.port}:3456"];
+        ports = ["${toString cfg.port}:3456"];
 
         volumes = [
           "${cfg.db_path}:/db"
@@ -59,15 +59,13 @@ in {
         ];
 
         environment = {
-          VIKUNJA_SERVICE_JWTSECRET = cfg.VIKUNJA_SERVICE_PUBLICURL;
-
+          VIKUNJA_SERVICE_JWTSECRET = cfg.service_jwtsecret;
           VIKUNJA_SERVICE_PUBLICURL = cfg.url;
-          # Note the default path is /app/vikunja/vikunja.db.
-          # This config variable moves it to a different folder so you can use a volume and
-          # store the database file outside the container so state is persisted even if the container is destroyed.
           VIKUNJA_DATABASE_PATH = "/db/vikunja.db";
         };
       };
     };
+    networking.firewall.allowedTCPPorts = [cfg.port];
   };
+  # networking.firewall.allowedTCPPorts =  [ cfg.port ];
 }
