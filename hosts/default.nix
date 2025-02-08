@@ -148,24 +148,26 @@
     };
     hal = nixosSystem {
       inherit specialArgs;
-      modules =
-         [
-          ./hal
-           "${mod}/core/users.nix"
-          "${mod}/nix"
-          "${mod}/programs/zsh.nix"
-          "${mod}/programs/home-manager.nix"
-                  {
-            home-manager = {
-              users.david.imports = homeImports."minimal";
-              extraSpecialArgs = specialArgs;
-            };
-          }
-          
-          inputs.agenix.nixosModules.default
-          inputs.chaotic.nixosModules.default
-        ];
-    };
+      modules = [
+        ./hal
+        "${mod}/core/users.nix"
+        "${mod}/nix"
+        "${mod}/programs/zsh.nix"
+        "${mod}/programs/home-manager.nix"
 
+        "${self}/modules/owncloud.nix"
+        "${self}/modules/vaultwarden.nix"
+        "${self}/modules/borg.nix"
+        {
+          home-manager = {
+            users.david.imports = homeImports."minimal";
+            extraSpecialArgs = specialArgs;
+          };
+        }
+
+        inputs.agenix.nixosModules.default
+        inputs.chaotic.nixosModules.default
+      ];
+    };
   };
 }

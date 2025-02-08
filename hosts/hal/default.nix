@@ -1,15 +1,16 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -23,7 +24,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  
+
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
@@ -48,6 +49,18 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.autoSuspend = false;
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+        if (action.id == "org.freedesktop.login1.suspend" ||
+            action.id == "org.freedesktop.login1.suspend-multiple-sessions" ||
+            action.id == "org.freedesktop.login1.hibernate" ||
+            action.id == "org.freedesktop.login1.hibernate-multiple-sessions")
+        {
+            return polkit.Result.NO;
+        }
+    });
+  '';
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -81,14 +94,14 @@
   users.users.student = {
     isNormalUser = true;
     description = "Student";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
   users.users.david = {
     isNormalUser = true;
-    extraGroups = [ "networkManager" "wheel" ];
+    extraGroups = ["networkManager" "wheel"];
   };
 
   # Install firefox.
@@ -97,14 +110,14 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-   wget
-   python312
-   python312Packages.pip
-   git
-   openssl
-   python312Packages.pydbus
-   helix
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    python312
+    python312Packages.pip
+    git
+    openssl
+    python312Packages.pydbus
+    helix
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -118,8 +131,8 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-   services.openssh.enable = true;
-   services.openssh.settings.PasswordAuthentication = true;
+  services.openssh.enable = true;
+  services.openssh.settings.PasswordAuthentication = true;
   services.tailscale.enable = true;
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -134,5 +147,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }

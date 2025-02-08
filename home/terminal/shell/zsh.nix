@@ -75,6 +75,15 @@
         gnupg_path=$(ls $XDG_RUNTIME_DIR/gnupg)
         export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/$gnupg_path/S.gpg-agent.ssh"
       ''}
+
+      # Display a welcome message with the hostname and run fastfetch when logging in via SSH
+      if [[ -n "$SSH_CONNECTION" ]]; then
+        HOSTNAME=$(hostname)
+        fastfetch
+
+        # Display a welcome message with bold username and hostname, and italic message
+        echo -e "Hi \e[1m$USER\e[0m, welcome to \e[1m$HOSTNAME\e[0m! \n\n\e[3mYou are being trusted to use this device responsibly\e[0m"
+      fi
     '';
 
     shellAliases =
