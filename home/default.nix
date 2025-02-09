@@ -2,12 +2,13 @@
   lib,
   self,
   inputs,
+  pkgs,
   ...
 }: {
   imports = [
     ./specialisations.nix
     ./terminal
-    inputs.nix-index-db.hmModules.nix-index
+    #inputs.nix-index-db.hmModules.nix-index
     # inputs.tailray.homeManagerModules.default
     self.nixosModules.theme
   ];
@@ -18,6 +19,16 @@
     stateVersion = "24.11";
     extraOutputsToInstall = ["doc" "devdoc"];
   };
+
+  home.packages = with pkgs; [
+    (pkgs.nerdfonts.override {
+      fonts = [
+        "IBMPlexMono"
+        "Iosevka"
+        "IosevkaTerm"
+      ];
+    })
+  ];
 
   # disable manuals as nmd fails to build often
   manual = {

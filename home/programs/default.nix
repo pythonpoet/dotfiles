@@ -11,7 +11,8 @@
     ./gtk.nix
     ./office
     ./qt.nix
-      ./devtools/codium.nix
+    ./devtools/codium.nix
+    ./owncloud-client
   ];
 
   home.packages = with pkgs; [
@@ -24,10 +25,9 @@
     overskride
     mission-center
     wineWowPackages.wayland
-    
+
     bitwarden-desktop
     thunderbird
     #inputs.nix-matlab.packages.${pkgs.system}.matlab
   ];
-
 }

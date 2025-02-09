@@ -1,33 +1,49 @@
 {pkgs, ...}: {
-  fonts = {
+  home.packages = with pkgs; [
+    (pkgs.nerdfonts.override {
+      fonts = [
+        "IBMPlexMono"
+        "Iosevka"
+        "IosevkaTerm"
+        "JetBrains Mono"
+      ];
+    })
+  ];
+  # fonts = {
+  #   packages = with pkgs; [
+  #     # icon fonts
+  #     material-symbols
 
-      packages = with pkgs; [
-      # icon fonts
-      material-design-icons
+  #     # Sans(Serif) fonts
+  #     libertinus
+  #     noto-fonts
+  #     noto-fonts-cjk-sans
+  #     noto-fonts-emoji
+  #     roboto
+  #     (google-fonts.override {fonts = ["Inter"];})
 
-      # normal fonts
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
+  #     # monospace fonts
+  #     jetbrains-mono
 
-      # nerdfonts
-      (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
-    ];
+  #     # nerdfonts
+  #     nerd-fonts.jetbrains-mono
+  #     nerd-fonts.symbols-only
+  #   ];
 
-    # causes more issues than it solves
-    enableDefaultPackages = false;
+  #   # causes more issues than it solves
+  #   enableDefaultPackages = false;
 
-    # user defined fonts
-    # the reason there's Noto Color Emoji everywhere is to override DejaVu's
-    # B&W emojis that would sometimes show instead of some Color emojis
-    fontconfig.defaultFonts = let
-      addAll = builtins.mapAttrs (_: v: v ++ ["Noto Color Emoji"]);
-    in
-      addAll {
-        serif = ["Libertinus Serif"];
-        sansSerif = ["Inter"];
-        monospace = ["JetBrains Mono Nerd Font"];
-        emoji = [];
-      };
-  };
+  #   # user defined fonts
+  #   # the reason there's Noto Color Emoji everywhere is to override DejaVu's
+  #   # B&W emojis that would sometimes show instead of some Color emojis
+  #   fontconfig.defaultFonts = let
+  #     addAll = builtins.mapAttrs (_: v: v ++ ["Noto Color Emoji"]);
+  #   in
+  #     addAll {
+  #       serif = ["Libertinus Serif"];
+  #       sansSerif = ["Inter"];
+  #       monospace = ["JetBrains Mono Nerd Font"];
+  #       emoji = [];
+  #     };
+  # };
 }

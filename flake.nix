@@ -52,18 +52,19 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     # rest of inputs, alphabetical order
 
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "hm";
-        systems.follows = "systems";
-      };
-    };
+    # agenix = {
+    #   url = "github:ryantm/agenix";
+    #   inputs = {
+    #     #nixpkgs.follows = "nixpkgs";
+    #     #home-manager.follows = "hm";
+    #     #systems.follows = "systems";
+    #     darwin.follows = "";
+    #   };
+    # };
 
     ags = {
       url = "github:Aylur/ags";
@@ -83,13 +84,12 @@
 
     lanzaboote.url = "github:nix-community/lanzaboote";
 
-    nix-index-db = {
-      url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nix-index-db = {
+    #   url = "github:Mic92/nix-index-database";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     nixpkgs-howdy.url = "github:fufexan/nixpkgs/howdy";
-
 
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
@@ -150,11 +150,11 @@
     };
 
     # Disko disk manager
-    disko =  {
+    disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    catppuccin = { 
+    catppuccin = {
       url = "github:catppuccin/nix";
     };
 
@@ -162,7 +162,7 @@
       url = "github:NixOS/nixos-hardware/master";
     };
     vscode-server = {
-     url = "github:nix-community/nixos-vscode-server";
+      url = "github:nix-community/nixos-vscode-server";
     };
   };
 }

@@ -1,20 +1,20 @@
 let
   desktop = [
-     ./core/default.nix
-     ./core/boot.nix
+    ./core/default.nix
+    ./core/boot.nix
 
     # ./hardware/fwupd.nix
     # ./hardware/graphics.nix
 
     ./network
     #./network/avahi.nix
-    # ./network/tailscale.nix
+    ./network/tailscale.nix
 
     ./programs
 
     ./services
     ./services/greetd.nix
-    ./services/pipewire.nix
+    #./services/pipewire.nix
   ];
 
   laptop =
