@@ -6,6 +6,7 @@
   ...
 }: let
   hyprlandConfig = {
+    #system.nixos.tags = [ "hyprland" ];
     imports = [
       ../../programs/wayland
 
@@ -21,8 +22,9 @@
   };
 
   gnomeConfig = {
+    #system.nixos.tags = [ "gnome" ];
     imports = [
-      ../../programs/gnome
+      #../../programs/gnome
     ];
 
     home.sessionVariables.HOME_MANAGER_PROFILE = "gnome";
@@ -35,7 +37,7 @@ in {
   # Specialisation definitions
   specialisation = {
     hyprland.configuration = hyprlandConfig;
-    #gnome.configuration = gnomeConfig;
+    gnome.configuration = gnomeConfig;
   };
 
   # General imports (always enabled)

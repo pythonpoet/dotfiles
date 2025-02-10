@@ -12,7 +12,7 @@
     ./office
     ./qt.nix
     ./devtools/codium.nix
-    ./owncloud-client
+    ./owncloud-client/default.nix
   ];
 
   home.packages = with pkgs; [

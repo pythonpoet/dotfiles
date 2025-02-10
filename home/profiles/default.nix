@@ -13,15 +13,17 @@
     ../.
     ./alpakapi4
   ];
+  "david@alpakabook-gnome" = [
+    ../.
+    ./alpakabook-gnome
+  ];
 
   server = [
     ../.
     ./server
   ];
- "minimal" = [
+  "minimal" = [
     ../.
     ./server
   ];
-
-
 }

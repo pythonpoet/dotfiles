@@ -30,7 +30,7 @@
           ./alpakabook
           #"${mod}/core/lanzaboote.nix"
 
-          "${mod}/programs/hyprland.nix"
+          "${self}/home/programs/gnome/default.nix"
 
           # "${mod}/network/spotify.nix"
           "${mod}/network/syncthing.nix"
@@ -41,7 +41,7 @@
           {
             home-manager = {
               #home.stateVersion = "24.11";
-              users.david.imports = homeImports."david@alpakabook";
+              users.david.imports = homeImports."david@alpakabook-gnome";
               extraSpecialArgs = specialArgs;
             };
           }

@@ -8,7 +8,7 @@
   imports = [
     ./disk-config.nix
     ./hardware-configuration.nix
-    ./powersave.nix
+    #./powersave.nix
   ];
 
   # environment.systemPackages = with pkgs; [
