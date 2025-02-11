@@ -28,6 +28,7 @@
 
     bitwarden-desktop
     thunderbird
+    beeper
 
     #inputs.nix-matlab.packages.${pkgs.system}.matlab
   ];

@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  imports = [./languages.nix];
+  #imports = [./languages.nix];
 
   programs.helix = {
     enable = true;
