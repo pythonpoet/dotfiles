@@ -1,6 +1,6 @@
 {
   imports = [
-    #./fonts.nix
+    ./fonts.nix
     ./home-manager.nix
     # ./qt.nix
     ./xdg.nix

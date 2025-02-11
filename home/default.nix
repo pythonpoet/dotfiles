@@ -20,15 +20,15 @@
     extraOutputsToInstall = ["doc" "devdoc"];
   };
 
-  home.packages = with pkgs; [
-    (pkgs.nerdfonts.override {
-      fonts = [
-        "IBMPlexMono"
-        "Iosevka"
-        "IosevkaTerm"
-      ];
-    })
-  ];
+  # home.packages = with pkgs; [
+  #   (pkgs.nerdfonts.override {
+  #     fonts = [
+  #       "IBMPlexMono"
+  #       "Iosevka"
+  #       "IosevkaTerm"
+  #     ];
+  #   })
+  # ];
 
   # disable manuals as nmd fails to build often
   manual = {
