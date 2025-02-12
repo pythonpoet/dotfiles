@@ -28,11 +28,12 @@
 
     bitwarden-desktop
     thunderbird
-    beeper
+    #beeper
     newsflash
     anki
     typst
     glow
+    zotero
 
     #inputs.nix-matlab.packages.${pkgs.system}.matlab
   ];
