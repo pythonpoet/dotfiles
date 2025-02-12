@@ -46,11 +46,11 @@
             };
           }
 
-          # # enable unmerged Howdy
-          # {disabledModules = ["security/pam.nix"];}
-          # "${howdy}/nixos/modules/security/pam.nix"
-          # "${howdy}/nixos/modules/services/security/howdy"
-          # "${howdy}/nixos/modules/services/misc/linux-enable-ir-emitter.nix"
+          # enable unmerged Howdy
+          {disabledModules = ["security/pam.nix"];}
+          "${howdy}/nixos/modules/security/pam.nix"
+          "${howdy}/nixos/modules/services/security/howdy"
+          "${howdy}/nixos/modules/services/misc/linux-enable-ir-emitter.nix"
 
           # inputs.agenix.nixosModules.default
           inputs.chaotic.nixosModules.default

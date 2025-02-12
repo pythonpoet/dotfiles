@@ -1,7 +1,7 @@
 {
   pkgs,
   self,
-  #inputs,
+  inputs,
   lib,
   ...
 }: {
@@ -11,29 +11,7 @@
     #./powersave.nix
   ];
 
-  # environment.systemPackages = with pkgs; [
-  #   bash
-  #   coreutils
-  #   dart-sass
-  #   gawk
-  #   imagemagick
-  #   inotify-tools
-  #   procps
-  #   ripgrep
-  #   util-linux
-  #   gnome-control-center
-  #   mission-center
-  #   overskride
-  #   wlogout
-  # ];
-
-  # age.secrets.spotify = {
-  #   file = "${self}/secrets/spotify.age";
-  #   owner = "david";
-  #   group = "users";
-  # };
-
-  # boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
 
   # boot = {
   #   kernelModules = ["i2c-dev"];
@@ -45,7 +23,7 @@
   # };
 
   # nh default flake
-  #environment.variables.FLAKE = "/home/mihai/Documents/code/dotfiles";
+  environment.variables.FLAKE = "/home/david/Documents/dotfiles";
 
   hardware = {
     xpadneo.enable = true;
@@ -54,32 +32,28 @@
 
   networking.hostName = "alpakabook";
 
+  # Looks like an intereting option but not necessary atm
   #security.tpm2.enable = true;
 
-  #services = {
-  # for SSD/NVME
-  # fstrim.enable = true;
+  services = {
+    # for SSD/NVME
+    fstrim.enable = true;
 
-  # howdy = {
-  #   enable = true;
-  #   package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.howdy;
-  #   settings = {
-  #     core = {
-  #       no_confirmation = true;
-  #       abort_if_ssh = true;
-  #     };
-  #     video.dark_threshold = 90;
-  #   };
-  # };
+    howdy = {
+      enable = true;
+      package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.howdy;
+      settings = {
+        core = {
+          no_confirmation = true;
+          abort_if_ssh = true;
+        };
+        video.dark_threshold = 90;
+      };
+    };
 
-  # linux-enable-ir-emitter = {
-  #   enable = true;
-  #   package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.linux-enable-ir-emitter;
-  # };
-
-  # kanata.keyboards.io = {
-  #   config = builtins.readFile "${self}/system/services/kanata/main.kbd";
-  #   devices = ["/dev/input/by-path/platform-i8042-serio-0-event-kbd"];
-  # };
-  #};
+    linux-enable-ir-emitter = {
+      enable = true;
+      package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.linux-enable-ir-emitter;
+    };
+  };
 }

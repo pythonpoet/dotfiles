@@ -22,8 +22,8 @@ CA_CERT="/etc/ssl/certs/ca-certificates.crt"
 nmcli con add \
   type wifi \
   ifname "$IFNAME" \
-  con-name eduroam \
-  ssid eduroam \
+  con-name uva \
+  ssid uva \
   ipv4.method auto \
   802-1x.eap peap \
   802-1x.phase2-auth mschapv2 \
