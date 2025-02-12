@@ -32,6 +32,7 @@
     newsflash
     anki
     typst
+    glow
 
     #inputs.nix-matlab.packages.${pkgs.system}.matlab
   ];
