@@ -29,6 +29,9 @@
     bitwarden-desktop
     thunderbird
     beeper
+    newsflash
+    anki
+    typst
 
     #inputs.nix-matlab.packages.${pkgs.system}.matlab
   ];
