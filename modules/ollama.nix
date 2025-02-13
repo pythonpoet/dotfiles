@@ -48,7 +48,7 @@ in {
           "${cfg.db_path}:/app/backend/data"
         ];
         #comment
-        extraOptions = ["-add-host=host.containers.internal"];
+        extraOptions = ["--add-host=host.containers.internal:host-gateway"];
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port_web_ui];
