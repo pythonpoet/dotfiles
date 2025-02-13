@@ -127,8 +127,8 @@
     python312Packages.pydbus
     helix
     cudatoolkit
-    cudnn
-    tensorrt
+    cudaPackages.cudnn
+    cudaPackages.tensorrt
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
