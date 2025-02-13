@@ -32,7 +32,7 @@ in {
       enable = true;
       acceleration = "cuda";
       loadModels = cfg.models;
-      #port = cfg.port_ollama;
+      #gport = cfg.port_ollama;
       openFirewall = true;
     };
     virtualisation.oci-containers = {
