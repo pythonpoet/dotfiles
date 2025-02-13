@@ -42,9 +42,7 @@ in {
         volumes = [
           "${cfg.db_path}:/app/backend/data"
         ];
-        environment = {
-          extra_params = "--add-host=host.docker.internal:host-gateway";
-        };
+        extra_options = "--network=host";
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port_web_ui];
