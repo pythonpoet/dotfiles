@@ -18,7 +18,7 @@
   # Enable CUDA
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
-    driver = "nvidia";
+    #driver = "nvidia";
     package = pkgs.linuxPackages.nvidia_x11;
     modesetting.enable = true;
   };
