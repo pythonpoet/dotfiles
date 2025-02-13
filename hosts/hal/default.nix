@@ -23,7 +23,7 @@
 
   # Enable CUDA support
   hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.cuda.enable = true;
+  #hardware.nvidia.cuda.enable = true;
 
   networking.hostName = "hal"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
