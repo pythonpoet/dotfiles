@@ -21,7 +21,7 @@ in {
     };
     image = mkOption {
       type = types.str;
-      default = "ghcr.io/open-webui/open-webui:main";
+      default = "ghcr.io/open-webui/open-webui";
     };
     db_path = mkOption {
       type = types.str;
