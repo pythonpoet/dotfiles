@@ -162,7 +162,7 @@
           #  networking.firewall.allowedTCPPorts =  [ 3456 ];
         }
 
-        inputs.agenix.nixosModules.default
+        #inputs.agenix.nixosModules.default
         inputs.chaotic.nixosModules.default
       ];
     };
