@@ -48,6 +48,6 @@ in {
         };
       };
     };
-    networking.firewall.allowedTCPPorts = [cfg.port];
+    networking.firewall.allowedTCPPorts = [cfg.port_web_ui];
   };
 }
