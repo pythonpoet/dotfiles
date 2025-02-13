@@ -48,7 +48,7 @@ in {
           "${cfg.db_path}:/app/backend/data"
         ];
         #comment
-        #extraOptions = ["-add-host=host.docker.internal:host-gateway"];
+        extraOptions = ["-add-host=host.containers.internal"];
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port_web_ui];
