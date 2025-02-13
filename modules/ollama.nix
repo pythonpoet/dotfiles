@@ -38,7 +38,7 @@ in {
       backend = "podman";
       containers.ollama = {
         image = cfg.image;
-        ports = ["${toString cfg.port}:8080"];
+        ports = ["${toString cfg.port_web_ui}:8080"];
 
         volumes = [
           "${cfg.db_path}:/app/backend/data"
