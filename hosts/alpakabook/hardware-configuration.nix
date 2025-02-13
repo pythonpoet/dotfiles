@@ -20,7 +20,7 @@
     {
       name = "IR-Patch";
       patch = pkgs.fetchurl {
-        url = "https://lore.kernel.org/platform-driver-x86/Z6uMqiB_cKzM9-iu@kekkonen.localdomain/T/#t";
+        url = "https://lore.kernel.org/platform-driver-x86/Z6uMqiB_cKzM9-iu@kekkonen.localdomain/T/#m74b7ea51159b2bda4efa4763e0348e4d3101e323";
         hash = "sha256-yigDvwNKgTy3gFCCTURDSwjE5o9Qsyoo4cBtuWBqKow=";
       };
     }
