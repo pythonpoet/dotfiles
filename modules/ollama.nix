@@ -33,7 +33,7 @@ in {
       acceleration = "cuda";
       loadModels = cfg.models;
       port = cfg.port_ollama;
-      openFirewall = true;
+      #openFirewall = true;
     };
     virtualisation.oci-containers = {
       backend = "podman";
