@@ -123,6 +123,7 @@
         "${self}/modules/vaultwarden.nix"
         "${self}/modules/borg.nix"
         "${self}/modules/vikunja.nix"
+        "${self}/modules/ollama.nix"
         {
           home-manager = {
             users.david.imports = homeImports."minimal";
@@ -144,6 +145,15 @@
             enable = true;
             data_dir = "/var/lib/ocis/data";
             config_file = "/var/lib/ocis/config/ocis.yaml";
+          };
+          ollama = {
+            enable = true;
+            db_path = "/var/lib/ollama";
+            models = [
+              "deepseek-r1:1.5b"
+              "deepseek-r1:8b"
+              "deepseek-r1:14b"
+            ];
           };
           #  networking.firewall.allowedTCPPorts =  [ 3456 ];
         }
