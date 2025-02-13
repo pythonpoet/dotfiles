@@ -41,7 +41,7 @@ in {
         image = cfg.image;
         ports = [
           "${toString cfg.port_web_ui}:8080"
-          "${toString cfg.port_ollama}:11434"
+          #"${toString cfg.port_ollama}:11434"
         ];
 
         volumes = [
