@@ -128,7 +128,8 @@
     helix
     cudatoolkit
     cudaPackages.cudnn
-    cudaPackages.tensorrt
+    pciutils
+    #cudaPackages.tensorrt
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
