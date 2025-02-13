@@ -42,6 +42,7 @@ in {
         volumes = [
           "${cfg.db_path}:/app/backend/data"
         ];
+        #comment
         extraOptions = ["-add-host=host.docker.internal:host-gateway"];
       };
     };
