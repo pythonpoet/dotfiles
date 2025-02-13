@@ -16,12 +16,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable CUDA
-  hardware.opengl.enable = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-  # Enable CUDA support
-  hardware.nvidia.modesetting.enable = true;
-  #hardware.nvidia.cuda.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+    driver = "nvidia";
+    package = pkgs.linuxPackages.nvidia_x11;
+    modesetting.enable = true;
+  };
 
   networking.hostName = "hal"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -127,6 +127,8 @@
     python312Packages.pydbus
     helix
     cudatoolkit
+    cudnn
+    tensorrt
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

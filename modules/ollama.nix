@@ -47,11 +47,11 @@ in {
           "${cfg.db_path}:/app/backend/data"
         ];
         environment = {
-          OLLAMA_BASE_URL = "http://127.0.0.1:11434"; # Set environment variable
+          OLLAMA_BASE_URL = "http://host.containers.internal:11434"; # Set environment variable
         };
         #comment
         extraOptions = [
-          "--network=host" # Use host networking
+          "--add-host=host.containers.internal:host-gateway" # Resolve host IP
         ];
       };
     };
