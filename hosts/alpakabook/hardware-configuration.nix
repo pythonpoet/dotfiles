@@ -18,7 +18,7 @@
   boot.extraModulePackages = [];
   boot.kernelPatches = {
     name = "IR- Patch";
-    patch = fetchurl {
+    patch = pkgs.fetchurl {
       url = "https://lore.kernel.org/platform-driver-x86/Z6uMqiB_cKzM9-iu@kekkonen.localdomain/T/#t";
       hash = "";
     };
