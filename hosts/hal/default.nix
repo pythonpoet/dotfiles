@@ -21,7 +21,7 @@
   hardware.nvidia = {
     open = false;
     #driver = "nvidia";
-    package = pkgs.linuxPackages.nvidia_x11;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
     #package = pkgs.linuxPackages.nvidia_x11;
     modesetting.enable = true;
   };
