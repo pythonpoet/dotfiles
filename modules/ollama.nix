@@ -23,6 +23,7 @@ in {
       type = types.str;
       default = "ghcr.io/open-webui/open-webui:main";
     };
+    # Path
     db_path = mkOption {
       type = types.str;
     };
