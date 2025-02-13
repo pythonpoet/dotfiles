@@ -43,12 +43,16 @@ in {
           "${toString cfg.port_web_ui}:8080"
           #"${toString cfg.port_ollama}:11434"
         ];
-
         volumes = [
           "${cfg.db_path}:/app/backend/data"
         ];
+        environment = {
+          OLLAMA_BASE_URL = "http://127.0.0.1:11434"; # Set environment variable
+        };
         #comment
-        extraOptions = ["--add-host=host.containers.internal:host-gateway"];
+        extraOptions = [
+          "--network=host" # Use host networking
+        ];
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port_web_ui];
