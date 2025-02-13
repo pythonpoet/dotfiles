@@ -37,13 +37,16 @@ in {
       backend = "podman";
       containers.ollama = {
         image = cfg.image;
-        ports = ["${toString cfg.port_web_ui}:8080"];
+        ports = [
+          "${toString cfg.port_web_ui}:8080"
+          "${toString cfg.port_ollama}:11434"
+        ];
 
         volumes = [
           "${cfg.db_path}:/app/backend/data"
         ];
         #comment
-        extraOptions = ["-add-host=host.docker.internal:host-gateway"];
+        #extraOptions = ["-add-host=host.docker.internal:host-gateway"];
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port_web_ui];
