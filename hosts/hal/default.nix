@@ -23,6 +23,8 @@
     package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
     modesetting.enable = true;
   };
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   networking.hostName = "hal"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
