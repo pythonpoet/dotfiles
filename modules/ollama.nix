@@ -23,6 +23,9 @@ in {
       type = types.str;
       default = "ghcr.io/open-webui/open-webui:main";
     };
+    db_path = mkOption {
+      type = types.str;
+    };
   };
   config = mkIf cfg.enable {
     services.ollama = {
