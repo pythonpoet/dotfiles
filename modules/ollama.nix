@@ -42,7 +42,7 @@ in {
         volumes = [
           "${cfg.db_path}:/app/backend/data"
         ];
-        extraOptions = "--network=host";
+        extraOptions = ["--network=host"];
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port_web_ui];
