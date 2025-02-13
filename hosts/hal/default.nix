@@ -14,15 +14,12 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  #boot.kernelPackages = pkgs.linuxPackages_5_4;
 
   # Enable CUDA
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     open = false;
-    #driver = "nvidia";
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-    #package = pkgs.linuxPackages.nvidia_x11;
     modesetting.enable = true;
   };
 
