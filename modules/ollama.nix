@@ -9,7 +9,13 @@ with lib; let
   ollamaPackage = pkgs.stdenv.mkDerivation {
     pname = "ollama";
     version = "0.1.15";
-    src = cfg.package; # Use the fetched GitHub source
+    src = pkgs.fetchFromGitHub {
+      owner = "ollama";
+      repo = "ollama";
+      tag = "v0.1.15";
+      hash = "";
+      fetchSubmodules = true;
+    }; # Use the fetched GitHub source
     #buildInputs = if cfg.acceleration == "cuda" then [ pkgs.cudaPackages ] else [];
     installPhase = ''
       mkdir -p $out/bin
