@@ -32,7 +32,7 @@ in {
       enable = true;
       acceleration = "cuda";
       loadModels = cfg.models;
-      package = import ./ollama_package.nix {inherit pkgs;};
+      package = import ./ollama_package.nix {inherit lib pkgs;};
       #gport = cfg.port_ollama;
       openFirewall = true;
     };
