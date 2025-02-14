@@ -20,7 +20,8 @@
   hardware.nvidia = {
     open = false;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    #package = config.boot.kernelPackages.nvidiaPackages.legacy_470; # results in CUDA Version: 11.4 outdated!
     modesetting.enable = true;
   };
   nixpkgs.config.allowUnfree = true;

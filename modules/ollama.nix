@@ -5,6 +5,7 @@
 }:
 with lib; let
   cfg = config.ollama;
+  ollama_package = import "ollama_package.nix";
 in {
   options.ollama = {
     enable = mkEnableOption "Enable Ollama";
@@ -32,6 +33,7 @@ in {
       enable = true;
       acceleration = "cuda";
       loadModels = cfg.models;
+      package = ollama_package;
       #gport = cfg.port_ollama;
       openFirewall = true;
     };
