@@ -6,6 +6,16 @@
 }:
 with lib; let
   cfg = config.ollama;
+  ollamaPackage = pkgs.stdenv.mkDerivation {
+    pname = "ollama";
+    version = "0.1.15";
+    src = cfg.package; # Use the fetched GitHub source
+    #buildInputs = if cfg.acceleration == "cuda" then [ pkgs.cudaPackages ] else [];
+    installPhase = ''
+      mkdir -p $out/bin
+      cp -r * $out/bin/
+    '';
+  };
 in {
   options.ollama = {
     enable = mkEnableOption "Enable Ollama";
@@ -33,25 +43,7 @@ in {
       enable = true;
       acceleration = "cuda";
       loadModels = cfg.models;
-      package = pkgs.stdenv.mkDerivation {
-        pname = "ollama";
-        version = "0.1.15";
-        src = pkgs.fetchFromGitHub {
-          owner = "ollama";
-          repo = "ollama";
-          tag = "v0.1.15";
-          hash = "";
-          fetchSubmodules = true;
-        };
-        buildInputs =
-          if cfg.acceleration == "cuda"
-          then [pkgs.cudaPackages]
-          else [];
-        installPhase = ''
-          mkdir -p $out/bin
-          cp -r * $out/bin/
-        '';
-      };
+      package = ollamaPackage;
       #gport = cfg.port_ollama;
       openFirewall = true;
     };
