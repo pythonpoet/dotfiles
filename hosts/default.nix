@@ -149,7 +149,7 @@
             config_file = "/var/lib/ocis/config/ocis.yaml";
           };
 
-          ollama = {
+          llm = {
             enable = true;
             db_path = "/var/lib/ollama";
             models = [

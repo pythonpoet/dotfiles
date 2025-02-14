@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  cfg = config.ollama;
+  cfg = config.llm;
   ollamaPackage = pkgs.stdenv.mkDerivation {
     pname = "ollama";
     version = "0.1.15";
@@ -17,7 +17,7 @@ with lib; let
     '';
   };
 in {
-  options.ollama = {
+  options.llm = {
     enable = mkEnableOption "Enable Ollama";
     models = mkOption {
       type = types.listOf types.str;
@@ -49,7 +49,7 @@ in {
     };
     virtualisation.oci-containers = {
       backend = "podman";
-      containers.ollama = {
+      containers.web-llm = {
         image = cfg.image;
         ports = [
           #"${toString cfg.port_web_ui}:8080"
