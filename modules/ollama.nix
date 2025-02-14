@@ -47,6 +47,10 @@ in {
           if cfg.acceleration == "cuda"
           then [pkgs.cudaPackages]
           else [];
+        installPhase = ''
+          mkdir -p $out/bin
+          cp -r * $out/bin/
+        '';
       };
       #gport = cfg.port_ollama;
       openFirewall = true;
