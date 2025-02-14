@@ -49,7 +49,7 @@ in {
       enable = true;
       acceleration = "cuda";
       loadModels = cfg.models;
-      package = ollamaPackage;
+      pkgs = ollamaPackage;
       #gport = cfg.port_ollama;
       openFirewall = true;
     };
