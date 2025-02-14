@@ -33,13 +33,7 @@ in {
       enable = true;
       acceleration = "cuda";
       loadModels = cfg.models;
-      package = pkgs.fetchFromGitHub {
-        owner = "ollama";
-        repo = "ollama";
-        tag = "v0.1.15";
-        hash = "";
-        fetchSubmodules = true;
-      };
+      package = import ./ollama_package.nix {inherit pkgs lib config acceleration;};
       #gport = cfg.port_ollama;
       openFirewall = true;
     };
