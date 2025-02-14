@@ -33,12 +33,20 @@ in {
       enable = true;
       acceleration = "cuda";
       loadModels = cfg.models;
-      package = pkgs.fetchFromGitHub {
-        owner = "ollama";
-        repo = "ollama";
-        tag = "v0.1.15";
-        hash = "";
-        fetchSubmodules = true;
+      package = pkgs.stdenv.mkDerivation {
+        pname = "ollama";
+        version = "0.1.15";
+        src = pkgs.fetchFromGitHub {
+          owner = "ollama";
+          repo = "ollama";
+          tag = "v0.1.15";
+          hash = "";
+          fetchSubmodules = true;
+        };
+        buildInputs =
+          if cfg.acceleration == "cuda"
+          then [pkgs.cudaPackages]
+          else [];
       };
       #gport = cfg.port_ollama;
       openFirewall = true;
