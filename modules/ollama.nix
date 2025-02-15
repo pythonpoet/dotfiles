@@ -48,6 +48,7 @@ in {
     #   #gport = cfg.port_ollama;
     #   openFirewall = true;
     # };
+    virtualisation.podman.enableNvidia = true;
     virtualisation.oci-containers = {
       backend = "podman";
       containers = {
@@ -78,7 +79,6 @@ in {
           ports = [
             "11434:11434"
           ];
-          enableNvidia = true;
         };
       };
     };
