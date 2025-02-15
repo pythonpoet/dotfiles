@@ -29,29 +29,29 @@ in {
     };
   };
   config = mkIf cfg.enable {
-    # services.ollama = {
-    #   enable = true;
-    #   acceleration = "cuda";
-    #   loadModels = cfg.models;
-    #   package = pkgs.callPackage ./ollama_package.nix {};
-    #   # package = pkgs.ollama.overrideAttrs (oldAttrs: {
-    #   #   src = fetchFromGitHub {
-    #   #       owner = "ollama";
-    #   #       repo = "ollama";
-    #   #       tag = "v${version}";
-    #   #       hash = "sha256-DW7gHNyW1ML8kqgMFsqTxS/30bjNlWmYmeov2/uZn00=";
-    #   #       fetchSubmodules = true;
-    #   #     };
+    services.ollama = {
+      enable = true;
+      acceleration = "cuda";
+      loadModels = cfg.models;
+      package = pkgs.callPackage ./ollama_package.nix {};
+      # package = pkgs.ollama.overrideAttrs (oldAttrs: {
+      #   src = fetchFromGitHub {
+      #       owner = "ollama";
+      #       repo = "ollama";
+      #       tag = "v${version}";
+      #       hash = "sha256-DW7gHNyW1ML8kqgMFsqTxS/30bjNlWmYmeov2/uZn00=";
+      #       fetchSubmodules = true;
+      #     };
 
-    #   # });
+      # });
 
-    #   #gport = cfg.port_ollama;
-    #   openFirewall = true;
-    # };
-    virtualisation.podman.enableNvidia = true;
-    environment.systemPackages = [
-      pkgs.nvidia-container-toolkit
-    ];
+      #gport = cfg.port_ollama;
+      openFirewall = true;
+    };
+    # virtualisation.podman.enableNvidia = true;
+    # environment.systemPackages = [
+    #   pkgs.nvidia-container-toolkit
+    # ];
     virtualisation.oci-containers = {
       backend = "podman";
       containers = {
@@ -74,15 +74,15 @@ in {
             "--add-host=host.containers.internal:host-gateway"
           ];
         };
-        ollama = {
-          image = "ollama/ollama";
-          volumes = [
-            "/var/lib/ollama:/root/.ollama"
-          ];
-          ports = [
-            "11434:11434"
-          ];
-        };
+        # ollama = {
+        #   image = "ollama/ollama";
+        #   volumes = [
+        #     "/var/lib/ollama:/root/.ollama"
+        #   ];
+        #   ports = [
+        #     "11434:11434"
+        #   ];
+        # };
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port_web_ui];
