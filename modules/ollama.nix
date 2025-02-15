@@ -49,7 +49,10 @@ in {
       enable = true;
       acceleration = "cuda";
       loadModels = cfg.models;
-      package = pkgs.ollama.override {version = "v0.1.15";};
+      package = pkgs.ollama.overrideAttrs (oldAttrs: {
+        version = "0.1.15";
+      });
+
       #gport = cfg.port_ollama;
       openFirewall = true;
     };
