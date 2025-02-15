@@ -34,6 +34,13 @@ in {
       acceleration = "cuda";
       loadModels = cfg.models;
       package = pkgs.ollama.overrideAttrs (oldAttrs: {
+        src = pkgs.fetchFromGitHub {
+          owner = "ollama";
+          repo = "ollama";
+          tag = "v0.1.15";
+          hash = "";
+          fetchSubmodules = true;
+        };
         version = "0.1.15";
         hash = "";
       });
