@@ -37,7 +37,7 @@ assert builtins.elem acceleration [
 ]; let
   pname = "ollama";
   # don't forget to invalidate all hashes each update
-  version = "0.1.15";
+  version = "0.5.8";
 
   src = fetchFromGitHub {
     owner = "ollama";
