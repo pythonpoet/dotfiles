@@ -31,7 +31,7 @@ in {
   config = mkIf cfg.enable {
     services.ollama = {
       enable = true;
-      acceleration = "none";
+      #acceleration = "none";
       loadModels = cfg.models;
       package = pkgs.ollama.overrideAttrs (oldAttrs: {
         src = pkgs.fetchFromGitHub {
