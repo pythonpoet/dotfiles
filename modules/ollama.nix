@@ -49,7 +49,7 @@ in {
       enable = true;
       acceleration = "cuda";
       loadModels = cfg.models;
-      package = ollamaPackage.override {acceleration = config.services.ollama.acceleration;};
+      package = ollamaPackage.override; #{acceleration = config.services.ollama.acceleration;};
       #gport = cfg.port_ollama;
       openFirewall = true;
     };
