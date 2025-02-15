@@ -49,7 +49,7 @@ in {
       enable = true;
       acceleration = "cuda";
       loadModels = cfg.models;
-      pkgs = ollamaPackage;
+      package = ollamaPackage;
       #gport = cfg.port_ollama;
       openFirewall = true;
     };
@@ -67,8 +67,11 @@ in {
           OLLAMA_BASE_URL = "http://127.0.0.1:11434"; # Set environment variable
         };
         #comment
+        #extraOptions =
+        #[ "--network=host" "--add-host=host.containers.internal:host-gateway" ];
         extraOptions = [
-          "--network=host" # Use host networking
+          "--network=host"
+          "--add-host=host.containers.internal:host-gateway"
         ];
       };
     };
