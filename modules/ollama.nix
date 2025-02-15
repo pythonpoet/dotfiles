@@ -49,6 +49,9 @@ in {
     #   openFirewall = true;
     # };
     virtualisation.podman.enableNvidia = true;
+    environment.systemPackages = [
+      pkgs.nvidia-container-toolkit
+    ];
     virtualisation.oci-containers = {
       backend = "podman";
       containers = {
