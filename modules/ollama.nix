@@ -38,7 +38,7 @@ in {
           owner = "ollama";
           repo = "ollama";
           tag = "v0.1.15";
-          hash = "";
+          hash = "sha256-ZXGJdxPrnAAA8OJhjXX776ePheUNe4zPhcRoJulNGZs=";
           fetchSubmodules = true;
         };
         version = "0.1.15";
