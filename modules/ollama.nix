@@ -6,22 +6,6 @@
 }:
 with lib; let
   cfg = config.llm;
-  ollamaPackage = pkgs.stdenv.mkDerivation {
-    pname = "ollama";
-    version = "0.1.15";
-    src = pkgs.fetchFromGitHub {
-      owner = "ollama";
-      repo = "ollama";
-      tag = "v0.1.15";
-      hash = "";
-      fetchSubmodules = true;
-    }; # Use the fetched GitHub source
-    #buildInputs = if cfg.acceleration == "cuda" then [ pkgs.cudaPackages ] else [];
-    installPhase = ''
-      mkdir -p $out/bin
-      cp -r * $out/bin/
-    '';
-  };
 in {
   options.llm = {
     enable = mkEnableOption "Enable Ollama";
@@ -51,6 +35,7 @@ in {
       loadModels = cfg.models;
       package = pkgs.ollama.overrideAttrs (oldAttrs: {
         version = "0.1.15";
+        hash = "";
       });
 
       #gport = cfg.port_ollama;
