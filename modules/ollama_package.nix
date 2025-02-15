@@ -43,7 +43,7 @@ assert builtins.elem acceleration [
     owner = "ollama";
     repo = "ollama";
     tag = "v${version}";
-    hash = "sha256-ZXGJdxPrnAAA8OJhjXX776ePheUNe4zPhcRoJulNGZs=";
+    hash = "sha256-hjQHoJLzueDT8pEcSSdiR3a4CH4gq+9vG5a3gwkOITE=";
     fetchSubmodules = true;
   };
 
