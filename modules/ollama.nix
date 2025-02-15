@@ -31,19 +31,19 @@ in {
   config = mkIf cfg.enable {
     services.ollama = {
       enable = true;
-      #acceleration = "none";
+      acceleration = "cuda";
       loadModels = cfg.models;
-      package = pkgs.ollama.overrideAttrs (oldAttrs: {
-        src = pkgs.fetchFromGitHub {
-          owner = "ollama";
-          repo = "ollama";
-          tag = "v0.1.15";
-          hash = "sha256-ZXGJdxPrnAAA8OJhjXX776ePheUNe4zPhcRoJulNGZs=";
-          fetchSubmodules = true;
-        };
-        version = "0.1.15";
-        hash = "";
-      });
+      package = pkgs.callPackage ./ollama_package.nix {};
+      # package = pkgs.ollama.overrideAttrs (oldAttrs: {
+      #   src = fetchFromGitHub {
+      #       owner = "ollama";
+      #       repo = "ollama";
+      #       tag = "v${version}";
+      #       hash = "sha256-DW7gHNyW1ML8kqgMFsqTxS/30bjNlWmYmeov2/uZn00=";
+      #       fetchSubmodules = true;
+      #     };
+
+      # });
 
       #gport = cfg.port_ollama;
       openFirewall = true;
