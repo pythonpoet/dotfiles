@@ -9,6 +9,7 @@
     sha256 = "sha256-ja7BrL48vOEBUqQz3LstaW5GBY3pboU2oMFDynF6lXk="; # Replace with actual hash
     stripRoot = false;
   };
+  pythonPackages = python312Packages;
 in {
   imports = [
     ./anyrun
