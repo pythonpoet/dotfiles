@@ -57,8 +57,6 @@ in {
     pythonPackages.jupyterlab
     pythonPackages.notebook
     poetry
-    pythonPackages.pyzmq # Adding pyzmq explicitly
-    pythonPackages.venvShellHook
     pythonPackages.pip
     pythonPackages.numpy
     pythonPackages.pandas
