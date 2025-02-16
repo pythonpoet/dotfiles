@@ -48,6 +48,21 @@ in {
     glow
     zotero
     owncloud-client
+    dconf-editor
+    zed-editor
+
+    # programming
+    # pythonPackages.python
+    pythonPackages.ipykernel
+    pythonPackages.jupyterlab
+    pythonPackages.notebook
+    poetry
+    pythonPackages.pyzmq # Adding pyzmq explicitly
+    pythonPackages.venvShellHook
+    pythonPackages.pip
+    pythonPackages.numpy
+    pythonPackages.pandas
+    pythonPackages.requests
   ];
   home.file = {
     # Symlink the extracted theme to ~/.config
