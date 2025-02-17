@@ -32,6 +32,9 @@ in {
     gnomeExtensions.blur-my-shell
     gnomeExtensions.tiling-shell
     gnomeExtensions.pano
+    gnomeExtensions.user-themes
+    whitesur-gtk-theme
+    whitesur-icon-theme
     libgda
     gsound
 
@@ -63,21 +66,7 @@ in {
     python312Packages.pandas
     python312Packages.requests
   ];
-  home.file = {
-    # Symlink the extracted theme to ~/.config
-    ".config/macos-like-window-controls" = {
-      source = "${macosLikeWindowControls}";
-      recursive = true;
-    };
-    # Apply GTK CSS customization properly
-    ".config/gtk-3.0/gtk.css" = {
-      text = ''@import "../macos-like-window-controls/gtk-3.0.css";'';
-    };
 
-    ".config/gtk-4.0/gtk.css" = {
-      text = ''@import "../macos-like-window-controls/gtk-4.0.css";'';
-    };
-  };
   dconf = {
     enable = true;
     settings = {
@@ -96,6 +85,7 @@ in {
           tiling-shell.extensionUuid
           system-monitor.extensionUuid
           pano.extensionUuid
+          user-themes.extensionUuid
         ];
         disabled-extensions = [
           "dash-to-dock@micxgx.gmail.com"
@@ -110,23 +100,14 @@ in {
         ];
       };
 
+      "org/gnome/desktop/interface" = {
+        gtk-theme = "WhiteSur-Dark";
+        icon-theme = "WhiteSur";
+        color-scheme = "prefer-dark";
+      };
+
       "org/gnome/desktop/wm/preferences" = {
         "button-layout" = ":minimize,maximize,close";
-      };
-      # # Should add macos like colour
-      # "gtk-config" = {
-      #   gtk-3-css = ''@import "../macos-like-window-controls/gtk-3.0.css";'';
-      #   gtk-4-css = ''@import "../macos-like-window-controls/gtk-4.0.css";'';
-      # };
-      # "environment.systemPackages" = [
-      #   (pkgs.fetchzip {
-      #     url = "https://github.com/xiadnoring/macos-like-window-controls/archive/refs/heads/main.zip";
-      #     sha256 = ""; # Replace this with the actual hash
-      #     stripRoot = false;
-      #   })
-      # ];
-      "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
       };
     };
   };
