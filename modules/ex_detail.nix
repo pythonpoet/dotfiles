@@ -1,4 +1,4 @@
 {
-  imports = [revit_converter.nix];
+  imports = [./revit_converter.nix];
   rvtExporter.enable = true;
 }
