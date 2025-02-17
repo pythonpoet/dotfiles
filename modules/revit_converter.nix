@@ -4,33 +4,38 @@
   lib,
   ...
 }: let
-  rvtPath = "/var/lib/exdetail/rvtExporter";
-  # Fetch and extract RvtExporter
+  # Fetch and extract RvtExporter directly into the Nix store
   rvtExporter = pkgs.stdenv.mkDerivation rec {
     pname = "rvt-exporter";
     version = "latest";
 
-    # Fetch ZIP file from URL
     src = pkgs.fetchurl {
       url = "https://datadrivenconstruction.io/?sdm_process_download=1&download_id=1682";
-      sha256 = "sha256-+NWOuZBJnyOJyXlGmPkg2yOJI3S+Qi9N0yVP8sbJFYg="; # Use `nix-prefetch-url <URL>` to get SHA256
+      sha256 = "sha256-+NWOuZBJnyOJyXlGmPkg2yOJI3S+Qi9N0yVP8sbJFYg="; # Run `nix-prefetch-url <URL>` to get SHA256
     };
 
-    # Unpack ZIP into mypath
+    nativeBuildInputs = [pkgs.unzip]; # Ensure unzip is available
+
+    # Fix unpacking by renaming the source
+    unpackPhase = ''
+      cp $src rvt-exporter.zip
+      unzip -o rvt-exporter.zip -d extracted
+    '';
+
     installPhase = ''
-      mkdir -p $out/$rvtPath
-      unzip $src -d $out/$rvtPath
+      mkdir -p $out
+      cp -r extracted/* $out/
     '';
   };
 in {
-  options.rvtExporter.enable = lib.mkEnableOption "Wine app setup for RvtExporter";
+  options.rvtExporter.enable = lib.mkEnableOption "Enable Revit Exporter setup with Wine";
 
   config = lib.mkIf config.rvtExporter.enable {
     environment.systemPackages = with pkgs; [
-      wineWowPackages.stable # 32-bit and 64-bit Wine support
+      wineWowPackages.stable # Wine for Windows apps
       winetricks
       unzip
-      rvtExporter # The extracted package
+      rvtExporter # The extracted package in the Nix store
     ];
   };
 }
