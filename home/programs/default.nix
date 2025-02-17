@@ -9,7 +9,6 @@
     sha256 = "sha256-ja7BrL48vOEBUqQz3LstaW5GBY3pboU2oMFDynF6lXk="; # Replace with actual hash
     stripRoot = false;
   };
-  pythonPackages = python312Packages;
 in {
   imports = [
     ./anyrun
@@ -54,14 +53,15 @@ in {
 
     # programming
     # pythonPackages.python
-    pythonPackages.ipykernel
-    pythonPackages.jupyterlab
-    pythonPackages.notebook
+    python312Full
+    python312Packages.ipykernel
+    python312Packages.jupyterlab
+    python312Packages.notebook
     poetry
-    pythonPackages.pip
-    pythonPackages.numpy
-    pythonPackages.pandas
-    pythonPackages.requests
+    python312Packages.pip
+    python312Packages.numpy
+    python312Packages.pandas
+    python312Packages.requests
   ];
   home.file = {
     # Symlink the extracted theme to ~/.config
@@ -84,10 +84,9 @@ in {
       "org/gnome/desktop/input-sources" = {
         show-all-sources = true;
         sources = [
-          ["xkb" "ch+de"]
-          ["xkb" "us+altgr-intl"]
+          ["xkb" "ch"]
         ];
-        xkb-options = ["terminate:ctrl_alt_bksp"];
+        #xkb-options = ["terminate:ctrl_alt_bksp"];
       };
 
       "org/gnome/shell" = {
