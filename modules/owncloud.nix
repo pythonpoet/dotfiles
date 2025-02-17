@@ -37,6 +37,11 @@ in {
       default = "https://cloud.chaosdam.net";
     };
 
+    enable_webdav = mkOption {
+      type = types.bool;
+      default = false;
+    };
+
     enable_collabora = mkOption {
       type = types.bool;
       default = false;
@@ -63,8 +68,11 @@ in {
             OCIS_INSECURE = "true";
             TLS_INSECURE = "true";
             TLS_SKIP_VERIFY_CLIENT_CERT = "true";
-            WEBDAV_ALLOW_INSECURE = "true";
 
+            # Webdav
+            WEBDAV_ALLOW_INSECURE = mkIf cfg.enable_webdav "true";
+            OCIS_TRACING_ENABLED = mkIf cfg.enable_webdav "true";
+            WEBDAV_TRACING_ENABLED = mkIf cfg.enable_webdav "true";
             # Collabora
             COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "Collabora";
             COLLABORATION_APP_PRODUCT = mkIf cfg.enable_collabora "Collabora";

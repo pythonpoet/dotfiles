@@ -145,6 +145,7 @@
           };
           ocis = {
             enable = true;
+            enable_webdav = true;
             data_dir = "/var/lib/ocis/data";
             config_file = "/var/lib/ocis/config/ocis.yaml";
           };
