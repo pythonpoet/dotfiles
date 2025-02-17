@@ -152,7 +152,7 @@
           };
 
           llm = {
-            enable = true;
+            enable = false;
             db_path = "/var/lib/ollama";
             models = [
               "deepseek-r1:1.5b"
