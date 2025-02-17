@@ -13,7 +13,7 @@
     # Fetch ZIP file from URL
     src = pkgs.fetchurl {
       url = "https://datadrivenconstruction.io/?sdm_process_download=1&download_id=1682";
-      sha256 = ""; # Use `nix-prefetch-url <URL>` to get SHA256
+      sha256 = "sha256-+NWOuZBJnyOJyXlGmPkg2yOJI3S+Qi9N0yVP8sbJFYg="; # Use `nix-prefetch-url <URL>` to get SHA256
     };
 
     # Unpack ZIP into mypath
