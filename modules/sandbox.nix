@@ -1,3 +1,5 @@
+# Switch to incus!
+# https://wiki.nixos.org/wiki/Incus
 {
   config,
   lib,
