@@ -3,13 +3,7 @@
   inputs,
   lib,
   ...
-}: let
-  macosLikeWindowControls = pkgs.fetchzip {
-    url = "https://github.com/xiadnoring/macos-like-window-controls/archive/refs/heads/main.zip";
-    sha256 = "sha256-ja7BrL48vOEBUqQz3LstaW5GBY3pboU2oMFDynF6lXk="; # Replace with actual hash
-    stripRoot = false;
-  };
-in {
+}: {
   imports = [
     ./anyrun
     ./browsers/firefox.nix
@@ -33,8 +27,10 @@ in {
     gnomeExtensions.tiling-shell
     gnomeExtensions.pano
     gnomeExtensions.user-themes
-    whitesur-gtk-theme
-    whitesur-icon-theme
+    #whitesur-gtk-theme
+    #whitesur-icon-theme
+    #breeze-icons
+    #hicolor-icon-theme
     libgda
     gsound
 
@@ -65,6 +61,7 @@ in {
     python312Packages.numpy
     python312Packages.pandas
     python312Packages.requests
+    warp-terminal
   ];
 
   dconf = {
@@ -72,10 +69,7 @@ in {
     settings = {
       "org/gnome/desktop/input-sources" = {
         show-all-sources = true;
-        sources = [
-          ["xkb" "ch"]
-        ];
-        #xkb-options = ["terminate:ctrl_alt_bksp"];
+        sources = [["xkb" "ch"]];
       };
 
       "org/gnome/shell" = {
@@ -85,7 +79,7 @@ in {
           tiling-shell.extensionUuid
           system-monitor.extensionUuid
           pano.extensionUuid
-          user-themes.extensionUuid
+          #user-themes.extensionUuid
         ];
         disabled-extensions = [
           "dash-to-dock@micxgx.gmail.com"
@@ -99,10 +93,7 @@ in {
           "status-icons@gnome-shell-extensions.gcampax.github.com"
         ];
       };
-
       "org/gnome/desktop/interface" = {
-        gtk-theme = "WhiteSur-Dark";
-        icon-theme = "WhiteSur";
         color-scheme = "prefer-dark";
       };
 

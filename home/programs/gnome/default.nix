@@ -6,9 +6,9 @@
       enable = true;
       wayland = true;
     };
-    desktopManager.gnome.enable = true;
-
-    #layout = services.xserver.layout;
-    #xkbVariant = services.xserver.xkbVariant;
+    desktopManager.gnome = {
+      enable = true;
+    };
+    xkb.layout = "ch";
   };
 }
