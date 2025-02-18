@@ -126,6 +126,7 @@
         "${self}/modules/ollama.nix"
         "${self}/modules/sandbox.nix"
         "${self}/modules/ex_detail.nix"
+        "${self}/modules/incus.nix"
 
         {
           home-manager = {
@@ -160,7 +161,10 @@
               "deepseek-r1:14b"
             ];
           };
-          sandbox.enable = true;
+          incus = {
+            enable = true;
+            enable_networking = true;
+          };
           #  networking.firewall.allowedTCPPorts =  [ 3456 ];
         }
 
