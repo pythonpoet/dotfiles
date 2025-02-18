@@ -1,5 +1,3 @@
-# Initialisation of incus;
-# Its primarily meant as a sandbox environment for educational purposes and to try new things.
 {
   config,
   pkgs,
@@ -7,39 +5,41 @@
   ...
 }: let
   cfg = config.incus;
+  types = lib.types;
 in {
-  option.incus = {
-    enable = mkEnableOption "Enable Incus environmet";
+  options.incus = {
+    enable = lib.mkEnableOption "Enable Incus environment";
 
-    allow_networking = mkOption {
+    allow_networking = lib.mkOption {
       type = types.bool;
       default = false;
-      description = "Wheather a Incus environment is allowed to have networking capabilites";
+      description = "Whether an Incus environment is allowed to have networking capabilities";
     };
   };
-  config = mkIf cfg.enable {
+
+  config = lib.mkIf cfg.enable {
     users.users.david.extraGroups = ["incus-admin"];
-    networking = mkIf cfg.allow_networking {
+
+    networking = lib.mkIf cfg.allow_networking {
       nftables.enable = true;
       firewall = {
         trustedInterfaces = ["incusbr0"];
-        incusbr0 = {
+        interfaces.incusbr0 = {
           allowedTCPPorts = [53 67];
           allowedUDPPorts = [53 67];
         };
       };
     };
+
     virtualisation = {
       enable = true;
       preseed = {
-        # this is configuration of the incusd server side:
         config = {
           "core.https_address" = ":8443";
           "images.auto_update_interval" = 9;
         };
-        networks = mkIf cfg.allow_networking [
+        networks = lib.mkIf cfg.allow_networking [
           {
-            # this is configuration of the incusd server side:
             config = {
               "ipv4.nat" = "true";
               "ipv4.address" = "10.32.241.1/24";
@@ -56,6 +56,7 @@ in {
         ];
         profiles = [
           {
+            name = "default";
             devices = {
               eth0 = {
                 name = "eth0";
@@ -69,16 +70,15 @@ in {
                 type = "disk";
               };
             };
-            name = "default";
           }
         ];
         storage_pools = [
           {
+            name = "default";
+            driver = "dir";
             config = {
               source = "/var/lib/incus/storage-pools/default";
             };
-            driver = "dir";
-            name = "default";
           }
         ];
       };
