@@ -31,7 +31,7 @@ in {
       };
     };
 
-    virtualisation = {
+    virtualisation.incus = {
       enable = true;
       preseed = {
         config = {
