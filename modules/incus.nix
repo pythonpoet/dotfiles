@@ -10,7 +10,7 @@ in {
   options.incus = {
     enable = lib.mkEnableOption "Enable Incus environment";
 
-    allow_networking = lib.mkOption {
+    enable_networking = lib.mkOption {
       type = types.bool;
       default = false;
       description = "Whether an Incus environment is allowed to have networking capabilities";
@@ -20,7 +20,7 @@ in {
   config = lib.mkIf cfg.enable {
     users.users.david.extraGroups = ["incus-admin"];
 
-    networking = lib.mkIf cfg.allow_networking {
+    networking = lib.mkIf cfg.enable_networking {
       nftables.enable = true;
       firewall = {
         trustedInterfaces = ["incusbr0"];
@@ -38,7 +38,7 @@ in {
           "core.https_address" = ":8443";
           "images.auto_update_interval" = 9;
         };
-        networks = lib.mkIf cfg.allow_networking [
+        networks = lib.mkIf cfg.enable_networking [
           {
             config = {
               "ipv4.nat" = "true";
