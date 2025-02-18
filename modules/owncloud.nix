@@ -57,7 +57,10 @@ in {
       containers = {
         ocis = {
           image = cfg.image;
-          ports = ["${toString cfg.port}:9200"];
+          ports = [
+            "${toString cfg.port}:9200"
+            "9115:9115"
+          ];
           volumes = [
             "${cfg.config_file}:/etc/ocis/ocis.yaml"
             "${cfg.data_dir}:/var/lib/ocis"
