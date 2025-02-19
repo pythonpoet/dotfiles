@@ -78,6 +78,7 @@ in {
             OCIS_TRACING_ENABLED = mkIf cfg.enable_webdav "true";
             WEBDAV_TRACING_ENABLED = mkIf cfg.enable_webdav "true";
             WEBDAV_HTTP_ADDR = mkIf cfg.enable_webdav "127.0.0.1:9115";
+            WEBDAV_LOG_LEVEL = "debug";
             # Collabora
             COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "Collabora";
             COLLABORATION_APP_PRODUCT = mkIf cfg.enable_collabora "Collabora";
@@ -108,12 +109,12 @@ in {
         };
       };
     };
-    networking.firewall.allowedTCPPorts =
-      (
-        if cfg.enable
-        then [9980]
-        else []
-      )
-      ++ [9200 9115];
+    networking.firewall.allowedTCPPorts = [9980 9200 9115];
+    # (
+    #   if cfg.enable
+    #   then [9980]
+    #   else []
+    # )
+    # ++ [9200 9115];
   };
 }
