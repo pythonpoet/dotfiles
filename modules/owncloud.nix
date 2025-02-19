@@ -76,6 +76,7 @@ in {
             WEBDAV_ALLOW_INSECURE = mkIf cfg.enable_webdav "true";
             OCIS_TRACING_ENABLED = mkIf cfg.enable_webdav "true";
             WEBDAV_TRACING_ENABLED = mkIf cfg.enable_webdav "true";
+            WEBDAV_HTTP_ADDR = mkIf cfg.enable_webdav "127.0.0.1:9115";
             # Collabora
             COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "Collabora";
             COLLABORATION_APP_PRODUCT = mkIf cfg.enable_collabora "Collabora";

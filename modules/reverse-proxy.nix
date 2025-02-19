@@ -17,7 +17,7 @@
     enableACME = true;
   };
 in {
-  networking.firewall.allowedTCPPorts = [8080 80 443];
+  networking.firewall.allowedTCPPorts = [80 443];
   services.nginx = {
     enable = true;
     #defaultSSLListenPort = 8080;
