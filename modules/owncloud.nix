@@ -112,16 +112,18 @@ in {
     };
     services.radicale = mkIf cfg.enable_radicale {
       enable = true;
-      server = {
-        hosts = ["0.0.0.0:${toString cfg.port_radicale}" "[::]:${toString cfg.port_radicale}"];
-      };
-      auth = {
-        type = "htpasswd";
-        htpasswd_filename = "${cfg.path_radicale}/users";
-        htpasswd_encryption = "bcrypt";
-      };
-      storage = {
-        filesystem_folder = "${cfg.path_radicale}/collections";
+      setting = {
+        server = {
+          hosts = ["0.0.0.0:${toString cfg.port_radicale}" "[::]:${toString cfg.port_radicale}"];
+        };
+        auth = {
+          type = "htpasswd";
+          htpasswd_filename = "${cfg.path_radicale}/users";
+          htpasswd_encryption = "bcrypt";
+        };
+        storage = {
+          filesystem_folder = "${cfg.path_radicale}/collections";
+        };
       };
     };
     networking.firewall.allowedTCPPorts = [9200 9980 5232];
