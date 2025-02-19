@@ -119,7 +119,7 @@ in {
         auth = {
           type = "htpasswd";
           htpasswd_filename = "${cfg.path_radicale}/users";
-          htpasswd_encryption = "bcrypt";
+          htpasswd_encryption = "autodetect";
         };
         storage = {
           filesystem_folder = "${cfg.path_radicale}/collections";
