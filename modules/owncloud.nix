@@ -71,6 +71,7 @@ in {
             OCIS_INSECURE = "true";
             TLS_INSECURE = "true";
             TLS_SKIP_VERIFY_CLIENT_CERT = "true";
+            OCIS_HTTP_TLS_ENABLED = "true";
 
             # Webdav
             WEBDAV_ALLOW_INSECURE = mkIf cfg.enable_webdav "true";
