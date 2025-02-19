@@ -112,7 +112,7 @@ in {
     };
     services.radicale = mkIf cfg.enable_radicale {
       enable = true;
-      setting = {
+      settings = {
         server = {
           hosts = ["0.0.0.0:${toString cfg.port_radicale}" "[::]:${toString cfg.port_radicale}"];
         };
