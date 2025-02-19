@@ -14,9 +14,9 @@
 with lib; let
   # List of ports to enable
   #
-  cfg = config.ocis;
+  cfg = config.cloud;
 in {
-  options.ocis = {
+  options.cloud = {
     enable = mkEnableOption "Enable ownCloud infininty Scale (ocis)";
     data_dir = mkOption {
       type = types.str;
@@ -37,9 +37,17 @@ in {
       default = "https://cloud.chaosdam.net";
     };
 
-    enable_webdav = mkOption {
+    enable_radicale = mkOption {
       type = types.bool;
       default = false;
+      description = "Radicale is a sync client for contacts, and calander";
+    };
+    port_radicale = mkOption {
+      type = types.port;
+      default = 5232;
+    };
+    path_radicale = mkOption {
+      type = types.str;
     };
 
     enable_collabora = mkOption {
@@ -59,7 +67,6 @@ in {
           image = cfg.image;
           ports = [
             "${toString cfg.port}:9200"
-            "9115:9115"
           ];
           volumes = [
             "${cfg.config_file}:/etc/ocis/ocis.yaml"
@@ -73,13 +80,6 @@ in {
             TLS_SKIP_VERIFY_CLIENT_CERT = "true";
             OCIS_HTTP_TLS_ENABLED = "true";
 
-            # Webdav
-            WEBDAV_ALLOW_INSECURE = mkIf cfg.enable_webdav "true";
-            OCIS_TRACING_ENABLED = mkIf cfg.enable_webdav "true";
-            WEBDAV_TRACING_ENABLED = mkIf cfg.enable_webdav "true";
-            WEBDAV_HTTP_ADDR = mkIf cfg.enable_webdav "127.0.0.1:9115";
-            WEBDAV_LOG_LEVEL = "debug";
-            PROXY_ENABLE_BASIC_AUTH = "true";
             # Collabora
             COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "Collabora";
             COLLABORATION_APP_PRODUCT = mkIf cfg.enable_collabora "Collabora";
@@ -110,12 +110,26 @@ in {
         };
       };
     };
-    networking.firewall.allowedTCPPorts = [9980 9200 9115];
+    services.radicale = mkIf cfg.enable_radicale {
+      enable = true;
+      server = {
+        hosts = ["0.0.0.0:${toString cfg.port_radicale}" "[::]:${toString cfg.port_radicale}"];
+      };
+      auth = {
+        type = "htpasswd";
+        htpasswd_filename = "${cfg.path_radicale}/users";
+        htpasswd_encryption = "bcrypt";
+      };
+      storage = {
+        filesystem_folder = "${cfg.path_radicale}/collections";
+      };
+    };
+    networking.firewall.allowedTCPPorts = [9200 9980 5232];
     # (
     #   if cfg.enable
     #   then [9980]
     #   else []
     # )
-    # ++ [9200 9115];
+    # ++ [9200];
   };
 }

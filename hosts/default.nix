@@ -145,9 +145,10 @@
             enable = true;
             data_dir = "/var/lib/vaultwarden";
           };
-          ocis = {
+          cloud = {
             enable = true;
-            enable_webdav = true;
+            enable_radicale = true;
+            path_radicale = "/var/lib/radicale/";
             data_dir = "/var/lib/ocis/data";
             config_file = "/var/lib/ocis/config/ocis.yaml";
           };
