@@ -1,5 +1,6 @@
 {
-    import = [
-       ./codium.nix
-    ];
+  import = [
+    ./codium.nix
+    ./zed.nix
+  ];
 }

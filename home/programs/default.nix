@@ -48,7 +48,6 @@
     zotero
     owncloud-client
     dconf-editor
-    zed-editor
 
     # programming
     # pythonPackages.python
@@ -61,7 +60,7 @@
     python312Packages.numpy
     python312Packages.pandas
     python312Packages.requests
-    warp-terminal
+    alacritty
   ];
 
   dconf = {
