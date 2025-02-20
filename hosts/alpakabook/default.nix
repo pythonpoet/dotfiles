@@ -18,8 +18,8 @@
     {
       name = "surface ir-transmitter";
       patch = pkgs.fetchpatch {
-        url = "https://lore.kernel.org/platform-driver-x86/Z6uMqiB_cKzM9-iu@kekkonen.localdomain/T/";
-        sha256 = "131ad9hbjvf0w4l2mcshizkc822b8d24v0jhh2vkr0aa0fzh6a6a"; # Replace with hash from `nix-prefetch-url`
+        url = "https://lore.kernel.org/platform-driver-x86/Z6uMqiB_cKzM9-iu@kekkonen.localdomain/raw";
+        sha256 = "0h37qm9nc2w5082sc5baac2p5lmpm3yrhr3b8hz9avlvccg28469"; # Replace with hash from `nix-prefetch-url`
       };
     }
   ];

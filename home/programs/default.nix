@@ -32,7 +32,7 @@
     #whitesur-icon-theme
     #breeze-icons
     #hicolor-icon-theme
-    libgda
+    libgda5
     gsound
 
     overskride
