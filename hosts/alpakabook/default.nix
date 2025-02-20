@@ -12,6 +12,17 @@
   ];
 
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
+  # 2. Add your kernel patches here
+  boot.kernelPatches = [
+    # Patch 1
+    {
+      name = "surface ir-transmitter";
+      patch = pkgs.fetchpatch {
+        url = "https://lore.kernel.org/platform-driver-x86/Z6uMqiB_cKzM9-iu@kekkonen.localdomain/T/";
+        sha256 = "131ad9hbjvf0w4l2mcshizkc822b8d24v0jhh2vkr0aa0fzh6a6a"; # Replace with hash from `nix-prefetch-url`
+      };
+    }
+  ];
 
   # boot = {
   #   kernelModules = ["i2c-dev"];
