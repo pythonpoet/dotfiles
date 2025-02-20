@@ -19,7 +19,7 @@
       name = "surface ir-transmitter patch 1";
       patch = pkgs.fetchpatch {
         url = "https://lore.kernel.org/platform-driver-x86/20250211072841.7713-2-sakari.ailus@linux.intel.com/raw";
-        sha256 = "0if79jq71vs5qqg1yc7ysljsy5a1r2clrynw8rd166gg5dcbwvrv"; # Replace with hash from `nix-prefetch-url`
+        sha256 = "sha256-D4qsDKHS+9IzP2KyyxmZgXF3ptodAV70NusP/FVQb3k="; # Replace with hash from `nix-prefetch-url`
       };
     }
     {
