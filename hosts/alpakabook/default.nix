@@ -13,30 +13,30 @@
 
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
   # 2. Add your kernel patches here
-  boot.kernelPatches = [
-    # Patch 1
-    {
-      name = "surface ir-transmitter patch 1";
-      patch = pkgs.fetchpatch {
-        url = "https://lore.kernel.org/platform-driver-x86/20250211072841.7713-2-sakari.ailus@linux.intel.com/raw";
-        sha256 = "sha256-D4qsDKHS+9IzP2KyyxmZgXF3ptodAV70NusP/FVQb3k="; # Replace with hash from `nix-prefetch-url`
-      };
-    }
-    {
-      name = "surface ir-transmitter patch 2";
-      patch = pkgs.fetchpatch {
-        url = "https://lore.kernel.org/platform-driver-x86/20250211072841.7713-3-sakari.ailus@linux.intel.com/raw";
-        sha256 = "sha256-qGlhc6paLPN7XoVG1BKGRNmDKlzCKNwSQiNcvaMdRGo="; # Replace with hash from `nix-prefetch-url`
-      };
-    }
-    {
-      name = "surface ir-transmitter patch 3";
-      patch = pkgs.fetchpatch {
-        url = "https://lore.kernel.org/platform-driver-x86/20250211072841.7713-4-sakari.ailus@linux.intel.com/raw";
-        sha256 = "sha256-D4qsDKHS+9IzP2KyyxmZgXF3ptodAV70NusP/FVQb3k="; # Replace with hash from `nix-prefetch-url`
-      };
-    }
-  ];
+  # boot.kernelPatches = [
+  #   # Patch 1
+  #   {
+  #     name = "surface ir-transmitter patch 1";
+  #     patch = pkgs.fetchpatch {
+  #       url = "https://lore.kernel.org/platform-driver-x86/20250211072841.7713-2-sakari.ailus@linux.intel.com/raw";
+  #       sha256 = "sha256-D4qsDKHS+9IzP2KyyxmZgXF3ptodAV70NusP/FVQb3k="; # Replace with hash from `nix-prefetch-url`
+  #     };
+  #   }
+  #   {
+  #     name = "surface ir-transmitter patch 2";
+  #     patch = pkgs.fetchpatch {
+  #       url = "https://lore.kernel.org/platform-driver-x86/20250211072841.7713-3-sakari.ailus@linux.intel.com/raw";
+  #       sha256 = "sha256-qGlhc6paLPN7XoVG1BKGRNmDKlzCKNwSQiNcvaMdRGo="; # Replace with hash from `nix-prefetch-url`
+  #     };
+  #   }
+  #   {
+  #     name = "surface ir-transmitter patch 3";
+  #     patch = pkgs.fetchpatch {
+  #       url = "https://lore.kernel.org/platform-driver-x86/20250211072841.7713-4-sakari.ailus@linux.intel.com/raw";
+  #       sha256 = "sha256-D4qsDKHS+9IzP2KyyxmZgXF3ptodAV70NusP/FVQb3k="; # Replace with hash from `nix-prefetch-url`
+  #     };
+  #   }
+  # ];
 
   # boot = {
   #   kernelModules = ["i2c-dev"];
