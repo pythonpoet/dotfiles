@@ -12,7 +12,8 @@
     ./gtk.nix
     ./office
     ./qt.nix
-    ./devtools/default.nix
+    ./devtools/codium.nix
+    ./devtools/zed.nix
   ];
 
   home.packages = with pkgs; [
