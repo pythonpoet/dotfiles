@@ -112,6 +112,7 @@
     };
     hal = nixosSystem {
       inherit specialArgs;
+      system.stateVersion = 25.05;
       modules = [
         ./hal
         "${mod}/core/users.nix"
@@ -166,7 +167,6 @@
             enable = true;
             enable_networking = true;
           };
-          #  networking.firewall.allowedTCPPorts =  [ 3456 ];
         }
 
         #inputs.agenix.nixosModules.default
