@@ -51,7 +51,7 @@
 
     # programming
     # pythonPackages.python
-    python312Full
+    #python312Full
     python312Packages.ipykernel
     python312Packages.jupyterlab
     python312Packages.notebook
