@@ -28,8 +28,6 @@
     '';
   };
 in {
-  options.rvtExporter.enable = lib.mkEnableOption "Enable Revit Exporter setup with Wine";
-
   config = lib.mkIf config.rvtExporter.enable {
     environment.systemPackages = with pkgs; [
       wineWowPackages.stable # Wine for Windows apps
