@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: let
+}:
+with lib; let
   cfg = config.exDetail;
 in {
   options.exDetail = {
