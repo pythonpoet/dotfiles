@@ -17,15 +17,12 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    imports = [
-      ./revit_converter.nix
-      ./elixir-server.nix
-    ];
+  config = mkIf cfg.enable (mkMerge [
+    (import ./revit_converter.nix {inherit config pkgs lib;})
+    (import ./elixir-server.nix {inherit config pkgs lib;})
 
-    # Ensure rvtExporter is properly defined
-    rvtExporter = {
-      enable = cfg.enable_rvtExporter;
-    };
-  };
+    {
+      rvtExporter.enable = cfg.enable_rvtExporter;
+    }
+  ]);
 }
