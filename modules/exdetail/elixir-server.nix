@@ -11,8 +11,8 @@
 
   # Install packages
   environment.systemPackages = with pkgs; [
-    erlang_24
-    elixir_1_15
+    erlang
+    elixir_1_18
     nodejs_20
     inotify-tools
     miniupnpc
