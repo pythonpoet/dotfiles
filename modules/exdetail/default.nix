@@ -7,13 +7,24 @@
 with lib; let
   cfg = config.exDetail;
 in {
-  options.exDetail = {
-    enable = mkEnableOption "Enable ExDetail";
+  options = {
+    exDetail = {
+      enable = mkEnableOption "Enable ExDetail";
 
-    enable_rvtExporter = mkOption {
-      type = types.bool;
-      default = false;
-      description = "RevitExporter enable";
+      enable_rvtExporter = mkOption {
+        type = types.bool;
+        default = false;
+        description = "RevitExporter enable";
+      };
+    };
+
+    # Define rvtExporter option properly
+    rvtExporter = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Enable rvtExporter";
+      };
     };
   };
 
@@ -22,6 +33,7 @@ in {
     (import ./elixir-server.nix {inherit config pkgs lib;})
 
     {
+      # Ensure rvtExporter is properly configured
       rvtExporter.enable = cfg.enable_rvtExporter;
     }
   ]);
