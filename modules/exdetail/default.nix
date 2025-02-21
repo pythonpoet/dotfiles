@@ -18,7 +18,7 @@ in {
       };
     };
 
-    # Define rvtExporter option properly
+    # Ensure rvtExporter is properly defined before usage
     rvtExporter = {
       enable = mkOption {
         type = types.bool;
@@ -28,13 +28,13 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    (import ./revit_converter.nix {inherit config pkgs lib;})
-    (import ./elixir-server.nix {inherit config pkgs lib;})
+  # FIX: Move module imports to 'imports'
+  imports = [
+    ./revit_converter.nix
+    ./elixir-server.nix
+  ];
 
-    {
-      # Ensure rvtExporter is properly configured
-      rvtExporter.enable = cfg.enable_rvtExporter;
-    }
-  ]);
+  config = mkIf cfg.enable {
+    rvtExporter.enable = cfg.enable_rvtExporter;
+  };
 }
