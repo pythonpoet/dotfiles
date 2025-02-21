@@ -17,7 +17,7 @@ in {
     };
   };
   config = mkIf cfg.enable {
-    imports = [
+    import = [
       ./revit_converter.nix
       ./elixir-server.nix
     ];
