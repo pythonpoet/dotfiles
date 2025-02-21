@@ -14,22 +14,8 @@
     elixir_1_18
     nodejs_20
     inotify-tools
-    miniupnpc
     nettools
   ];
-  # Add a script to open ports
-  systemd.services.upnp-port-forwarding = {
-    description = "UPnP Port Forwarding";
-    after = ["network.target"];
-    wantedBy = ["multi-user.target"];
-
-    # Add Bash to the service's environment
-    path = with pkgs; [
-      bash # Add Bash to the path
-      nettools # Provides the `ifconfig` command
-      gawk # Provides the `awk` command
-    ];
-  };
   # Postgres
   services.postgresql = {
     enable = true;
