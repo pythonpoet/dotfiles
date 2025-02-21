@@ -11,7 +11,7 @@
 
   # Install packages
   environment.systemPackages = with pkgs; [
-    erlang
+    erlang_26
     elixir_1_15
     nodejs_20
     inotify-tools
