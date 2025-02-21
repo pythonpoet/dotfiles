@@ -16,11 +16,16 @@ in {
       description = "RevitExporter enable";
     };
   };
+
   config = mkIf cfg.enable {
-    import = [
+    imports = [
       ./revit_converter.nix
       ./elixir-server.nix
     ];
-    rvtExporter.enable = mkIf cfg.enable_rvtExporter true;
+
+    # Ensure rvtExporter is properly defined
+    rvtExporter = {
+      enable = cfg.enable_rvtExporter;
+    };
   };
 }
