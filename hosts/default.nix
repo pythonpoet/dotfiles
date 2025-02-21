@@ -128,6 +128,7 @@
         "${self}/modules/sandbox.nix"
         "${self}/modules/ex_detail.nix"
         "${self}/modules/incus.nix"
+        "${self}/modules/exdetail"
 
         {
           home-manager = {
@@ -152,6 +153,9 @@
             path_radicale = "/var/lib/radicale/";
             data_dir = "/var/lib/ocis/data";
             config_file = "/var/lib/ocis/config/ocis.yaml";
+          };
+          exDetail = {
+            enable = true;
           };
 
           llm = {
