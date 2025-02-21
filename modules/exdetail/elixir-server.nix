@@ -6,8 +6,7 @@
 # to make it more complicated: https://curiosum.com/blog/packaging-elixir-application-with-nix
 {
   # Enable UPnP
-  networking.firewall.allowedUDPPorts = [1900]; # UPnP discovery
-  networking.firewall.allowPing = true;
+  networking.firewall.allowedTCPPort = [4004];
 
   # Install packages
   environment.systemPackages = with pkgs; [
