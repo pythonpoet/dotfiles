@@ -1,0 +1,24 @@
+{
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.exDetail;
+in {
+  options.exDetail = {
+    enable = mkEnableOption "Enable ExDetail";
+
+    enable_rvtExporter = mkOption {
+      type = types.bool;
+      default = false;
+      description = "RevitExporter enable";
+    };
+  };
+  config = mkIf cfg.enable {
+    imports = [
+      ./revit_converter.nix
+      ./elixir-server.nix
+    ];
+    rvtExporter.enable = mkIf cfg.enable_rvtExporter true;
+  };
+}
