@@ -35,14 +35,14 @@ in {
           '';
         };
       };
-      #"exdetail.chaosdam.net" = {
-      #  inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
-      #  locations."/" = {
-      #    proxyPass = "http://127.0.0.1:4004"; # Assuming your Phoenix app runs on port 4004
-      #    proxyWebsockets = true; # If you need WebSocket support
-      #    extraConfig = extraConfig;
-      #  };
-      #};
+      "exdetail.chaosdam.net" = {
+        inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
+        locations."/" = {
+          proxyPass = "http://hal:4004"; # Assuming your Phoenix app runs on port 4004
+          proxyWebsockets = true; # If you need WebSocket support
+          extraConfig = extraConfig;
+        };
+      };
 
       #  "immich.chaosdam.net" = {
       #    inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable

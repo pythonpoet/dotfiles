@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  #imports = [./languages.nix];
+  imports = [./languages.nix];
 
   programs.helix = {
     enable = true;
@@ -17,6 +17,8 @@
     settings = {
       theme = "zed_onedark";
       editor = {
+        rainbow-brackets = true;
+        auto-format = true;
         color-modes = true;
         completion-trigger-len = 1;
         completion-replace = true;
