@@ -64,7 +64,7 @@
     alacritty
     inkscape
     meld
-    cinny-desktop
+    element-desktop
   ];
 
   dconf = {
