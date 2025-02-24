@@ -62,6 +62,9 @@
     python312Packages.pandas
     python312Packages.requests
     alacritty
+    inkscape
+    meld
+    cinny-desktop
   ];
 
   dconf = {

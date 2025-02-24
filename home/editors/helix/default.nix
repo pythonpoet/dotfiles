@@ -17,7 +17,6 @@
     settings = {
       theme = "zed_onedark";
       editor = {
-        rainbow-brackets = true;
         auto-format = true;
         color-modes = true;
         completion-trigger-len = 1;
