@@ -65,6 +65,9 @@
     inkscape
     meld
     element-desktop
+    libinput
+    v4l-utils
+    cheese
   ];
 
   dconf = {
