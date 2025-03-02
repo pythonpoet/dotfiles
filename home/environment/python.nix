@@ -16,7 +16,7 @@ in {
         tqdm
         nltk
         seaborn
-        pmdarima
+        #pmdarima
         poetry-core
       ]))
   ];
