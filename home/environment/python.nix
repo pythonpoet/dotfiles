@@ -1,6 +1,8 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  python_version = "311";
+in {
   home.packages = [
-    (pkgs.python3.withPackages (p:
+    (pkgs.${"python" + python_version}.withPackages (p:
       with p; [
         numpy
         pandas
@@ -15,7 +17,7 @@
         nltk
         seaborn
         pmdarima
+        poetry-core
       ]))
-    pkgs.poetry
   ];
 }
