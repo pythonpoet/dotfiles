@@ -13,6 +13,7 @@
         deep-translator
         tqdm
         nltk
+        seaborn
       ]))
   ];
 }
