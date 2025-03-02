@@ -16,8 +16,8 @@ in {
         tqdm
         nltk
         seaborn
-        #pmdarima
-        poetry-core
+        # pmdarima
       ]))
+    (pkgs.poetry.override {python = pkgs.${"python" + python_version};})
   ];
 }
