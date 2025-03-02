@@ -3,6 +3,9 @@
     # editors
     ../../editors/helix
 
+    # environment
+    ../../environment/python.nix
+
     # programs
     ../../programs
     #../../programs/gnome
