@@ -53,14 +53,14 @@
     # programming
     # pythonPackages.python
     #python312Full
-    python312Packages.ipykernel
-    python312Packages.jupyterlab
-    python312Packages.notebook
-    poetry
-    python312Packages.pip
-    python312Packages.numpy
-    python312Packages.pandas
-    python312Packages.requests
+    # python312Packages.ipykernel
+    # python312Packages.jupyterlab
+    # python312Packages.notebook
+    # poetry
+    # python312Packages.pip
+    # python312Packages.numpy
+    # python312Packages.pandas
+    # python312Packages.requests
     alacritty
     inkscape
     meld

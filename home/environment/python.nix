@@ -15,5 +15,6 @@
         nltk
         seaborn
       ]))
+    poetry
   ];
 }
