@@ -14,6 +14,7 @@
         tqdm
         nltk
         seaborn
+        pmdarima
       ]))
     pkgs.poetry
   ];
