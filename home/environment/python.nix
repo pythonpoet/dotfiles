@@ -18,6 +18,6 @@ in {
         seaborn
         # pmdarima
       ]))
-    (pkgs.poetry.override {python = pkgs.${"python" + python_version};})
+    (pkgs.poetry.override {python3 = pkgs.${"python" + python_version};}) # <--- Fixed here
   ];
 }
