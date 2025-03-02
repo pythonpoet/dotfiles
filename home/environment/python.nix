@@ -15,6 +15,6 @@
         nltk
         seaborn
       ]))
-    poetry
+    pkgs.poetry
   ];
 }
