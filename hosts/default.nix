@@ -128,6 +128,7 @@
         "${self}/modules/sandbox.nix"
         "${self}/modules/incus.nix"
         "${self}/modules/exdetail/"
+        "${self}/modules/ml/zenos.nix"
 
         {
           home-manager = {
@@ -156,7 +157,7 @@
           exDetail = {
             enable = true;
           };
-
+          zonos.enable = true;
           llm = {
             enable = false;
             db_path = "/var/lib/ollama";
