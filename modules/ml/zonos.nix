@@ -6,11 +6,9 @@
 }:
 with lib; let
   cfg = config.zonos;
-  source = pkgs.fetchFromGitHub {
-    owner = "Zyphra";
-    repo = "Zonos";
+  source = builtins.fetchGit {
+    url = "https://github.com/Zyphra/Zonos.git";
     rev = "main";
-    sha256 = "1h2f7la63g0s6vsk2911gz7kx3dbi2927fhpck6wayyvka4pm8w3";
   };
 
   zonos-image = pkgs.dockerTools.buildImage {
