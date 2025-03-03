@@ -23,7 +23,7 @@ with lib; let
     };
     config = {
       WorkingDir = "${source}";
-      Cmd = ["python3" "gradio_interface.py"];
+      Cmd = ["python" "gradio_interface.py"];
     };
   };
 in {
