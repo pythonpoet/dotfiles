@@ -12,6 +12,19 @@ with lib; let
     rev = "main"; # or specific commit hash
     sha256 = "1h2f7la63g0s6vsk2911gz7kx3dbi2927fhpck6wayyvka4pm8w3"; # Update with actual hash
   };
+  zonos-image = pkgs.dockerTools.buildImage {
+    name = "zonos";
+    tag = "latest";
+    created = "now";
+    copyToRoot = pkgs.buildEnv {
+      name = "zonos-root";
+      paths = [source];
+    };
+    config = {
+      WorkingDir = "${source}";
+      Cmd = ["python3" "gradio_interface.py"];
+    };
+  };
 in {
   options.zonos = {
     enable = mkEnableOption "Enable Zonos service";
@@ -57,7 +70,7 @@ in {
     virtualisation.oci-containers = {
       backend = "podman";
       containers.zonos = {
-        image = builtins.toString cfg.package; # Build from fetched source
+        imageFile = zonos-image; # Build from fetched source
         # extraOptions = [
         #   "--runtime=nvidia"
         #   "--network=host"
