@@ -128,7 +128,7 @@
         "${self}/modules/sandbox.nix"
         "${self}/modules/incus.nix"
         "${self}/modules/exdetail/"
-        "${self}/modules/ml/zenos.nix"
+        "${self}/modules/ml/zonos.nix"
 
         {
           home-manager = {
