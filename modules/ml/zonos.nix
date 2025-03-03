@@ -9,11 +9,12 @@ with lib; let
   source = pkgs.fetchFromGitHub {
     owner = "Zyphra";
     repo = "Zonos";
-    rev = "main"; # or specific commit hash
-    sha256 = "1h2f7la63g0s6vsk2911gz7kx3dbi2927fhpck6wayyvka4pm8w3"; # Update with actual hash
+    rev = "main";
+    sha256 = "1h2f7la63g0s6vsk2911gz7kx3dbi2927fhpck6wayyvka4pm8w3";
   };
+
   zonos-image = pkgs.dockerTools.buildImage {
-    name = "zonos";
+    name = "localhost/zonos";
     tag = "latest";
     created = "now";
     copyToRoot = pkgs.buildEnv {
@@ -28,12 +29,6 @@ with lib; let
 in {
   options.zonos = {
     enable = mkEnableOption "Enable Zonos service";
-
-    package = mkOption {
-      type = types.package;
-      default = source;
-      description = "Zonos source package";
-    };
 
     port = mkOption {
       type = types.port;
@@ -60,23 +55,18 @@ in {
     hardware.opengl.enable = true;
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-    # Docker configuration with NVIDIA support
-    virtualisation.docker = {
-      enable = true;
-      extraOptions = "--default-runtime=nvidia";
-    };
-
     # Container configuration
     virtualisation.oci-containers = {
       backend = "podman";
       containers.zonos = {
-        image = "docker.io/library/zonos:latest";
-        imageFile = zonos-image; # Build from fetched source
-        # extraOptions = [
-        #   "--runtime=nvidia"
-        #   "--network=host"
-        #   "--gpus=all"
-        # ];
+        image = "localhost/zonos:latest"; # Match the built image name
+        imageFile = zonos-image;
+        extraOptions = [
+          #"--runtime=nvidia"
+          "--network=host"
+          "--gpus=all"
+          "--pull=never" # Prevent trying to pull from registry
+        ];
         environment = {
           NVIDIA_VISIBLE_DEVICES = "0"; #cfg.nvidiaVisibleDevices;
           GRADIO_SHARE =
@@ -84,7 +74,6 @@ in {
             then "True"
             else "False";
         };
-        cmd = ["python3" "gradio_interface.py"];
       };
     };
 
