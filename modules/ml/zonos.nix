@@ -40,7 +40,7 @@ in {
       backend = "podman";
       containers.zonos = {
         image = "zitrone44/zonos"; # Match the built image name
-        imageFile = zonos-image;
+
         extraOptions = [
           #"--runtime=nvidia"
           "--network=host"
