@@ -70,6 +70,7 @@ in {
     virtualisation.oci-containers = {
       backend = "podman";
       containers.zonos = {
+        image = "docker.io/library/zonos:latest";
         imageFile = zonos-image; # Build from fetched source
         # extraOptions = [
         #   "--runtime=nvidia"
