@@ -58,13 +58,13 @@ in {
       backend = "podman";
       containers.zonos = {
         image = builtins.toString cfg.package; # Build from fetched source
-        extraOptions = [
-          "--runtime=nvidia"
-          "--network=host"
-          "--gpus=all"
-        ];
+        # extraOptions = [
+        #   "--runtime=nvidia"
+        #   "--network=host"
+        #   "--gpus=all"
+        # ];
         environment = {
-          NVIDIA_VISIBLE_DEVICES = cfg.nvidiaVisibleDevices;
+          NVIDIA_VISIBLE_DEVICES = "0"; #cfg.nvidiaVisibleDevices;
           GRADIO_SHARE =
             if cfg.gradioShare
             then "True"
