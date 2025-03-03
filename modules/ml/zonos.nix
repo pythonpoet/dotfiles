@@ -3,7 +3,10 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+with lib; let
+  cfg = config.zonos;
+in {
   options.zonos = {
     enable = mkEnableOption "Enable Zonos service";
 
@@ -37,7 +40,7 @@
       backend = "podman";
       containers.zonos = {
         image = "zitrone44/zonos"; # Match the built image name
-        #imageFile = zonos-image;
+        imageFile = zonos-image;
         extraOptions = [
           #"--runtime=nvidia"
           "--network=host"
