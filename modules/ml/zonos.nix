@@ -3,30 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
-  cfg = config.zonos;
-  source = pkgs.fetchFromGitHub {
-    owner = "Zyphra";
-    repo = "Zonos";
-    rev = "main";
-    sha256 = "sha256-g6N6iZrbe8XNZBe6I5KIq40+z38hJDH1Nhq8YRQ9TsA=";
-  };
-
-  zonos-image = pkgs.dockerTools.buildImage {
-    name = "localhost/zonos";
-    tag = "latest";
-    created = "now";
-    copyToRoot = pkgs.buildEnv {
-      name = "zonos-root";
-      paths = [source];
-    };
-    config = {
-      WorkingDir = "${source}";
-      Cmd = ["python" "gradio_interface.py"];
-    };
-  };
-in {
+}: {
   options.zonos = {
     enable = mkEnableOption "Enable Zonos service";
 
@@ -59,13 +36,13 @@ in {
     virtualisation.oci-containers = {
       backend = "podman";
       containers.zonos = {
-        image = "localhost/zonos:latest"; # Match the built image name
-        imageFile = zonos-image;
+        image = "zitrone44/zonos"; # Match the built image name
+        #imageFile = zonos-image;
         extraOptions = [
           #"--runtime=nvidia"
           "--network=host"
           #"--gpus=all"
-          "--pull=never" # Prevent trying to pull from registry
+          #"--pull=never" # Prevent trying to pull from registry
         ];
         environment = {
           NVIDIA_VISIBLE_DEVICES = "0"; #cfg.nvidiaVisibleDevices;
