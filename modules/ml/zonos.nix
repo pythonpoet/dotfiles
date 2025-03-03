@@ -64,7 +64,7 @@ in {
         extraOptions = [
           #"--runtime=nvidia"
           "--network=host"
-          "--gpus=all"
+          #"--gpus=all"
           "--pull=never" # Prevent trying to pull from registry
         ];
         environment = {
