@@ -10,7 +10,7 @@ with lib; let
     owner = "Zyphra";
     repo = "Zonos";
     rev = "main";
-    sha256 = "";
+    sha256 = "sha256-g6N6iZrbe8XNZBe6I5KIq40+z38hJDH1Nhq8YRQ9TsA=";
   };
 
   zonos-image = pkgs.dockerTools.buildImage {
