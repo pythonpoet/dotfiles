@@ -36,7 +36,7 @@ in {
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
     # Container configuration
-    virtualisation.zonos = {
+    virtualisation.oci-containers.zonos = {
       backend = "docker";
       containers.zonos = {
         image = "zitrone44/zonos"; # Match the built image name
