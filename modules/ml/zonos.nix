@@ -30,29 +30,41 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # NVIDIA driver configuration
-    services.xserver.videoDrivers = ["nvidia"];
-    hardware.opengl.enable = true;
-    hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-    # Container configuration
-    virtualisation.oci-containers.zonos = {
-      backend = "docker";
-      containers.zonos = {
-        image = "zitrone44/zonos"; # Match the built image name
-        ports = ["${toString cfg.port}:7860"];
-        extraOptions = [
-          #"--runtime=nvidia"
-          #"--network=host"
-          "--gpus=all"
-          #"--pull=never" # Prevent trying to pull from registry
+    container.zonos = {
+      config = {
+        pkgs,
+        config,
+        lib,
+        ...
+      }: let
+        zonosSrc = pkgs.fetchFromGitHub {
+          owner = "Zyphra";
+          repo = "Zonos";
+          rev = "main";
+          sha256 = "";
+        };
+      in {
+        environment.systemPackages = [
+          (pkgs.python312.withPackages (p:
+            with p; [
+              torch
+              torchaudio
+              # pmdarima
+            ]))
+          espeak
         ];
-        environment = {
-          NVIDIA_VISIBLE_DEVICES = cfg.nvidiaVisibleDevices;
-          GRADIO_SHARE =
-            if cfg.gradioShare
-            then "True"
-            else "False";
+        systemd.services.zonos-app = {
+          enable = true;
+          wantedBy = ["multi-user.target"];
+          serviceConfig = {
+            ExecStart = "${pkgs.python312}/bin/python ${zonosSrc}/app.py --port ${toString cfg.port} ${optionalString cfg.gradioShare "--share"}";
+            WorkingDirectory = zonosSrc;
+            Restart = "always";
+          };
+          environment = {
+            NVIDIA_VISIBLE_DEVICES = cfg.nvidiaVisibleDevices;
+            LD_LIBRARY_PATH = "${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.cudatoolkit}/lib";
+          };
         };
       };
     };
