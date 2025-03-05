@@ -65,7 +65,20 @@ in {
         systemd.services.zonos-app = {
           enable = true;
           wantedBy = ["multi-user.target"];
+          path = [pkgs.python312Packages.uv]; # Ensure uv is in the PATH
+
           serviceConfig = {
+            WorkingDirectory = zonosSrc;
+            Restart = "always";
+
+            # Pre-start script to sync dependencies
+            ExecStartPre = ''
+              uv sync
+              uv sync --extra compile
+              uv pip install -e .
+            '';
+
+            # Main execution command
             ExecStart = ''
               uv run gradio_interface.py --port ${toString cfg.port} ${
                 if cfg.gradioShare
@@ -73,15 +86,13 @@ in {
                 else ""
               }
             '';
-
-            WorkingDirectory = zonosSrc;
-            Restart = "always";
           };
-          # environment = {
-          #   NVIDIA_VISIBLE_DEVICES = cfg.nvidiaVisibleDevices;
-          #   LD_LIBRARY_PATH = "${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.cudatoolkit}/lib";
-          # };
         };
+
+        # environment = {
+        #   NVIDIA_VISIBLE_DEVICES = cfg.nvidiaVisibleDevices;
+        #   LD_LIBRARY_PATH = "${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.cudatoolkit}/lib";
+        # };
       };
     };
 
