@@ -57,6 +57,7 @@ in {
             with p; [
               torch
               torchaudio
+              uv
               # pmdarima
             ]))
           pkgs.espeak
