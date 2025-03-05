@@ -30,7 +30,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    container.zonos = {
+    containers.zonos = {
       config = {
         pkgs,
         config,
