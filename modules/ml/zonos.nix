@@ -65,7 +65,7 @@ in {
         systemd.services.zonos-app = {
           enable = true;
           wantedBy = ["multi-user.target"];
-          path = [pkgs.python312 pkgs.python312.uv]; # Ensure uv is in the PATH
+          path = [pkgs.python312 pkgs.python312Packages.uv]; # Ensure uv is in the PATH
 
           serviceConfig = {
             WorkingDirectory = zonosSrc;
