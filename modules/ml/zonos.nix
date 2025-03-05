@@ -49,7 +49,7 @@ in {
           owner = "Zyphra";
           repo = "Zonos";
           rev = "main";
-          sha256 = "sha256-g6N6iZrbe8XNZBe6I5KIq40+z38hJDH1Nhq8YRQ9TsA=";
+          sha256 = "";
         };
       in {
         environment.systemPackages = [
@@ -65,7 +65,14 @@ in {
           enable = true;
           wantedBy = ["multi-user.target"];
           serviceConfig = {
-            ExecStart = "uv run ${zonosSrc}/gradio_interface.py --port ${toString cfg.port} ${optionalString cfg.gradioShare "--share"}";
+            ExecStart = ''
+              bash -c 'uv run gradio_interface.py --port ${toString cfg.port} ${
+                if cfg.gradioShare
+                then "--share"
+                else ""
+              }'
+            '';
+
             WorkingDirectory = zonosSrc;
             Restart = "always";
           };
