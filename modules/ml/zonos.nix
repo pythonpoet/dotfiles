@@ -65,13 +65,13 @@ in {
         systemd.services.zonos-app = {
           enable = true;
           wantedBy = ["multi-user.target"];
-          path = ["/run/current-system/sw/bin/uv"]; # Ensure uv is in the PATH
+          path = [pkgs.python312 pkgs.python312.uv]; # Ensure uv is in the PATH
 
           serviceConfig = {
             WorkingDirectory = zonosSrc;
             Restart = "always";
             Environment = ''
-              UV_PYTHON=/run/current-system/sw/bin/python";
+              UV_PYTHON=${pkgs.python312}/bin/python3.12";
               UV_VENV=/var/lib/zonos/.venv'';
 
             # Pre-start script to sync dependencies
