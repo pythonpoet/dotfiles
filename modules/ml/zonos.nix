@@ -65,7 +65,7 @@ in {
         systemd.services.zonos-app = {
           enable = true;
           wantedBy = ["multi-user.target"];
-          path = ["/run/current-system/sw/bin/uv" pkgs.coreutils]; # Ensure uv is in the PATH
+          path = ["/run/current-system/sw/bin/uv"]; # Ensure uv is in the PATH
 
           serviceConfig = {
             WorkingDirectory = zonosSrc;
@@ -76,8 +76,6 @@ in {
 
             # Pre-start script to sync dependencies
             ExecStartPre = ''
-              mkdir -p /var/lib/zonos
-              chown -R zonos-user:zonos-user /var/lib/zonos  # Ensure correct permissions
               /run/current-system/sw/bin/uv sync
               /run/current-system/sw/bin/uv sync --extra compile
               /run/current-system/sw/bin/uv pip install -e .
