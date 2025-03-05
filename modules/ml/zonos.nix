@@ -40,13 +40,13 @@ in {
       backend = "podman";
       containers.zonos = {
         image = "zitrone44/zonos"; # Match the built image name
-        ports = [toString cfg.port];
-        extraOptions = [
-          #"--runtime=nvidia"
-          #"--network=host"
-          #"--gpus=all"
-          #"--pull=never" # Prevent trying to pull from registry
-        ];
+        ports = ["${toString cfg.port}:7860"];
+        #extraOptions = [
+        #"--runtime=nvidia"
+        #"--network=host"
+        #"--gpus=all"
+        #"--pull=never" # Prevent trying to pull from registry
+        #S];
         environment = {
           NVIDIA_VISIBLE_DEVICES = "0"; #cfg.nvidiaVisibleDevices;
           GRADIO_SHARE =
