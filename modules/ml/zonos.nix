@@ -67,11 +67,11 @@ in {
           wantedBy = ["multi-user.target"];
           serviceConfig = {
             ExecStart = ''
-              bash -c 'uv run gradio_interface.py --port ${toString cfg.port} ${
+              uv run gradio_interface.py --port ${toString cfg.port} ${
                 if cfg.gradioShare
                 then "--share"
                 else ""
-              }'
+              }
             '';
 
             WorkingDirectory = zonosSrc;
