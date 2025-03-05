@@ -70,6 +70,7 @@ in {
           serviceConfig = {
             WorkingDirectory = zonosSrc;
             Restart = "always";
+            Environment = "UV_PYTHON=${pkgs.python312}/bin/python3.12";
 
             # Pre-start script to sync dependencies
             ExecStartPre = ''
