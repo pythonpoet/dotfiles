@@ -65,7 +65,7 @@ in {
           enable = true;
           wantedBy = ["multi-user.target"];
           serviceConfig = {
-            ExecStart = "${pkgs.python312}/bin/python ${zonosSrc}/app.py --port ${toString cfg.port} ${optionalString cfg.gradioShare "--share"}";
+            ExecStart = "uv run ${zonosSrc}/gradio_interface.py --port ${toString cfg.port} ${optionalString cfg.gradioShare "--share"}";
             WorkingDirectory = zonosSrc;
             Restart = "always";
           };
