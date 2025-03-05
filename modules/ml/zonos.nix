@@ -37,18 +37,18 @@ in {
 
     # Container configuration
     virtualisation.oci-containers = {
-      backend = "podman";
+      backend = "docker";
       containers.zonos = {
         image = "zitrone44/zonos"; # Match the built image name
         ports = ["${toString cfg.port}:7860"];
-        #extraOptions = [
-        #"--runtime=nvidia"
-        #"--network=host"
-        #"--gpus=all"
-        #"--pull=never" # Prevent trying to pull from registry
-        #S];
+        extraOptions = [
+          #"--runtime=nvidia"
+          #"--network=host"
+          "--gpus=all"
+          #"--pull=never" # Prevent trying to pull from registry
+        ];
         environment = {
-          NVIDIA_VISIBLE_DEVICES = "0"; #cfg.nvidiaVisibleDevices;
+          NVIDIA_VISIBLE_DEVICES = cfg.nvidiaVisibleDevices;
           GRADIO_SHARE =
             if cfg.gradioShare
             then "True"
