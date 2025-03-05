@@ -71,7 +71,7 @@ in {
             WorkingDirectory = zonosSrc;
             Restart = "always";
             Environment = ''
-              UV_PYTHON=${pkgs.python312}/bin/python3.12";
+              UV_PYTHON=/run/current-system/sw/bin/uv;
               UV_VENV=/var/lib/zonos/.venv'';
 
             # Pre-start script to sync dependencies
