@@ -70,10 +70,14 @@ in {
           serviceConfig = {
             WorkingDirectory = zonosSrc;
             Restart = "always";
-            Environment = "UV_PYTHON=${pkgs.python312}/bin/python3.12";
+            Environment = ''
+              UV_PYTHON=${pkgs.python312}/bin/python3.12";
+              UV_VENV=/var/lib/zonos/.venv'';
 
             # Pre-start script to sync dependencies
             ExecStartPre = ''
+              mkdir -p /var/lib/zonos
+              chown -R zonos-user:zonos-user /var/lib/zonos  # Ensure correct permissions
               /run/current-system/sw/bin/uv sync
               /run/current-system/sw/bin/uv sync --extra compile
               /run/current-system/sw/bin/uv pip install -e .
