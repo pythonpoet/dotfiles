@@ -61,6 +61,7 @@ in {
               # pmdarima
             ]))
           pkgs.espeak
+          pkgs.git
         ];
         systemd.services.zonos-app = {
           enable = true;
