@@ -31,6 +31,14 @@ in {
 
   config = mkIf cfg.enable {
     containers.zonos = {
+      autoStart = true;
+      forwardPorts = [
+        {
+          containerPort = cfg.port;
+          hostPort = cfg.port;
+          protocol = "tcp";
+        }
+      ];
       config = {
         pkgs,
         config,
