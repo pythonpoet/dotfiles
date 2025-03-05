@@ -61,10 +61,10 @@ in {
             WorkingDirectory = zonosSrc;
             Restart = "always";
           };
-          environment = {
-            NVIDIA_VISIBLE_DEVICES = cfg.nvidiaVisibleDevices;
-            LD_LIBRARY_PATH = "${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.cudatoolkit}/lib";
-          };
+          # environment = {
+          #   NVIDIA_VISIBLE_DEVICES = cfg.nvidiaVisibleDevices;
+          #   LD_LIBRARY_PATH = "${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.cudatoolkit}/lib";
+          # };
         };
       };
     };
