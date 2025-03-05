@@ -40,10 +40,10 @@ in {
       backend = "podman";
       containers.zonos = {
         image = "zitrone44/zonos"; # Match the built image name
-
+        ports = [cfg.port];
         extraOptions = [
           #"--runtime=nvidia"
-          "--network=host"
+          #"--network=host"
           #"--gpus=all"
           #"--pull=never" # Prevent trying to pull from registry
         ];
