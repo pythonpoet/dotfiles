@@ -73,14 +73,14 @@ in {
 
             # Pre-start script to sync dependencies
             ExecStartPre = ''
-              uv sync
-              uv sync --extra compile
-              uv pip install -e .
+              /run/current-system/sw/bin/uv sync
+              /run/current-system/sw/bin/uv sync --extra compile
+              /run/current-system/sw/bin/uv pip install -e .
             '';
 
             # Main execution command
             ExecStart = ''
-              uv run gradio_interface.py --port ${toString cfg.port} ${
+              /run/current-system/sw/bin/uv run gradio_interface.py --port ${toString cfg.port} ${
                 if cfg.gradioShare
                 then "--share"
                 else ""
