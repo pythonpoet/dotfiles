@@ -48,7 +48,7 @@ in {
         #"--pull=never" # Prevent trying to pull from registry
         #S];
         environment = {
-          NVIDIA_VISIBLE_DEVICES = "0"; #cfg.nvidiaVisibleDevices;
+          #NVIDIA_VISIBLE_DEVICES = "0"; #cfg.nvidiaVisibleDevices;
           GRADIO_SHARE =
             if cfg.gradioShare
             then "True"
