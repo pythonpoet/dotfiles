@@ -65,7 +65,7 @@ in {
         systemd.services.zonos-app = {
           enable = true;
           wantedBy = ["multi-user.target"];
-          path = ["/run/current-system/sw/bin/uv"]; # Ensure uv is in the PATH
+          path = ["/run/current-system/sw/bin/uv" pkgs.coreutils]; # Ensure uv is in the PATH
 
           serviceConfig = {
             WorkingDirectory = zonosSrc;
