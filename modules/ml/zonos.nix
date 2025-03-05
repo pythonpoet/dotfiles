@@ -51,7 +51,7 @@ in {
               torchaudio
               # pmdarima
             ]))
-          espeak
+          pkgs.espeak
         ];
         systemd.services.zonos-app = {
           enable = true;
