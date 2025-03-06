@@ -84,12 +84,12 @@ in {
 
             # Pre-start script to sync dependencies
             ExecStartPre = ''
-              ${pkgs.python312.uv}/bin/uv sync
+              ${pkgs.python312Packages.uv}/bin/uv sync
             '';
 
             # Main execution command
             ExecStart = ''
-              ${pkgs.python312.uv}/bin/uv run gradio_interface.py --port ${toString cfg.port} ${
+              ${pkgs.python312Packages.uv}/bin/uv run gradio_interface.py --port ${toString cfg.port} ${
                 if cfg.gradioShare
                 then "--share"
                 else ""
