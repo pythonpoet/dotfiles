@@ -49,7 +49,7 @@ in {
           owner = "pythonpoet";
           repo = "Zonos";
           rev = "main";
-          sha256 = "";
+          sha256 = "sha256-MyYUl06tgxokGcIpI+Ce0eywSlKJz+m3KjoCWle6F1E=";
         };
       in {
         environment.systemPackages = [
