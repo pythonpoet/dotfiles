@@ -70,7 +70,7 @@ in {
           path = [pkgs.python312 pkgs.python312Packages.uv]; # Ensure uv is in the PATH
 
           serviceConfig = {
-            WorkingDirectory = zonosSrc;
+            WorkingDirectory = "/home/zonos";
             Restart = "always";
             Environment = ''
               UV_PYTHON=${pkgs.python312}/bin/python3.12";
@@ -83,9 +83,13 @@ in {
             # UV_VENV=/var/lib/zonos/.venv'';
 
             # Pre-start script to sync dependencies
-            ExecStartPre = ''
-              ${pkgs.python312Packages.uv}/bin/uv sync
-            '';
+            ExecStartPre = [
+              (pkgs.writeShellScript "copy-source" ''
+                mkdir -p /home/zonos
+                cp -r ${zonosSrc}/* /home/zonos/
+                ${pkgs.python312Packages.uv}/bin/uv sync
+              '')
+            ];
 
             # Main execution command
             ExecStart = ''
