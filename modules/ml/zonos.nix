@@ -96,6 +96,7 @@ in {
             # Main execution command
             ExecStart = [
               (pkgs.writeShellScript "start gradio" ''
+                export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib"
                 uv run gradio_interface.py --port ${toString cfg.port} ${
                   if cfg.gradioShare
                   then "--share"

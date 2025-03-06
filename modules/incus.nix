@@ -19,6 +19,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     users.users.david.extraGroups = ["incus-admin"];
+    networking.firewall.allowedTCPPorts = [8443];
 
     networking = lib.mkIf cfg.enable_networking {
       nftables.enable = true;
@@ -33,6 +34,7 @@ in {
 
     virtualisation.incus = {
       enable = true;
+      ui.enable = true;
       preseed = {
         config = {
           "core.https_address" = ":8443";
