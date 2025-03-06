@@ -74,9 +74,11 @@ in {
             Restart = "always";
             Environment = ''
               UV_PYTHON=${pkgs.python312}/bin/python3.12";
-              LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib";
+
+              LD_LIBRARY_PATH=/nix/store/22nxhmsfcv2q2rpkmfvzwg2w5z1l231z-gcc-13.3.0-lib/lib
               PHONEMIZER_ESPEAK_LIBRARY=${pkgs.espeak}/lib/libespeak-ng.so;
               UV_VENV=/var/lib/zonos/.venv'';
+            #LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib";
             # UV_PYTHON=/nix/store/d6avn1kagr6i2n0i6b4iihxih01lgm8q-python3-3.12.8-env/bin/python3.12";
             # LD_LIBRARY_PATH=/nix/store/22nxhmsfcv2q2rpkmfvzwg2w5z1l231z-gcc-13.3.0-lib/lib;
             # PHONEMIZER_ESPEAK_LIBRARY=/nix/store/8jl206ccl80mhklh6znijr3a69dlsq3l-espeak-ng-1.51.1/lib/libespeak-ng.so;
