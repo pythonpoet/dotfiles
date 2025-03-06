@@ -37,7 +37,7 @@ in {
       ui.enable = true;
       preseed = {
         config = {
-          "core.https_address" = ":8443";
+          "core.https_address" = "0.0.0.0:8443";
           "images.auto_update_interval" = 9;
         };
         networks = lib.mkIf cfg.enable_networking [
