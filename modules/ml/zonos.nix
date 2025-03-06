@@ -46,10 +46,10 @@ in {
         ...
       }: let
         zonosSrc = pkgs.fetchFromGitHub {
-          owner = "Zyphra";
+          owner = "pythonpoet";
           repo = "Zonos";
           rev = "main";
-          sha256 = "sha256-g6N6iZrbe8XNZBe6I5KIq40+z38hJDH1Nhq8YRQ9TsA=";
+          sha256 = "";
         };
       in {
         environment.systemPackages = [
@@ -89,18 +89,20 @@ in {
               (pkgs.writeShellScript "copy-source" ''
                 mkdir -p /home/Zonos
                 cp -r ${zonosSrc}/* /home/Zonos/
-                ${pkgs.python312Packages.uv}/bin/uv sync
+                uv sync
               '')
             ];
 
             # Main execution command
-            ExecStart = ''
-              ${pkgs.python312Packages.uv}/bin/uv run gradio_interface.py --port ${toString cfg.port} ${
-                if cfg.gradioShare
-                then "--share"
-                else ""
-              }
-            '';
+            ExecStart = [
+              (pkgs.writeShellScript "start gradio" ''
+                uv run gradio_interface.py --port ${toString cfg.port} ${
+                  if cfg.gradioShare
+                  then "--share"
+                  else ""
+                }
+              '')
+            ];
           };
         };
 
