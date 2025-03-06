@@ -19,11 +19,11 @@ in {
 
   config = lib.mkIf cfg.enable {
     users.users.david.extraGroups = ["incus-admin"];
-    networking.firewall.allowedTCPPorts = [8443];
 
     networking = lib.mkIf cfg.enable_networking {
       nftables.enable = true;
       firewall = {
+        allowedTCPPorts = [8443];
         trustedInterfaces = ["incusbr0"];
         interfaces.incusbr0 = {
           allowedTCPPorts = [53 67];
