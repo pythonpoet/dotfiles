@@ -16,8 +16,8 @@ in {
         tqdm
         nltk
         seaborn
-        # pmdarima
+        uv
       ]))
-    (pkgs.poetry.override {python3 = pkgs.${"python" + python_version};}) # <--- Fixed here
+    # (pkgs.uv.override {python3 = pkgs.${"python" + python_version};}) # <--- Fixed here
   ];
 }
