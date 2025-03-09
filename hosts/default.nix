@@ -129,6 +129,7 @@
         "${self}/modules/incus.nix"
         "${self}/modules/exdetail/"
         "${self}/modules/ml/zonos.nix"
+        "${self}/modules/ml/kokoro.nix"
 
         {
           home-manager = {
