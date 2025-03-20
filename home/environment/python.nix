@@ -39,8 +39,9 @@ in {
       ps.tqdm
       ps.nltk
       ps.seaborn
-      ps.uv
+      #ps.uv
     ]))
     (pkgs.poetry.override {python3 = pkgs.${"python${python_version}"};})
+    (pkgs.uv.override {python3 = pkgs.${"python${python_version}"};})
   ];
 }
