@@ -5,10 +5,10 @@
   ...
 }:
 with lib; let
-  cfg = config.zonos;
+  cfg = config.kokoro;
 in {
-  options.zonos = {
-    enable = mkEnableOption "Enable Zonos service";
+  options.kokoro = {
+    enable = mkEnableOption "Enable Kokoro service";
 
     port = mkOption {
       type = types.port;
@@ -30,7 +30,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    containers.zonos = {
+    containers.kokoro = {
       autoStart = true;
       forwardPorts = [
         {
@@ -45,7 +45,7 @@ in {
         lib,
         ...
       }: let
-        zonosSrc = pkgs.fetchFromGitHub {
+        kokoroSrc = pkgs.fetchFromGitHub {
           owner = "thewh1teagle";
           repo = "kokoro-onnx";
           rev = "main";
@@ -71,7 +71,6 @@ in {
             Restart = "always";
             Environment = ''
               UV_PYTHON=${pkgs.python312}/bin/python3.12";
-
               LD_LIBRARY_PATH=/nix/store/22nxhmsfcv2q2rpkmfvzwg2w5z1l231z-gcc-13.3.0-lib/lib
               PHONEMIZER_ESPEAK_LIBRARY=${pkgs.espeak}/lib/libespeak-ng.so;'';
 
@@ -79,15 +78,15 @@ in {
             ExecStartPre = [
               (pkgs.writeShellScript "copy-source" ''
                 mkdir -p /home/Zonos
-                cp -r ${zonosSrc}/* /home/Zonos/
+                cp -r ${kokoroSrc}/* /home/Zonos/
                 uv sync
               '')
             ];
 
+            # Main execution command
             ExecStart = [
               (pkgs.writeShellScript "start gradio" ''
-                export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib"
-                uv run gradio_interface.py --port ${toString cfg.port} ${
+                uv run examples/app.py --port ${toString cfg.port} ${
                   if cfg.gradioShare
                   then "--share"
                   else ""
