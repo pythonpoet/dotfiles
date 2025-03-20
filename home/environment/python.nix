@@ -40,7 +40,7 @@ in {
       ps.nltk
       ps.seaborn
       ps.uv
-      ps.pmdarima
+      ps.proxify
     ]))
     (pkgs.poetry.override {python3 = pkgs.${"python${python_version}"};})
   ];
