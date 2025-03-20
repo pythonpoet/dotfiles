@@ -4,7 +4,8 @@
     ../../editors/helix
 
     # environment
-    ../../environment/python.nix
+    #../../environment/python.nix
+    ../../environment/python-devenv.nix
 
     # programs
     ../../programs

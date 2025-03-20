@@ -125,7 +125,6 @@
         "${self}/modules/borg.nix"
         "${self}/modules/vikunja.nix"
         "${self}/modules/ollama.nix"
-        "${self}/modules/sandbox.nix"
         "${self}/modules/incus.nix"
         "${self}/modules/exdetail/"
         "${self}/modules/ml/zonos.nix"
