@@ -16,6 +16,7 @@ in {
       ps.nltk
       ps.seaborn
       ps.jupyter
+      ps.kneed
     ]))
     (pkgs.poetry.override {python3 = pkgs.${"python${python_version}"};})
     # (pkgs.uv.override {python3 = pkgs.${"python${python_version}"};})

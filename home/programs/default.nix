@@ -54,6 +54,8 @@
     v4l-utils
     webtorrent_desktop
     popcorntime
+
+    R
   ];
 
   dconf = {
