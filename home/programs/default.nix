@@ -56,6 +56,14 @@
     popcorntime
 
     R
+    elixir_1_18
+    nodejs_20
+    inotify-tools
+    postgresql_17
+    flyctl
+    openssl
+
+    gephi
   ];
 
   dconf = {

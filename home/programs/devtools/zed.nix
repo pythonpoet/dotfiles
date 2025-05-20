@@ -87,6 +87,15 @@
             path_lookup = true;
           };
         };
+        tinymist = {
+          binary = {
+            path = "${pkgs.tinymist}/bin/tinymist"; # if available in nixpkgs
+          };
+          settings = {
+            exportPdf = "onType";
+            outputPath = "$root/$name";
+          };
+        };
       };
 
       languages = {
