@@ -8,7 +8,7 @@
   imports = [
     ../../editors/helix/stable.nix
     ../../terminal
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
     # inputs.nix-index-db.hmModules.nix-index
     # self.nixosModules.theme
   ];

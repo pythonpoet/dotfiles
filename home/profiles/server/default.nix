@@ -3,6 +3,6 @@
     ../../editors/helix
     ../../environment/python.nix
 
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
   ];
 }

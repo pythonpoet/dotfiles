@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   self,
   inputs,
@@ -8,77 +9,42 @@
   imports = [
     ./disk-config.nix
     ./hardware-configuration.nix
+    inputs.nixos-hardware.nixosModules.microsoft-surface-common
     #./powersave.nix
   ];
 
-  # boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
-  # 2. Add your kernel patches here
-  # boot.kernelPatches = [
-  #   # Patch 1
-  #   {
-  #     name = "surface ir-transmitter patch 1";
-  #     patch = pkgs.fetchpatch {
-  #       url = "https://lore.kernel.org/platform-driver-x86/20250211072841.7713-2-sakari.ailus@linux.intel.com/raw";
-  #       sha256 = "sha256-D4qsDKHS+9IzP2KyyxmZgXF3ptodAV70NusP/FVQb3k="; # Replace with hash from `nix-prefetch-url`
-  #     };
-  #   }
-  #   {
-  #     name = "surface ir-transmitter patch 2";
-  #     patch = pkgs.fetchpatch {
-  #       url = "https://lore.kernel.org/platform-driver-x86/20250211072841.7713-3-sakari.ailus@linux.intel.com/raw";
-  #       sha256 = "sha256-qGlhc6paLPN7XoVG1BKGRNmDKlzCKNwSQiNcvaMdRGo="; # Replace with hash from `nix-prefetch-url`
-  #     };
-  #   }
-  #   {
-  #     name = "surface ir-transmitter patch 3";
-  #     patch = pkgs.fetchpatch {
-  #       url = "https://lore.kernel.org/platform-driver-x86/20250211072841.7713-4-sakari.ailus@linux.intel.com/raw";
-  #       sha256 = "sha256-D4qsDKHS+9IzP2KyyxmZgXF3ptodAV70NusP/FVQb3k="; # Replace with hash from `nix-prefetch-url`
-  #     };
-  #   }
-  # ];
-
-  # boot = {
-  #   kernelModules = ["i2c-dev"];
-  #   kernelParams = [
-  #     "amd_pstate=active"
-  #     "ideapad_laptop.allow_v4_dytc=Y"
-  #     ''acpi_osi="Windows 2020"''
-  #   ];
-  # };
-
-  # nh default flake
-  environment.variables.FLAKE = "/home/david/Documents/dotfiles";
-
-  hardware = {
-    xpadneo.enable = true;
-    sensor.iio.enable = true;
-  };
-
-  networking.hostName = "alpakabook";
-
-  # Looks like an intereting option but not necessary atm
-  #security.tpm2.enable = true;
-
-  services = {
-    # for SSD/NVME
-    fstrim.enable = true;
-
-    howdy = {
-      enable = true;
-      package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.howdy;
-      settings = {
-        core = {
-          no_confirmation = true;
-          abort_if_ssh = true;
-        };
-        video.dark_threshold = 90;
-      };
+  config = {
+    hardware.microsoft-surface = {
+      kernelVersion = "stable";
+      #surface-control.enable = true;
+      #ipts.enable = true;
     };
 
-    linux-enable-ir-emitter = {
-      enable = true;
-      package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.linux-enable-ir-emitter;
+    #environment.variables.FLAKE = "/home/david/Documents/dotfiles";
+
+    networking.hostName = "alpakabook";
+
+    #security.tpm2.enable = true;
+
+    services = {
+      fstrim.enable = true;
+
+      howdy = {
+        enable = true;
+        package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.howdy;
+        settings = {
+          core = {
+            no_confirmation = true;
+            abort_if_ssh = true;
+          };
+          video.dark_threshold = 90;
+        };
+      };
+
+      linux-enable-ir-emitter = {
+        enable = true;
+        package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.linux-enable-ir-emitter;
+      };
     };
   };
 }

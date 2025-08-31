@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./anyrun
+    #./anyrun
     ./browsers/firefox.nix
     ./browsers/zen.nix
     ./media
@@ -29,7 +29,7 @@
     gnomeExtensions.pano
     gnomeExtensions.user-themes
 
-    libgda5
+    # libgda5
     gsound
 
     overskride

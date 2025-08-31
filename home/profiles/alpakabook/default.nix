@@ -51,7 +51,7 @@ in {
     ../../services/system/syncthing.nix
     ../../services/system/theme.nix
     ../../services/system/udiskie.nix
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
     ../../terminal/emulators/foot.nix
     ../../terminal/emulators/wezterm.nix
   ];

@@ -30,7 +30,7 @@
     ../../services/system/udiskie.nix
 
     # Catppuccin colors
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
 
     # terminal emulators
     ../../terminal/emulators/foot.nix
