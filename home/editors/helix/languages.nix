@@ -21,6 +21,19 @@
       langs = ["css" "scss" "html"];
     in
       [
+        # {
+        #   name = "katharina";
+        #   file-types = ["txt" "english"];
+        # }
+        {
+          name = "typst";
+          auto-format = true;
+          language-servers = ["tinymist" "ltex-ls"];
+          formatter = {
+            command = lib.getExe pkgs.tinymist;
+            args = ["--export-pdf" "onType"];
+          };
+        }
         {
           name = "bash";
           auto-format = true;
@@ -73,6 +86,7 @@
       ++ prettierLangs langs;
 
     language-server = {
+      # katharina.command = "poetry run /home/david/Documents/katharina"
       basedpyright.command = "${pkgs.basedpyright}/bin/basedpyright-langserver";
 
       bash-language-server = {

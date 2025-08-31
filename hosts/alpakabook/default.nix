@@ -11,7 +11,7 @@
     #./powersave.nix
   ];
 
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
+  # boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
   # 2. Add your kernel patches here
   # boot.kernelPatches = [
   #   # Patch 1

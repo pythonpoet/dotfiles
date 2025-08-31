@@ -64,6 +64,12 @@
     openssl
 
     gephi
+    zulu11
+    immich-cli
+    brave
+    # fluffychat
+    baobab
+    # wl-clipboard-rs
   ];
 
   dconf = {

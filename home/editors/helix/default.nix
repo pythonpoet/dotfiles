@@ -12,6 +12,8 @@
       markdown-oxide
       nodePackages.vscode-langservers-extracted
       shellcheck
+      ltex-ls
+      tinymist
     ]; #
 
     settings = {
@@ -41,10 +43,28 @@
         };
       };
 
-      keys.normal.space.u = {
-        f = ":format"; # format using LSP formatter
-        w = ":set whitespace.render all";
-        W = ":set whitespace.render none";
+      keys = {
+        normal.space.u = {
+          f = ":format";
+          w = ":set whitespace.render all";
+          W = ":set whitespace.render none";
+        };
+
+        # Save with Ctrl+S
+        normal."C-s" = ":w";
+        insert."C-s" = ["normal_mode" ":w" "insert_mode"];
+
+        # Clipboard actions in SELECT mode (like visual mode)
+        select = {
+          "C-c" = ":clipboard-yank"; # Copy
+          "C-x" = [":clipboard-yank" "delete_selection"]; # Cut = Copy + Delete
+        };
+
+        # Clipboard paste in NORMAL and INSERT modes
+        normal."C-v" = ":clipboard-paste-after"; # Paste after cursor
+        insert."C-v" = ["normal_mode" ":clipboard-paste-after" "insert_mode"]; # Paste at cursor
+
+        normal."C-/" = "toggle_comments";
       };
     };
   };
