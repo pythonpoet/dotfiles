@@ -18,6 +18,46 @@
     # get these into the module system
     specialArgs = {inherit inputs self;};
   in {
+    alpakapro = nixosSystem {
+      system = "x86_64-linux";
+      inherit specialArgs;
+      modules =
+        laptop
+        ++ [
+          # Include surface book specific configuration (only commons)
+          inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
+          inputs.catppuccin.nixosModules.catppuccin
+          ./alpakapro
+          #"${mod}/core/lanzaboote.nix"
+
+          "${self}/home/programs/gnome/default.nix"
+
+          # "${mod}/network/spotify.nix"
+          "${mod}/network/syncthing.nix"
+
+          # "${mod}/services/kanata"
+          "${mod}/services/gnome-services.nix"
+          "${mod}/services/location.nix"
+          {
+            home-manager = {
+              #home.stateVersion = "24.11";
+              users.david.imports = homeImports."david@alpakabook-gnome";
+              extraSpecialArgs = specialArgs;
+            };
+          }
+
+          # enable unmerged Howdy
+          {disabledModules = ["security/pam.nix"];}
+          "${howdy}/nixos/modules/security/pam.nix"
+          "${howdy}/nixos/modules/services/security/howdy"
+          "${howdy}/nixos/modules/services/misc/linux-enable-ir-emitter.nix"
+
+          # inputs.agenix.nixosModules.default
+          inputs.chaotic.nixosModules.default
+          inputs.disko.nixosModules.disko
+        ];
+    };
+
     alpakabook = nixosSystem {
       system = "x86_64-linux";
       inherit specialArgs;
