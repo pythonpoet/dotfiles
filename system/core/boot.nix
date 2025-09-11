@@ -22,7 +22,8 @@ in
       "splash" # ⬅️ Add this
       "systemd.show_status=auto"
       "rd.udev.log_level=3"
-      "plymouth.enable=1" # ⬅️ Add this     # "plymouth.use-simpledrm"
+      "plymouth.enable=1" # ⬅️ Add this     # 
+      "plymouth.use-simpledrm"
     ];
 
     loader = {

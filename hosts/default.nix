@@ -23,7 +23,7 @@
     in
     {
       alpakapro = nixosSystem {
-        system = "x86_64-linux";
+        system.stateVersion = 25.11;
         inherit specialArgs;
         modules = laptop ++ [
           # Include surface book specific configuration (only commons)

@@ -17,8 +17,5 @@
     ripgrep
   ];
 
-  programs = {
-    eza.enable = true;
-    ssh.enable = true;
-  };
+  programs.eza.enable = true;
 }
