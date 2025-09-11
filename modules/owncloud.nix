@@ -60,6 +60,7 @@ in {
     };
   };
   config = mkIf cfg.enable {
+    #TODO add collabora
     virtualisation.oci-containers = {
       backend = "podman";
       containers = {

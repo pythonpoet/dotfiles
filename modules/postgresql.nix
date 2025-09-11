@@ -4,43 +4,50 @@
   inputs,
   lib,
   ...
-}: let
-  db_user = "immich";
-  db_name = "immich";
-  db_pass = "postgres";
+}: with lib; let
+  postgresDefaults = {
+    db_user = "immich";
+    db_names = ["immich"];
+    db_pass = "postgres";
+    db_port = 5432; 
+    dataDir = "/mnt/sda1/databases";
+  };
 in {
-  # Import the agenix module
-  #imports = [inputs.agenix.nixosModules.default];
+  option.postgresql =  {
+     enable = lib.mkEnableOption "Enable Incus environment";
 
-  # Ensure the postgresql group exists
-  #users.groups.postgres_db = {};
+     data_dir = mkOption {
+      type = types.str;
+      default = postgresDefaults.dataDir;
+    };
+    port = mkOption {
+      type = types.port;
+      default = postgresDefaults.db_port;
+    };
 
-  # Add the immich user to the postgresql group
-  #users.users.immich = {
-  #  isSystemUser = true;
-  #  extraGroups = ["postgres_db"] ; # Add immich to the postgresql group
-  #};
+    db_names = mkOption {
+      type = types.listOf types.str;
+      default = postgresDefaults.db_names;
+    };
 
-  #users.users.postgresql = {
-  #  isSystemUser = true;
-  #  group = "postgres_db";
-  #};
-
-  # Define the agenix secret
-  #age.secrets.postgres-immich-password = {
-  #  file = ../secrets/postgres-immich-password.age; # Path to the encrypted file
-  #  owner = "immich"; # Ensure the postgres user can read the secret
-  #  group = "postgres_db"; # Ensure the postgres group can read the secret
-  #};
-
+    postgres_db_user = mkOption {
+      type = types.str;
+      default = postgresDefaults.db_user;
+    };
+    postgres_db_pw = mkOption {
+      type = types.str;
+      default = postgresDefaults.db_pass;
+    };
+  };
+  config = mkIf cfg.enable {
   services.postgresql = {
     enable = true;
 
-    dataDir = "/mnt/sda1/databases";
-    ensureDatabases = [db_name]; # Add the new data
+    dataDir = cfg.dataDir;
+    ensureDatabases = [cfg.db_name]; # Add the new data
     ensureUsers = [
       {
-        name = db_user;
+        name = cfg.db_user;
         ensureDBOwnership = true;
         ensureClauses.login = true;
       }
@@ -48,7 +55,7 @@ in {
 
     # Networking
     enableTCPIP = true;
-    port = 5432;
+    port = cfg.port;
 
     authentication = pkgs.lib.mkOverride 10 ''
       #...
@@ -81,5 +88,6 @@ in {
 
       ALTER EXTENSION vectors UPDATE;
     '';
+  };
   };
 }

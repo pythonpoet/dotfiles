@@ -44,22 +44,6 @@ in {
         };
       };
 
-      #  "immich.chaosdam.net" = {
-      #    inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
-      #    locations."/" = {
-      #      proxyPass = "http://127.0.0.1:2283"; # Ensure Immich is accessible at this address
-      #      proxyWebsockets = true;
-      #      extraConfig = extraConfig;
-      #    };
-      #  };
-      #  "ocis.chaosdam.net" = {
-      #    inherit (sslSettings) addSSL enableACME;
-      #    locations."/" = {
-      #      proxyPass = "https://192.168.0.26:9200";
-      #      proxyWebsockets = true;
-      #      extraConfig = extraConfig;
-      #    };
-      #  };
     };
   };
 

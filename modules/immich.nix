@@ -1,20 +1,62 @@
+{config, ...}:
+with lib; let 
+  immichDefaults = {
+
+  };
+  cfg = config.immich // immichDefaults;
 {
+  options.immich = {
+    enable = mkEnableOption "Enable immich server";
+    data_dir = mkOption {
+      type = types.str;
+      default = "/mnt/sda1/immich";
+    };
+    port = mkOption {
+      type = types.port;
+      default = 9988;
+    };
+    host = mkOption {
+      type = types.str;
+      default = "0.0.0.0";
+    };
+    postgres_db_name = mkOption {
+      type = types.str;
+      default = "localhost";
+    };
+    postgres_db_name = mkOption {
+      type = types.port;
+      default = 5432;
+    };
+    postgres_db_database_name = mkOption {
+      type = types.str;
+      default = "immich";
+    };
+    postgres_db_user = mkOption {
+      type = types.str;
+      default = "immich";
+    };
+    postgres_db_pw = mkOption {
+      type = types.str;
+      default = "postgres";
+    };
+  };
+  config = mkIf cfg.enable {
   services.immich = {
     enable = true;
-    port = 2283;
-    host = "0.0.0.0";
+    port = cfg.port;
+    host = cfg.host;
     openFirewall = true;
-    mediaLocation = "/mnt/sda1/immich";
+    mediaLocation = cfg.data_dir;
 
     # services.immich.secretsFile secretsFile for passwort
 
     environment = {
-      IMMICH_HOST = "0.0.0.0";
-      DB_HOSTNAME = "localhost"; # PostgreSQL host
-      DB_PORT = "5432"; # PostgreSQL port
-      DB_DATABASE_NAME = "immich"; # Database name
-      DB_USERNAME = "immich"; # Database user
-      DB_PASSWORD = "postgres";
+      IMMICH_HOST = cfg.host;
+      DB_HOSTNAME = cfg.postgres_db_name; # PostgreSQL host
+      DB_PORT =  "${toString cfg.port}"; # PostgreSQL port
+      DB_DATABASE_NAME = cfg.postgres_db_database_name; # Database name
+      DB_USERNAME = cfg.postgres_db_user; # Database user
+      DB_PASSWORD = cfg.postgres_db_pw;
       #DB_PASSWORD_FILE = config.age.secrets.postgres-immich-password.path; # Use agenix secret for the password
     };
   
@@ -34,5 +76,6 @@
     fsType = "ext4"; # or "vfat" / "ntfs" with appropriate options
     options = ["defaults" "nofail" ];
   };
+  }
 
 }
