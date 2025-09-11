@@ -5,7 +5,8 @@
   inputs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
@@ -21,7 +22,7 @@
 
     #environment.variables.FLAKE = "/home/david/Documents/dotfiles";
 
-    networking.hostName = "alpakabook";
+    networking.hostName = "alpakapro";
 
     #security.tpm2.enable = true;
 

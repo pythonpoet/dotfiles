@@ -1,10 +1,11 @@
 {
   pkgs,
   config,
+  stdenv,
   ...
 }:
 let
-  oroborusPlymouthTheme = import ../../lib/plymouth/oroborus.nix { inherit pkgs; };
+  oroborusPlymouthTheme = import ../../lib/plymouth/oroborus.nix { inherit pkgs stdenv; };
 in
 {
   boot = {
@@ -18,9 +19,10 @@ in
     consoleLogLevel = 3;
     kernelParams = [
       "quiet"
+      "splash" # ⬅️ Add this
       "systemd.show_status=auto"
       "rd.udev.log_level=3"
-      "plymouth.use-simpledrm"
+      "plymouth.enable=1" # ⬅️ Add this     # "plymouth.use-simpledrm"
     ];
 
     loader = {
@@ -34,13 +36,12 @@ in
       enable = true;
 
       theme = "oroborus";
-      themePackages = oroborusPlymouthTheme;
+      themePackages = [ oroborusPlymouthTheme ];
     };
   };
   console = {
     earlySetup = true;
     keyMap = "sg";
-    plymouth.enable = true;
   };
 
   environment.systemPackages = [ config.boot.kernelPackages.cpupower ];
