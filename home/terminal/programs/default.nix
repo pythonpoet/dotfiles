@@ -6,7 +6,7 @@
     ./git.nix
     ./nix.nix
     ./skim.nix
-    #    ./yazi
+    ./yazi
     ./xdg.nix
     ./fastfetch.nix
   ];

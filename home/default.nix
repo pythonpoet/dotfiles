@@ -43,7 +43,7 @@
   # Set catppucin falvour;
   catppuccin.flavor = "mocha";
 
-  nixpkgs.overlays = [
+  home-manager.useGlobalPkgs = [
     (final: prev: {
       lib = prev.lib // {colors = import "${self}/lib/colors" lib;};
     })

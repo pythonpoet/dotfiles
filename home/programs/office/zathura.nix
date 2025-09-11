@@ -1,7 +1,7 @@
 {pkgs, ...}: {
+  catppuccin.zathura.enable = true;
   programs.zathura = {
     enable = true;
-    catppuccin.enable = true;
     options = {
       recolor-lightcolor = "rgba(0,0,0,0)";
       default-bg = "rgba(0,0,0,0.7)";

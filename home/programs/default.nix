@@ -67,6 +67,8 @@
     zulu11
     immich-cli
     brave
+    readest
+
     # fluffychat
     baobab
     # wl-clipboard-rs

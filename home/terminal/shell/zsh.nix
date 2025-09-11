@@ -7,16 +7,7 @@
     enable = true;
     autosuggestion.enable = true;
     autocd = true;
-    dirHashes = {
-      dl = "$HOME/Downloads";
-      docs = "$HOME/Documents";
-      code = "$HOME/Documents/code";
-      dots = "$HOME/Documents/code/dotfiles";
-      pics = "$HOME/Pictures";
-      vids = "$HOME/Videos";
-      nixpkgs = "$HOME/Documents/code/git/nixpkgs";
-    };
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     history = {
       expireDuplicatesFirst = true;
       path = "${config.xdg.dataHome}/zsh_history";
@@ -75,20 +66,10 @@
         gnupg_path=$(ls $XDG_RUNTIME_DIR/gnupg)
         export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/$gnupg_path/S.gpg-agent.ssh"
       ''}
-
-      # Display a welcome message with the hostname and run fastfetch when logging in via SSH
-      if [[ -n "$SSH_CONNECTION" ]]; then
-        HOSTNAME=$(hostname)
-        fastfetch
-
-        # Display a welcome message with bold username and hostname, and italic message
-        echo -e "Hi \e[1m$USER\e[0m, welcome to \e[1m$HOSTNAME\e[0m! \n\n\e[3mYou are being trusted to use this device responsibly\e[0m"
-      fi
     '';
 
     shellAliases =
       {
-        g = "git";
         grep = "grep --color";
         ip = "ip --color";
         l = "eza -l";
@@ -101,6 +82,8 @@
         rs = "sudo systemctl"; # mnemonic for root systemctl
       }
       // lib.optionalAttrs config.programs.bat.enable {cat = "bat";};
-    shellGlobalAliases = {eza = "eza --icons --git";};
+    shellGlobalAliases = {
+      eza = "eza --icons --git";
+    };
   };
 }
