@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   catppuccin.zathura.enable = true;
   programs.zathura = {
     enable = true;
@@ -18,17 +19,17 @@
       zoom-min = "10";
     };
 
-    #extraConfig = "include catppuccin-latte";
+    extraConfig = "include catppuccin-mocca";
   };
 
-  # xdg.configFile = {
-  #   "zathura/catppuccin-latte".source = pkgs.fetchFromGitHub {
-  #     url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-latte";
-  #     hash = "sha256-h1USn+8HvCJuVlpeVQyzSniv56R/QgWyhhRjNm9bCfY=";
-  #   };
-  #   "zathura/catppuccin-mocha".source = pkgs.fetchurl {
-  #     url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-mocha";
-  #     hash = "sha256-/sha256-POxMpm77Pd0qywy/jYzZBXF/uAKHSQ0hwtXD4wl8S2Q=";
-  #   };
-  # };
+  xdg.configFile = {
+    "zathura/catppuccin-latte".source = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-latte";
+      hash = "sha256-nb0ZiHJ9zwlmpN/iHKm3/eRmx4se1om3qCVrfge8B8c=";
+    };
+    "zathura/catppuccin-mocha".source = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-mocha";
+      hash = "sha256-/HXecio3My2eXTpY7JoYiN9mnXsps4PAThDPs4OCsAk=";
+    };
+  };
 }

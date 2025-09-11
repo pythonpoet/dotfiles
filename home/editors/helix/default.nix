@@ -2,8 +2,9 @@
   inputs,
   pkgs,
   ...
-}: {
-  imports = [./languages.nix];
+}:
+{
+  imports = [ ./languages.nix ];
 
   programs.helix = {
     enable = true;
@@ -14,10 +15,10 @@
       shellcheck
       ltex-ls
       tinymist
-    ]; #
+    ];
 
     settings = {
-      theme = "zed_onedark";
+      theme = "onedark";
       editor = {
         auto-format = true;
         color-modes = true;
@@ -35,7 +36,7 @@
           other-lines = "error";
         };
         lsp.display-inlay-hints = true;
-        statusline.center = ["position-percentage"];
+        statusline.center = [ "position-percentage" ];
         true-color = true;
         whitespace.characters = {
           newline = "↴";
@@ -52,17 +53,28 @@
 
         # Save with Ctrl+S
         normal."C-s" = ":w";
-        insert."C-s" = ["normal_mode" ":w" "insert_mode"];
+        insert."C-s" = [
+          "normal_mode"
+          ":w"
+          "insert_mode"
+        ];
 
         # Clipboard actions in SELECT mode (like visual mode)
         select = {
           "C-c" = ":clipboard-yank"; # Copy
-          "C-x" = [":clipboard-yank" "delete_selection"]; # Cut = Copy + Delete
+          "C-x" = [
+            ":clipboard-yank"
+            "delete_selection"
+          ]; # Cut = Copy + Delete
         };
 
         # Clipboard paste in NORMAL and INSERT modes
         normal."C-v" = ":clipboard-paste-after"; # Paste after cursor
-        insert."C-v" = ["normal_mode" ":clipboard-paste-after" "insert_mode"]; # Paste at cursor
+        insert."C-v" = [
+          "normal_mode"
+          ":clipboard-paste-after"
+          "insert_mode"
+        ]; # Paste at cursor
 
         normal."C-/" = "toggle_comments";
       };

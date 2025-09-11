@@ -1,39 +1,42 @@
 {
   description = "fufexan's NixOS and Home-Manager flake, Modified by pythonpoet";
 
-  outputs = inputs:
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux" "aarch64-linux"];
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       imports = [
         ./hosts
         ./lib
         ./modules
         ./pkgs
-        ./pre-commit-hooks.nix
+        ./fmt-hooks.nix
+        #./pre-commit-hooks.nix
       ];
 
-      perSystem = {
-        config,
-        pkgs,
-        ...
-      }: {
-        devShells.default = pkgs.mkShell {
-          packages = [
-            pkgs.alejandra
-            pkgs.git
-            pkgs.nodePackages.prettier
-            config.packages.repl
-          ];
-          name = "dots";
-          DIRENV_LOG_FORMAT = "";
-          shellHook = ''
-            ${config.pre-commit.installationScript}
-          '';
+      perSystem =
+        {
+          config,
+          pkgs,
+          ...
+        }:
+        {
+          devShells.default = pkgs.mkShell {
+            packages = [
+              pkgs.nodePackages.prettier
+              config.packages.repl
+            ];
+            name = "dots";
+            DIRENV_LOG_FORMAT = "";
+            shellHook = ''
+              ${config.pre-commit.installationScript}
+            '';
+          };
         };
-
-        formatter = pkgs.alejandra;
-      };
     };
 
   inputs = {
@@ -84,65 +87,26 @@
 
     lanzaboote.url = "github:nix-community/lanzaboote";
 
-    # nix-index-db = {
-    #   url = "github:Mic92/nix-index-database";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    nix-index-db = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixpkgs-howdy.url = "github:fufexan/nixpkgs/howdy";
 
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
       };
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     yazi.url = "github:sxyazi/yazi";
-
-    # hyprwm
-    # hyprland.url = "github:hyprwm/hyprland";
-
-    #hypridle = {
-    #  url = "github:hyprwm/hypridle";
-    #  inputs = {
-    #    hyprlang.follows = "hyprland/hyprlang";
-    #    hyprutils.follows = "hyprland/hyprutils";
-    #    nixpkgs.follows = "hyprland/nixpkgs";
-    #    systems.follows = "hyprland/systems";
-    #  };
-    #};
-
-    #hyprland-contrib = {
-    #  url = "github:hyprwm/contrib";
-    #  inputs.nixpkgs.follows = "hyprland/nixpkgs";
-    #};
-
-    #hyprland-plugins = {
-    #  url = "github:hyprwm/hyprland-plugins";
-    #  inputs.hyprland.follows = "hyprland";
-    #};
-
-    #hyprlock = {
-    #  url = "github:hyprwm/hyprlock";
-    #  inputs = {
-    #    hyprlang.follows = "hyprland/hyprlang";
-    #    hyprutils.follows = "hyprland/hyprutils";
-    #    nixpkgs.follows = "hyprland/nixpkgs";
-    #    systems.follows = "hyprland/systems";
-    #  };
-    #};
-
-    #hyprpaper = {
-    #  url = "github:hyprwm/hyprpaper";
-    #  inputs = {
-    #    hyprlang.follows = "hyprland/hyprlang";
-    #    hyprutils.follows = "hyprland/hyprutils";
-    #    nixpkgs.follows = "hyprland/nixpkgs";
-    #    systems.follows = "hyprland/systems";
-    #  };
-    #};
 
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
@@ -156,6 +120,14 @@
     };
     catppuccin = {
       url = "github:catppuccin/nix";
+    };
+
+    uwu-colors = {
+      url = "github:q60/uwu_colors";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "flake-utils";
+      };
     };
 
     nixos-hardware = {

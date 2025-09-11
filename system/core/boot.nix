@@ -2,26 +2,25 @@
   pkgs,
   config,
   ...
-}: {
+}:
+let
+  oroborusPlymouthTheme = import ../../lib/plymouth/oroborus.nix { inherit pkgs; };
+in
+{
   boot = {
     bootspec.enable = true;
-    #boot.loader.grub.device = "nodev";
 
-     initrd = {
-       systemd.enable = true;
-       supportedFilesystems = ["brtfs"];
-    #   # I think I didnt enabled lvm
-    #   #services.lvm.enable = true;
-     };
-
-    # use latest kernel
-    #kernelPackages = pkgs.linuxPackages_latest;
+    initrd = {
+      systemd.enable = true;
+      supportedFilesystems = [ "brtfs" ];
+    };
 
     consoleLogLevel = 3;
     kernelParams = [
       "quiet"
       "systemd.show_status=auto"
       "rd.udev.log_level=3"
+      "plymouth.use-simpledrm"
     ];
 
     loader = {
@@ -30,26 +29,19 @@
       systemd-boot.enable = true;
     };
 
-     #plymouth.enable = true;
-     plymouth = {
+    #plymouth.enable = true;
+    plymouth = {
       enable = true;
-      # theme = "Seal 2"; # I also like Red Loader
-      # themePackages = [pkgs.adi1090x-plymouth]theme = "Seal 2"; # I also like Red Loader
-      # themePackages = [pkgs.adi1090x-plymouth];theme = "Seal 2"; # I also like Red Loader
-      # themePackages = [pkgs.adi1090x-plymouth];;
-      theme = "seal_2";
-      themePackages = with pkgs; [
-        # By default we would install all themes
-        (adi1090x-plymouth-themes.override {
-          selected_themes = [ "seal_2" ];
-        })
-      ];
+
+      theme = "oroborus";
+      themePackages = oroborusPlymouthTheme;
     };
   };
   console = {
     earlySetup = true;
     keyMap = "sg";
+    plymouth.enable = true;
   };
 
-  environment.systemPackages = [config.boot.kernelPackages.cpupower];
+  environment.systemPackages = [ config.boot.kernelPackages.cpupower ];
 }

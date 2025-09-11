@@ -3,7 +3,8 @@
   inputs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     #./anyrun
     ./browsers/firefox.nix
@@ -17,11 +18,13 @@
   ];
 
   home.packages = with pkgs; [
+    halloy
     signal-desktop
     tdesktop
 
     gnome-calculator
     gnome-control-center
+    resources
 
     gnomeExtensions.system-monitor
     gnomeExtensions.blur-my-shell
@@ -79,7 +82,12 @@
     settings = {
       "org/gnome/desktop/input-sources" = {
         show-all-sources = true;
-        sources = [["xkb" "ch"]];
+        sources = [
+          [
+            "xkb"
+            "ch"
+          ]
+        ];
       };
 
       "org/gnome/shell" = {
