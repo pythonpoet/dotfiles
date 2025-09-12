@@ -1,6 +1,6 @@
 
 let
-  _cloud = [
+  cloud = [
     ./borg.nix
     ./dashy.nix
     ./immich.nix
@@ -16,5 +16,8 @@ let
 
 in
 {
-  inherit _cloud;
+  flake.nixosModules = {
+    theme = import ./theme;
+    cloud = cloud;
+    };
 }
