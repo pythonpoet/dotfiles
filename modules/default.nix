@@ -1,6 +1,6 @@
 
 let
-  cloud = [
+  _cloud = [
     ./borg.nix
     ./dashy.nix
     ./immich.nix
@@ -16,5 +16,5 @@ let
 
 in
 {
-  inherit cloud;
+  inherit _cloud;
 }

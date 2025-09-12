@@ -17,6 +17,7 @@
       mod = "${self}/system";
       # get the basic config to build on top of
       inherit (import mod) laptop;
+      inherit (import "${self}/modules/") _cloud;
 
       # get these into the module system
       specialArgs = { inherit inputs self; };
