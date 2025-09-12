@@ -27,7 +27,15 @@
     # and running `nixos-rebuild switch`, then copying the hash from the error message.
     sha256 = "sha256-aO+ff+3fQ9FJgjkVdWUqsSS6ctHq/TXvyGRasW6fXcA=";
   };
+  cfg = config.reverse-proxy;
 in {
+  options.reverse-proxy = {
+    enable = mkEnableOption "Enable reverse-proxy service";
+
+  };
+  config = mkIf cfg.enable {
+
+
   environment.systemPackages = [pkgs.geoip];
   networking.firewall.allowedTCPPorts = [80 443];
   services.nginx = {
@@ -203,5 +211,6 @@ in {
       # Specify the directory where the databases will be stored
       DatabaseDirectory = "/var/lib/nginx/geoip";
     };
+  };
   };
 }

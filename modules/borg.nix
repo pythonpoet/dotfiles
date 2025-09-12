@@ -1,19 +1,19 @@
 #Guid https://xeiaso.net/blog/borg-backup-2021-01-09/
 # https://nixos.wiki/wiki/Borg_backup
-{config, ...}:
-{
-  services.borgbackup.jobs.alpakapi4 = {
-    paths = [
-      "/mnt/sda1/ocis"
-      "/mnt/sda1/bitwarden"
-    ];
-    encryption.mode = "none";
-    environment.BORG_RSH = "ssh -i /home/david/.ssh/automated/id_ed25519";
-    repo = "ssh://david@192.168.0.21:22/data/ocis_backup";
-    compression = "auto,zstd";
-    startAt = "daily";
-  };
-}
+# {config, ...}:
+# {
+#   services.borgbackup.jobs.alpakapi4 = {
+#     paths = [
+#       "/mnt/sda1/ocis"
+#       "/mnt/sda1/bitwarden"
+#     ];
+#     encryption.mode = "none";
+#     environment.BORG_RSH = "ssh -i /home/david/.ssh/automated/id_ed25519";
+#     repo = "ssh://david@192.168.0.21:22/data/ocis_backup";
+#     compression = "auto,zstd";
+#     startAt = "daily";
+#   };
+# }
 {
   config,
   pkgs,

@@ -2,7 +2,16 @@
   config,
   self,
   ...
-}: {
+}: 
+let 
+  cfg = config.analytics;
+ {
+  option.analytics = {
+    enable = mkEnableOption "Enable Vaultwarden service";
+    };
+
+  config.analytics = mkIf cfg.enable {
+
   services.grafana = {
     enable = true;
     settings = {
@@ -112,5 +121,6 @@
         }
       ];
     };
+  };
   };
 }
