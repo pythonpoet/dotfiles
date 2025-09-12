@@ -1,9 +1,8 @@
 {
   description = "fufexan's NixOS and Home-Manager flake, Modified by pythonpoet";
 
-  outputs =
-    inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -15,28 +14,25 @@
         ./modules
         ./pkgs
         ./fmt-hooks.nix
-        #./pre-commit-hooks.nix
       ];
 
-      perSystem =
-        {
-          config,
-          pkgs,
-          ...
-        }:
-        {
-          devShells.default = pkgs.mkShell {
-            packages = [
-              pkgs.nodePackages.prettier
-              config.packages.repl
-            ];
-            name = "dots";
-            DIRENV_LOG_FORMAT = "";
-            shellHook = ''
-              ${config.pre-commit.installationScript}
-            '';
-          };
+      perSystem = {
+        config,
+        pkgs,
+        ...
+      }: {
+        devShells.default = pkgs.mkShell {
+          packages = [
+            pkgs.nodePackages.prettier
+            config.packages.repl
+          ];
+          name = "dots";
+          DIRENV_LOG_FORMAT = "";
+          shellHook = ''
+            ${config.pre-commit.installationScript}
+          '';
         };
+      };
     };
 
   inputs = {
@@ -133,6 +129,7 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
     };
+    nix-raspi5.url = "https://gitlab.com/vriska/nix-rpi5/-/archive/main.tar.gz";
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
     };
