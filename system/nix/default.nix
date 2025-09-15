@@ -17,7 +17,7 @@
     })
 
     # Switches "armv8l" compatibility name to "armv7l"
-    (builtins.readFile ./armv7l.nix)
+    ./armv7l.nix
   ];
 
   # we need git for flakes
@@ -45,8 +45,8 @@
       keep-outputs = true;
 
       trusted-users = ["root" "@wheel"];
-      substituters = [ "https://cache.armv7l.xyz" ];
-      trusted-public-keys = [ "cache.armv7l.xyz-1:kBY/eGnBAYiqYfg0fy0inWhshUo+pGFM3Pj7kIkmlBk=" ];
+      #substituters = [ "https://cache.armv7l.xyz" ];
+      #trusted-public-keys = [ "cache.armv7l.xyz-1:kBY/eGnBAYiqYfg0fy0inWhshUo+pGFM3Pj7kIkmlBk=" ];
       allowed-uris = [ "https://github.com/pythonpoet.keys" ];
     };
     

@@ -46,5 +46,18 @@
         package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.linux-enable-ir-emitter;
       };
     };
+
+    #TODO Hydra put somewhere else:
+    services.hydra = {
+      enable = true;
+      hydraURL = "http://localhost:3000";
+      notificationSender = "hydra@localhost";
+      # buildMachinesFiles = [];
+      useSubstitutes = true;
+      listenHost = "127.0.0.1";
+    };
+
+  # https://github.com/NixOS/hydra/issues/1186#issuecomment-1231513076
+  systemd.services.hydra-evaluator.environment.GC_DONT_GC = "true";
   };
 }
