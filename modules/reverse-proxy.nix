@@ -1,8 +1,9 @@
 {
   config,
   pkgs,
+  lib,
   ...
-}: let
+}: with lib; let
   email = "biobrotmithonig@gmail.com";
   extraConfig = ''
     proxy_set_header Host $host;
