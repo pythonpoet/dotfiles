@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -16,7 +16,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
   # Add the RPi kernel
-  boot.kernelPackages = pkgs.linuxPackages_rpi4;
+  boot.kernelPackages = inputs.nix-raspi5.legacyPackages.aarch64-linux.linuxPackages_rpi5;
 
   networking.hostName = "alpakapi5"; # Define your hostname.
   # Pick only one of the below networking options.
