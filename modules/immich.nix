@@ -4,6 +4,7 @@ with lib; let
 
   };
   cfg = config.immich // immichDefaults;
+in
 {
   options.immich = {
     enable = mkEnableOption "Enable immich server";
@@ -22,10 +23,6 @@ with lib; let
     postgres_db_name = mkOption {
       type = types.str;
       default = "localhost";
-    };
-    postgres_db_name = mkOption {
-      type = types.port;
-      default = 5432;
     };
     postgres_db_database_name = mkOption {
       type = types.str;
