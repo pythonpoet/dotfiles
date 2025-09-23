@@ -73,6 +73,6 @@ in
     fsType = "ext4"; # or "vfat" / "ntfs" with appropriate options
     options = ["defaults" "nofail" ];
   };
-  }
+  };
 
 }
