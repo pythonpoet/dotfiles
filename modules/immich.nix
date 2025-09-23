@@ -1,4 +1,4 @@
-{config, ...}:
+{config, lib, ...}:
 with lib; let 
   immichDefaults = {
 
