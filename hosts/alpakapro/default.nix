@@ -56,6 +56,13 @@
       useSubstitutes = true;
       listenHost = "127.0.0.1";
     };
+    nix.buildMachines = [
+    { hostName = "localhost";
+      systems = [ "aarch64-linux" "armv7l-linux" ] ;
+      supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
+      maxJobs = 4;
+      protocol = null;
+    }];
 
   # https://github.com/NixOS/hydra/issues/1186#issuecomment-1231513076
   systemd.services.hydra-evaluator.environment.GC_DONT_GC = "true";

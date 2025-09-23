@@ -138,6 +138,24 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
+  #TODO Hydra put somewhere else:
+    services.hydra = {
+      enable = true;
+      hydraURL = "http://localhost:3000";
+      notificationSender = "hydra@localhost";
+      # buildMachinesFiles = [];
+      useSubstitutes = true;
+      listenHost = "127.0.0.1";
+    };
+    nix.buildMachines = [
+    { hostName = "localhost";
+      systems = [ "aarch64-linux" "armv7l-linux" ] ;
+      supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
+      maxJobs = 4;
+      protocol = null;
+    }];
 
+  # https://github.com/NixOS/hydra/issues/1186#issuecomment-1231513076
+  systemd.services.hydra-evaluator.environment.GC_DONT_GC = "true";
 }
 

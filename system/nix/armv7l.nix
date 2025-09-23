@@ -13,5 +13,11 @@
   boot.kernelParams = [
     "compat_uts_machine=armv7l"
   ];
+  environment = {
+    systemPackages = [ pkgs.qemu ];
+  };
+  boot.binfmt.emulatedSystems = [
+  "armv7l-linux"
+];
   nix.extraOptions = "extra-platforms = armv7l-linux";
 }
