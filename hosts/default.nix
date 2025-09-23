@@ -114,7 +114,6 @@
           "${self}/modules/immich.nix"
           "${self}/modules/postgresql.nix"
 
-          "${self}/modules/nextcloud.nix"
           "${self}/modules/owncloud.nix"
 
           "${self}/modules/reverse-proxy.nix"
