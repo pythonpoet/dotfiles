@@ -14,7 +14,7 @@
   };
   cfg = config.postgresql;
 in {
-  option.postgresql =  {
+  options.postgresql =  {
      enable = lib.mkEnableOption "Enable Incus environment";
 
      data_dir = mkOption {
