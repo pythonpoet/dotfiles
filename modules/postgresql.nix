@@ -12,6 +12,7 @@
     db_port = 5432; 
     dataDir = "/mnt/sda1/databases";
   };
+  cfg = config.postgresql;
 in {
   option.postgresql =  {
      enable = lib.mkEnableOption "Enable Incus environment";
