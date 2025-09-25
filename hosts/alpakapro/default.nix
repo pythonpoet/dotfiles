@@ -25,6 +25,13 @@
     networking.hostName = "alpakapro";
 
     #security.tpm2.enable = true;
+    nix.settings.system-features = [
+    "benchmark"
+    "big-parallel" 
+    "nixos-test"
+    "kvm"
+    "gccarch-armv7-a"  # Add this for ARMv7
+  ];
 
     services = {
       fstrim.enable = true;

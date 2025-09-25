@@ -30,6 +30,7 @@ in {
     helix
   ];
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  
 
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = true;
