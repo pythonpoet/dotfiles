@@ -26,6 +26,16 @@
   # Set your time zone.
   time.timeZone = "Europe/Zurich";
 
+  nix.settings.system-features = [
+     "benchmark"
+     "big-parallel" 
+     "nixos-test"
+     "kvm"
+     "gccarch-armv8-a"
+    "gccarch-armv7-a"  # Add this for ARMv7!
+    ];
+
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
