@@ -30,7 +30,7 @@
     "big-parallel" 
     "nixos-test"
     "kvm"
-    "gccarch-armv7-a"  # Add this for ARMv7
+    "gccarch-armv7-a"  # Add this for ARMv7!
   ];
 
     services = {
