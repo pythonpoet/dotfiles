@@ -45,7 +45,7 @@ in {
     enable = true;
 
     dataDir = cfg.dataDir;
-    ensureDatabases = [cfg.db_name]; # Add the new data
+    ensureDatabases = cfg.db_name; # Add the new data
     ensureUsers = [
       {
         name = cfg.db_user;
