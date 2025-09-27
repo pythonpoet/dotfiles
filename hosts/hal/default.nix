@@ -26,6 +26,13 @@
   };
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.nvidia.acceptLicense = true;
+  nix.settings.system-features = [
+    "benchmark"
+    "big-parallel" 
+    "nixos-test"
+    "kvm"
+    "gccarch-armv7-a"  # Add this for ARMv7!
+  ];
 
   networking.hostName = "hal"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
