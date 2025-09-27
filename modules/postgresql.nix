@@ -31,11 +31,11 @@ in {
       default = postgresDefaults.db_names;
     };
 
-    postgres_db_user = mkOption {
+    db_user = mkOption {
       type = types.str;
       default = postgresDefaults.db_user;
     };
-    postgres_db_pw = mkOption {
+    db_pass = mkOption {
       type = types.str;
       default = postgresDefaults.db_pass;
     };
