@@ -82,9 +82,9 @@ in {
       CREATE EXTENSION IF NOT EXISTS earthdistance;
       CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
-      ALTER SCHEMA public OWNER TO ${db_user};
-      ALTER SCHEMA vectors OWNER TO ${db_user};
-      GRANT SELECT ON TABLE pg_vector_index_stat TO ${db_user};
+      ALTER SCHEMA public OWNER TO ${cfg.db_user};
+      ALTER SCHEMA vectors OWNER TO ${cfg.db_user};
+      GRANT SELECT ON TABLE pg_vector_index_stat TO ${cfg.db_user};
 
 
       ALTER EXTENSION vectors UPDATE;
