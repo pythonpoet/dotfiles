@@ -18,7 +18,21 @@
       # get the basic config to build on top of
       inherit (import mod) laptop;
       #inherit (import "${self}/modules/") _cloud;
-      cloud = self.nixosModules.cloud;
+      cloud = [
+        "${self}/modules/owncloud.nix"
+          "${self}/modules/vaultwarden.nix"
+          "${self}/modules/borg.nix"
+          "${self}/modules/vikunja.nix"
+          "${self}/modules/ollama.nix"
+          "${self}/modules/incus.nix"
+          "${self}/modules/exdetail/"
+          "${self}/modules/ml/zonos.nix"
+          "${self}/modules/ml/kokoro.nix"
+          "${self}/modules/immich.nix"
+          "${self}/modules/postgresql.nix"
+          "${self}/modules/owncloud.nix"
+          "${self}/modules/reverse-proxy.nix"
+      ];
 
       # get these into the module system
       specialArgs = { inherit inputs self; };
@@ -110,45 +124,16 @@
           "${mod}/nix"
           "${mod}/programs/zsh.nix"
           "${mod}/programs/home-manager.nix"
-
-          "${self}/modules/immich.nix"
-          "${self}/modules/postgresql.nix"
-
-          "${self}/modules/owncloud.nix"
-
-          "${self}/modules/reverse-proxy.nix"
           {
             home-manager = {
               users.david.imports = homeImports.server;
               extraSpecialArgs = specialArgs;
             };
-          }
-        ];
-      };
-
-      alpakapi4 = nixosSystem {
-        system = "aarch64-linux";
-        inherit specialArgs;
-        modules = [
-          inputs.catppuccin.nixosModules.catppuccin
-          ./alpakapi4
-          #inputs.vscode-server.nixosModules.default
-
-          "${mod}/core/users.nix"
-          "${mod}/nix"
-          "${mod}/programs/zsh.nix"
-          "${mod}/programs/home-manager.nix"
-
-          #"${self}/modules/owncloud.nix"
-          "${self}/modules/reverse-proxy.nix"
-          "${self}/modules/wireguard.nix"
-          "${self}/modules/legacy/dnsmasq.nix"
-          {
-            home-manager = {
-              users.david.imports = homeImports."david@alpakapi4";
-              extraSpecialArgs = specialArgs;
+            immich = {
+              enable = true;
             };
           }
+
         ];
       };
       hal = nixosSystem {
@@ -160,16 +145,6 @@
           "${mod}/nix"
           "${mod}/programs/zsh.nix"
           "${mod}/programs/home-manager.nix"
-
-          "${self}/modules/owncloud.nix"
-          "${self}/modules/vaultwarden.nix"
-          "${self}/modules/borg.nix"
-          "${self}/modules/vikunja.nix"
-          "${self}/modules/ollama.nix"
-          "${self}/modules/incus.nix"
-          "${self}/modules/exdetail/"
-          "${self}/modules/ml/zonos.nix"
-          "${self}/modules/ml/kokoro.nix"
 
           {
             home-manager = {
