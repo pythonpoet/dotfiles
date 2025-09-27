@@ -24,7 +24,7 @@
           "${self}/modules/borg.nix"
           "${self}/modules/vikunja.nix"
           "${self}/modules/incus.nix"
-          "${self}/modules/exdetail/"
+          #"${self}/modules/exdetail/"
           "${self}/modules/ml/zonos.nix"
           "${self}/modules/ml/kokoro.nix"
           "${self}/modules/immich.nix"
