@@ -35,7 +35,19 @@
     "gccarch-armv7-a"  # Add this for ARMv7!
     ];
 
+  fileSystems."/data1" = {
+    device = "/dev/disk/by-uuid/5a4cb152-78cc-4f24-9941-a11691c9bbca";
+    fsType = "btrfs";  # ← Make sure this says "btrfs" not "brtfs"
+    options = ["defaults" "noatime" "compress=zstd" "nofail"];
+  };
 
+  fileSystems."/data2" = {
+    device = "/dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32";
+    fsType = "btrfs";  # ← Make sure this says "btrfs" not "brtfs"
+    options = ["defaults" "noatime" "compress=zstd" "nofail"];
+  };
+
+  services.tailscale.enable = true;
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -56,7 +68,7 @@
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
+ ##ervices.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
