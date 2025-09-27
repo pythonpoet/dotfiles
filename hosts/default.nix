@@ -117,7 +117,7 @@
       alpakapi5 = nixosSystem {
         system = "aarch64-linux";
         inherit specialArgs;
-        modules = [
+        modules = cloud ++ [
           inputs.catppuccin.nixosModules.catppuccin
           ./alpakapi5
           "${mod}/core/users.nix"
