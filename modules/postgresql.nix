@@ -10,7 +10,7 @@
     db_names = ["immich"];
     db_pass = "postgres";
     db_port = 5432; 
-    dataDir = "/mnt/sda1/databases";
+    data_dir = "/mnt/sda1/databases";
   };
   cfg = config.postgresql;
 in {
@@ -44,7 +44,7 @@ in {
   services.postgresql = {
     enable = true;
 
-    dataDir = cfg.dataDir;
+    dataDir = cfg.data_dir;
     ensureDatabases = cfg.db_names; # Add the new data
     ensureUsers = [
       {
