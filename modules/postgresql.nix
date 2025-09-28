@@ -67,9 +67,10 @@ in {
         host    all             all             127.0.0.1/32            trust
         host    all             all             ::1/128                 trust
       '';
-      extraStartCommands = ''
-        export LD_PRELOAD=""
-      '';
+      serviceConfig = {
+        # This clears the LD_PRELOAD variable, preventing jemalloc from loading.
+        Environment = "LD_PRELOAD=";
+      };
 
       extraPlugins = ps: with ps; [ pgvecto-rs ];
       settings = {
