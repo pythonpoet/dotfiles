@@ -41,6 +41,12 @@ in {
 
   config = mkIf cfg.enable {
 
+    systemd.services.postgresql.serviceConfig = {
+      # This clears the LD_PRELOAD variable, preventing jemalloc from loading
+      # and resolving the AARCH64 page size conflict.
+      Environment = "LD_PRELOAD=";
+    };
+
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
@@ -67,11 +73,6 @@ in {
         host    all             all             127.0.0.1/32            trust
         host    all             all             ::1/128                 trust
       '';
-      serviceConfig = {
-        # This clears the LD_PRELOAD variable, preventing jemalloc from loading.
-        Environment = "LD_PRELOAD=";
-      };
-
       extraPlugins = ps: with ps; [ pgvecto-rs ];
       settings = {
         shared_preload_libraries = [ "vectors.so" ];
