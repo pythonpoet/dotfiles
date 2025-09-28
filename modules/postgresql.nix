@@ -48,12 +48,13 @@ in {
         ++ [ "--with-lg-page=14" ];
     });
 
-    folly = prev.folly.overrideAttrs (old: {
-      # Disable the array-bounds warning that's causing the build to fail
-      NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -Wno-array-bounds";
-    });
+    # Use a more stable version of folly
+    folly = prev.folly.override {
+      # You might need to specify a different version here
+      # This is an example - adjust based on what's available
+      version = "2024.08.12.00";
+    };
 
-    # Ensure pgvecto-rs uses the correct jemalloc
     pgvecto-rs = prev.pgvecto-rs.overrideAttrs (old: {
       env = (old.env or {}) // {
         RUSTC_BOOTSTRAP = 1;
