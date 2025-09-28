@@ -7,7 +7,8 @@ let
     # ./hardware/graphics.nix
 
     ./network
-    ./network/avahi.nix
+    # TODO activate avahi
+    #./network/avahi.nix
     ./network/tailscale.nix
 
     ./programs

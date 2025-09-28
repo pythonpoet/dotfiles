@@ -40,6 +40,26 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # ------------------------------------------------------------------
+    # RECOMMENDED OVERLAY TO FORCE GLIBC ALLOCATOR FOR pgvecto-rs
+    # ------------------------------------------------------------------
+    nixpkgs.overlays = [
+      (final: prev: {
+        pgvecto-rs = prev.pgvecto-rs.overrideAttrs (old: {
+          # Use the standard C library for memory allocation
+          # This should force it to bypass jemalloc, fixing the AARCH64 page size issue.
+          RUSTFLAGS = (old.RUSTFLAGS or "") + " -C target-feature=-crt-static -C link-args=-lc";
+          
+          # Explicitly set the allocator feature flag to 'system'
+          cargoDeps = prev.callPackage prev.pgvecto-rs.cargoDeps.src {
+            cargoBuildFlags = [
+              "--features=system-alloc"
+            ];
+          };
+        });
+      })
+    ];
+    # ------------------------------------------------------------------
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
