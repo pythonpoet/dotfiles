@@ -52,7 +52,7 @@ in {
           ensureDBOwnership = true;
           ensureClauses = {
             login = true;
-            password = cfg.db_pass;
+            #password = cfg.db_pass;
           };
         }
       ];
