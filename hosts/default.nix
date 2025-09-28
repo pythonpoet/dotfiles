@@ -132,12 +132,12 @@
               extraSpecialArgs = specialArgs;
             };
             immich = {
-              enable = true;
+              enable = false;
               data_dir = "/data1/immich";
             };
             postgresql = {
               enable = true;
-              data_dir = "/data1/databases";
+              data_dir = "/data1/test-db";
             };
           }
         ];
