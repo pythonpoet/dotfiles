@@ -41,16 +41,26 @@ in {
 
   config = mkIf cfg.enable {
     nixpkgs.overlays = [
-    (final: prev:
-      {
+      (final: prev: {
         jemalloc = prev.jemalloc.overrideAttrs (old: {
-          # --with-lg-path=(log2 page_size)
-          # since our page size is 16384 (2**14), we need 14
-          configureFlags = (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags) ++ [ "--with-lg-page=14" ];
+          configureFlags =
+            (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags)
+            ++ [ "--with-lg-page=14" ];
         });
-      }
-    )
-  ];
+
+        # Add JEMALLOC_SYS_WITH_LG_PAGE to pgvecto-rs
+        pgvecto-rs = prev.pgvecto-rs.overrideAttrs (old: {
+          buildInputs = (old.buildInputs or []);
+          nativeBuildInputs = (old.nativeBuildInputs or []);
+          # extend the environment
+          env = (old.env or {}) // {
+            RUSTC_BOOTSTRAP = 1;
+            JEMALLOC_SYS_WITH_LG_PAGE = "14";
+          };
+        });
+      })
+    ];
+
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
