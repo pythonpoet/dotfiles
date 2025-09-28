@@ -1,26 +1,23 @@
-{
-  config,
-  pkgs,
-  inputs,
-  lib,
-  ...
-}: with lib; let
+{ config, pkgs, lib, ... }:
+with lib;
+let
   postgresDefaults = {
     db_user = "immich";
     db_names = ["immich"];
     db_pass = "postgres";
-    db_port = 5432; 
+    db_port = 5432;
     data_dir = "/mnt/sda1/databases";
   };
   cfg = config.postgresql;
 in {
-  options.postgresql =  {
-     enable = lib.mkEnableOption "Enable Incus environment";
+  options.postgresql = {
+    enable = mkEnableOption "Enable PostgreSQL with extensions";
 
-     data_dir = mkOption {
+    data_dir = mkOption {
       type = types.str;
-      default = postgresDefaults.dataDir;
+      default = postgresDefaults.data_dir;
     };
+
     port = mkOption {
       type = types.port;
       default = postgresDefaults.db_port;
@@ -35,75 +32,61 @@ in {
       type = types.str;
       default = postgresDefaults.db_user;
     };
+
     db_pass = mkOption {
       type = types.str;
       default = postgresDefaults.db_pass;
     };
   };
+
   config = mkIf cfg.enable {
-    # ------------------------------------------------------------------
-    # ADD THIS OVERRIDE TO FORCE MALLOC INSTEAD OF JEMALLOC FOR PLUGINS
-    # ------------------------------------------------------------------
-    nixpkgs.overlays = [
-      (final: prev: {
-        postgresql_16 = prev.postgresql_16.override {
-          # This forces all dependent extensions (like pgvecto-rs) to use
-          # the standard libc malloc instead of jemalloc, bypassing the
-          # "Unsupported system page size" error on AARCH64.
-          jemalloc = false;
-        };
-      })
-    ];
-    # ------------------------------------------------------------------
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_16;
+    services.postgresql = {
+      enable = true;
+      package = pkgs.postgresql_16;
 
-    dataDir = cfg.data_dir;
-    ensureDatabases = cfg.db_names; # Add the new data
-    ensureUsers = [
-      {
-        name = cfg.db_user;
-        ensureDBOwnership = true;
-        ensureClauses.login = true;
-      }
-    ];
+      dataDir = cfg.data_dir;
+      ensureDatabases = cfg.db_names;
+      ensureUsers = [
+        {
+          name = cfg.db_user;
+          ensureDBOwnership = true;
+          ensureClauses = {
+            login = true;
+            password = cfg.db_pass;
+          };
+        }
+      ];
 
-    # Networking
-    enableTCPIP = true;
-    port = cfg.port;
+      enableTCPIP = true;
+      port = cfg.port;
 
-    authentication = pkgs.lib.mkOverride 10 ''
-      #...
-      #type database DBuser origin-address auth-method
-      local all       all     trust
-      # ipv4
-      host  all      all     127.0.0.1/32   trust
-      # ipv6
-      host all       all     ::1/128        trust
-    '';
+      authentication = mkOverride 10 ''
+        # TYPE  DATABASE        USER            ADDRESS                 METHOD
+        local   all             all                                     trust
+        host    all             all             127.0.0.1/32            trust
+        host    all             all             ::1/128                 trust
+      '';
 
-    # Plugins
-    extraPlugins = ps: with ps; [pgvecto-rs];
-    settings = {
-      shared_preload_libraries = ["vectors.so"];
-      search_path = "\"$user\", public, vectors";
+      extraPlugins = ps: with ps; [ pgvector ];
+      settings = {
+        shared_preload_libraries = [ "vectors" ];
+        search_path = "\"$user\", public, vectors";
+      };
+
+      initialScript = pkgs.writeText "init.sql" ''
+        CREATE EXTENSION IF NOT EXISTS unaccent;
+        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        CREATE EXTENSION IF NOT EXISTS vectors;
+        CREATE EXTENSION IF NOT EXISTS cube;
+        CREATE EXTENSION IF NOT EXISTS earthdistance;
+        CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+        ALTER SCHEMA public OWNER TO ${cfg.db_user};
+        ALTER SCHEMA vectors OWNER TO ${cfg.db_user};
+        GRANT SELECT ON TABLE pg_vector_index_stat TO ${cfg.db_user};
+
+        ALTER EXTENSION vectors UPDATE;
+      '';
     };
-    initialScript = pkgs.writeText "backend-initScript" ''
-      CREATE EXTENSION IF NOT EXISTS unaccent;
-      CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-      CREATE EXTENSION IF NOT EXISTS vectors;
-      CREATE EXTENSION IF NOT EXISTS cube;
-      CREATE EXTENSION IF NOT EXISTS earthdistance;
-      CREATE EXTENSION IF NOT EXISTS pg_trgm;
-
-      ALTER SCHEMA public OWNER TO ${cfg.db_user};
-      ALTER SCHEMA vectors OWNER TO ${cfg.db_user};
-      GRANT SELECT ON TABLE pg_vector_index_stat TO ${cfg.db_user};
-
-
-      ALTER EXTENSION vectors UPDATE;
-    '';
-  };
   };
 }
