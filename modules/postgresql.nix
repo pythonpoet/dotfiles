@@ -41,15 +41,16 @@ in {
 
   config = mkIf cfg.enable {
     nixpkgs.overlays = [
-      (final: prev: {
-        # Define a custom postgresql_16 package
-        postgresql_16 = prev.postgresql_16.overrideAttrs (old: {
-          # Use lib.subtractLists to remove the jemalloc package from
-          # the dependencies, which prevents it from being loaded.
-          buildInputs = lib.subtractLists [ prev.jemalloc ] old.buildInputs;
+    (final: prev:
+      {
+        jemalloc = prev.jemalloc.overrideAttrs (old: {
+          # --with-lg-path=(log2 page_size)
+          # since our page size is 16384 (2**14), we need 14
+          configureFlags = (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags) ++ [ "--with-lg-page=14" ];
         });
-      })
-    ];
+      }
+    )
+  ];
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
