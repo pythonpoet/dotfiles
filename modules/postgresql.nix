@@ -67,7 +67,7 @@ in {
         host    all             all             ::1/128                 trust
       '';
 
-      extraPlugins = ps: with ps; [ pgvector ];
+      extraPlugins = ps: with ps; [ pgvecto-rs ];
       settings = {
         shared_preload_libraries = [ "vectors" ];
         search_path = "\"$user\", public, vectors";
