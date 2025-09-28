@@ -48,13 +48,12 @@ in {
         ++ [ "--with-lg-page=14" ];
     });
 
-    # Use a more stable version of folly
-    folly = prev.folly.override {
-      # You might need to specify a different version here
-      # This is an example - adjust based on what's available
-      version = "2024.08.12.00";
-    };
+    folly = prev.folly.overrideAttrs (old: {
+      # Set NIX_CFLAGS_COMPILE at the derivation level, not in env
+      NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -Wno-array-bounds";
+    });
 
+    # pgvecto-rs override
     pgvecto-rs = prev.pgvecto-rs.overrideAttrs (old: {
       env = (old.env or {}) // {
         RUSTC_BOOTSTRAP = 1;
