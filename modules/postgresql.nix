@@ -41,25 +41,27 @@ in {
 
   config = mkIf cfg.enable {
     nixpkgs.overlays = [
-      (final: prev: {
-        jemalloc = prev.jemalloc.overrideAttrs (old: {
-          configureFlags =
-            (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags)
-            ++ [ "--with-lg-page=14" ];
-        });
+  (final: prev: {
+    jemalloc = prev.jemalloc.overrideAttrs (old: {
+      configureFlags =
+        (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags)
+        ++ [ "--with-lg-page=14" ];
+    });
 
-        # # Add JEMALLOC_SYS_WITH_LG_PAGE to pgvecto-rs
-        # pgvecto-rs = prev.pgvecto-rs.overrideAttrs (old: {
-        #   buildInputs = (old.buildInputs or []);
-        #   nativeBuildInputs = (old.nativeBuildInputs or []);
-        #   # extend the environment
-        #   env = (old.env or {}) // {
-        #     RUSTC_BOOTSTRAP = 1;
-        #     JEMALLOC_SYS_WITH_LG_PAGE = "14";
-        #   };
-        # });
-      })
-    ];
+    folly = prev.folly.overrideAttrs (old: {
+      # Disable the array-bounds warning that's causing the build to fail
+      NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -Wno-array-bounds";
+    });
+
+    # Ensure pgvecto-rs uses the correct jemalloc
+    pgvecto-rs = prev.pgvecto-rs.overrideAttrs (old: {
+      env = (old.env or {}) // {
+        RUSTC_BOOTSTRAP = 1;
+        JEMALLOC_SYS_WITH_LG_PAGE = "14";
+      };
+    });
+  })
+];
 
     services.postgresql = {
       enable = true;
