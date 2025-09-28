@@ -69,7 +69,7 @@ in {
 
       extraPlugins = ps: with ps; [ pgvecto-rs ];
       settings = {
-        shared_preload_libraries = [ "vectors" ];
+        shared_preload_libraries = [ "vectors.so" ];
         search_path = "\"$user\", public, vectors";
       };
 
