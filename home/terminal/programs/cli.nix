@@ -15,6 +15,7 @@
     file
     jaq
     ripgrep
+    tmux
   ];
 
   programs.eza.enable = true;
