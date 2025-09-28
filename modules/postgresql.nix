@@ -40,13 +40,16 @@ in {
   };
 
   config = mkIf cfg.enable {
-
-    systemd.services.postgresql.serviceConfig = {
-      # This clears the LD_PRELOAD variable, preventing jemalloc from loading
-      # and resolving the AARCH64 page size conflict.
-      Environment = "LD_PRELOAD=";
-    };
-
+    nixpkgs.overlays = [
+      (final: prev: {
+        # Define a custom postgresql_16 package
+        postgresql_16 = prev.postgresql_16.overrideAttrs (old: {
+          # Use lib.subtractLists to remove the jemalloc package from
+          # the dependencies, which prevents it from being loaded.
+          buildInputs = lib.subtractLists [ prev.jemalloc ] old.buildInputs;
+        });
+      })
+    ];
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
