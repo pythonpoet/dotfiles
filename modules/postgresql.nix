@@ -41,8 +41,23 @@ in {
     };
   };
   config = mkIf cfg.enable {
+    # ------------------------------------------------------------------
+    # ADD THIS OVERRIDE TO FORCE MALLOC INSTEAD OF JEMALLOC FOR PLUGINS
+    # ------------------------------------------------------------------
+    nixpkgs.overlays = [
+      (final: prev: {
+        postgresql_16 = prev.postgresql_16.override {
+          # This forces all dependent extensions (like pgvecto-rs) to use
+          # the standard libc malloc instead of jemalloc, bypassing the
+          # "Unsupported system page size" error on AARCH64.
+          jemalloc = false;
+        };
+      })
+    ];
+    # ------------------------------------------------------------------
   services.postgresql = {
     enable = true;
+    package = pkgs.postgresql_16;
 
     dataDir = cfg.data_dir;
     ensureDatabases = cfg.db_names; # Add the new data
