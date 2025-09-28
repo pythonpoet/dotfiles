@@ -5,9 +5,14 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
-  imports =
+  imports = with inputs.nixos-raspberrypi.nixosModules;
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # Hardware configuration
+      raspberry-pi-5.base
+      raspberry-pi-5.page-size-16k
+      raspberry-pi-5.display-vc4
+      raspberry-pi-5.bluetooth
     ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -16,7 +21,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
   # Add the RPi kernel
-  boot.kernelPackages = inputs.nix-raspi5.legacyPackages.aarch64-linux.linuxPackages_rpi5;
+  #boot.kernelPackages = inputs.nix-raspi5.legacyPackages.aarch64-linux.linuxPackages_rpi5;
+  boot.kernelPackages = pkgs.linuxAndFirmware.default;
 
   networking.hostName = "alpakapi5"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -32,7 +38,6 @@
      "nixos-test"
      "kvm"
      "gccarch-armv8-a"
-    "gccarch-armv7-a"  # Add this for ARMv7!
     ];
 
   fileSystems."/data1" = {

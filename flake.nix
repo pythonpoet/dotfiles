@@ -129,7 +129,7 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
     };
-    nix-raspi5.url = "https://gitlab.com/vriska/nix-rpi5/-/archive/main.tar.gz";
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
     };

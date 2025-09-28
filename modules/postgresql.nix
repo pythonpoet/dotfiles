@@ -40,31 +40,31 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [
-      (final: prev: {
-        jemalloc = prev.jemalloc.overrideAttrs (old: {
-          configureFlags =
-            (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags)
-            ++ [ "--with-lg-page=14" ];
-        });
+    # nixpkgs.overlays = [
+    #   (final: prev: {
+    #     jemalloc = prev.jemalloc.overrideAttrs (old: {
+    #       configureFlags =
+    #         (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags)
+    #         ++ [ "--with-lg-page=14" ];
+    #     });
 
-        folly = prev.folly.overrideAttrs (old: {
-          env = (old.env or {}) // {
-            NIX_CFLAGS_COMPILE =
-              (old.env.NIX_CFLAGS_COMPILE or (old.NIX_CFLAGS_COMPILE or "")) 
-              + " -Wno-array-bounds -Wno-stringop-overflow";
-          };
-          doCheck = false;
-        });
+    #     folly = prev.folly.overrideAttrs (old: {
+    #       env = (old.env or {}) // {
+    #         NIX_CFLAGS_COMPILE =
+    #           (old.env.NIX_CFLAGS_COMPILE or (old.NIX_CFLAGS_COMPILE or "")) 
+    #           + " -Wno-array-bounds -Wno-stringop-overflow";
+    #       };
+    #       doCheck = false;
+    #     });
 
-        pgvecto-rs = prev.pgvecto-rs.overrideAttrs (old: {
-          env = (old.env or {}) // {
-            RUSTC_BOOTSTRAP = 1;
-            JEMALLOC_SYS_WITH_LG_PAGE = "14";
-          };
-        });
-      })
-    ];
+    #     pgvecto-rs = prev.pgvecto-rs.overrideAttrs (old: {
+    #       env = (old.env or {}) // {
+    #         RUSTC_BOOTSTRAP = 1;
+    #         JEMALLOC_SYS_WITH_LG_PAGE = "14";
+    #       };
+    #     });
+    #   })
+    # ];
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
