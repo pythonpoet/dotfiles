@@ -24,7 +24,7 @@
   # Add the RPi kernel
   #boot.kernelPackages = inputs.nix-raspi5.legacyPackages.aarch64-linux.linuxPackages_rpi5;
   boot = {
-    loader.raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.raspberrypifw;
+    loader.raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.default.raspberrypifw;
     kernelPackages = pkgs.linuxAndFirmware.default.linuxPackages_rpi5;
   };
   #boot.kernelPackages = pkgs.linuxAndFirmware.default;
