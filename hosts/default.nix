@@ -120,7 +120,7 @@
         inherit (inputs) nixos-raspberrypi;
         inherit inputs;
       };
-      system = "aarch64-linux";
+      #system = "aarch64-linux";
       modules =
         cloud
         ++ [
