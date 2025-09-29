@@ -25,7 +25,7 @@
   #boot.kernelPackages = inputs.nix-raspi5.legacyPackages.aarch64-linux.linuxPackages_rpi5;
   boot = {
     loader.raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.raspberrypifw;
-    kernelPackages = pkgs.linuxAndFirmware.linuxPackages_rpi5;
+    kernelPackages = pkgs.linuxAndFirmware.default.linuxPackages_rpi5;
   };
   #boot.kernelPackages = pkgs.linuxAndFirmware.default;
 
