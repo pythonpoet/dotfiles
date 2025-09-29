@@ -7,7 +7,7 @@
 with lib; let
   cfg = config.jitsi;
 in {
-  options.vaultwarden = {
+  options.jitsi = {
     enable = mkEnableOption "Enable Jitsi";
 
     domain = mkOption {

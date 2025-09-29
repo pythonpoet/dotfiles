@@ -29,6 +29,7 @@
       "${self}/modules/postgresql.nix"
       "${self}/modules/owncloud.nix"
       "${self}/modules/reverse-proxy.nix"
+      "${self}/modules/jitsi.nix"
     ];
 
     # get these into the module system
@@ -114,12 +115,16 @@
         ];
     };
 
-    alpakapi5 = nixosSystem {
+    alpakapi5 = inputs.nixos-raspberrypi.lib.nixosSystem {
+      specialArgs = {
+        inherit (inputs) nixos-raspberrypi;
+        inherit inputs;
+      };
       system = "aarch64-linux";
-      inherit specialArgs;
       modules =
         cloud
         ++ [
+          
           inputs.catppuccin.nixosModules.catppuccin
           ./alpakapi5
           "${mod}/core/users.nix"
@@ -127,6 +132,7 @@
           "${mod}/programs/zsh.nix"
           "${mod}/programs/home-manager.nix"
           {
+
             home-manager = {
               users.david.imports = homeImports.server;
               extraSpecialArgs = specialArgs;
@@ -139,6 +145,7 @@
               enable = true;
               data_dir = "/data1/test-db";
             };
+            jitsi.enable = true;
           }
         ];
     };
