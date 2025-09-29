@@ -17,7 +17,7 @@
     })
 
     # Switches "armv8l" compatibility name to "armv7l"
-    ./armv7l.nix
+    #./armv7l.nix
   ];
 
   # we need git for flakes

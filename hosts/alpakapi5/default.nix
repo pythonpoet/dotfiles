@@ -3,6 +3,9 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, inputs, ... }:
+let
+  kernelBundle = pkgs.linuxAndFirmware.v6_6_31; # or latest supported
+in 
 
 {
   imports = with inputs.nixos-raspberrypi.nixosModules;
@@ -24,8 +27,9 @@
   # Add the RPi kernel
   #boot.kernelPackages = inputs.nix-raspi5.legacyPackages.aarch64-linux.linuxPackages_rpi5;
   boot = {
-    loader.raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.default.raspberrypifw;
-    kernelPackages = pkgs.linuxAndFirmware.default.linuxPackages_rpi5;
+    loader.raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
+    loader.raspberryPi.bootloader = "kernel"; # U-Boot not needed for Pi5 unless you want it
+    kernelPackages = kernelBundle.linuxPackages_rpi5;
   };
   #boot.kernelPackages = pkgs.linuxAndFirmware.default;
 
