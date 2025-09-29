@@ -145,7 +145,7 @@
               enable = true;
               data_dir = "/data1/test-db";
             };
-            jitsi.enable = true;
+            jitsi.enable = false;
           }
         ];
     };
