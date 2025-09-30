@@ -2,6 +2,6 @@
 {
   imports = [
     ../../editors/helix
-    ../../environment/python.nix
+    #../../environment/python.nix
   ];
 }
