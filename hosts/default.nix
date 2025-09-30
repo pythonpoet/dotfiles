@@ -116,7 +116,7 @@
         ];
     };
 
-    alpakapi5 = inputs.nixos-raspberrypi.lib.nixosSystem {
+    alpakapi5 = inputs.nixos-raspberrypi.lib.nixosSystemFull {
       specialArgs = {
         inherit (inputs) nixos-raspberrypi;
         inherit inputs;

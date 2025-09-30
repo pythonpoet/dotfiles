@@ -44,7 +44,30 @@ in {
   programs = {
     nix-ld = {
       enable = true;
-      libraries = with pkgs; [ stdenv.cc.cc.lib zlib file ];
+      libraries = with pkgs; [
+        stdenv.cc.cc.lib
+        zlib
+        file
+        zlib
+        zstd
+        stdenv.cc.cc
+        curl
+        openssl
+        attr
+        libssh
+        bzip2
+        libxml2
+        acl
+        libsodium
+        util-linux
+        xz
+        systemd
+        # Add mesa here:
+        mesa # provides libGL.so.1
+        libGL
+        glib
+        glib-networking
+      ];
     };
   };
 }
