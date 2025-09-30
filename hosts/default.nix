@@ -46,6 +46,7 @@
           inputs.catppuccin.nixosModules.catppuccin
           ./alpakapro
           #"${mod}/core/lanzaboote.nix"
+          "${self}/modules/fhs.nix"
 
           "${self}/home/programs/gnome/default.nix"
 
