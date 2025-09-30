@@ -1,24 +1,39 @@
-{pkgs, ...}: let
-  python_version = "312";
-in {
-  home.packages = [
-    # (pkgs.${"python${python_version}"}.withPackages (ps: [
-    #   ps.numpy
-    #   ps.pandas
-    #   ps.matplotlib
-    #   ps.statsmodels
-    #   ps.scipy
-    #   ps.jupyter-core
-    #   ps.notebook
-    #   ps.scikit-learn
-    #   ps.deep-translator
-    #   ps.tqdm
-    #   ps.nltk
-    #   ps.seaborn
-    #   ps.jupyter
-    #   ps.kneed
-    # ]))
-    # (pkgs.poetry.override {python3 = pkgs.${"python${python_version}"};})
-    # # (pkgs.uv.override {python3 = pkgs.${"python${python_version}"};})
+{ config, pkgs, lib, ... }:
+{
+  nixpkgs.overlays = [
+    (self: super: rec {
+      pythonldlibpath = lib.makeLibraryPath (with super; [
+        zlib zstd stdenv.cc.cc curl openssl attr libssh bzip2 libxml2 acl libsodium util-linux xz systemd
+      ]);
+
+      python = super.stdenv.mkDerivation {
+        name = "python";
+        buildInputs = [ super.makeWrapper ];
+        src = super.python311;
+        installPhase = ''
+          mkdir -p $out/bin
+          cp -r $src/* $out/
+          wrapProgram $out/bin/python3 --set LD_LIBRARY_PATH ${pythonldlibpath}
+          wrapProgram $out/bin/python3.11 --set LD_LIBRARY_PATH ${pythonldlibpath}
+        '';
+      };
+
+      poetry = super.stdenv.mkDerivation {
+        name = "poetry";
+        buildInputs = [ super.makeWrapper ];
+        src = super.poetry;
+        installPhase = ''
+          mkdir -p $out/bin
+          cp -r $src/* $out/
+          wrapProgram $out/bin/poetry --set LD_LIBRARY_PATH ${pythonldlibpath}
+        '';
+      };
+    })
+  ];
+
+  home.packages = with pkgs; [
+    python311
+    poetry
+    uv
   ];
 }

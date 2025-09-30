@@ -26,11 +26,11 @@ in
   # boot.loader.efi.canTouchEfiVariables = false;
   # Add the RPi kernel
   #boot.kernelPackages = inputs.nix-raspi5.legacyPackages.aarch64-linux.linuxPackages_rpi5;
-  boot = {
-    loader.raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
-    loader.raspberryPi.bootloader = "kernel"; # U-Boot not needed for Pi5 unless you want it
-    kernelPackages = kernelBundle.linuxPackages_rpi5;
-  };
+  # boot = {
+  #   loader.raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
+  #   loader.raspberryPi.bootloader = "kernel"; # U-Boot not needed for Pi5 unless you want it
+  #   kernelPackages = kernelBundle.linuxPackages_rpi5;
+  # };
   #boot.kernelPackages = pkgs.linuxAndFirmware.default;
 
   networking.hostName = "alpakapi5"; # Define your hostname.
