@@ -1,6 +1,6 @@
 # networking configuration
 {pkgs, ...}: {
-    #environment.systemPackages =  [pkgs.openssl];
+    environment.systemPackages =  [pkgs.geteduroam-cli];
 
   networking = {
     # use quad9 with DNS over TLS
