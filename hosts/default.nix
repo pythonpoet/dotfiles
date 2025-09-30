@@ -164,44 +164,7 @@
             users.david.imports = homeImports."minimal";
             extraSpecialArgs = specialArgs;
           };
-          borg.enable = true;
-          borg.startAt = "17:15:00";
-
-          vikunja = {
-            enable = true;
-            db_path = "/var/lib/vikunja/db";
-            files_path = "/var/lib/vikunja/files";
-          };
-          vaultwarden = {
-            enable = true;
-            data_dir = "/var/lib/vaultwarden";
-          };
-          cloud = {
-            enable = true;
-            enable_radicale = true;
-            path_radicale = "/var/lib/radicale/";
-            data_dir = "/var/lib/ocis/data";
-            config_file = "/var/lib/ocis/config/ocis.yaml";
-          };
-          exDetail = {
-            enable = true;
-          };
-          zonos.enable = true;
-          llm = {
-            enable = false;
-            db_path = "/var/lib/ollama";
-            models = [
-              "deepseek-r1:1.5b"
-              "deepseek-r1:8b"
-              "deepseek-r1:14b"
-            ];
-          };
-          incus = {
-            enable = true;
-            enable_networking = true;
-          };
         }
-
         #inputs.agenix.nixosModules.default
         inputs.chaotic.nixosModules.default
       ];
