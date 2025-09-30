@@ -50,14 +50,14 @@
       allowed-uris = [ "https://github.com/pythonpoet.keys" ];
     };
     
-    buildMachines = [
-    { hostName = "localhost";
-      systems = [ "aarch64-linux" "armv7l-linux" ] ;
-      supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
-      maxJobs = 4;
-      protocol = null;
-    }
-  ];
+  #   buildMachines = [
+  #   { hostName = "localhost";
+  #     systems = [ "aarch64-linux" "armv7l-linux" ] ;
+  #     supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
+  #     maxJobs = 4;
+  #     protocol = null;
+  #   }
+  # ];
   };
   
 }
