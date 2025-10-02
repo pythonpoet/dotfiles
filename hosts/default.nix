@@ -124,7 +124,7 @@
         {
           # Hardware specific configuration, see section below for a more complete 
           # list of modules
-          imports = with nixos-raspberrypi.nixosModules; [
+          imports = with inputs.nixos-raspberrypi.nixosModules; [
             raspberry-pi-5.base
             raspberry-pi-5.page-size-16k
             raspberry-pi-5.display-vc4
