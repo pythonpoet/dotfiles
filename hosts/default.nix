@@ -117,38 +117,36 @@
     };
 
     alpakapi5 = inputs.nixos-raspberrypi.lib.nixosSystemFull {
-      specialArgs = {
-        inherit (inputs) nixos-raspberrypi;
-        inherit inputs;
-      };
+      specialArgs = inputs;
       #system = "aarch64-linux";
-      modules =
-        cloud
-        ++ [
-          
-          inputs.catppuccin.nixosModules.catppuccin
-          ./alpakapi5
-          "${mod}/core/users.nix"
-          "${mod}/nix"
-          "${mod}/programs/zsh.nix"
-          "${mod}/programs/home-manager.nix"
-          {
+      modules = [
+        ./alpakapi5
+        {
+          # Hardware specific configuration, see section below for a more complete 
+          # list of modules
+          imports = with nixos-raspberrypi.nixosModules; [
+            raspberry-pi-5.base
+            raspberry-pi-5.page-size-16k
+            raspberry-pi-5.display-vc4
+            raspberry-pi-5.bluetooth
+          ];
+        }
 
-            home-manager = {
-              users.david.imports = homeImports.server;
-              extraSpecialArgs = specialArgs;
-            };
-            immich = {
-              enable = false;
-              data_dir = "/data1/immich";
-            };
-            postgresql = {
-              enable = true;
-              data_dir = "/data1/test-db";
-            };
-            jitsi.enable = false;
-          }
-        ];
+        ({ config, pkgs, lib, ... }: {
+          networking.hostName = "rpi5-demo";
+
+          system.nixos.tags = let
+            cfg = config.boot.loader.raspberryPi;
+          in [
+            "raspberry-pi-${cfg.variant}"
+            cfg.bootloader
+            config.boot.kernelPackages.kernel.version
+          ];
+        })
+
+    # ...
+
+    ];
     };
     hal = nixosSystem {
       inherit specialArgs;
