@@ -3,7 +3,9 @@
   inputs,
   stdenv,
   ...
-}: {
+}@inputs: let
+    allSystems = nixpkgs.lib.systems.flakeExposed;
+    forSystems = systems: f: nixpkgs.lib.genAttrs systems (system: f system);  {
   flake.nixosConfigurations = let
     # shorten paths
     inherit (inputs.nixpkgs.lib) nixosSystem;
