@@ -12,10 +12,10 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # Hardware configuration
-      raspberry-pi-5.base
-      raspberry-pi-5.page-size-16k
-      raspberry-pi-5.display-vc4
-      raspberry-pi-5.bluetooth
+      # raspberry-pi-5.base
+      # raspberry-pi-5.page-size-16k
+      # raspberry-pi-5.display-vc4
+      # raspberry-pi-5.bluetooth
     ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -26,11 +26,11 @@ in
   # boot.loader.efi.canTouchEfiVariables = false;
   # Add the RPi kernel
   #boot.kernelPackages = inputs.nix-raspi5.legacyPackages.aarch64-linux.linuxPackages_rpi5;
-  boot = {
-    loader.raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
-    loader.raspberryPi.bootloader = "kernel"; # U-Boot not needed for Pi5 unless you want it
-    kernelPackages = kernelBundle.linuxPackages_rpi5;
-  };
+  # boot = {
+  #   loader.raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
+  #   loader.raspberryPi.bootloader = "kernel"; # U-Boot not needed for Pi5 unless you want it
+  #   kernelPackages = kernelBundle.linuxPackages_rpi5;
+  # };
   #boot.kernelPackages = pkgs.linuxAndFirmware.default;
 
   networking.hostName = "alpakapi5"; # Define your hostname.

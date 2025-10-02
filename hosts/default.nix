@@ -120,31 +120,40 @@
       specialArgs = inputs;
       #system = "aarch64-linux";
       modules = [
-        ./alpakapi5
-        {
-          # Hardware specific configuration, see section below for a more complete 
-          # list of modules
-          imports = with inputs.nixos-raspberrypi.nixosModules; [
-            raspberry-pi-5.base
-            raspberry-pi-5.page-size-16k
-            raspberry-pi-5.display-vc4
-            raspberry-pi-5.bluetooth
-          ];
-        }
 
-        ({ config, pkgs, lib, ... }: {
-          networking.hostName = "rpi5-demo";
+        ({ config, pkgs, lib, nixos-raspberrypi, disko, ... }: {
+            imports = with nixos-raspberrypi.nixosModules; [
+              # Hardware configuration
+              raspberry-pi-5.base
+              raspberry-pi-5.page-size-16k
+              raspberry-pi-5.display-vc4
+              ./alpakapi5.nix
+            ];
+          })
 
-          system.nixos.tags = let
-            cfg = config.boot.loader.raspberryPi;
-          in [
-            "raspberry-pi-${cfg.variant}"
-            cfg.bootloader
-            config.boot.kernelPackages.kernel.version
-          ];
-        })
+          # Advanced: Use non-default kernel from kernel-firmware bundle
+          ({ config, pkgs, lib, ... }: let
+            kernelBundle = pkgs.linuxAndFirmware.v6_6_31;
+          in {
+            boot = {
+              loader.raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
+              loader.raspberryPi.bootloader = "kernel";
+              kernelPackages = kernelBundle.linuxPackages_rpi5;
+            };
 
-    # ...
+            nixpkgs.overlays = lib.mkAfter [
+              (self: super: {
+                # This is used in (modulesPath + "/hardware/all-firmware.nix") when at least 
+                # enableRedistributableFirmware is enabled
+                # I know no easier way to override this package
+                inherit (kernelBundle) raspberrypiWirelessFirmware;
+                # Some derivations want to use it as an input,
+                # e.g. raspberrypi-dtbs, omxplayer, sd-image-* modules
+                inherit (kernelBundle) raspberrypifw;
+              })
+            ];
+          })
+
 
     ];
     };
