@@ -120,14 +120,13 @@
       specialArgs = inputs;
       #system = "aarch64-linux";
       modules = [
-
+        ./alpakapi5
         ({ config, pkgs, lib, disko, ... }: {
             imports = with inputs.nixos-raspberrypi.nixosModules; [
               # Hardware configuration
               raspberry-pi-5.base
               raspberry-pi-5.page-size-16k
               raspberry-pi-5.display-vc4
-              ./alpakapi5
             ];
           })
 
