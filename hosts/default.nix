@@ -3,9 +3,7 @@
   inputs,
   stdenv,
   ...
-}@inputs: let
-    allSystems = nixpkgs.lib.systems.flakeExposed;
-    forSystems = systems: f: nixpkgs.lib.genAttrs systems (system: f system);  in {
+}: {
   flake.nixosConfigurations = let
     # shorten paths
     inherit (inputs.nixpkgs.lib) nixosSystem;
@@ -123,8 +121,8 @@
       #system = "aarch64-linux";
       modules = [
 
-        ({ config, pkgs, lib, nixos-raspberrypi, disko, ... }: {
-            imports = with nixos-raspberrypi.nixosModules; [
+        ({ config, pkgs, lib, disko, ... }: {
+            imports = with inputs.nixos-raspberrypi.nixosModules; [
               # Hardware configuration
               raspberry-pi-5.base
               raspberry-pi-5.page-size-16k
