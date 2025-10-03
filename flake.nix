@@ -10,6 +10,7 @@
 
       imports = [
         ./hosts
+        ./hosts/deploy.nix
         ./lib
         ./modules
         ./pkgs
