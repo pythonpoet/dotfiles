@@ -7,7 +7,7 @@ let
   cfg = config.analytics;
  {
   option.analytics = {
-    enable = mkEnableOption "Enable Vaultwarden service";
+    enable = mkEnableOption "Enable Analytics service";
     };
 
   config.analytics = mkIf cfg.enable {
