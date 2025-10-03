@@ -182,7 +182,7 @@
           hostname = "alpakapi5";
           profiles.system = {
             user = "root";
-            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.alpakapi5;
+            path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.alpakapi5;
           };
         }
       }

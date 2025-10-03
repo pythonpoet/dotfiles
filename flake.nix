@@ -71,7 +71,7 @@
     };
 
     anyrun.url = "github:fufexan/anyrun/launch-prefix";
-    inputs.deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.url = "github:serokell/deploy-rs";
 
     chaotic.url = "https://flakehub.com/f/chaotic-cx/nyx/*.tar.gz";
 
