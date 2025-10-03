@@ -124,20 +124,19 @@
 
     alpakapi5 = inputs.nixos-raspberrypi.lib.nixosSystemFull {
       specialArgs = inputs;
-      system = "aarch64-linux";
+      system = "x86_64-linux";  # Build on x86_64
+      pkgs = crossPkgs;
       modules = [
         ./alpakapi5
         {
           # Explicit cross-compilation settings
         nixpkgs = {
+            # These are the correct option names
             localSystem = "x86_64-linux";
-            crossSystem = {
-              config = "aarch64-unknown-linux-gnu";
-              system = "aarch64-linux";
-            };
-            buildPlatform = "x86_64-linux";
-            hostPlatform = "aarch64-linux";
-            targetPlatform = "aarch64-linux";
+            crossSystem = "aarch64-linux";
+            # Alternative if the above doesn't work:
+            # localSystem.system = "x86_64-linux";
+            # crossSystem.system = "aarch64-linux";
           };
           
           # Allow unsupported system for packages that don't cross-compile well
