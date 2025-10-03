@@ -32,6 +32,7 @@
     "nixos-test"
     "kvm"
     "gccarch-armv7-a"  # Add this for ARMv7!
+    "gccarch-armv8-a"
   ];
 
   networking.hostName = "hal"; # Define your hostname.
