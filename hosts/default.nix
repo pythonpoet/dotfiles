@@ -176,5 +176,16 @@
         inputs.chaotic.nixosModules.default
       ];
     };
+    deploy = {
+      nodes = {
+        alpakapi5= {
+          hostname = "alpakapi5";
+          profiles.system = {
+            user = "root";
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.alpakapi5;
+          };
+        }
+      }
+    }
   };
 }
