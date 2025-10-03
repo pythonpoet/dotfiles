@@ -36,6 +36,9 @@
     crossPkgs = import inputs.nixpkgs {
       system = "x86_64-linux";  # Build system
       crossSystem = inputs.nixpkgs.lib.systems.examples.aarch64-multiplatform;
+      config = {
+        allowUnsupportedSystem = true;  # Set config here, not in modules
+      };
     };
 
     # get these into the module system
@@ -130,17 +133,10 @@
         ./alpakapi5
         {
           # Explicit cross-compilation settings
-        nixpkgs = {
-            # These are the correct option names
+          nixpkgs = {
             localSystem = "x86_64-linux";
             crossSystem = "aarch64-linux";
-            # Alternative if the above doesn't work:
-            # localSystem.system = "x86_64-linux";
-            # crossSystem.system = "aarch64-linux";
           };
-          
-          # Allow unsupported system for packages that don't cross-compile well
-          nixpkgs.config.allowUnsupportedSystem = true;
         }
         ({ config, pkgs, lib, disko, ... }: {
             imports = with inputs.nixos-raspberrypi.nixosModules; [
