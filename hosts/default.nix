@@ -32,6 +32,12 @@
       "${self}/modules/jitsi.nix"
     ];
 
+    # Cross-compilation setup for alpakapi5
+    crossPkgs = import inputs.nixpkgs {
+      system = "x86_64-linux";  # Build system
+      crossSystem = inputs.nixpkgs.lib.systems.examples.aarch64-multiplatform;
+    };
+
     # get these into the module system
     specialArgs = {inherit inputs self;};
   in {
@@ -121,6 +127,22 @@
       system = "aarch64-linux";
       modules = [
         ./alpakapi5
+        {
+          # Explicit cross-compilation settings
+        nixpkgs = {
+            localSystem = "x86_64-linux";
+            crossSystem = {
+              config = "aarch64-unknown-linux-gnu";
+              system = "aarch64-linux";
+            };
+            buildPlatform = "x86_64-linux";
+            hostPlatform = "aarch64-linux";
+            targetPlatform = "aarch64-linux";
+          };
+          
+          # Allow unsupported system for packages that don't cross-compile well
+          nixpkgs.config.allowUnsupportedSystem = true;
+        }
         ({ config, pkgs, lib, disko, ... }: {
             imports = with inputs.nixos-raspberrypi.nixosModules; [
               # Hardware configuration
