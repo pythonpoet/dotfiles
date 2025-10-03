@@ -1,4 +1,5 @@
 # ./hosts/deploy.nix
+{ self, inputs, ... }:
 {
   flake.deploy = {
     nodes = {
