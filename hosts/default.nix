@@ -118,7 +118,7 @@
 
     alpakapi5 = inputs.nixos-raspberrypi.lib.nixosSystemFull {
       specialArgs = inputs;
-      #system = "aarch64-linux";
+      system = "aarch64-linux";
       modules = [
         ./alpakapi5
         ({ config, pkgs, lib, disko, ... }: {
