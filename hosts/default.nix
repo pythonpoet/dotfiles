@@ -39,6 +39,15 @@
       config = {
         allowUnsupportedSystem = true;  # Set config here, not in modules
       };
+      overlays = [
+        (final: prev: {
+          # Fix kbd package for cross-compilation
+          kbd = prev.kbd.overrideAttrs (oldAttrs: {
+            # Add missing gzip dependency
+            nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ final.gzip ];
+          });
+        })
+      ];
     };
 
     # get these into the module system
