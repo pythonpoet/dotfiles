@@ -115,7 +115,6 @@
           inputs.disko.nixosModules.disko
         ];
     };
-
     alpakapi5 = nixosSystem{
       specialArgs = inputs;
       system = "aarch64-linux";
@@ -127,6 +126,13 @@
         "${mod}/programs/home-manager.nix"
 
         ];
+    };
+    bernina = inputs.nixos-raspberrypi.lib.nixosSystemFull {
+      system = "aarch64-linux";
+      specialArgs = { inherit inputs self; };
+      modules = [
+        ./bernina
+      ];
     };
     hal = nixosSystem {
       inherit specialArgs;

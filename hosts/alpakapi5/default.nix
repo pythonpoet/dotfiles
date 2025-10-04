@@ -49,17 +49,7 @@ in
      "gccarch-armv8-a"
     ];
 
-  fileSystems."/data1" = {
-    device = "/dev/disk/by-uuid/5a4cb152-78cc-4f24-9941-a11691c9bbca";
-    fsType = "btrfs";  # ← Make sure this says "btrfs" not "brtfs"
-    options = ["defaults" "noatime" "compress=zstd" "nofail"];
-  };
 
-  fileSystems."/data2" = {
-    device = "/dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32";
-    fsType = "btrfs";  # ← Make sure this says "btrfs" not "brtfs"
-    options = ["defaults" "noatime" "compress=zstd" "nofail"];
-  };
 
   services.tailscale.enable = true;
 

@@ -11,6 +11,13 @@
           path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.alpakapi5;
         };
       };
+      bernina = {
+        hostname = "bernina";  # Replace with actual hostname/IP
+        profiles.system = {
+          user = "david";
+          path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.bernina;
+        };
+      };
       
       # Add other nodes as needed
       hal = {
