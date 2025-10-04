@@ -23,10 +23,19 @@
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
+  
+  fileSystems."/data1" = {
+    device = "/dev/disk/by-uuid/5a4cb152-78cc-4f24-9941-a11691c9bbca";
+    fsType = "btrfs";  # ← Make sure this says "btrfs" not "brtfs"
+    options = ["defaults" "noatime" "compress=zstd" "nofail"];
+  };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/81c8115f-7268-4560-8fa8-2df6f51a9f12"; }
-    ];
+  fileSystems."/data2" = {
+    device = "/dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32";
+    fsType = "btrfs";  # ← Make sure this says "btrfs" not "brtfs"
+    options = ["defaults" "noatime" "compress=zstd" "nofail"];
+  };
+
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

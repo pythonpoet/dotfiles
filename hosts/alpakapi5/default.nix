@@ -31,7 +31,7 @@ in
   #   loader.raspberryPi.bootloader = "kernel"; # U-Boot not needed for Pi5 unless you want it
   #   kernelPackages = kernelBundle.linuxPackages_rpi5;
   # };
-  #boot.kernelPackages = pkgs.linuxAndFirmware.default;
+  boot.kernelPackages = pkgs.linuxAndFirmware.default;
 
   networking.hostName = "alpakapi5"; # Define your hostname.
   # Pick only one of the below networking options.

@@ -32,24 +32,6 @@
       "${self}/modules/jitsi.nix"
     ];
 
-    # Cross-compilation setup for alpakapi5
-    crossPkgs = import inputs.nixpkgs {
-      system = "x86_64-linux";  # Build system
-      crossSystem = inputs.nixpkgs.lib.systems.examples.aarch64-multiplatform;
-      config = {
-        allowUnsupportedSystem = true;  # Set config here, not in modules
-      };
-      overlays = [
-        (final: prev: {
-          # Fix kbd package for cross-compilation
-          kbd = prev.kbd.overrideAttrs (oldAttrs: {
-            # Add missing gzip dependency
-            nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ final.gzip ];
-          });
-        })
-      ];
-    };
-
     # get these into the module system
     specialArgs = {inherit inputs self;};
   in {
@@ -134,53 +116,17 @@
         ];
     };
 
-    alpakapi5 = inputs.nixos-raspberrypi.lib.nixosSystemFull {
+    alpakapi5 = nixosSystem{
       specialArgs = inputs;
-      system = "x86_64-linux";  # Build on x86_64
-      pkgs = crossPkgs;
+      system = "aarch64-linux";
       modules = [
         ./alpakapi5
-        {
-          # Explicit cross-compilation settings
-          nixpkgs = {
-            localSystem = "x86_64-linux";
-            crossSystem = "aarch64-linux";
-          };
-        }
-        ({ config, pkgs, lib, disko, ... }: {
-            imports = with inputs.nixos-raspberrypi.nixosModules; [
-              # Hardware configuration
-              raspberry-pi-5.base
-              raspberry-pi-5.page-size-16k
-              raspberry-pi-5.display-vc4
-            ];
-          })
+        "${mod}/core/users.nix"
+        "${mod}/nix"
+        "${mod}/programs/zsh.nix"
+        "${mod}/programs/home-manager.nix"
 
-          # Advanced: Use non-default kernel from kernel-firmware bundle
-          ({ config, pkgs, lib, ... }: let
-            kernelBundle = pkgs.linuxAndFirmware.v6_6_31;
-          in {
-            boot = {
-              loader.raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
-              loader.raspberryPi.bootloader = "kernel";
-              kernelPackages = kernelBundle.linuxPackages_rpi5;
-            };
-
-            nixpkgs.overlays = lib.mkAfter [
-              (self: super: {
-                # This is used in (modulesPath + "/hardware/all-firmware.nix") when at least 
-                # enableRedistributableFirmware is enabled
-                # I know no easier way to override this package
-                inherit (kernelBundle) raspberrypiWirelessFirmware;
-                # Some derivations want to use it as an input,
-                # e.g. raspberrypi-dtbs, omxplayer, sd-image-* modules
-                inherit (kernelBundle) raspberrypifw;
-              })
-            ];
-          })
-
-
-    ];
+        ];
     };
     hal = nixosSystem {
       inherit specialArgs;
