@@ -18,64 +18,54 @@
   ];
 
   home.packages = with pkgs; [
-    halloy
-    signal-desktop
-    tdesktop
+  alacritty
+  anki
+  baobab
+  beeper
+  bitwarden-desktop
+  brave
+  calibre
+  dconf-editor
+  elixir_1_18
+  element-desktop
+  flyctl
+  gephi
+  glow
+  gnome-calculator
+  gnome-control-center
+  gnomeExtensions.blur-my-shell
+  gnomeExtensions.pano
+  gnomeExtensions.system-monitor
+  gnomeExtensions.tiling-shell
+  gnomeExtensions.user-themes
+  gsound
+  halloy
+  immich-cli
+  inkscape
+  inotify-tools
+  meld
+  mission-center
+  newsflash
+  nodejs_20
+  openssl
+  owncloud-client
+  overskride
+  popcorntime
+  postgresql_17
+  R
+  readest
+  resources
+  signal-desktop
+  tdesktop
+  thunderbird
+  typst
+  v4l-utils
+  webtorrent_desktop
+  wineWowPackages.wayland
+  zotero
+  zulu11
+];
 
-    gnome-calculator
-    gnome-control-center
-    resources
-
-    gnomeExtensions.system-monitor
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.tiling-shell
-    gnomeExtensions.pano
-    gnomeExtensions.user-themes
-
-    # libgda5
-    gsound
-
-    overskride
-    mission-center
-    wineWowPackages.wayland
-
-    bitwarden-desktop
-    thunderbird
-    beeper
-    newsflash
-    anki
-    typst
-    glow
-    zotero
-    owncloud-client
-    dconf-editor
-    alacritty
-    inkscape
-    meld
-    element-desktop
-    libinput
-    v4l-utils
-    webtorrent_desktop
-    popcorntime
-
-    R
-    elixir_1_18
-    nodejs_20
-    inotify-tools
-    postgresql_17
-    flyctl
-    openssl
-
-    gephi
-    zulu11
-    immich-cli
-    brave
-    readest
-
-    # fluffychat
-    baobab
-    # wl-clipboard-rs
-  ];
 
   dconf = {
     enable = true;
