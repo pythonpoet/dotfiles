@@ -135,7 +135,7 @@ in {
       in
       [
         ''
-          ${lib.getExe' postgresqlPackage "psql"} -d "immich" -f "${sqlFile}"
+          ${lib.getExe'   "psql"} -d "immich" -f "${sqlFile}"
         ''
       ];
   };
