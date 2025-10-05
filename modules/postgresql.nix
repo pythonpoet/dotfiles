@@ -135,7 +135,7 @@ in {
       in
       [
         ''
-          ${lib.getExe' cfg.pkgs   "psql"} -d "immich" -f "${sqlFile}"
+          ${lib.getExe' cfg.package   "psql"} -d "immich" -f "${sqlFile}"
         ''
       ];
   };
