@@ -3,16 +3,17 @@
 {
   flake.deploy = {
     nodes = {
-      alpakapi5 = {
-        hostname = "alpakapi5";  # Replace with actual hostname/IP
-        buildHost = "david@hal";  # Build on your local machine
-        profiles.system = {
-          user = "david";
-          path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.alpakapi5;
-        };
-      };
+      # alpakapi5 = {
+      #   hostname = "alpakapi5";  # Replace with actual hostname/IP
+      #   buildHost = "david@hal";  # Build on your local machine
+      #   profiles.system = {
+      #     user = "david";
+      #     path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.alpakapi5;
+      #   };
+      # };
       bernina = {
         hostname = "bernina";  # Replace with actual hostname/IP
+        buildHost = "bernina";
         profiles.system = {
           user = "david";
           path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.bernina;

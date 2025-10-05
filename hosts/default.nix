@@ -115,21 +115,24 @@
           inputs.disko.nixosModules.disko
         ];
     };
-    alpakapi5 = nixosSystem{
-      specialArgs = inputs;
-      system = "aarch64-linux";
-      modules = [
-        ./alpakapi5
-        "${mod}/core/users.nix"
-        "${mod}/nix"
-        "${mod}/programs/zsh.nix"
-        "${mod}/programs/home-manager.nix"
+    # alpakapi5 = nixosSystem{
+    #   specialArgs = inputs;
+    #   system = "aarch64-linux";
+    #   modules = [
+    #     ./alpakapi5
+    #     "${mod}/core/users.nix"
+    #     "${mod}/nix"
+    #     "${mod}/programs/zsh.nix"
+    #     "${mod}/programs/home-manager.nix"
 
-        ];
-    };
+    #     ];
+    # };
     bernina = inputs.nixos-raspberrypi.lib.nixosSystemFull {
       system = "aarch64-linux";
-      specialArgs = { inherit inputs self; };
+      specialArgs = {
+        inherit inputs self;
+        nixos-raspberrypi = inputs.nixos-raspberrypi; # <-- Add this line
+      };
       modules = [
         ./bernina
       ];

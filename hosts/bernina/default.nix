@@ -1,38 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 let
   kernelBundle = pkgs.linuxAndFirmware.v6_6_31; # or latest supported
-in 
-
-{
-  imports = with inputs.nixos-raspberrypi.nixosModules;
-    [ # Include the results of the hardware scan.
-      # Hardware configuration
-      raspberry-pi-5.base
-      raspberry-pi-5.page-size-16k
-      raspberry-pi-5.display-vc4
-      raspberry-pi-5.bluetooth
-    ];
-  boot = {
-    loader = {
-      raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-      raspberryPi.enable = lib.mkForce false;
-    };
-    kernelPackages = kernelBundle.linuxPackages_rpi5;
-    };
-
-    nixpkgs.overlays = lib.mkAfter [
-      (self: super: {
-        # This is used in (modulesPath + "/hardware/all-firmware.nix") when at least 
-        # enableRedistributableFirmware is enabled
-        # I know no easier way to override this package
-        inherit (kernelBundle) raspberrypiWirelessFirmware;
-        # Some derivations want to use it as an input,
-        # e.g. raspberrypi-dtbs, omxplayer, sd-image-* modules
-        inherit (kernelBundle) raspberrypifw;
-      })
-    ];
   users-config-stub = ({ config, ... }: {
         # This is identical to what nixos installer does in
         # (modulesPash + "profiles/installation-device.nix")
@@ -120,7 +88,6 @@ in
 
       common-user-config = {config, pkgs, ... }: {
         imports = [
-          ./modules/nice-looking-console.nix
           users-config-stub
           network-config
         ];
@@ -161,6 +128,40 @@ in
           config.boot.kernelPackages.kernel.version
         ];
       };
+      
+in 
+
+{
+  imports = with inputs.nixos-raspberrypi.nixosModules;
+    [ # Include the results of the hardware scan.
+      # Hardware configuration
+      raspberry-pi-5.base
+      raspberry-pi-5.page-size-16k
+      raspberry-pi-5.display-vc4
+      raspberry-pi-5.bluetooth
+      common-user-config
+    ];
+  boot = {
+    loader = {
+      raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      raspberryPi.enable = lib.mkForce false;
+    };
+    kernelPackages = kernelBundle.linuxPackages_rpi5;
+    };
+
+    nixpkgs.overlays = lib.mkAfter [
+      (self: super: {
+        # This is used in (modulesPath + "/hardware/all-firmware.nix") when at least 
+        # enableRedistributableFirmware is enabled
+        # I know no easier way to override this package
+        inherit (kernelBundle) raspberrypiWirelessFirmware;
+        # Some derivations want to use it as an input,
+        # e.g. raspberrypi-dtbs, omxplayer, sd-image-* modules
+        inherit (kernelBundle) raspberrypifw;
+      })
+    ];
  
   fileSystems."/data1" = {
     device = "/dev/disk/by-uuid/5a4cb152-78cc-4f24-9941-a11691c9bbca";
