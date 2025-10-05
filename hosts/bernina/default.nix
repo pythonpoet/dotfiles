@@ -1,6 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 let
-  kernelBundle = pkgs.linuxAndFirmware.v6_6_31; # or latest supported
+  kernelBundle = pkgs.linuxAndFirmware.v6_12_44; # or latest supported
   nix-settings = ({ config, ... }:{
     nix.registry.nixpkgs.to.path = lib.mkForce inputs.nixpkgs.outPath;
   });
@@ -140,7 +140,7 @@ in
     [ # Include the results of the hardware scan.
       # Hardware configuration
       raspberry-pi-5.base
-      raspberry-pi-5.page-size-16k
+      #raspberry-pi-5.page-size-16k
       raspberry-pi-5.display-vc4
       raspberry-pi-5.bluetooth
       common-user-config
@@ -153,6 +153,9 @@ in
       raspberryPi.enable = lib.mkForce false;
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
+    extraKernelConfig = ''
+      CONFIG_ARM64_16K_PAGES=n
+    '';
     };
 
     nixpkgs.overlays = lib.mkAfter [
