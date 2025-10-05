@@ -1,6 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 let
-  kernelBundle = pkgs.linuxAndFirmware.v6_6_31; # or latest supported
+  kernelBundle = pkgs.linuxAndFirmware.v6_12_44; # or latest supported
   nix-settings = ({ config, ... }:{
     nix.registry.nixpkgs.to.path = lib.mkForce inputs.nixpkgs.outPath;
   });
