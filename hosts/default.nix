@@ -158,7 +158,7 @@
     hal = nixosSystem {
       inherit specialArgs;
       system.stateVersion = 25.05;
-      modules = [
+      modules = cloud ++ [
         ./hal
         "${mod}/core/users.nix"
         "${mod}/nix"
@@ -170,7 +170,12 @@
             users.david.imports = homeImports."minimal";
             extraSpecialArgs = specialArgs;
           };
+          postgresql = {
+            enable = true;
+            data_dir = "/backup/databases";
+          };
         }
+        
         #inputs.agenix.nixosModules.default
         inputs.chaotic.nixosModules.default
       ];

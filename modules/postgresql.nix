@@ -91,26 +91,52 @@ in {
         host    all             all             127.0.0.1/32            trust
         host    all             all             ::1/128                 trust
       '';
-      extraPlugins = ps: with ps; [ pgvecto-rs ];
+      extensions =
+        ps:
+        lib.optionals cfg.database.enableVectors [ ps.pgvecto-rs ]
+        ++ lib.optionals cfg.database.enableVectorChord [
+          ps.pgvector
+          ps.vectorchord
+        ];
       settings = {
-        shared_preload_libraries = [ "vectors.so" ];
+        shared_preload_libraries =
+           [
+            "vectors.so"
+          ]
+          ++  [ "vchord.so" ];
         search_path = "\"$user\", public, vectors";
       };
-
-      initialScript = pkgs.writeText "init.sql" ''
-        CREATE EXTENSION IF NOT EXISTS unaccent;
-        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-        CREATE EXTENSION IF NOT EXISTS vectors;
-        CREATE EXTENSION IF NOT EXISTS cube;
-        CREATE EXTENSION IF NOT EXISTS earthdistance;
-        CREATE EXTENSION IF NOT EXISTS pg_trgm;
-
-        ALTER SCHEMA public OWNER TO ${cfg.db_user};
-        ALTER SCHEMA vectors OWNER TO ${cfg.db_user};
-        GRANT SELECT ON TABLE pg_vector_index_stat TO ${cfg.db_user};
-
-        ALTER EXTENSION vectors UPDATE;
-      '';
     };
+    systemd.services.postgresql-setup.serviceConfig.ExecStartPost =
+      let
+        extensions = [
+          "unaccent"
+          "uuid-ossp"
+          "cube"
+          "earthdistance"
+          "pg_trgm"
+        ]
+        ++ [
+          "vectors"
+        ]
+        ++  [
+          "vector"
+          "vchord"
+        ];
+        sqlFile = pkgs.writeText "immich-pgvectors-setup.sql" ''
+          ${lib.concatMapStringsSep "\n" (ext: "CREATE EXTENSION IF NOT EXISTS \"${ext}\";") extensions}
+
+          ALTER SCHEMA public OWNER TO ${cfg.db_user};
+          ${lib.optionalString true "ALTER SCHEMA vectors OWNER TO ${cfg.db_user};"}
+          GRANT SELECT ON TABLE pg_vector_index_stat TO ${cfg.db_user};
+
+          ${lib.concatMapStringsSep "\n" (ext: "ALTER EXTENSION \"${ext}\" UPDATE;") extensions}
+        '';
+      in
+      [
+        ''
+          ${lib.getExe' postgresqlPackage "psql"} -d "immich" -f "${sqlFile}"
+        ''
+      ];
   };
 }

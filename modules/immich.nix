@@ -43,6 +43,7 @@ in
     port = cfg.port;
     host = cfg.host;
     openFirewall = true;
+    database.enableVectorChord = true;
     mediaLocation = cfg.data_dir;
 
     # services.immich.secretsFile secretsFile for passwort
