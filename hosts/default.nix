@@ -135,6 +135,16 @@
       };
       modules = [
         ./bernina
+        "${mod}/core/users.nix"
+        "${mod}/nix"
+        "${mod}/programs/zsh.nix"
+        "${mod}/programs/home-manager.nix"
+         {
+          home-manager = {
+            users.david.imports = homeImports.server;
+            extraSpecialArgs = specialArgs;
+          };
+        }
       ];
     };
     hal = nixosSystem {
