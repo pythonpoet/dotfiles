@@ -135,7 +135,7 @@ in {
       in
       [
         ''
-          ${lib.getExe' cfg.package   "psql"} -d "immich" -f "${sqlFile}"
+          ${lib.getExe' config.services.postgresql.package   "psql"} -d "immich" -f "${sqlFile}"
         ''
       ];
   };
