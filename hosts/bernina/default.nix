@@ -153,7 +153,7 @@ in
       raspberryPi.enable = lib.mkForce false;
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
-    extraKernelConfig = ''
+    kernel.extraConfig = ''
       CONFIG_ARM64_16K_PAGES=n
     '';
     };
