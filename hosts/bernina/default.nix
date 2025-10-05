@@ -1,6 +1,9 @@
 { config, lib, pkgs, inputs, ... }:
 let
   kernelBundle = pkgs.linuxAndFirmware.v6_6_31; # or latest supported
+  nix-settings = ({ config, ... }:{
+    nix.registry.nixpkgs.to.path = lib.mkForce inputs.nixpkgs.outPath;
+  });
   users-config-stub = ({ config, ... }: {
         # This is identical to what nixos installer does in
         # (modulesPash + "profiles/installation-device.nix")
@@ -88,6 +91,7 @@ let
 
       common-user-config = {config, pkgs, ... }: {
         imports = [
+          nix-settings
           users-config-stub
           network-config
         ];
