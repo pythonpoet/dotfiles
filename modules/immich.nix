@@ -4,6 +4,32 @@ with lib; let
 
   };
   cfg = config.immich // immichDefaults;
+  let
+  myOverlay = final: prev: {
+    # Example: patch jemalloc for Raspberry Pi 5
+    jemalloc = prev.jemalloc.overrideAttrs (old: {
+      configureFlags =
+        let
+          pageSizeFlag = "--with-lg-page";
+          filteredFlags = lib.filter (flag: !(lib.hasPrefix pageSizeFlag flag)) (old.configureFlags or []);
+        in
+          filteredFlags ++ [ "${pageSizeFlag}=14" ];
+      meta = old.meta // {
+        description = "${old.meta.description} (patched for 16 KB page size)";
+      };
+    });
+
+    # Optional: override Python package to skip import check
+    deepdiff = prev.deepdiff.overrideAttrs (old: {
+      doCheck = false;
+      checkPhase = ''
+        echo "Skipping pythonImportsCheckPhase on Raspberry Pi 5"
+      '';
+    });
+  };
+
+  pkgsWithOverlay = import <nixpkgs> { overlays = [ myOverlay ]; };
+  
 in
 {
   options.immich = {
@@ -38,6 +64,11 @@ in
     };
   };
   config = mkIf cfg.enable {
+    environment.systemPackages = [
+      pkgsWithOverlay.jemalloc
+      pkgsWithOverlay.deepdiff
+    ];
+    
   services.immich = {
     machine-learning.environment.MALLOC_CONF = "abort_conf:false";
 
