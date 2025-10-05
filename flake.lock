@@ -616,15 +616,15 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1758967172,
-        "narHash": "sha256-zRASAVS7tX7gPdvCUbi2m7KGX0jNuMlaOFqbkUZhu9k=",
-        "owner": "nvmd",
+        "lastModified": 1759701599,
+        "narHash": "sha256-O97FEXPmfnxwsucHheJsJgyxRn/82Fmt0oQxL53iQv8=",
+        "owner": "pythonpoet",
         "repo": "nixos-raspberrypi",
-        "rev": "09c214a30e5a27e0fa92a9975b91c82ba05d1f17",
+        "rev": "aa83b60b42c2c60bfdce80da4a98e29eb7074dc3",
         "type": "github"
       },
       "original": {
-        "owner": "nvmd",
+        "owner": "pythonpoet",
         "ref": "main",
         "repo": "nixos-raspberrypi",
         "type": "github"

@@ -1,4 +1,4 @@
-{config, lib, ...}: #test
+{config, lib,pkgs,  ...}: #test
 with lib; let 
   immichDefaults = {
 
