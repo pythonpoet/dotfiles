@@ -153,9 +153,13 @@ in
       raspberryPi.enable = lib.mkForce false;
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
-  #   kernelParams = [
-  #   "compat_uts_machine=armv7l"
-  # ];
+    kernelPatches = [{
+      name = "change-page-size";
+      patch = null;
+      extraConfig = ''
+        ARM64_16K_PAGES n
+      '';
+    }];
     };
 
     nixpkgs.overlays = lib.mkAfter [
