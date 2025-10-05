@@ -39,6 +39,8 @@ in
   };
   config = mkIf cfg.enable {
   services.immich = {
+    machineLearning.environment.MALLOC_CONF = "abort_conf:false";
+
     enable = true;
     port = cfg.port;
     host = cfg.host;
