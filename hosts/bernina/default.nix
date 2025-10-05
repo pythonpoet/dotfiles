@@ -154,10 +154,12 @@ in
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
     kernelPatches = [{
-      name = "change-page-size";
+      name = "4k-pages";
       patch = null;
       extraConfig = ''
+        ARM64_4K_PAGES y
         ARM64_16K_PAGES n
+        ARM64_64K_PAGES n
       '';
     }];
     };
