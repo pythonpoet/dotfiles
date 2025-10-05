@@ -1,6 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 let
-  kernelBundle = pkgs.linuxAndFirmware.v6_12_44; # or latest supported
+  kernelBundle = pkgs.linuxAndFirmware.v6_6_31; # or latest supported
   nix-settings = ({ config, ... }:{
     nix.registry.nixpkgs.to.path = lib.mkForce inputs.nixpkgs.outPath;
   });
@@ -153,15 +153,6 @@ in
       raspberryPi.enable = lib.mkForce false;
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
-    kernelPatches = [
-    {
-      name = "disable-16k-pages";
-      patch = null;
-      extraConfig = ''
-        CONFIG_ARM64_16K_PAGES=n
-      '';
-    }
-  ];
     };
 
     nixpkgs.overlays = lib.mkAfter [
