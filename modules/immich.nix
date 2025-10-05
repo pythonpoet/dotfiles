@@ -82,6 +82,7 @@ in
 
     environment = {
       MALLOC_CONF = "abort_conf:false";
+      JEMALLOC_SYS_WITH_LG_PAGE = "14";
       IMMICH_HOST = cfg.host;
       DB_HOSTNAME = cfg.postgres_db_name; # PostgreSQL host
       DB_PORT =  "${toString cfg.port}"; # PostgreSQL port

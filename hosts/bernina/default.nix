@@ -153,6 +153,9 @@ in
       raspberryPi.enable = lib.mkForce false;
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
+  #   kernelParams = [
+  #   "compat_uts_machine=armv7l"
+  # ];
     };
 
     nixpkgs.overlays = lib.mkAfter [
