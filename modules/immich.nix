@@ -4,7 +4,7 @@ with lib; let
 
   };
   cfg = config.immich // immichDefaults;
-  let
+  
   myOverlay = final: prev: {
     # Example: patch jemalloc for Raspberry Pi 5
     jemalloc = prev.jemalloc.overrideAttrs (old: {
