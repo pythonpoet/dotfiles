@@ -13,8 +13,8 @@
       # };
       bernina = {
         hostname = "bernina";  # Replace with actual hostname/IP
-        buildHost = "bernina";
         profiles.system = {
+          remoteBuild = true;
           user = "david";
           path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.bernina;
         };
