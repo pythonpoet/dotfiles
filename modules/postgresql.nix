@@ -40,31 +40,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # nixpkgs.overlays = [
-    #   (final: prev: {
-    #     jemalloc = prev.jemalloc.overrideAttrs (old: {
-    #       configureFlags =
-    #         (lib.filter (flag: flag != "--with-lg-page=16") old.configureFlags)
-    #         ++ [ "--with-lg-page=14" ];
-    #     });
-
-    #     folly = prev.folly.overrideAttrs (old: {
-    #       env = (old.env or {}) // {
-    #         NIX_CFLAGS_COMPILE =
-    #           (old.env.NIX_CFLAGS_COMPILE or (old.NIX_CFLAGS_COMPILE or "")) 
-    #           + " -Wno-array-bounds -Wno-stringop-overflow";
-    #       };
-    #       doCheck = false;
-    #     });
-
-    #     pgvecto-rs = prev.pgvecto-rs.overrideAttrs (old: {
-    #       env = (old.env or {}) // {
-    #         RUSTC_BOOTSTRAP = 1;
-    #         JEMALLOC_SYS_WITH_LG_PAGE = "14";
-    #       };
-    #     });
-    #   })
-    # ];
+    
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
@@ -91,7 +67,7 @@ in {
         host    all             all             127.0.0.1/32            trust
         host    all             all             ::1/128                 trust
       '';
-      extensions = [
+      extensions = ps: [
           ps.pgvector
           ps.vectorchord
         ];
