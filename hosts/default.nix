@@ -133,7 +133,7 @@
         inherit inputs self;
         nixos-raspberrypi = inputs.nixos-raspberrypi; # <-- Add this line
       };
-      modules = [
+      modules = cloud ++ [
         ./bernina
         "${mod}/core/users.nix"
         "${mod}/nix"
@@ -144,6 +144,10 @@
             users.david.imports = homeImports.server;
             extraSpecialArgs = specialArgs;
           };
+          immich = {
+            enable = true;
+            data_dir = "/data1/immich/"
+          }
         }
       ];
     };
