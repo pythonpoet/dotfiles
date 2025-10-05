@@ -144,10 +144,10 @@
             users.david.imports = homeImports.server;
             extraSpecialArgs = specialArgs;
           };
-          immich = {
-            enable = true;
-            data_dir = "/data1/immich/";
-          };
+          # immich = {
+          #   enable = false;
+          #   data_dir = "/data1/immich/";
+          # };
           postgresql = {
             enable = true;
             data_dir = "/data1/databases";

@@ -67,7 +67,7 @@
     # };
 
     ags = {
-      url = "github:Aylur/ags";
+      url = "github:Aylur/ags";canTouchEfiVariables
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
