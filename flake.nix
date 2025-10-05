@@ -131,7 +131,7 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
     };
-    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
+    nixos-raspberrypi.url = "github:pythonpoet/nixos-raspberrypi/main";
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
     };
