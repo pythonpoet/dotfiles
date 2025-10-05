@@ -28,7 +28,9 @@ with lib; let
     });
   };
 
-  pkgsWithOverlay = import <nixpkgs> { overlays = [ myOverlay ]; };
+ pkgsWithOverlay = import config.nixpkgs.pkgs {
+  overlays = [ myOverlay ];
+};
   
 in
 {
