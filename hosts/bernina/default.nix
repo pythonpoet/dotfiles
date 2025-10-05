@@ -153,9 +153,15 @@ in
       raspberryPi.enable = lib.mkForce false;
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
-    kernel.extraConfig = ''
-      CONFIG_ARM64_16K_PAGES=n
-    '';
+    kernelPatches = [
+    {
+      name = "disable-16k-pages";
+      patch = null;
+      extraConfig = ''
+        CONFIG_ARM64_16K_PAGES=n
+      '';
+    }
+  ];
     };
 
     nixpkgs.overlays = lib.mkAfter [
