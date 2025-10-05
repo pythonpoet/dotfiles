@@ -91,19 +91,12 @@ in {
         host    all             all             127.0.0.1/32            trust
         host    all             all             ::1/128                 trust
       '';
-      extensions =
-        ps:
-         [ ps.pgvecto-rs ]
-        ++  [
+      extensions = [
           ps.pgvector
           ps.vectorchord
         ];
       settings = {
-        shared_preload_libraries =
-           [
-            "vectors.so"
-          ]
-          ++  [ "vchord.so" ];
+        shared_preload_libraries =   [ "vchord.so" ];
         search_path = "\"$user\", public, vectors";
       };
     };
@@ -115,11 +108,6 @@ in {
           "cube"
           "earthdistance"
           "pg_trgm"
-        ]
-        ++ [
-          "vectors"
-        ]
-        ++  [
           "vector"
           "vchord"
         ];
