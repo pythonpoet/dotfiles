@@ -93,8 +93,8 @@ in {
       '';
       extensions =
         ps:
-        lib.optionals cfg.database.enableVectors [ ps.pgvecto-rs ]
-        ++ lib.optionals cfg.database.enableVectorChord [
+         [ ps.pgvecto-rs ]
+        ++  [
           ps.pgvector
           ps.vectorchord
         ];
