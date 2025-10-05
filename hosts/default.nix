@@ -146,8 +146,8 @@
           };
           immich = {
             enable = true;
-            data_dir = "/data1/immich/"
-          }
+            data_dir = "/data1/immich/";
+          };
         }
       ];
     };
