@@ -36,7 +36,7 @@
     specialArgs = {inherit inputs self;};
   in {
     alpakapro = nixosSystem {
-      system.stateVersion = 25.11;
+      system = "x86_64-linux";
       inherit specialArgs;
       modules =
         laptop
