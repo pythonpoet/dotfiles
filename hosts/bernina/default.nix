@@ -162,6 +162,9 @@ in
     #     ARM64_64K_PAGES n
     #   '';
     # }];
+    supportedFilesystems = [ "ext4" ];
+    initrd.supportedFilesystems = [ "ext4" ];
+    initrd.kernelModules = [ "usb_storage" "uas" ];
     };
 
     nixpkgs.overlays = lib.mkAfter [
