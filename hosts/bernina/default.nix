@@ -1,6 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 let
-  kernelBundle = pkgs.linuxAndFirmware.v6_12_44; # or latest supported
+  kernelBundle = pkgs.linuxAndFirmware.v6_12_47; # or latest supported
   nix-settings = ({ config, ... }:{
     nix.registry.nixpkgs.to.path = lib.mkForce inputs.nixpkgs.outPath;
   });
@@ -153,15 +153,15 @@ in
       raspberryPi.enable = lib.mkForce false;
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
-    kernelPatches = [{
-      name = "4k-pages";
-      patch = null;
-      extraConfig = ''
-        ARM64_4K_PAGES y
-        ARM64_16K_PAGES n
-        ARM64_64K_PAGES n
-      '';
-    }];
+    # kernelPatches = [{
+    #   name = "4k-pages";
+    #   patch = null;
+    #   extraConfig = ''
+    #     ARM64_4K_PAGES y
+    #     ARM64_16K_PAGES n
+    #     ARM64_64K_PAGES n
+    #   '';
+    # }];
     };
 
     nixpkgs.overlays = lib.mkAfter [
