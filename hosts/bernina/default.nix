@@ -203,7 +203,7 @@ in
   fileSystems."/nix" = {
      device = "/dev/disk/by-uuid/c3864b8a-2433-4897-84a2-8e30163a39ef";
      fsType = "ext4";
-     neededForBoot = true;
-     options = [ "noatime" ];
+    #  neededForBoot = true;
+    #  options = [ "noatime" ];
    };
 }
