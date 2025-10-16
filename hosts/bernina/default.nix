@@ -201,7 +201,7 @@ in
       options = [ "fmask=0077" "dmask=0077" ];
     };
   fileSystems."/nix" = {
-     device = "/dev/disk/by-label/nix-store";
+     device = "/dev/disk/by-id/usb-Samsung_Portable_SSD_T5_1234567890ABCDEF-0:0";
      fsType = "ext4";
     #  neededForBoot = true;
     #  options = [ "noatime" ];
