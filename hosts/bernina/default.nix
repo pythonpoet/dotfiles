@@ -185,7 +185,7 @@ in
     options = ["defaults" "noatime" "compress=zstd" "nofail"];
   };
 
-  fileSystems."/data2" = {
+  fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32";
     fsType = "btrfs";  # ← Make sure this says "btrfs" not "brtfs"
     options = ["defaults" "noatime" "compress=zstd" "nofail"];
@@ -200,10 +200,10 @@ in
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
-  fileSystems."/nix" = {
-     device = "/dev/sda";
-     fsType = "ext4";
-    #  neededForBoot = true;
-    #  options = [ "noatime" ];
-   };
+  # fileSystems."/nix" = {
+  #    device = "/dev/sda";
+  #    fsType = "ext4";
+  #   #  neededForBoot = true;
+  #   #  options = [ "noatime" ];
+  # };
 }
