@@ -201,7 +201,7 @@ in
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
-  system.postBootCommands = ''
+  boot.postBootCommands = ''
     ln -sfn /mount/nix /nix
   '';
   # fileSystems."/nix" = {
