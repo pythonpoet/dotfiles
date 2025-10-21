@@ -29,6 +29,7 @@
       # nerdfonts
       nerd-fonts.jetbrains-mono
       nerd-fonts.symbols-only
+      nerd-fonts.open-dyslexic
     ];
 
     # causes more issues than it solves
