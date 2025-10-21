@@ -189,7 +189,7 @@ in
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32";
     fsType = "btrfs";
-    options = ["subvol=@" "defaults" "noatime" "compress=zstd" "autodefrag"];
+    options = ["defaults" "noatime" "compress=zstd" "autodefrag"];
     neededForBoot = true;
 };
   fileSystems."/" =
