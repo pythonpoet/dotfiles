@@ -185,8 +185,13 @@ in
     fsType = "btrfs";  # ← Make sure this says "btrfs" not "brtfs"
     options = ["defaults" "noatime" "compress=zstd" "nofail"];
   };
-
   fileSystems."/nix" = {
+    device = "/mount/nix";  # Mount the partition elsewhere first
+    fsType = "none";
+    options = ["bind"];
+    depends = [ "/mount/nix" ];
+  };
+  fileSystems."/mout/nix" = {
     device = "/dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32";
     fsType = "btrfs";
     options = ["defaults" "noatime" "compress=zstd" "autodefrag"];
