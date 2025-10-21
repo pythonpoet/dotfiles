@@ -163,7 +163,7 @@ in
     #   '';
     # }];
     supportedFilesystems = [ "ext4" ];
-    initrd.supportedFilesystems = [ "ext4" ];
+    initrd.supportedFilesystems = [ "ext4" "brtfs" ];
     initrd.kernelModules = [ "usb_storage" "uas" ];
     };
 
