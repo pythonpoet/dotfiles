@@ -162,8 +162,9 @@ in
     #     ARM64_64K_PAGES n
     #   '';
     # }];
-    supportedFilesystems = [ "ext4" ];
-    initrd.supportedFilesystems = [ "ext4" "brtfs" ];
+    supportedFilesystems = [ "ext4" "btrfs" ];
+    initrd.supportedFilesystems = [ "ext4" "btrfs" ];
+
     initrd.kernelModules = [ "usb_storage" "uas" ];
     };
 
