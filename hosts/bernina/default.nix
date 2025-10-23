@@ -165,7 +165,23 @@ in
     supportedFilesystems = [ "ext4" "btrfs" ];
     initrd.supportedFilesystems = [ "ext4" "btrfs" ];
 
-    initrd.kernelModules = [ "usb_storage" "uas" ];
+    initrd.kernelModules = [ "usb_storage" "uas" "btrfs" ];
+    initrd.services."wait-for-nix" = {
+      description = "Wait for /nix device";
+      wantedBy = [ "initrd.target" ];
+      script = ''
+        echo "Waiting for /nix device..."
+        for i in $(seq 1 20); do
+          if [ -e /dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32 ]; then
+            echo "Device ready!"
+            exit 0
+          fi
+          sleep 1
+        done
+        echo "Timeout waiting for /nix device!"
+        exit 1
+      '';
+    };
     };
 
     nixpkgs.overlays = lib.mkAfter [
@@ -185,16 +201,16 @@ in
     fsType = "btrfs";  # ← Make sure this says "btrfs" not "brtfs"
     options = ["defaults" "noatime" "compress=zstd" "nofail"];
   };
+  # fileSystems."/nix" = {
+  #   device = "/mount/nix";  # Mount the partition elsewhere first
+  #   fsType = "none";
+  #   options = ["bind"];
+  #   depends = [ "/mount/nix" ];
+  # };
   fileSystems."/nix" = {
-    device = "/mount/nix";  # Mount the partition elsewhere first
-    fsType = "none";
-    options = ["bind"];
-    depends = [ "/mount/nix" ];
-  };
-  fileSystems."/mout/nix" = {
     device = "/dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32";
     fsType = "btrfs";
-    options = ["defaults" "noatime" "compress=zstd" "autodefrag"];
+    options = ["defaults" "noatime" "compress=zstd" "autodefrag" "x-systemd.device-timeout=20s"];
     neededForBoot = true;
 };
   fileSystems."/" =
