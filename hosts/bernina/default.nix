@@ -166,9 +166,15 @@ in
     initrd.supportedFilesystems = [ "ext4" "btrfs" ];
 
     initrd.kernelModules = [ "usb_storage" "uas" "btrfs" ];
-    initrd.services."wait-for-nix" = {
+    initrd.systemd.services.wait-for-nix = {
       description = "Wait for /nix device";
       wantedBy = [ "initrd.target" ];
+      unitConfig.DefaultDependencies = false;
+      serviceConfig = {
+        Type = "oneshot";
+        StandardOutput = "journal+console";
+        StandardError = "journal+console";
+      };
       script = ''
         echo "Waiting for /nix device..."
         for i in $(seq 1 20); do
