@@ -210,4 +210,5 @@ in
      neededForBoot = true;
     #  options = [ "noatime" ];
   };
+  swapDevices = [ ];
 }
