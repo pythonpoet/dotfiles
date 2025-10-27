@@ -149,6 +149,7 @@ in
     loader = {
       raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
       #systemd-boot.enable = true;
+      raspberryPi.bootloader = "uboot";
       efi.canTouchEfiVariables = true;
       raspberryPi.enable = lib.mkForce false;
     };
