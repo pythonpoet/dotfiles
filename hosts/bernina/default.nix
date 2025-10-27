@@ -151,7 +151,7 @@ in
       #systemd-boot.enable = true;
       raspberryPi.bootloader = "uboot";
       efi.canTouchEfiVariables = true;
-      raspberryPi.enable = lib.mkForce false;
+      #raspberryPi.enable = lib.mkForce false;
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
     # kernelPatches = [{
