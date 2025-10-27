@@ -166,28 +166,6 @@ in
     initrd.supportedFilesystems = [ "ext4" "btrfs" ];
 
     initrd.kernelModules = [ "usb_storage" "uas" "btrfs" ];
-    initrd.systemd.services.wait-for-nix = {
-      description = "Wait for /nix device";
-      wantedBy = [ "initrd.target" ];
-      unitConfig.DefaultDependencies = false;
-      serviceConfig = {
-        Type = "oneshot";
-        StandardOutput = "journal+console";
-        StandardError = "journal+console";
-      };
-      script = ''
-        echo "Waiting for /nix device..."
-        for i in $(seq 1 20); do
-          if [ -e /dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32 ]; then
-            echo "Device ready!"
-            exit 0
-          fi
-          sleep 1
-        done
-        echo "Timeout waiting for /nix device!"
-        exit 1
-      '';
-    };
     };
 
     nixpkgs.overlays = lib.mkAfter [
@@ -204,7 +182,7 @@ in
  
   fileSystems."/data1" = {
     device = "/dev/disk/by-uuid/5a4cb152-78cc-4f24-9941-a11691c9bbca";
-    fsType = "btrfs";  # ← Make sure this says "btrfs" not "brtfs"
+    fsType = "btrfs"; 
     options = ["defaults" "noatime" "compress=zstd" "nofail"];
   };
   # fileSystems."/nix" = {
@@ -213,7 +191,7 @@ in
   #   options = ["bind"];
   #   depends = [ "/mount/nix" ];
   # };
-  fileSystems."/nix" = {
+  fileSystems."/data2" = {
     device = "/dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32";
     fsType = "btrfs";
     options = ["defaults" "noatime" "compress=zstd" "autodefrag" "x-systemd.device-timeout=20s"];
@@ -229,13 +207,11 @@ in
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
-  # boot.initrd.postDeviceCommands = ''
-  #   ln -sfn /mount/nix /nix
-  # '';
-  # fileSystems."/nix" = {
-  #    device = "/dev/sda";
-  #    fsType = "ext4";
-  #   #  neededForBoot = true;
-  #   #  options = [ "noatime" ];
-  # };
+
+  fileSystems."/nix" = {
+     device = "/dev/disk/by-uuid/c3864b8a-2433-4897-84a2-8e30163a39ef";
+     fsType = "ext4";
+     neededForBoot = true;
+    #  options = [ "noatime" ];
+  };
 }
