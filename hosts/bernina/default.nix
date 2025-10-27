@@ -148,7 +148,7 @@ in
   boot = {
     loader = {
       raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
-      systemd-boot.enable = true;
+      #systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
       raspberryPi.enable = lib.mkForce false;
     };
@@ -194,8 +194,8 @@ in
   fileSystems."/data2" = {
     device = "/dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32";
     fsType = "btrfs";
-    options = ["defaults" "noatime" "compress=zstd" "autodefrag" "x-systemd.device-timeout=20s"];
-    neededForBoot = true;
+    options = ["defaults" "noatime" "compress=zstd" "nofail"];
+    #neededForBoot = true;
 };
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/98ce92d7-f04e-4940-8b84-dcfe8ec0c194";
