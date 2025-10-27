@@ -150,7 +150,7 @@ in
       raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;
       #systemd-boot.enable = true;
       raspberryPi.bootloader = "kernel";
-      efi.canTouchEfiVariables = true;
+      #efi.canTouchEfiVariables = true;
       #raspberryPi.enable = lib.mkForce false;
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
