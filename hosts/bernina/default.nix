@@ -149,7 +149,7 @@ in
     loader = {
       raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;
       systemd-boot.enable = true;
-      raspberryPi.bootloader = "uboot";
+      raspberryPi.bootloader = "kernel";
       efi.canTouchEfiVariables = true;
       #raspberryPi.enable = lib.mkForce false;
     };
@@ -186,12 +186,7 @@ in
     fsType = "btrfs"; 
     options = ["defaults" "noatime" "compress=zstd" "nofail"];
   };
-  # fileSystems."/nix" = {
-  #   device = "/mount/nix";  # Mount the partition elsewhere first
-  #   fsType = "none";
-  #   options = ["bind"];
-  #   depends = [ "/mount/nix" ];
-  # };
+
   fileSystems."/data2" = {
     device = "/dev/disk/by-uuid/96d53b77-8166-4217-8101-cfbc14f64f32";
     fsType = "btrfs";
