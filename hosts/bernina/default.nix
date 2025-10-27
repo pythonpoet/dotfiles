@@ -147,7 +147,7 @@ in
     ];
   boot = {
     loader = {
-      raspberryPi.firmwarePackage = kernelBundle.raspberrypifw;
+      raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.default.raspberrypifw;
       #systemd-boot.enable = true;
       raspberryPi.bootloader = "uboot";
       efi.canTouchEfiVariables = true;
