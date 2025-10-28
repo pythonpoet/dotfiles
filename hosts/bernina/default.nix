@@ -148,21 +148,12 @@ in
   boot = {
     loader = {
       raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;
-      #systemd-boot.enable = true;
+    
       raspberryPi.bootloader = "kernel";
-      #efi.canTouchEfiVariables = true;
-      #raspberryPi.enable = lib.mkForce false;
+      
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
-    # kernelPatches = [{
-    #   name = "4k-pages";
-    #   patch = null;
-    #   extraConfig = ''
-    #     ARM64_4K_PAGES y
-    #     ARM64_16K_PAGES n
-    #     ARM64_64K_PAGES n
-    #   '';
-    # }];
+    
     supportedFilesystems = [ "ext4" "btrfs" ];
     initrd.supportedFilesystems = [ "ext4" "btrfs" ];
 
@@ -199,7 +190,7 @@ in
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/0D74-C531";
+    { device = "/dev/disk/by-uuid/24D8-6F3A";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
