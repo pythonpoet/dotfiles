@@ -148,8 +148,7 @@ in
   boot = {
     loader = {
       raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;
-    
-      raspberryPi.bootloader = "kernel";
+      raspberryPi.bootloader = "uboot";
       
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
@@ -200,6 +199,11 @@ in
      fsType = "ext4";
      neededForBoot = true;
     #  options = [ "noatime" ];
+  };
+  # check that /nix gets mounted before nix-daemon gets started
+  systemd.services.nix-daemon = {
+    after = [ "nix.mount" ];
+    requires = [ "nix.mount" ];
   };
   swapDevices = [ ];
 }
