@@ -66,10 +66,10 @@
     #   };
     # };
 
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # ags = {
+    #   url = "github:Aylur/ags";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     anyrun.url = "github:fufexan/anyrun/launch-prefix";
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -129,7 +129,7 @@
     };
 
     nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/master";
+      url = "github:pythonpoet/nixos-hardware/master";
     };
     nixos-raspberrypi.url = "github:pythonpoet/nixos-raspberrypi/main";
     vscode-server = {

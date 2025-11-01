@@ -9,16 +9,16 @@
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
+    #inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
     #./powersave.nix
   ];
 
   config = {
-    hardware.microsoft-surface = {
-      kernelVersion = "stable";
-      #surface-control.enable = true;
-      #ipts.enable = true;
-    };
+    # hardware.microsoft-surface = {
+    #   kernelVersion = "stable";
+    #   #surface-control.enable = true;
+    #   #ipts.enable = true;
+    # };
 
     #environment.variables.FLAKE = "/home/david/Documents/dotfiles";
 
@@ -32,6 +32,13 @@
     "kvm"
     "gccarch-armv7-a"  # Add this for ARMv7!
   ];
+  environment.systemPackages = with pkgs; [
+    libcamera 
+    gst_all_1.gstreamer 
+    gst_all_1.gst-plugins-base 
+    gst_all_1.gst-plugins-good 
+    gst_all_1.gst-plugins-bad
+    ];
 
     services = {
       fstrim.enable = true;
@@ -48,10 +55,10 @@
         };
       };
 
-      linux-enable-ir-emitter = {
-        enable = true;
-        package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.linux-enable-ir-emitter;
-      };
+      # linux-enable-ir-emitter = {
+      #   enable = true;
+      #   package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.linux-enable-ir-emitter;
+      # };
     };
 
     #TODO Hydra put somewhere else:

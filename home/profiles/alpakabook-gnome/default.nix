@@ -12,7 +12,7 @@
     #../../programs/gnome
 
     # services
-    ../../services/ags
+    #../../services/ags
     # ../../services/cinny.nix
 
     # media services

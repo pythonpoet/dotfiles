@@ -56,7 +56,7 @@
   readest
   resources
   signal-desktop
-  tdesktop
+  telegram-desktop
   thunderbird
   typst
   v4l-utils
