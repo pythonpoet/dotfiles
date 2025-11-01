@@ -9,16 +9,16 @@
 {
   imports = [
     ./hardware-configuration.nix
-    #inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
+    inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
     #./powersave.nix
   ];
 
   config = {
-    # hardware.microsoft-surface = {
-    #   kernelVersion = "stable";
-    #   #surface-control.enable = true;
-    #   #ipts.enable = true;
-    # };
+    hardware.microsoft-surface = {
+      kernelVersion = "stable";
+      #surface-control.enable = true;
+      #ipts.enable = true;
+    };
 
     #environment.variables.FLAKE = "/home/david/Documents/dotfiles";
 

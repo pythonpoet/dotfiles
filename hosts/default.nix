@@ -42,7 +42,7 @@
         laptop
         ++ [
           # Include surface book specific configuration (only commons)
-          #inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
+          inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
           inputs.catppuccin.nixosModules.catppuccin
           ./alpakapro
           #"${mod}/core/lanzaboote.nix"

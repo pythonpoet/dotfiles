@@ -5,28 +5,28 @@
 # https://github.com/petm5/linux -> claims to have merged the patchs from the user who fixed the cameras
 { config, lib, pkgs, modulesPath, ... }:
 
-let
-  myCustomKernel = pkgs.callPackage
-    ({ stdenv, fetchFromGitHub, buildLinux, ... }:
-      buildLinux rec {
-        version = "6.17.2";
-        modDirVersion = version;
-        src = fetchFromGitHub {
-          owner = "petm5";
-          repo = "linux";
-          rev = "sp9-camera-enablement-6.17.2";
-          sha256 = "sha256-VUkihnNE38iFHBP2H68+kgmV4dhalmYeC9ocfP5hvuw=";
-        };
+# let
+#   myCustomKernel = pkgs.callPackage
+#     ({ stdenv, fetchFromGitHub, buildLinux, ... }:
+#       buildLinux rec {
+#         version = "6.17.2";
+#         modDirVersion = version;
+#         src = fetchFromGitHub {
+#           owner = "petm5";
+#           repo = "linux";
+#           rev = "sp9-camera-enablement-6.17.2";
+#           sha256 = "sha256-VUkihnNE38iFHBP2H68+kgmV4dhalmYeC9ocfP5hvuw=";
+#         };
 
-        defconfig = "x86_64_defconfig"; # adjust for your arch if needed
+#         defconfig = "x86_64_defconfig"; # adjust for your arch if needed
 
-        # Optionally apply NixOS config fragments
-        extraMeta.branch = "6.17";
-        # structuredExtraConfig = with lib.kernel; {
-        #   DEBUG_KERNEL = no;
-        # };
-      }) {};
-in
+#         # Optionally apply NixOS config fragments
+#         extraMeta.branch = "6.17";
+#         # structuredExtraConfig = with lib.kernel; {
+#         #   DEBUG_KERNEL = no;
+#         # };
+#       }) {};
+# in
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
@@ -34,8 +34,14 @@ in
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelPackages = pkgs.linuxPackagesFor myCustomKernel;
+  boot.kernelModules = [ "kvm-intel" 
+                          "i2c_dev" 
+                          "i2c_i801" 
+                          "videodev"      # Video4Linux2 core
+                          "v4l2-common"   # V4L2 common functions
+                          "v4l2-async"    # V4L2 async framework
+                          "mc"     ];
+  #boot.kernelPackages = pkgs.linuxPackagesFor myCustomKernel;
   
 
   fileSystems."/" =
