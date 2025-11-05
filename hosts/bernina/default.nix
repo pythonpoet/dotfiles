@@ -140,11 +140,8 @@ in
     ];
   boot = {
     loader = {
-      raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;
-      
-
-      # raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;
-      # raspberryPi.bootloader = "uboot";
+      raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;    
+      raspberryPi.bootloader = "kernel";
       
     };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
