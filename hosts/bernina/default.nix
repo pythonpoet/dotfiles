@@ -187,7 +187,7 @@ in
     fsType = "btrfs";
     options = ["defaults" "noatime" "compress=zstd" "nofail"];
     #neededForBoot = true;
-};
+  };
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/98ce92d7-f04e-4940-8b84-dcfe8ec0c194";
       fsType = "ext4";

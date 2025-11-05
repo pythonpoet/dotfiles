@@ -12,6 +12,7 @@
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
     #./powersave.nix
   ];
+  
 
   config = {
     hardware.microsoft-surface = {
@@ -31,7 +32,9 @@
     "nixos-test"
     "kvm"
     "gccarch-armv7-a"  # Add this for ARMv7!
+    "gccarch-armv8-a"
   ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   environment.systemPackages = with pkgs; [
     libcamera 
     gst_all_1.gstreamer 

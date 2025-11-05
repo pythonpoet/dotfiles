@@ -25,6 +25,7 @@
   bitwarden-desktop
   brave
   calibre
+  cheese
   dconf-editor
   elixir_1_18
   element-desktop
