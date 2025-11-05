@@ -99,14 +99,7 @@ let
         time.timeZone = "UTC";
         networking.hostName = "bernina";
 
-        services.udev.extraRules = ''
-          # Ignore partitions with "Required Partition" GPT partition attribute
-          # On our RPis this is firmware (/boot/firmware) partition
-          ENV{ID_PART_ENTRY_SCHEME}=="gpt", \
-            ENV{ID_PART_ENTRY_FLAGS}=="0x1", \
-            ENV{UDISKS_IGNORE}="1"
-        '';
-
+       
         environment.systemPackages = with pkgs; [
           tree
           git
@@ -148,9 +141,7 @@ in
   boot = {
     loader = {
       raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-      raspberryPi.enable = lib.mkForce false;
+      
 
       # raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;
       # raspberryPi.bootloader = "uboot";
