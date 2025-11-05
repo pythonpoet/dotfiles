@@ -44,6 +44,7 @@
 
   home.packages = with pkgs; [
     #python311
+    mesa
     poetry
     uv
   ];
