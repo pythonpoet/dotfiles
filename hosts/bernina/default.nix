@@ -139,11 +139,11 @@ in
       common-user-config
     ];
   boot = {
-    loader = {
-      raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;    
-      raspberryPi.bootloader = "kernel";
+    # loader = {
+    #   raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;    
+    #   raspberryPi.bootloader = "kernel";
       
-    };
+    # };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
     
     supportedFilesystems = [ "ext4" "btrfs" ];
@@ -182,7 +182,7 @@ in
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/24D8-6F3A";
+    { device = "/dev/disk/by-uuid/2175-794E";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
