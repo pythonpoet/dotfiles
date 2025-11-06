@@ -132,7 +132,7 @@ in {
         "cloud.davidwild.ch" = {
          inherit (sslSettings) addSSL enableACME;
           locations."/" = {
-            proxyPass = "http://127.0.0.1:9200";
+            proxyPass = "https://127.0.0.1:9200";
             proxyWebsockets = true;
             extraConfig = extraConfig;
           };
