@@ -61,7 +61,7 @@ in {
   };
   config = mkIf cfg.enable {
     security.acme = {
-      acceptTerms = false;
+      acceptTerms = true;
       defaults.email = email;
     };
     networking.firewall.allowedTCPPorts = [80 443];
