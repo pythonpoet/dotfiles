@@ -46,13 +46,13 @@ in {
       };
 
       max_mind_licence_key = mkOption {
-        type = type.str;
+        type = types.str;
         description = "licence key to download maxmind databases";
         default = "/data1/geoip/maxmind-licence_key";
       };
 
       max_mind_database_path = mkOption {
-        type = type.str;
+        type = types.str;
         description = "Path to store Maxmind database";
         default = "/data1/geoip/database";
       };
