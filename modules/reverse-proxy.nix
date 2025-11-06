@@ -71,7 +71,7 @@ in {
       enable = true;
       virtualHosts = {
         "grafana.davidwild.ch" = {
-      #    inherit (sslSettings) addSSL enableACME;
+          inherit (sslSettings) addSSL enableACME;
           locations."/" = {
             proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
             proxyWebsockets = true;
@@ -129,14 +129,14 @@ in {
         #   };
         # };
 
-        # "cloud.davidwild.ch" = {
-        #  # inherit (sslSettings) addSSL enableACME;
-        #   locations."/" = {
-        #     proxyPass = "https://badenerstrasse:9200";
-        #     proxyWebsockets = true;
-        #     extraConfig = extraConfig;
-        #   };
-        # };
+        "cloud.davidwild.ch" = {
+         inherit (sslSettings) addSSL enableACME;
+          locations."/" = {
+            proxyPass = "http://badenerstrasse:9200";
+            proxyWebsockets = true;
+            extraConfig = extraConfig;
+          };
+        };
         # "bbcs-121-149.pub.wingo.ch" = {
         #   locations."/" = {
         #     return = 444;

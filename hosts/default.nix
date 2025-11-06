@@ -147,6 +147,11 @@
               enable = true;
             };
           };
+          cloud = {
+            enable =true;
+            data_dir = "/data1/ocis/data";
+            config_file = "/data1/ocis/config/ocis.yaml";
+          };
         }
       ];
     };

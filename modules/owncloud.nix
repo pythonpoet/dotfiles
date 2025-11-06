@@ -34,7 +34,7 @@ in {
     };
     domain = mkOption {
       type = types.str;
-      default = "https://cloud.chaosdam.net";
+      default = "https://cloud.davidwild.ch";
     };
 
     enable_radicale = mkOption {
