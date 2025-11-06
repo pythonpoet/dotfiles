@@ -160,7 +160,7 @@ in {
       package = if cfg.geoip.enable then nginxWithGeoIP else pkgs.nginxStable;
 
       appendHttpConfig = mkIf cfg.geoip.enable ''
-          geoip2 /var/lib/nginx/geoip/GeoLite2-Country.mmdb {
+          geoip2 ${cfg.max_mind_database_path}/GeoLite2-Country.mmdb {
             auto_reload 5m;
             $geoip2_metadata_country_build metadata build_epoch;
             $geoip2_data_country_code country iso_code;
@@ -169,14 +169,14 @@ in {
             $geoip2_data_continent_name continent names en;
           }
 
-          geoip2 /var/lib/nginx/geoip/GeoLite2-City.mmdb {
+          geoip2 ${cfg.max_mind_database_path}/GeoLite2-City.mmdb {
               auto_reload 5m;
               $geoip2_data_city_name city names en;
               $geoip2_data_lat location latitude;
               $geoip2_data_lon location longitude;
           }
 
-          geoip2 /var/lib/nginx/geoip/GeoLite2-ASN.mmdb {
+          geoip2 ${cfg.max_mind_database_path}/GeoLite2-ASN.mmdb {
               auto_reload 5m;
               $geoip2_data_asn autonomous_system_number;
               $geoip2_data_asorg autonomous_system_organization;
