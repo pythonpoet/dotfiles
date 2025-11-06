@@ -79,7 +79,7 @@ in {
           };
         };
         
-        "144.2.121.149" = {
+        "192.168.0.29" = {
          # inherit (sslSettings) addSSL enableACME;
           locations."/" = {
             extraConfig = extraConfig;
