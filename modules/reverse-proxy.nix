@@ -120,23 +120,23 @@ in {
             '';
           };
         };
-        "immich.davidwild.ch" = {
-        #  inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
-          locations."/" = {
-            proxyPass = "http://badenerstrasse:2283"; # Ensure Immich is accessible at this address
-            proxyWebsockets = true;
-            extraConfig = extraConfig;
-          };
-        };
+        # "immich.davidwild.ch" = {
+        # #  inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
+        #   locations."/" = {
+        #     proxyPass = "http://badenerstrasse:2283"; # Ensure Immich is accessible at this address
+        #     proxyWebsockets = true;
+        #     extraConfig = extraConfig;
+        #   };
+        # };
 
-        "cloud.davidwild.ch" = {
-         # inherit (sslSettings) addSSL enableACME;
-          locations."/" = {
-            proxyPass = "https://badenerstrasse:9200";
-            proxyWebsockets = true;
-            extraConfig = extraConfig;
-          };
-        };
+        # "cloud.davidwild.ch" = {
+        #  # inherit (sslSettings) addSSL enableACME;
+        #   locations."/" = {
+        #     proxyPass = "https://badenerstrasse:9200";
+        #     proxyWebsockets = true;
+        #     extraConfig = extraConfig;
+        #   };
+        # };
         # "bbcs-121-149.pub.wingo.ch" = {
         #   locations."/" = {
         #     return = 444;
