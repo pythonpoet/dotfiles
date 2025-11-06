@@ -80,7 +80,7 @@ in {
         };
         
         "davidwild.ch" = {
-          inherit (sslSettings) addSSL enableACME;
+         # inherit (sslSettings) addSSL enableACME;
           locations."/" = {
             extraConfig = extraConfig;
             # Serve a simple Hello World page
@@ -121,7 +121,7 @@ in {
           };
         };
         "immich.davidwild.ch" = {
-          inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
+        #  inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
           locations."/" = {
             proxyPass = "http://badenerstrasse:2283"; # Ensure Immich is accessible at this address
             proxyWebsockets = true;
@@ -130,7 +130,7 @@ in {
         };
 
         "cloud.davidwild.ch" = {
-          inherit (sslSettings) addSSL enableACME;
+         # inherit (sslSettings) addSSL enableACME;
           locations."/" = {
             proxyPass = "https://badenerstrasse:9200";
             proxyWebsockets = true;
