@@ -144,6 +144,10 @@ in
     #   raspberryPi.bootloader = "kernel";
       
     # };
+    kernel.sysctl = {
+      "net.ipv4.ip_forward" = 1;
+      "net.ipv6.conf.all.forwarding" = 1;
+    };
     kernelPackages = kernelBundle.linuxPackages_rpi5;
     
     supportedFilesystems = [ "ext4" "btrfs" ];
@@ -151,6 +155,7 @@ in
 
     initrd.kernelModules = [ "usb_storage" "uas" "btrfs" ];
     };
+    
 
     nixpkgs.overlays = lib.mkAfter [
       (self: super: {
