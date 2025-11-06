@@ -26,6 +26,11 @@
     rev = "445df24ef3781e488cee3dfe8a1e111997fc1dfe";
     sha256 = "sha256-aO+ff+3fQ9FJgjkVdWUqsSS6ctHq/TXvyGRasW6fXcA=";
   };
+  # Create the custom nginx package with GeoIP support
+  nginxWithGeoIP = pkgs.nginxStable.overrideAttrs (oldAttrs: {
+    configureFlags = oldAttrs.configureFlags ++ ["--add-module=${ngx_http_geoip2_module}"];
+    buildInputs = oldAttrs.buildInputs ++ [pkgs.libmaxminddb];
+  });
   cfg = config.reverse-proxy;
 in {
   options.reverse-proxy = {
@@ -152,12 +157,7 @@ in {
       };
     
 
-      package = mkIf cfg.geoip.enable pkgs.nginxStable.overrideAttrs (oldAttrs: {
-        # Add the module as a build-time dependency
-        configureFlags = oldAttrs.configureFlags ++ ["--add-module=${ngx_http_geoip2_module}"];
-        # The `libmaxminddb` library is required for the module to build
-        buildInputs = oldAttrs.buildInputs ++ [pkgs.libmaxminddb];
-      });
+      package = if cfg.geoip.enable then nginxWithGeoIP else pkgs.nginxStable;
 
       appendHttpConfig = mkIf cfg.geoip.enable ''
           geoip2 /var/lib/nginx/geoip/GeoLite2-Country.mmdb {
