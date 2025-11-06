@@ -99,10 +99,10 @@
         flake-compat.follows = "flake-compat";
       };
     };
-    # treefmt-nix = {
-    #   url = "github:numtide/treefmt-nix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     yazi.url = "github:sxyazi/yazi";
 

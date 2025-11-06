@@ -32,7 +32,6 @@ in {
       nginx.enable = true;
     };
     services.jitsi-videobridge.openFirewall = true;
-
     
   };
 }

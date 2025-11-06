@@ -115,23 +115,12 @@
           inputs.disko.nixosModules.disko
         ];
     };
-    # alpakapi5 = nixosSystem{
-    #   specialArgs = inputs;
-    #   system = "aarch64-linux";
-    #   modules = [
-    #     ./alpakapi5
-    #     "${mod}/core/users.nix"
-    #     "${mod}/nix"
-    #     "${mod}/programs/zsh.nix"
-    #     "${mod}/programs/home-manager.nix"
-
-    #     ];
-    # };
+    
     bernina = inputs.nixos-raspberrypi.lib.nixosSystemFull{
       system = "aarch64-linux";
       specialArgs = {
         inherit inputs self;
-        nixos-raspberrypi = inputs.nixos-raspberrypi; # <-- Add this line
+        nixos-raspberrypi = inputs.nixos-raspberrypi; 
       };
       modules = cloud ++ [
         ./bernina
@@ -148,9 +137,15 @@
           #   enable = true;
           #   data_dir = "/data1/immich/";
           # };
-          postgresql = {
+          # postgresql = {
+          #   enable = true;
+          #   data_dir = "/data1/databases";
+          # };
+          reverse-proxy = {
             enable = true;
-            data_dir = "/data1/databases";
+            geoip = {
+              enable = true;
+            };
           };
         }
       ];
