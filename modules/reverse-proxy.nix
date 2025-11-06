@@ -79,7 +79,7 @@ in {
           };
         };
         
-        "davidwild.ch" = {
+        "144.2.121.149" = {
          # inherit (sslSettings) addSSL enableACME;
           locations."/" = {
             extraConfig = extraConfig;
