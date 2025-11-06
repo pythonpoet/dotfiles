@@ -137,23 +137,23 @@ in {
             extraConfig = extraConfig;
           };
         };
-        "bbcs-121-149.pub.wingo.ch" = {
-          locations."/" = {
-            return = 444;
-          };
-          # Enable SSL for this server block if needed
-          inherit (sslSettings) addSSL enableACME;
-          # forceSSL = true;
-        };
+        # "bbcs-121-149.pub.wingo.ch" = {
+        #   locations."/" = {
+        #     return = 444;
+        #   };
+        #   # Enable SSL for this server block if needed
+        #   inherit (sslSettings) addSSL enableACME;
+        #   # forceSSL = true;
+        # };
 
-        # Blocking for IP address 144.2.121.149
-        "144.2.121.149" = {
-          locations."/" = {
-            return = 444;
-          };
-          # inherit (sslSettings) addSSL;
-          #forceSSL = true;
-        };
+        # # Blocking for IP address 144.2.121.149
+        # "144.2.121.149" = {
+        #   locations."/" = {
+        #     return = 444;
+        #   };
+        #   # inherit (sslSettings) addSSL;
+        #   #forceSSL = true;
+        # };
       };
     
 
