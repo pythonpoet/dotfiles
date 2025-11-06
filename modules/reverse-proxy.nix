@@ -80,7 +80,7 @@ in {
         };
         
         "davidwild.ch" = {
-         # inherit (sslSettings) addSSL enableACME;
+         inherit (sslSettings) addSSL enableACME;
           locations."/" = {
             extraConfig = extraConfig;
             # Serve a simple Hello World page
