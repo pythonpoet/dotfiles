@@ -50,7 +50,7 @@ in {
         type = type.str;
         description = "Path to store Maxmind database";
         default = "/data1/geoip/database";
-      }
+      };
       
     };
   };
@@ -60,169 +60,168 @@ in {
       defaults.email = email;
     };
     networking.firewall.allowedTCPPorts = [80 443];
-    services.nginx.enable = true;
 
-    services.nginx.virtualHosts = {
-      "grafana.davidwild.ch" = {
-        inherit (sslSettings) addSSL enableACME;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
-          proxyWebsockets = true;
-          extraConfig = extraConfig;
+
+    services.nginx = {
+      enable = true;
+      virtualHosts = {
+        "grafana.davidwild.ch" = {
+          inherit (sslSettings) addSSL enableACME;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
+            proxyWebsockets = true;
+            extraConfig = extraConfig;
+          };
         };
-      };
-      
-      "davidwild.ch" = {
-        inherit (sslSettings) addSSL enableACME;
-        locations."/" = {
-          extraConfig = extraConfig;
-          # Serve a simple Hello World page
-          root = pkgs.writeTextDir "index.html" ''
-             <!DOCTYPE html>
-              <html>
-                <head>
-                <meta charset="UTF-8">
-              <title>David Wild</title>
-              </head>
-            <body>
-              <h1>Grüezi! 👋</h1>
+        
+        "davidwild.ch" = {
+          inherit (sslSettings) addSSL enableACME;
+          locations."/" = {
+            extraConfig = extraConfig;
+            # Serve a simple Hello World page
+            root = pkgs.writeTextDir "index.html" ''
+              <!DOCTYPE html>
+                <html>
+                  <head>
+                  <meta charset="UTF-8">
+                <title>David Wild</title>
+                </head>
+              <body>
+                <h1>Grüezi! 👋</h1>
 
-              <p>Dear Bots, wanna-be artificial intelligences and also humans:
+                <p>Dear Bots, wanna-be artificial intelligences and also humans:
+                  <br>
+                -> welcome to my Website!
+                  <br>
+                I'm David Wild, and I'm a emancipated programmer from Zürich, Switzerland.
+                  <br>
+                I like to do interdisciplinary work, ranging from rather technical topics like embedded engineering, software design or datascience to social research and doing art.
                 <br>
-               -> welcome to my Website!
-                <br>
-              I'm David Wild, and I'm a emancipated programmer from Zürich, Switzerland.
-                <br>
-              I like to do interdisciplinary work, ranging from rather technical topics like embedded engineering, software design or datascience to social research and doing art.
-              <br>
-              soon to be continued ..
-              </p>
-            </body>
-            </html>
-          '';
+                soon to be continued ..
+                </p>
+              </body>
+              </html>
+            '';
+          };
+          locations."/geoip-test" = {
+            # This location will only be used for testing.
+            # We use a literal string to return a JSON object with the GeoIP data.
+            return = "200 '{ \"country_code\": \"$geoip2_data_country_code\", \"city_name\": \"$geoip2_data_city_name\", \"asn\": \"$geoip2_data_asn\", \"as_org\": \"$geoip2_data_asorg\" }'";
+          };
+          locations."/robots.txt" = {
+            extraConfig = ''
+              rewrite ^/(.*)  $1;
+              return 200 "User-agent: *\nDisallow: /";
+            '';
+          };
         };
-        locations."/geoip-test" = {
-          # This location will only be used for testing.
-          # We use a literal string to return a JSON object with the GeoIP data.
-          return = "200 '{ \"country_code\": \"$geoip2_data_country_code\", \"city_name\": \"$geoip2_data_city_name\", \"asn\": \"$geoip2_data_asn\", \"as_org\": \"$geoip2_data_asorg\" }'";
+        "immich.davidwild.ch" = {
+          inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
+          locations."/" = {
+            proxyPass = "http://badenerstrasse:2283"; # Ensure Immich is accessible at this address
+            proxyWebsockets = true;
+            extraConfig = extraConfig;
+          };
         };
-        locations."/robots.txt" = {
-          extraConfig = ''
-            rewrite ^/(.*)  $1;
-            return 200 "User-agent: *\nDisallow: /";
-          '';
+
+        "cloud.davidwild.ch" = {
+          inherit (sslSettings) addSSL enableACME;
+          locations."/" = {
+            proxyPass = "https://badenerstrasse:9200";
+            proxyWebsockets = true;
+            extraConfig = extraConfig;
+          };
+        };
+        "bbcs-121-149.pub.wingo.ch" = {
+          locations."/" = {
+            return = 444;
+          };
+          # Enable SSL for this server block if needed
+          inherit (sslSettings) addSSL enableACME;
+          # forceSSL = true;
+        };
+
+        # Blocking for IP address 144.2.121.149
+        "144.2.121.149" = {
+          locations."/" = {
+            return = 444;
+          };
+          # inherit (sslSettings) addSSL;
+          #forceSSL = true;
         };
       };
-      "immich.davidwild.ch" = {
-        inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
-        locations."/" = {
-          proxyPass = "http://badenerstrasse:2283"; # Ensure Immich is accessible at this address
-          proxyWebsockets = true;
-          extraConfig = extraConfig;
-        };
-      };
+    
 
-      "cloud.davidwild.ch" = {
-        inherit (sslSettings) addSSL enableACME;
-        locations."/" = {
-          proxyPass = "https://badenerstrasse:9200";
-          proxyWebsockets = true;
-          extraConfig = extraConfig;
-        };
-      };
-      "bbcs-121-149.pub.wingo.ch" = {
-        locations."/" = {
-          return = 444;
-        };
-        # Enable SSL for this server block if needed
-        inherit (sslSettings) addSSL enableACME;
-        # forceSSL = true;
-      };
+      package = mkIf cfg.geoip.enable pkgs.nginxStable.overrideAttrs (oldAttrs: {
+        # Add the module as a build-time dependency
+        configureFlags = oldAttrs.configureFlags ++ ["--add-module=${ngx_http_geoip2_module}"];
+        # The `libmaxminddb` library is required for the module to build
+        buildInputs = oldAttrs.buildInputs ++ [pkgs.libmaxminddb];
+      });
 
-      # Blocking for IP address 144.2.121.149
-      "144.2.121.149" = {
-        locations."/" = {
-          return = 444;
-        };
-        # inherit (sslSettings) addSSL;
-        #forceSSL = true;
-      };
+      appendHttpConfig = mkIf cfg.geoip.enable ''
+          geoip2 /var/lib/nginx/geoip/GeoLite2-Country.mmdb {
+            auto_reload 5m;
+            $geoip2_metadata_country_build metadata build_epoch;
+            $geoip2_data_country_code country iso_code;
+            $geoip2_data_country_name country names en;
+            $geoip2_data_continent_code continent code;
+            $geoip2_data_continent_name continent names en;
+          }
 
-    };
+          geoip2 /var/lib/nginx/geoip/GeoLite2-City.mmdb {
+              auto_reload 5m;
+              $geoip2_data_city_name city names en;
+              $geoip2_data_lat location latitude;
+              $geoip2_data_lon location longitude;
+          }
 
+          geoip2 /var/lib/nginx/geoip/GeoLite2-ASN.mmdb {
+              auto_reload 5m;
+              $geoip2_data_asn autonomous_system_number;
+              $geoip2_data_asorg autonomous_system_organization;
+          }
+          map $host$request_uri $full_request_path {
+            default "$host$request_uri";
+        }
+          # Custom log format using GeoIP variables
+          log_format json_combined escape=json '{'
+            '"remote_addr":"$remote_addr",'
+            '"remote_user":"$remote_user",'
+            '"time_local":"$time_local",'
+            '"request_method":"$request_method",'
+            '"request_path":"$request_uri",'
+            '"full_request_path":"$full_request_path",'
+            '"request_domain":"$host",'
+            '"status":$status,'
+            '"bytes_sent":$body_bytes_sent,'
+            '"http_referer":"$http_referer",'
+            '"http_user_agent":"$http_user_agent",'
+            '"country_code":"$geoip2_data_country_code",'
+            '"city_name":"$geoip2_data_city_name",'
+            '"continent_code":"$geoip2_data_continent_code",'
+            '"continent_name":"$geoip2_data_continent_name",'
+            '"asn":"$geoip2_data_asn",'
+            '"asorg":"$geoip2_data_asorg",'
+            '"lat":"$geoip2_data_lat",'
+            '"lon":"$geoip2_data_lon"'
+          '}';
 
+          # Use the new JSON log format
+          access_log /var/log/nginx/access.log json_combined;
+          fastcgi_param MM_CONTINENT_CODE $geoip2_data_continent_code;
+          fastcgi_param MM_CONTINENT_NAME $geoip2_data_continent_name;
+          fastcgi_param MM_COUNTRY_CODE $geoip2_data_country_code;
+          fastcgi_param MM_COUNTRY_NAME $geoip2_data_country_name;
+          fastcgi_param MM_CITY_NAME    $geoip2_data_city_name;
+          fastcgi_param MM_LATITUDE $geoip2_data_lat;
+          fastcgi_param MM_LONGITUDE $geoip2_data_lon;
+          fastcgi_param MM_ISP $geoip2_data_asorg;
+      '';
+  };
+    
 
   environment.systemPackages = mkIf cfg.geoip.enable [pkgs.geoip];
-  
-  services.nginx = mkIf cfg.geoip.enable {
-    package = pkgs.nginxStable.overrideAttrs (oldAttrs: {
-      # Add the module as a build-time dependency
-      configureFlags = oldAttrs.configureFlags ++ ["--add-module=${ngx_http_geoip2_module}"];
-      # The `libmaxminddb` library is required for the module to build
-      buildInputs = oldAttrs.buildInputs ++ [pkgs.libmaxminddb];
-    });
-
-    appendHttpConfig = ''
-        geoip2 /var/lib/nginx/geoip/GeoLite2-Country.mmdb {
-          auto_reload 5m;
-          $geoip2_metadata_country_build metadata build_epoch;
-          $geoip2_data_country_code country iso_code;
-          $geoip2_data_country_name country names en;
-          $geoip2_data_continent_code continent code;
-          $geoip2_data_continent_name continent names en;
-        }
-
-        geoip2 /var/lib/nginx/geoip/GeoLite2-City.mmdb {
-            auto_reload 5m;
-            $geoip2_data_city_name city names en;
-            $geoip2_data_lat location latitude;
-            $geoip2_data_lon location longitude;
-        }
-
-        geoip2 /var/lib/nginx/geoip/GeoLite2-ASN.mmdb {
-            auto_reload 5m;
-            $geoip2_data_asn autonomous_system_number;
-            $geoip2_data_asorg autonomous_system_organization;
-        }
-        map $host$request_uri $full_request_path {
-          default "$host$request_uri";
-      }
-        # Custom log format using GeoIP variables
-        log_format json_combined escape=json '{'
-          '"remote_addr":"$remote_addr",'
-          '"remote_user":"$remote_user",'
-          '"time_local":"$time_local",'
-          '"request_method":"$request_method",'
-          '"request_path":"$request_uri",'
-          '"full_request_path":"$full_request_path",'
-          '"request_domain":"$host",'
-          '"status":$status,'
-          '"bytes_sent":$body_bytes_sent,'
-          '"http_referer":"$http_referer",'
-          '"http_user_agent":"$http_user_agent",'
-          '"country_code":"$geoip2_data_country_code",'
-          '"city_name":"$geoip2_data_city_name",'
-          '"continent_code":"$geoip2_data_continent_code",'
-          '"continent_name":"$geoip2_data_continent_name",'
-          '"asn":"$geoip2_data_asn",'
-          '"asorg":"$geoip2_data_asorg",'
-          '"lat":"$geoip2_data_lat",'
-          '"lon":"$geoip2_data_lon"'
-        '}';
-
-        # Use the new JSON log format
-        access_log /var/log/nginx/access.log json_combined;
-        fastcgi_param MM_CONTINENT_CODE $geoip2_data_continent_code;
-        fastcgi_param MM_CONTINENT_NAME $geoip2_data_continent_name;
-        fastcgi_param MM_COUNTRY_CODE $geoip2_data_country_code;
-        fastcgi_param MM_COUNTRY_NAME $geoip2_data_country_name;
-        fastcgi_param MM_CITY_NAME    $geoip2_data_city_name;
-        fastcgi_param MM_LATITUDE $geoip2_data_lat;
-        fastcgi_param MM_LONGITUDE $geoip2_data_lon;
-        fastcgi_param MM_ISP $geoip2_data_asorg;
-    '';
-  };
-
 
 
   services.geoipupdate = mkIf cfg.geoip.enable {
@@ -233,11 +232,11 @@ in {
       EditionIDs = cfg.geoip.editions; #-> network information
       # Use a secret to store your license key
       LicenseKey = {
-        _secret = cfg.geoip.max-mind-licence-key;
+        _secret = cfg.geoip.max_mind_licence_key;
       };
       # Specify the directory where the databases will be stored
-      DatabaseDirectory = "/var/lib/nginx/geoip";
+      DatabaseDirectory = cfg.geoip.max_mind_database_path;
     };
   };
-  };
+};
 }
