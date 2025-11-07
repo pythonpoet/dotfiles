@@ -69,6 +69,7 @@ in {
       enable = true;
       port = cfg.port;
       frontendScheme = "https";
+      frontendHostname = cfg.url;
       database.path = cfg.db_path;
       settings = {
         service = {
