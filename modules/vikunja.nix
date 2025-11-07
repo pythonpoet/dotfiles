@@ -71,11 +71,13 @@ in {
       frontendScheme = "https";
       frontendHostname = cfg.url;
       database.path = cfg.db_path;
+      files.basepath = cfg.files_path;
       settings = {
         service = {
           JWTSecret = cfg.service_jwtsecret;
         };
       };
+
 
     };
     systemd.services.vikunja.serviceConfig = {
