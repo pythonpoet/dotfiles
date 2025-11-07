@@ -76,9 +76,6 @@ in {
           JWTSecret = cfg.service_jwtsecret;
         };
       };
-      serviceConfig = {
-        ReadWritePaths = [ cfg.db_path ];
-      };
 
     };
     systemd.services.vikunja.serviceConfig = {
