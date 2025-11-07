@@ -156,7 +156,14 @@ in
 
     initrd.kernelModules = [ "usb_storage" "uas" "btrfs" ];
     };
-    
+    nix.settings.system-features = [
+    "benchmark"
+    "big-parallel" 
+    "nixos-test"
+    "kvm"
+    "gccarch-armv7-a"  # Add this for ARMv7!
+    "gccarch-armv8-a"
+  ];
 
     nixpkgs.overlays = lib.mkAfter [
       (self: super: {
