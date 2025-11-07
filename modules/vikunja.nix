@@ -73,7 +73,7 @@ in {
       database.path = cfg.db_path;
       
       settings = {
-        files.basepath = cfg.files_path;
+        files.basepath = lib.mkForce cfg.files_path;
         service = {
           JWTSecret = cfg.service_jwtsecret;
         };
