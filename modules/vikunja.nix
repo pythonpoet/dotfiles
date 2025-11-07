@@ -81,6 +81,9 @@ in {
       };
 
     };
+    systemd.services.vikunja.serviceConfig = {
+        ReadWritePaths = [ cfg.db_path ];
+      };
     networking.firewall.allowedTCPPorts = [cfg.port];
   };
   # networking.firewall.allowedTCPPorts =  [ cfg.port ];
