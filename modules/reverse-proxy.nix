@@ -140,7 +140,7 @@ in {
         "vikunja.davidwild.ch" = {
          inherit (sslSettings) addSSL enableACME;
           locations."/" = {
-            proxyPass = "https://127.0.0.1:3456";
+            proxyPass = "http://127.0.0.1:3456";
             proxyWebsockets = true;
             extraConfig = extraConfig;
           };
