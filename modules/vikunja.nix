@@ -71,8 +71,9 @@ in {
       frontendScheme = "https";
       frontendHostname = cfg.url;
       database.path = cfg.db_path;
-      files.basepath = cfg.files_path;
+      
       settings = {
+        files.basepath = cfg.files_path;
         service = {
           JWTSecret = cfg.service_jwtsecret;
         };
