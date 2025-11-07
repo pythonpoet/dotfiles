@@ -154,7 +154,7 @@
           };
           vikunja = {
             enable = true;
-            db_path = "/data1/vikunja/db";
+            db_path = "/data1/vikunja/db/vikunja.db";
             files_path = "/data1/vikunja/files";
           };
         }
