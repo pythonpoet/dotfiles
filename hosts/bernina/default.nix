@@ -139,6 +139,7 @@ in
       common-user-config
     ];
   boot = {
+    binfmt.emulatedSystems = [ "armv7l-linux" ];
     # loader = {
     #   raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;    
     #   raspberryPi.bootloader = "kernel";
