@@ -65,7 +65,7 @@ in {
     #     };
     #   };
     # };
-    service.vikunja = {
+    services.vikunja = {
       enable = true;
       port = cfg.port;
       frontendScheme = "https";
