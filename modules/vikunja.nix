@@ -13,7 +13,7 @@ with lib; let
       enable = false;
       image = "vikunja/vikunja";
       service_jwtsecret = "<a super secure random secret>";
-      url = "vikunja.chaosdam.net";
+      url = "vikunja.davidwild.ch";
       db_path = "/var/lib/vikunja/db";
       files_path = "/var/lib/vikunja/files";
       port = 3456;
@@ -32,7 +32,7 @@ in {
     };
     url = mkOption {
       type = types.str;
-      default = "vikunja.chaosdam.net";
+      default = "vikunja.davidwild.ch";
     };
     db_path = mkOption {
       type = types.str;

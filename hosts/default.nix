@@ -152,6 +152,11 @@
             data_dir = "/data1/ocis/data";
             config_file = "/data1/ocis/config/ocis.yaml";
           };
+          vikunja = {
+            enable = true;
+            db_path = "/data1/vikunja/db";
+            files_path = "/data1/vikunja/files";
+          };
         }
       ];
     };

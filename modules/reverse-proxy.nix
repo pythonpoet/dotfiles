@@ -137,6 +137,14 @@ in {
             extraConfig = extraConfig;
           };
         };
+        "vikunja.davidwild.ch" = {
+         inherit (sslSettings) addSSL enableACME;
+          locations."/" = {
+            proxyPass = "https://127.0.0.1:3456";
+            proxyWebsockets = true;
+            extraConfig = extraConfig;
+          };
+        };
         # "bbcs-121-149.pub.wingo.ch" = {
         #   locations."/" = {
         #     return = 444;
