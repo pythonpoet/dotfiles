@@ -18,6 +18,7 @@ with lib; let
       files_path = "/var/lib/vikunja/files";
       port = 3456;
     };
+  db_path_default = "/var/lib/vikunja/vikunja.db";
 in {
   options.vikunja = {
     enable = mkEnableOption "Enable Vikunja";
@@ -44,6 +45,7 @@ in {
       type = types.port;
       default = 3456;
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -68,9 +70,19 @@ in {
 
 
     };
-    systemd.services.vikunja.serviceConfig = {
-        ReadWritePaths = [ cfg.db_path "/var/lib/vikunja/vikunja.db"];
+    systemd.services.vikunja = {
+      serviceConfig = {
+        ReadWritePaths = [ cfg.db_path cfg.db_path_default ];
+        BindPaths = [
+          "${cfg.db_path}:/var/lib/vikunja/db"
+          "${cfg.db_path_default}:/var/lib/vikunja/files"
+        ];
       };
+      preStart = ''
+        mkdir -p ${cfg.db_path} ${cfg.db_path_default}
+        chown vikunja:vikunja ${cfg.db_path} ${cfg.db_path_default}
+      '';
+    };
     networking.firewall.allowedTCPPorts = [cfg.port];
   };
   # networking.firewall.allowedTCPPorts =  [ cfg.port ];
