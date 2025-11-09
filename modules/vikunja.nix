@@ -66,13 +66,12 @@ in {
     #   };
     # };
     services.postgresql.enable = true;
-    services.postgresql.ensureDatabases = [
-      { name = "vikunja"; owner = "vikunja"; }
-    ];
+    services.postgresql.ensureUsers = [ "vikunja" ];
+services.postgresql.ensureDatabases = [ "vikunja" ];
 
-    services.postgresql.ensureUsers = [
-      { name = "vikunja"; }
-    ];
+services.postgresql.authentication = ''
+  local   vikunja   vikunja   peer
+'';
     services.vikunja = {
       enable = true;
       port = cfg.port;
