@@ -48,7 +48,7 @@ in {
 
   config = mkIf cfg.enable {
     system.activationScripts.vikunja-db-symlink = ''
-      ln -sf ${cfg.path} /var/lib/vikunja/vikunja.db
+      ln -sf ${cfg.db_path} /var/lib/vikunja/vikunja.db
     '';
 
     services.vikunja = {
