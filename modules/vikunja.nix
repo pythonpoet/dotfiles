@@ -85,7 +85,7 @@ in {
         user = "vikunja";
         password = "secret";  # set via environment file
         database = "vikunja";
-      }
+      };
       #database.path = cfg.db_path;
       
       settings = {
