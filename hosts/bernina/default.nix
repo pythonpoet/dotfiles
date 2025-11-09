@@ -212,4 +212,5 @@ in
   #   requires = [ "nix.mount" ];
   # };
   swapDevices = [ ];
+  system.stateVersion = 25.11;
 }
