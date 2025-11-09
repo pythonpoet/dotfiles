@@ -47,43 +47,16 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # virtualisation.oci-containers = {
-    #   backend = "podman";
-    #   containers.vikunja = {
-    #     image = cfg.image;
-    #     ports = ["${toString cfg.port}:3456"];
+    system.activationScripts.vikunja-db-symlink = ''
+      ln -sf ${cfg.path} /var/lib/vikunja/vikunja.db
+    '';
 
-    #     volumes = [
-    #       "${cfg.db_path}:/db"
-    #       "${cfg.files_path}:/app/vikunja/files"
-    #     ];
-
-    #     environment = {
-    #       VIKUNJA_SERVICE_JWTSECRET = cfg.service_jwtsecret;
-    #       VIKUNJA_SERVICE_PUBLICURL = cfg.url;
-    #       VIKUNJA_DATABASE_PATH = "/db/vikunja.db";
-    #     };
-    #   };
-    # };
-#     services.postgresql.enable = true;
-#     services.postgresql.ensureUsers = [ "vikunja" ];
-# services.postgresql.ensureDatabases = [ "vikunja" ];
-
-# services.postgresql.authentication = ''
-#   local   vikunja   vikunja   peer
-# '';
     services.vikunja = {
       enable = true;
       port = cfg.port;
       frontendScheme = "https";
       frontendHostname = cfg.url;
 
-      # database = {
-      #   type = "postgres";
-      #   host = "localhost";
-      #   user = "vikunja";
-      #   database = "vikunja";
-      # };
       database.path = cfg.db_path;
       
       settings = {
