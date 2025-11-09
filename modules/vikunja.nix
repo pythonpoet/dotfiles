@@ -65,23 +65,34 @@ in {
     #     };
     #   };
     # };
+    services.postgresql.enable = true;
+    services.postgresql.ensureDatabases = [
+      { name = "vikunja"; owner = "vikunja"; }
+    ];
+
+    services.postgresql.ensureUsers = [
+      { name = "vikunja"; password = "secret"; }
+    ];
     services.vikunja = {
       enable = true;
       port = cfg.port;
       frontendScheme = "https";
       frontendHostname = cfg.url;
-      database.path = cfg.db_path;
+
+      database = {
+        type = "postgres";
+        host = "localhost";
+        user = "vikunja";
+        password = "secret";  # set via environment file
+        database = "vikunja";
+      }
+      #database.path = cfg.db_path;
       
       settings = {
         files.basepath = lib.mkForce cfg.files_path;
         # service = {
         #   JWTSecret = cfg.service_jwtsecret;
         # };
-        database = {
-          type = "sqlite";
-          user = "vikunja";
-          path = cfg.db_path;
-        };
       };
 
 
