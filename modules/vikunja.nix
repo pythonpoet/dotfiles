@@ -72,8 +72,7 @@ in {
       serviceConfig = {
         ReadWritePaths = [ cfg.db_path db_path_default ];
         BindPaths = [
-          "${cfg.db_path}:/var/lib/vikunja/db"
-          "${db_path_default}:/var/lib/vikunja/files"
+          "${cfg.db_path}:/var/lib/vikunja/vikunja.db"
         ];
       };
     };
