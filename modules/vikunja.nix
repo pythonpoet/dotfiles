@@ -47,48 +47,48 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # virtualisation.oci-containers = {
-    #   backend = "podman";
-    #   containers.vikunja = {
-    #     image = cfg.image;
-    #     ports = ["${toString cfg.port}:3456"];
+    virtualisation.oci-containers = {
+      backend = "podman";
+      containers.vikunja = {
+        image = cfg.image;
+        ports = ["${toString cfg.port}:3456"];
 
-    #     volumes = [
-    #       "${cfg.db_path}:/db"
-    #       "${cfg.files_path}:/app/vikunja/files"
-    #     ];
+        volumes = [
+          "${cfg.db_path}:/db"
+          "${cfg.files_path}:/app/vikunja/files"
+        ];
 
-    #     environment = {
-    #       VIKUNJA_SERVICE_JWTSECRET = cfg.service_jwtsecret;
-    #       VIKUNJA_SERVICE_PUBLICURL = cfg.url;
-    #       VIKUNJA_DATABASE_PATH = "/db/vikunja.db";
+        environment = {
+          VIKUNJA_SERVICE_JWTSECRET = cfg.service_jwtsecret;
+          VIKUNJA_SERVICE_PUBLICURL = cfg.url;
+          VIKUNJA_DATABASE_PATH = "/db/vikunja.db";
+        };
+      };
+    };
+    # services.vikunja = {
+    #   enable = true;
+    #   port = cfg.port;
+    #   frontendScheme = "https";
+    #   frontendHostname = cfg.url;
+    #   database.path = cfg.db_path;
+      
+    #   settings = {
+    #     files.basepath = lib.mkForce cfg.files_path;
+    #     service = {
+    #       JWTSecret = cfg.service_jwtsecret;
+    #     };
+    #     database = {
+    #       type = "sqlite";
+    #       user = "vikunja";
+    #       path = cfg.db_path;
     #     };
     #   };
+
+
     # };
-    services.vikunja = {
-      enable = true;
-      port = cfg.port;
-      frontendScheme = "https";
-      frontendHostname = cfg.url;
-      database.path = cfg.db_path;
-      
-      settings = {
-        files.basepath = lib.mkForce cfg.files_path;
-        service = {
-          JWTSecret = cfg.service_jwtsecret;
-        };
-        database = {
-          type = "sqlite";
-          user = "vikunja";
-          path = cfg.db_path;
-        };
-      };
-
-
-    };
-    systemd.services.vikunja.serviceConfig = {
-        ReadWritePaths = [ cfg.db_path ];
-      };
+    # systemd.services.vikunja.serviceConfig = {
+    #     ReadWritePaths = [ cfg.db_path ];
+    #   };
     networking.firewall.allowedTCPPorts = [cfg.port];
   };
   # networking.firewall.allowedTCPPorts =  [ cfg.port ];
