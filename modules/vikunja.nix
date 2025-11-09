@@ -76,10 +76,6 @@ in {
           "${db_path_default}:/var/lib/vikunja/files"
         ];
       };
-      preStart = ''
-        mkdir -p ${cfg.db_path} ${db_path_default}
-        chmod 777 ${cfg.db_path} ${db_path_default}
-      '';
     };
     networking.firewall.allowedTCPPorts = [cfg.port];
   };
