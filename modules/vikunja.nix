@@ -71,7 +71,7 @@ in {
     ];
 
     services.postgresql.ensureUsers = [
-      { name = "vikunja"; password = "secret"; }
+      { name = "vikunja"; }
     ];
     services.vikunja = {
       enable = true;
@@ -83,7 +83,6 @@ in {
         type = "postgres";
         host = "localhost";
         user = "vikunja";
-        password = "secret";  # set via environment file
         database = "vikunja";
       };
       #database.path = cfg.db_path;
