@@ -13,7 +13,7 @@ with lib; let
       enable = false;
       image = "vikunja/vikunja";
       service_jwtsecret = "<a super secure random secret>";
-      url = "vikunja.davidwild.ch";
+      url = "https://vikunja.davidwild.ch";
       db_path = "/var/lib/vikunja/db";
       files_path = "/var/lib/vikunja/files";
       port = 3456;
