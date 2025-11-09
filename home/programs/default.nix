@@ -24,6 +24,7 @@
   beeper
   bitwarden-desktop
   brave
+  ente-auth
   calibre
   cheese
   dconf-editor
