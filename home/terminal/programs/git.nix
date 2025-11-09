@@ -16,7 +16,7 @@ in
   programs.git = {
     enable = true;
 
-    extraConfig = {
+    settings = {
       diff.colorMoved = "default";
       merge.conflictstyle = "diff3";
     };
@@ -119,6 +119,6 @@ in
   };
 
   xdg.configFile."git/allowed_signers".text = ''
-    ${cfg.userEmail} namespaces="git" ${key}
+    ${cfg.settings.user.email} namespaces="git" ${key}
   '';
 }

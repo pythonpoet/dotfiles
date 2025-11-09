@@ -77,6 +77,11 @@ in {
         service = {
           JWTSecret = cfg.service_jwtsecret;
         };
+        database = {
+          type = "sqlite";
+          user = "vikunja";
+          path = cfg.db_path;
+        };
       };
 
 
