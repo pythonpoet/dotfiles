@@ -70,15 +70,15 @@ in {
     };
     systemd.services.vikunja = {
       serviceConfig = {
-        ReadWritePaths = [ cfg.db_path cfg.db_path_default ];
+        ReadWritePaths = [ cfg.db_path db_path_default ];
         BindPaths = [
           "${cfg.db_path}:/var/lib/vikunja/db"
-          "${cfg.db_path_default}:/var/lib/vikunja/files"
+          "${db_path_default}:/var/lib/vikunja/files"
         ];
       };
       preStart = ''
-        mkdir -p ${cfg.db_path} ${cfg.db_path_default}
-        chown vikunja:vikunja ${cfg.db_path} ${cfg.db_path_default}
+        mkdir -p ${cfg.db_path} ${db_path_default}
+        chmod 777 ${cfg.db_path} ${db_path_default}
       '';
     };
     networking.firewall.allowedTCPPorts = [cfg.port];
