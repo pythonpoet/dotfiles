@@ -48,7 +48,7 @@ in {
 
   config = mkIf cfg.enable {
     virtualisation.oci-containers = {
-      backend = "podman";
+      backend = "docker";
       containers.vikunja = {
         image = cfg.image;
         ports = ["${toString cfg.port}:3456"];
