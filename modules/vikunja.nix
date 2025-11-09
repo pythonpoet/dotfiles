@@ -68,14 +68,14 @@ in {
 
 
     };
-    # systemd.services.vikunja = {
-    #   serviceConfig = {
-    #     ReadWritePaths = [ cfg.db_path db_path_default ];
-    #     # BindPaths = [
-    #     #   "${cfg.db_path}:/var/lib/vikunja/vikunja.db"
-    #     # ];
-    #   };
-    # };
+    systemd.services.vikunja = {
+      serviceConfig = {
+        ReadWritePaths = [ cfg.db_path  ];
+        BindPaths = [
+          "/data1/vikunja/db:/var/lib/vikunja/"
+        ];
+      };
+    };
     networking.firewall.allowedTCPPorts = [cfg.port];
   };
   # networking.firewall.allowedTCPPorts =  [ cfg.port ];
