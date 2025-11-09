@@ -65,25 +65,25 @@ in {
     #     };
     #   };
     # };
-    services.postgresql.enable = true;
-    services.postgresql.ensureUsers = [ "vikunja" ];
-services.postgresql.ensureDatabases = [ "vikunja" ];
+#     services.postgresql.enable = true;
+#     services.postgresql.ensureUsers = [ "vikunja" ];
+# services.postgresql.ensureDatabases = [ "vikunja" ];
 
-services.postgresql.authentication = ''
-  local   vikunja   vikunja   peer
-'';
+# services.postgresql.authentication = ''
+#   local   vikunja   vikunja   peer
+# '';
     services.vikunja = {
       enable = true;
       port = cfg.port;
       frontendScheme = "https";
       frontendHostname = cfg.url;
 
-      database = {
-        type = "postgres";
-        host = "localhost";
-        user = "vikunja";
-        database = "vikunja";
-      };
+      # database = {
+      #   type = "postgres";
+      #   host = "localhost";
+      #   user = "vikunja";
+      #   database = "vikunja";
+      # };
       #database.path = cfg.db_path;
       
       settings = {
