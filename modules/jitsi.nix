@@ -16,6 +16,9 @@ in {
     };
   };
   config = mkIf cfg.enable {
+    nixpkgs.config.allowInsecurePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "jitsi-meet"
+    ];
     services.jitsi-meet = {
       enable = true;
       hostName = cfg.domain;
