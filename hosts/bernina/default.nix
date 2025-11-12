@@ -153,7 +153,11 @@ in
     # };
     
     kernelPackages = kernelBundle.linuxPackages_rpi5;   # <-- keep original
-    kernelPatches  = [ { inherit (compatUtsPatch) name patch; } ];  # <-- NEW
+    kernelPatches = [
+      { name  = "compat-uts-machine";
+        patch = compatUtsPatch;          # <-- the derivation returned by fetchpatch
+      }
+    ];
     kernelParams   = [ "compat_uts_machine=armv7l" ]; 
     
     supportedFilesystems = [ "ext4" "btrfs" ];
