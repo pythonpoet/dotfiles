@@ -8,7 +8,7 @@ let
   compatUtsPatch = pkgs.fetchpatch {
     name   = "compat-uts-machine.patch";
     url    = "https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/jammy/patch/?id=c1da50fa6eddad313360249cadcd4905ac9f82ea";
-    hash   = "sha256-mpq4YLhobWGs+TRKjIjoe5uDiYLVlimqWUCBGFH/zzU=";
+    hash   = "sha256-357+EzMLLt7IINdH0ENE+VcDXwXJMo4qiF/Dorp2Eyw=";
   };
   users-config-stub = ({ config, ... }: {
         # This is identical to what nixos installer does in
