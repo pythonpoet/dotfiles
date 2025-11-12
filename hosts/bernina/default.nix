@@ -151,12 +151,10 @@ in
     #   raspberryPi.bootloader = "kernel";
       
     # };
-    kernel.sysctl = {
-      "net.ipv4.ip_forward" = 1;
-      "net.ipv6.conf.all.forwarding" = 1;
-    };
-    kernelPackages = kernelBundle.linuxPackages_rpi5 + { inherit (compatUtsPatch) name patch; };
-    kernelParams  = [ "compat_uts_machine=armv7l" ];
+    
+    kernelPackages = kernelBundle.linuxPackages_rpi5;   # <-- keep original
+    kernelPatches  = [ { inherit (compatUtsPatch) name patch; } ];  # <-- NEW
+    kernelParams   = [ "compat_uts_machine=armv7l" ]; 
     
     supportedFilesystems = [ "ext4" "btrfs" ];
     initrd.supportedFilesystems = [ "ext4" "btrfs" ];
