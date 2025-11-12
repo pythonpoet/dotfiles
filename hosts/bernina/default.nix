@@ -4,6 +4,12 @@ let
   nix-settings = ({ config, ... }:{
     nix.registry.nixpkgs.to.path = lib.mkForce inputs.nixpkgs.outPath;
   });
+  # Ubuntu patch that lets the kernel lie about the machine type
+  compatUtsPatch = pkgs.fetchpatch {
+    name   = "compat-uts-machine.patch";
+    url    = "https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/jammy/patch/?id=c1da50fa6eddad313360249cadcd4905ac9f82ea";
+    hash   = "sha256-mpq4YLhobWGs+TRKjIjoe5uDiYLVlimqWUCBGFH/zzU=";
+  };
   users-config-stub = ({ config, ... }: {
         # This is identical to what nixos installer does in
         # (modulesPash + "profiles/installation-device.nix")
@@ -139,7 +145,7 @@ in
       common-user-config
     ];
   boot = {
-    binfmt.emulatedSystems = [ "armv7l-linux" ];
+    #binfmt.emulatedSystems = [ "armv7l-linux" ];
     # loader = {
     #   raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;    
     #   raspberryPi.bootloader = "kernel";
@@ -149,21 +155,25 @@ in
       "net.ipv4.ip_forward" = 1;
       "net.ipv6.conf.all.forwarding" = 1;
     };
-    kernelPackages = kernelBundle.linuxPackages_rpi5;
+    kernelPackages = kernelBundle.linuxPackages_rpi5 + { inherit (compatUtsPatch) name patch; };
+    kernelParams  = [ "compat_uts_machine=armv7l" ];
     
     supportedFilesystems = [ "ext4" "btrfs" ];
     initrd.supportedFilesystems = [ "ext4" "btrfs" ];
 
     initrd.kernelModules = [ "usb_storage" "uas" "btrfs" ];
     };
-    nix.settings.system-features = [
-    "benchmark"
-    "big-parallel" 
-    "nixos-test"
-    "kvm"
-    "gccarch-armv7-a"  # Add this for ARMv7!
-    "gccarch-armv8-a"
-  ];
+    nix.settings = {
+      extra-platforms = [ "armv7l-linux" ];   # <── NEW
+      system-features = [
+        "benchmark"
+        "big-parallel"
+        "nixos-test"
+        "kvm"
+        "gccarch-armv7-a"
+        "gccarch-armv8-a"
+      ];
+    };
 
     nixpkgs.overlays = lib.mkAfter [
       (self: super: {

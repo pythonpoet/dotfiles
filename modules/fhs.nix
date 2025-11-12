@@ -67,6 +67,7 @@ in {
         libGL
         glib
         glib-networking
+        jdk
       ];
     };
   };
