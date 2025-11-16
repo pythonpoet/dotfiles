@@ -53,7 +53,7 @@ let
         };
 
         # We are stateless, so just default to latest.
-        system.stateVersion = "25.11"; #config.system.nixos.release;
+        system.stateVersion = config.system.nixos.release;
       });
 
       network-config = {

@@ -17,7 +17,7 @@
     username = "david";
     homeDirectory = "/home/david";
 
-    stateVersion = "24.11";
+    stateVersion = "25.11";
     extraOutputsToInstall = [
       "doc"
       "devdoc"

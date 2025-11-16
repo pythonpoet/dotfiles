@@ -30,7 +30,6 @@
   dconf-editor
   elixir_1_18
   element-desktop
-  flyctl
   gephi
   glow
   gnome-calculator
