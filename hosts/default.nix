@@ -43,7 +43,6 @@
         ++ [
           # Include surface book specific configuration (only commons)
           inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
-          inputs.catppuccin.homeModules.catppuccin
 
           ./alpakapro
           #"${mod}/core/lanzaboote.nix"
@@ -85,7 +84,6 @@
         ++ [
           # Include surface book specific configuration (only commons)
           inputs.nixos-hardware.nixosModules.microsoft-surface-common
-          inputs.catppuccin.nixosModules.catppuccin
           ./alpakabook
           #"${mod}/core/lanzaboote.nix"
 
