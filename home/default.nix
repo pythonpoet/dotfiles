@@ -7,17 +7,17 @@
 }:
 {
   imports = [
-    ./specialisations.nix
+    #./specialisations.nix
     ./terminal
     inputs.nix-index-db.homeModules.nix-index
-    self.homeManagerModules.theme
+    #self.nixosModules.theme
   ];
 
   home = {
     username = "david";
     homeDirectory = "/home/david";
 
-    stateVersion = "25.11";
+    stateVersion = "25.05";
     extraOutputsToInstall = [
       "doc"
       "devdoc"
