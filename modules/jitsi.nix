@@ -39,6 +39,7 @@ in {
       80
       443
     ];
+    networking.firewall.allowedUDPPorts = [ 10000 ];
     
   };
 }
