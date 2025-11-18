@@ -35,6 +35,10 @@ in {
       nginx.enable = true;
     };
     services.jitsi-videobridge.openFirewall = true;
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
     
   };
 }
