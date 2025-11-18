@@ -34,9 +34,13 @@ in {
       };
       nginx.enable = true;
     };
-    services.jitsi-videobridge.openFirewall = true;
-    networking.firewall.allowedTCPPorts = [ 80 443 5349 ];   # TURN-TLS
-    networking.firewall.allowedUDPPorts = [ 10000 3478 ];    # media + TURN-UDP
-    
+      services.jitsi-videobridge.openFirewall = true;
+      networking.firewall.allowedTCPPorts = [ 80 443 5349 ];   # TURN-TLS
+      networking.firewall.allowedUDPPorts = [ 10000 3478 ];    # media + TURN-UDP
+      systemd.services.jitsi-videobridge2 = {
+    wants    = [ "network-online.target" ];
+    after    = [ "network-online.target" ];
+    restartTriggers = [ config.environment.etc."jitsi/videobridge/sip-communicator.properties".source ];
   };
+    };
 }
