@@ -46,8 +46,8 @@ in {
       # networking.firewall.allowedTCPPorts = [ 80 443 5349 ];   # TURN-TLS
       # networking.firewall.allowedUDPPorts = [ 10000 3478 ];    # media + TURN-UDP
       systemd.services.jitsi-videobridge2 = {
-    wants    = [ "network-online.target" ];
-    after    = [ "network-online.target" ];
+    after = [ "network.target" ]
+
   };
   
     };
