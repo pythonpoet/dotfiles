@@ -10,7 +10,7 @@
     #./specialisations.nix
     ./terminal
     inputs.nix-index-db.homeModules.nix-index
-    #self.nixosModules.theme
+    self.modules.theme
   ];
 
   home = {
