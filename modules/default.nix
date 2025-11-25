@@ -16,7 +16,7 @@ let
 
 in
 {
-  flake.nixosModules = {
+  flake.module = {
     theme = import ./theme;
     cloud = cloud;
     };
