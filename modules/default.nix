@@ -16,7 +16,7 @@ let
 
 in
 {
-  flake.module = {
+  flake.modules = {
     theme = import ./theme;
     cloud = cloud;
     };
