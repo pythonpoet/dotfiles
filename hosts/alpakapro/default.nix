@@ -12,7 +12,7 @@
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
     #./powersave.nix
   ];
-  
+  services.flatpak.enable = true;
 
   config = {
     hardware.microsoft-surface = {
