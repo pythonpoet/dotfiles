@@ -133,14 +133,14 @@
             users.david.imports = homeImports.server;
             extraSpecialArgs = specialArgs;
           };
-          # immich = {
-          #   enable = true;
-          #   data_dir = "/data1/immich/";
-          # };
-          # postgresql = {
-          #   enable = true;
-          #   data_dir = "/data1/databases";
-          # };
+          immich = {
+            enable = true;
+            data_dir = "/data1/immich/";
+          };
+          postgresql = {
+            enable = true;
+            data_dir = "/data1/databases";
+          };
           reverse-proxy = {
             enable = true;
             geoip = {

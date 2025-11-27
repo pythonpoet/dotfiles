@@ -17,10 +17,15 @@ let
         file # for libmagic
         zlib # for numpy
         openssl # needed that once for opentimestamps
+        jdk
+
       ]; # TODO: ideally this is all environment.systemPackages
     runScript =
       "fish"; # TODO: hard-coded fish here. Should be the default system shell.
     profile = ''
+      # make libjvm.so visible
+      export LD_LIBRARY_PATH="${pkgs.jdk}/lib/server:$LD_LIBRARY_PATH"
+
       if ! python -c 'import tkinter' 2>/dev/null >/dev/null;then
         # Fix tkinter import (was necessary at some point?)
         for d in ${
@@ -71,4 +76,5 @@ in {
       ];
     };
   };
+  environment.variables.JAVA_HOME = "${pkgs.jdk}/lib/openjdk";
 }

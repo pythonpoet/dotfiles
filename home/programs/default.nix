@@ -63,6 +63,7 @@
   v4l-utils
   webtorrent_desktop
   wineWowPackages.wayland
+  weka
   zotero
   zulu11
 ];
