@@ -1,57 +1,26 @@
+# modified from https://github.com/gytis-ivaskevicius/flake-utils/plus
 {
-  flakePath ? null,
-  hostnamePath ? "/etc/hostname",
-  registryPath ? /etc/nix/registry.json,
+  coreutils,
+  gnused,
+  writeShellScriptBin,
 }:
 let
-  inherit (builtins)
-    getFlake
-    head
-    match
-    currentSystem
-    readFile
-    pathExists
-    filter
-    fromJSON
-    ;
-
-  selfFlake =
-    if pathExists registryPath then
-      filter (it: it.from.id == "self") (fromJSON (readFile registryPath)).flakes
-    else
-      [ ];
-
-  flakePath' = toString (
-    if flakePath != null then
-      flakePath
-    else if selfFlake != [ ] then
-      (head selfFlake).to.path
-    else
-      "/etc/nixos"
-  );
-
-  flake = if pathExists flakePath' then getFlake flakePath' else { };
-  hostname =
-    if pathExists hostnamePath then head (match "([a-zA-Z0-9\\-]+)\n" (readFile hostnamePath)) else "";
-
-  nixpkgsFromInputsPath = flake.inputs.nixpkgs.outPath or "";
-  nixpkgs =
-    flake.pkgs.${currentSystem}.nixpkgs
-      or (if nixpkgsFromInputsPath != "" then import nixpkgsFromInputsPath { } else { });
-
-  nixpkgsOutput = removeAttrs (nixpkgs // nixpkgs.lib or { }) [
-    "options"
-    "config"
-  ];
+  repl = ../../lib/repl.nix;
+  example = command: desc: ''\n\u001b[33m ${command}\u001b[0m - ${desc}'';
 in
-{
-  inherit flake;
-}
-// flake
-// builtins
-// (flake.nixosConfigurations or { })
-// flake.nixosConfigurations.${hostname} or { }
-// nixpkgsOutput
-// {
-  getFlake = path: getFlake (toString path);
-}
+writeShellScriptBin "repl" ''
+  case "$1" in
+    "-h"|"--help"|"help")
+      printf "%b\n\e[4mUsage\e[0m: \
+        ${example "repl" "Loads system flake if available."} \
+        ${example "repl /path/to/flake.nix" "Loads specified flake."}\n"
+    ;;
+    *)
+      if [ -z "$1" ]; then
+        nix repl ${repl}
+      else
+        nix repl --arg flakePath $(${coreutils}/bin/readlink -f $1 | ${gnused}/bin/sed 's|/flake.nix||') ${repl}
+      fi
+    ;;
+  esac
+''
