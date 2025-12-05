@@ -135,7 +135,7 @@
             extraSpecialArgs = specialArgs;
           };
           immich = {
-            enable = true;
+            enable = false;
             data_dir = "/data1/immich/";
           };
           postgresql = {

@@ -28,8 +28,11 @@ with lib; let
     });
   };
 
- pkgsWithOverlay = import pkgs.path { overlays = [ myOverlay ]; };
-  
+ #pkgsWithOverlay = import pkgs.path { overlays = [ myOverlay ]; };
+  pkgsWithOverlay = import pkgs.path {
+  inherit (pkgs) system; # <--- Add this line
+  overlays = [ myOverlay ];
+};
 in
 {
   options.immich = {
