@@ -39,6 +39,7 @@
   gnomeExtensions.system-monitor
   gnomeExtensions.tiling-shell
   gnomeExtensions.user-themes
+  gnome-software
   gsound
   halloy
   immich-cli
@@ -51,6 +52,8 @@
   openssl
   owncloud-client
   overskride
+  geckodriver
+  #flatpak
   popcorntime
   postgresql_17
   R

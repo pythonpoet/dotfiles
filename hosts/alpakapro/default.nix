@@ -12,7 +12,7 @@
     inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel
     #./powersave.nix
   ];
-  services.flatpak.enable = true;
+  
 
   config = {
     hardware.microsoft-surface = {
@@ -45,7 +45,7 @@
 
     services = {
       fstrim.enable = true;
-
+      flatpak.enable = true;
       howdy = {
         enable = true;
         package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.howdy;

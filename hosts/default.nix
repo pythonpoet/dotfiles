@@ -59,6 +59,7 @@
           {
             home-manager = {
               #home.stateVersion = "24.11";
+              backupFileExtension = ".hm-backup";
               users.david.imports = homeImports."david@alpakabook-gnome";
               extraSpecialArgs = specialArgs;
             };
