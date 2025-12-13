@@ -52,7 +52,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "github:NixOS/nixpkgs/25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/25.05";
 
     # rest of inputs, alphabetical order
 
