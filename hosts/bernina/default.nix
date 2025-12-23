@@ -146,11 +146,11 @@ in
     ];
   boot = {
     #binfmt.emulatedSystems = [ "armv7l-linux" ];
-    # loader = {
-    #   raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;    
-    #   raspberryPi.bootloader = "kernel";
+     loader = {
+       raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;    
+       raspberryPi.bootloader = "kernel";
       
-    # };
+     };
     
     kernelPackages = kernelBundle.linuxPackages_rpi5;   # <-- keep original
     kernelPatches = [
