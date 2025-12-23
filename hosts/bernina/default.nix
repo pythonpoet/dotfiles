@@ -138,7 +138,7 @@ in
   imports = with inputs.nixos-raspberrypi.nixosModules;
     [ # Include the results of the hardware scan.
       # Hardware configuration
-      raspberry-pi-5.base
+      raspberry-pi-4.base
       #raspberry-pi-5.page-size-16k
       # raspberry-pi-5.display-vc4
       # raspberry-pi-5.bluetooth
@@ -152,7 +152,7 @@ in
       
      };
     
-    kernelPackages = kernelBundle.linuxPackages_rpi5;   # <-- keep original
+    kernelPackages = kernelBundle.linuxPackages_rpi4;   # <-- keep original
     kernelPatches = [
       { name  = "compat-uts-machine";
         patch = compatUtsPatch;          # <-- the derivation returned by fetchpatch
