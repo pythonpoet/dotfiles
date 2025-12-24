@@ -79,7 +79,7 @@
     helix.url = "github:helix-editor/helix";
 
     hm = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:pythonpoet/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
