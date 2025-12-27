@@ -190,5 +190,29 @@
         inputs.chaotic.nixosModules.default
       ];
     };
+    kaepfnach = nixosSystem {
+      inherit specialArgs;
+      system.stateVersion = 25.05;
+      modules = cloud ++ [
+        ./kaepfnach
+        "${mod}/core/users.nix"
+        "${mod}/nix"
+        "${mod}/programs/zsh.nix"
+        "${mod}/programs/home-manager.nix"
+
+        {
+          home-manager = {
+            users.david.imports = homeImports."minimal";
+            extraSpecialArgs = specialArgs;
+          };
+          postgresql = {
+            enable = false;
+            data_dir = "/backup/databases";
+          };
+        }
+        
+        inputs.chaotic.nixosModules.default
+      ];
+    };
   };
 }
