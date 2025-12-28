@@ -202,7 +202,7 @@ in
     #neededForBoot = true;
   };
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888 ";
+    { device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
       fsType = "ext4";
     };
 
@@ -216,6 +216,7 @@ in
      device = "/dev/disk/by-uuid/c3864b8a-2433-4897-84a2-8e30163a39ef";
      fsType = "ext4";
      neededForBoot = true;
+     depends = [ "/" ];
     options = [ "noatime" ];
   };
   # # check that /nix gets mounted before nix-daemon gets started
