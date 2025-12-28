@@ -212,7 +212,7 @@ in
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  fileSystems."/nix-test" = {
+  fileSystems."/nix" = {
      device = "/dev/disk/by-uuid/c3864b8a-2433-4897-84a2-8e30163a39ef";
      fsType = "ext4";
      neededForBoot = true;
