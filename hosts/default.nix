@@ -134,34 +134,34 @@
             users.david.imports = homeImports.server;
             extraSpecialArgs = specialArgs;
           };
-          # immich = {
-          #   enable = true;
-          #   data_dir = "/data1/immich/";
-          # };
-          # # postgresql = {
-          # #   enable = false;
-          # #   data_dir = "/data1/databases";
-          # # };
-          # reverse-proxy = {
-          #   enable = true;
-          #   geoip = {
-          #     enable = true;
-          #   };
-          # };
-          # cloud = {
-          #   enable =true;
-          #   data_dir = "/data1/ocis/data";
-          #   config_file = "/data1/ocis/config/ocis.yaml";
-          # };
-          # vikunja = {
-          #   enable = true;
-          #   db_path = "/var/lib/vikunja/vikunja.db";
-          #   files_path = "/data1/vikunja/files";
-          # };
-          # jitsi = {
+          immich = {
+            enable = true;
+            data_dir = "/data1/immich/";
+          };
+          # postgresql = {
           #   enable = false;
-          #   domain = "jitsi.davidwild.ch";
+          #   data_dir = "/data1/databases";
           # };
+          reverse-proxy = {
+            enable = true;
+            geoip = {
+              enable = true;
+            };
+          };
+          cloud = {
+            enable =true;
+            data_dir = "/data1/ocis/data";
+            config_file = "/data1/ocis/config/ocis.yaml";
+          };
+          vikunja = {
+            enable = true;
+            db_path = "/var/lib/vikunja/vikunja.db";
+            files_path = "/data1/vikunja/files";
+          };
+          jitsi = {
+            enable = false;
+            domain = "jitsi.davidwild.ch";
+          };
         }
       ];
     };
