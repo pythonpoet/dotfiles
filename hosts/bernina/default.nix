@@ -202,7 +202,7 @@ in
     #neededForBoot = true;
   };
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/98ce92d7-f04e-4940-8b84-dcfe8ec0c194";
+    { device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888 ";
       fsType = "ext4";
     };
 
