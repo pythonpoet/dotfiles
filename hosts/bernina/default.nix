@@ -161,7 +161,7 @@ in
     kernelParams = [ 
       "compat_uts_machine=armv7l" 
       "rootwait"             # Wait for root device to exist
-      "rootdelay=10"          # Add a 5-second buffer for USB devices to initialize
+      "rootdelay=10"          # Add a 10-second buffer for USB devices to initialize
     ];
     
     supportedFilesystems = [ "ext4" "btrfs" ];
@@ -217,13 +217,13 @@ in
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  fileSystems."/nix" = {
-     device = "/dev/disk/by-uuid/c3864b8a-2433-4897-84a2-8e30163a39ef";
-     fsType = "ext4";
-     neededForBoot = true;
-     #depends = [ "/" ];
-    options = [ "noatime" ];
-  };
+  # fileSystems."/nix" = {
+  #    device = "/dev/disk/by-uuid/c3864b8a-2433-4897-84a2-8e30163a39ef";
+  #    fsType = "ext4";
+  #    neededForBoot = true;
+  #    #depends = [ "/" ];
+  #   options = [ "noatime" ];
+  # };
   # # check that /nix gets mounted before nix-daemon gets started
   # systemd.services.nix-daemon = {
   #   after = [ "nix.mount" ];

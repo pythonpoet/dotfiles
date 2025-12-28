@@ -5,34 +5,6 @@ with lib; let
   };
   cfg = config.immich // immichDefaults;
   
-  myOverlay = final: prev: {
-    # Example: patch jemalloc for Raspberry Pi 5
-    jemalloc = prev.jemalloc.overrideAttrs (old: {
-      configureFlags =
-        let
-          pageSizeFlag = "--with-lg-page";
-          filteredFlags = lib.filter (flag: !(lib.hasPrefix pageSizeFlag flag)) (old.configureFlags or []);
-        in
-          filteredFlags ++ [ "${pageSizeFlag}=14" ];
-      meta = old.meta // {
-        description = "${old.meta.description} (patched for 16 KB page size)";
-      };
-    });
-
-    # Optional: override Python package to skip import check
-    deepdiff = prev.deepdiff.overrideAttrs (old: {
-      doCheck = false;
-      checkPhase = ''
-        echo "Skipping pythonImportsCheckPhase on Raspberry Pi 5"
-      '';
-    });
-  };
-
- #pkgsWithOverlay = import pkgs.path { overlays = [ myOverlay ]; };
-  pkgsWithOverlay = import pkgs.path {
-  inherit (pkgs) system; # <--- Add this line
-  overlays = [ myOverlay ];
-};
 in
 {
   options.immich = {
@@ -73,8 +45,6 @@ in
     ];
     
   services.immich = {
-    machine-learning.environment.MALLOC_CONF = "abort_conf:false";
-
     enable = true;
     port = cfg.port;
     host = cfg.host;
@@ -84,8 +54,6 @@ in
     # services.immich.secretsFile secretsFile for passwort
 
     environment = {
-      MALLOC_CONF = "abort_conf:false";
-      JEMALLOC_SYS_WITH_LG_PAGE = "14";
       IMMICH_HOST = cfg.host;
       DB_HOSTNAME = cfg.postgres_db_name; # PostgreSQL host
       DB_PORT =  "${toString cfg.port}"; # PostgreSQL port
@@ -100,17 +68,17 @@ in
     machine-learning.enable = true;
   };
 
-  fileSystems."/mnt/sda1" = {
-    device = "/dev/disk/by-uuid/575abdac-97eb-4727-a4db-44c366b7da72";
-    fsType = "ext4"; # or "vfat" / "ntfs" with appropriate options
-    options = ["defaults" "nofail" ];
-  };
+  # fileSystems."/mnt/sda1" = {
+  #   device = "/dev/disk/by-uuid/575abdac-97eb-4727-a4db-44c366b7da72";
+  #   fsType = "ext4"; # or "vfat" / "ntfs" with appropriate options
+  #   options = ["defaults" "nofail" ];
+  # };
 
-  fileSystems."/mnt/sba1" = {
-    device = "/dev/disk/by-uuid/839e6d96-16ec-4529-9230-bfd74012a914";
-    fsType = "ext4"; # or "vfat" / "ntfs" with appropriate options
-    options = ["defaults" "nofail" ];
-  };
+  # fileSystems."/mnt/sba1" = {
+  #   device = "/dev/disk/by-uuid/839e6d96-16ec-4529-9230-bfd74012a914";
+  #   fsType = "ext4"; # or "vfat" / "ntfs" with appropriate options
+  #   options = ["defaults" "nofail" ];
+  # };
   };
 
 }
