@@ -139,27 +139,27 @@
             data_dir = "/data1/immich/";
           };
           postgresql = {
-            enable = true;
+            enable = false;
             data_dir = "/data1/databases";
           };
           reverse-proxy = {
-            enable = true;
+            enable = false;
             geoip = {
               enable = true;
             };
           };
           cloud = {
-            enable =true;
+            enable =false;
             data_dir = "/data1/ocis/data";
             config_file = "/data1/ocis/config/ocis.yaml";
           };
           vikunja = {
-            enable = true;
+            enable = false;
             db_path = "/var/lib/vikunja/vikunja.db";
             files_path = "/data1/vikunja/files";
           };
           jitsi = {
-            enable = true;
+            enable = false;
             domain = "jitsi.davidwild.ch";
           };
         }
