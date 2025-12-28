@@ -158,12 +158,17 @@ in
         patch = compatUtsPatch;          # <-- the derivation returned by fetchpatch
       }
     ];
-    kernelParams   = [ "compat_uts_machine=armv7l" ]; 
+    kernelParams = [ 
+      "compat_uts_machine=armv7l" 
+      "rootwait"             # Wait for root device to exist
+      "rootdelay=5"          # Add a 5-second buffer for USB devices to initialize
+    ];
     
     supportedFilesystems = [ "ext4" "btrfs" ];
     initrd.supportedFilesystems = [ "ext4" "btrfs" ];
 
-    initrd.kernelModules = [ "usb_storage" "uas" "btrfs" ];
+    initrd.kernelModules = [ "usb_storage" "uas" "btrfs" "pcie_brcmstb"];
+    initrd.availableKernelModules = [ "usb_storage" "uas" "pcie_brcmstb" ];
     };
     nix.settings = {
       extra-platforms = [ "armv7l-linux" ];   # <── NEW
