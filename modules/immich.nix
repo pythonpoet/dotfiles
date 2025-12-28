@@ -39,11 +39,7 @@ in
     };
   };
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      pkgsWithOverlay.jemalloc
-      pkgsWithOverlay.deepdiff
-    ];
-    
+     
   services.immich = {
     enable = true;
     port = cfg.port;
