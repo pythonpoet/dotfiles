@@ -135,31 +135,31 @@
             extraSpecialArgs = specialArgs;
           };
           immich = {
-            enable = false;
+            enable = true;
             data_dir = "/data1/immich/";
           };
-          postgresql = {
-            enable = false;
-            data_dir = "/data1/databases";
-          };
+          # postgresql = {
+          #   enable = false;
+          #   data_dir = "/data1/databases";
+          # };
           reverse-proxy = {
-            enable = false;
+            enable = true;
             geoip = {
               enable = true;
             };
           };
           cloud = {
-            enable =false;
+            enable =true;
             data_dir = "/data1/ocis/data";
             config_file = "/data1/ocis/config/ocis.yaml";
           };
           vikunja = {
-            enable = false;
+            enable = true;
             db_path = "/var/lib/vikunja/vikunja.db";
             files_path = "/data1/vikunja/files";
           };
           jitsi = {
-            enable = false;
+            enable = true;
             domain = "jitsi.davidwild.ch";
           };
         }
