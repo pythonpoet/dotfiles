@@ -161,14 +161,17 @@ in
     kernelParams = [ 
       "compat_uts_machine=armv7l" 
       "rootwait"             # Wait for root device to exist
-      "rootdelay=10"          # Add a 10-second buffer for USB devices to initialize
+      "rootdelay=10" 
+      "usbcore.autosuspend=-1"         # Add a 10-second buffer for USB devices to initialize
     ];
     
     supportedFilesystems = [ "ext4" "btrfs" ];
-    initrd.supportedFilesystems = [ "ext4" "btrfs" ];
-
-    initrd.kernelModules = [ "usb_storage" "uas" "btrfs" "pcie_brcmstb" "xhci_pci"];
-    initrd.availableKernelModules = [ "usb_storage" "uas" "pcie_brcmstb" "xhci_pci"];
+    initrd = {
+      # Add xhci_pci to both modules lists for the RPi5 USB bus
+      kernelModules = [ "usb_storage" "uas" "pcie_brcmstb" "xhci_pci" "ext4" "btrfs" ];
+      availableKernelModules = [ "usb_storage" "uas" "pcie_brcmstb" "xhci_pci" ];
+      supportedFilesystems = [ "ext4" "btrfs" ];
+    };
     };
     nix.settings = {
       extra-platforms = [ "armv7l-linux" ];   # <── NEW
@@ -217,13 +220,13 @@ in
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  fileSystems."/nix" = {
-     device = "/dev/disk/by-uuid/c3864b8a-2433-4897-84a2-8e30163a39ef";
-     fsType = "ext4";
-     neededForBoot = true;
-     #depends = [ "/" ];
-    options = [ "noatime" ];
-  };
+  # fileSystems."/nix" = {
+  #    device = "/dev/disk/by-uuid/c3864b8a-2433-4897-84a2-8e30163a39ef";
+  #    fsType = "ext4";
+  #    neededForBoot = true;
+  #    #depends = [ "/" ];
+  #   options = [ "noatime" ];
+  # };
   # # check that /nix gets mounted before nix-daemon gets started
   # systemd.services.nix-daemon = {
   #   after = [ "nix.mount" ];
