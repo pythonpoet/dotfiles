@@ -116,9 +116,8 @@
         ];
     };
     
-    bernina = inputs.nixos-raspberrypi.lib.nixosSystemFull{
-      #system = "aarch64-linux";
-      system.stateVersion = 25.11;
+    bernina = inputs.nixos-raspberrypi.lib.nixosSystem{
+      system = "aarch64-linux";
       specialArgs = {
         inherit inputs self;
         nixos-raspberrypi = inputs.nixos-raspberrypi; 
