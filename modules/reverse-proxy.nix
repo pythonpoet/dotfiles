@@ -123,7 +123,7 @@ in {
         "immich.davidwild.ch" = {
           inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
           locations."/" = {
-            proxyPass = "http://127.0.0.1:2283"; # 
+            proxyPass = "http://127.0.0.1:9988"; # 
             proxyWebsockets = true;
             extraConfig = extraConfig;
           };
