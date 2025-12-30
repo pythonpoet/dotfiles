@@ -56,20 +56,14 @@
 
     # rest of inputs, alphabetical order
 
-    # agenix = {
-    #   url = "github:ryantm/agenix";
-    #   inputs = {
-    #     #nixpkgs.follows = "nixpkgs";
-    #     #home-manager.follows = "hm";
-    #     #systems.follows = "systems";
-    #     darwin.follows = "";
-    #   };
-    # };
-
-    # ags = {
-    #   url = "github:Aylur/ags";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        #nixpkgs.follows = "nixpkgs";
+        #home-manager.follows = "hm";
+        #systems.follows = "systems";
+      };
+    };
 
     anyrun.url = "github:fufexan/anyrun/launch-prefix";
     deploy-rs.url = "github:serokell/deploy-rs";

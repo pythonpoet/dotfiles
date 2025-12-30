@@ -102,7 +102,7 @@ let
           network-config
         ];
 
-        time.timeZone = "UTC";
+        time.timeZone = "Europe/Zurich";
         networking.hostName = "bernina";
 
        
