@@ -137,10 +137,10 @@
             enable = true;
             data_dir = "/data1/immich/";
           };
-          # postgresql = {
-          #   enable = false;
-          #   data_dir = "/data1/databases";
-          # };
+          postgresql = {
+            enable = true;
+            data_dir = "/data1/databases";
+          };
           reverse-proxy = {
             enable = true;
             geoip = {
