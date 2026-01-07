@@ -29,16 +29,29 @@ in
     port = cfg.port;
     host = cfg.host;
     openFirewall = true;
-    dataDir = "audiobookshelf";    
   };
-  # Ensure /data1/audiobookshelf exists with correct permissions
-  systemd.tmpfiles.rules = [
-      "d ${cfg.data_dir} 0750 audiobookshelf audiobookshelf -"
-      "L+ /var/lib/audiobookshelf - - - - ${cfg.data_dir}"
-    ];
+  # Override the official service configuration
+  systemd.services.audiobookshelf = {
+    # 1. Ensure the directory exists with correct permissions
+    preStart = ''
+      mkdir -p ${cfg.data_dir}
+      chown -R audiobookshelf:audiobookshelf ${cfg.data_dir}
+    '';
 
-  # Ensure the service starts after the mount point is available
-  systemd.services.audiobookshelf.unitConfig.RequiresMountsFor = [ "/data1" ];
+    serviceConfig = {
+      # 2. Clear the StateDirectory to prevent systemd from looking at /var/lib
+      StateDirectory = lib.mkForce ""; 
+      
+      # 3. Point the WorkingDirectory and Environment to your drive
+      WorkingDirectory = lib.mkForce cfg.data_dir;
+      
+      # Audiobookshelf uses these paths for its internal database and config
+      Environment = [
+        "CONFIG_PATH=${cfg.data_dir}/config"
+        "METADATA_PATH=${cfg.data_dir}/metadata"
+      ];
+    };
+  };
 
   };
 
