@@ -161,6 +161,9 @@
             enable = false;
             domain = "jitsi.davidwild.ch";
           };
+          audiobookshelf = {
+            enable = true;
+          };
         }
       ];
     };

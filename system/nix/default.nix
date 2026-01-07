@@ -9,15 +9,6 @@
     ./nh.nix
     ./nixpkgs.nix
     ./substituters.nix
-
-    # "${modulesPath}/virtualisation/oci-common.nix"
-    # (builtins.fetchurl {
-    #   url = "https://raw.githubusercontent.com/NixOS/nixpkgs/4d109af84c42f13500d34a878da86beff9482494/nixos/modules/virtualisation/oci-options.nix";
-    #   sha256 = "sha256:06ydpyvibqnv5q92rxn4dqfsh425yy31c2iviajjxmadgzj9rlq4";
-    # })
-
-    # # Switches "armv8l" compatibility name to "armv7l"
-    # ./armv7l_x86.nix
   ];
 
   # we need git for flakes

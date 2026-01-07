@@ -12,6 +12,7 @@ let
     ./vaultwarden.nix
     ./vikunja.nix
     ./wireguard.nix
+    ./audiobookshelf.nix
   ];
 
 in

@@ -79,6 +79,14 @@ in {
             extraConfig = extraConfig;
           };
         };
+        "audiobookshelf.davidwild.ch" = {
+          inherit (sslSettings) addSSL enableACME;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.audiobookshelf.port}";
+            proxyWebsockets = true;
+            extraConfig = extraConfig;
+          };
+        };
         
         "davidwild.ch" = {
          inherit (sslSettings) addSSL enableACME;
