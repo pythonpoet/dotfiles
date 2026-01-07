@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, self ... }:
 let
   kernelBundle = pkgs.linuxAndFirmware.v6_12_47; # or latest supported
   nix-settings = ({ config, ... }:{
