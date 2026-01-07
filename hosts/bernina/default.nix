@@ -141,6 +141,7 @@ in
       raspberry-pi-5.display-vc4
       raspberry-pi-5.bluetooth
       common-user-config
+      inputs.agenix.nixosModules.default
     ];
   boot = {
     #binfmt.emulatedSystems = [ "armv7l-linux" ];
