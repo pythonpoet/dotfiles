@@ -167,6 +167,7 @@
             data_dir = "/data1/audiobookshelf";
           };
         }
+        inputs.agenix.nixosModules.default
       ];
     };
     hal = nixosSystem {
