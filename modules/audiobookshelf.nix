@@ -11,7 +11,7 @@ in
     enable = mkEnableOption "Enable audiobookshelf server";
     data_dir = mkOption {
       type = types.str;
-      default = "/mnt/sda1/audiobookshelf";
+      default = "/data1/audiobookshelf";
     };
     port = mkOption {
       type = types.port;
@@ -31,6 +31,14 @@ in
     openFirewall = true;
     dataDir = cfg.data_dir;    
   };
+  # Ensure /data1/audiobookshelf exists with correct permissions
+  systemd.tmpfiles.rules = [
+      "d ${cfg.data_dir} 0750 audiobookshelf audiobookshelf -"
+      "L+ /var/lib/audiobookshelf - - - - ${cfg.data_dir}"
+    ];
+
+  # Ensure the service starts after the mount point is available
+  systemd.services.audiobookshelf.unitConfig.RequiresMountsFor = [ "/data1" ];
 
   };
 
