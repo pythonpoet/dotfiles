@@ -30,6 +30,7 @@
       "${self}/modules/owncloud.nix"
       "${self}/modules/reverse-proxy.nix"
       "${self}/modules/jitsi.nix"
+      "${self}/modules/audiobookshelf.nix"
     ];
 
     # get these into the module system
