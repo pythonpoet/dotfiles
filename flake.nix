@@ -59,9 +59,9 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
-        #nixpkgs.follows = "nixpkgs";
-        #home-manager.follows = "hm";
-        #systems.follows = "systems";
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "hm";
+        systems.follows = "systems";
       };
     };
 
