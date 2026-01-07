@@ -164,6 +164,7 @@
           };
           audiobookshelf = {
             enable = true;
+            data_dir = "/data1/audiobookshelf";
           };
         }
       ];
