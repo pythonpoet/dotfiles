@@ -31,4 +31,14 @@
 
   # let HM manage itself when in standalone mode
   programs.home-manager.enable = true;
+  {
+  age = {
+    identityPaths = [ "~/.ssh/id_ed25519" ];
+    secrets = {
+      # example-secret = {
+      #   file = ../secrets/example-secret.age;
+      # };
+    };
+  };
+}
 }
