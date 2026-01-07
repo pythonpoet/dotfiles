@@ -29,7 +29,7 @@ in
     port = cfg.port;
     host = cfg.host;
     openFirewall = true;
-    dataDir = cfg.data_dir;    
+    dataDir = "audiobookshelf";    
   };
   # Ensure /data1/audiobookshelf exists with correct permissions
   systemd.tmpfiles.rules = [
