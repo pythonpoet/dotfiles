@@ -7,7 +7,7 @@ with lib; let
   
 in
 {
-  options.immich = {
+  options.audiobookshelf = {
     enable = mkEnableOption "Enable audiobookshelf server";
     data_dir = mkOption {
       type = types.str;
