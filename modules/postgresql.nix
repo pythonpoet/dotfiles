@@ -59,8 +59,6 @@ in {
       ];
 
       enableTCPIP = true;
-      port = cfg.port;
-
       authentication = mkOverride 10 ''
         # TYPE  DATABASE        USER            ADDRESS                 METHOD
         local   all             all                                     trust
@@ -72,6 +70,7 @@ in {
           ps.vectorchord
         ];
       settings = {
+        port = cfg.port;
         shared_preload_libraries =   [ "vchord.so" ];
         search_path = "\"$user\", public, vectors";
       };

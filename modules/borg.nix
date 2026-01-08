@@ -27,9 +27,8 @@ with lib; let
       "/var/lib/vikunja"
       "/var/lib/vaultwarden"
     ];
-    repo_host = "david@100.121.205.61";
-    repo_dir = "/backup/hal_backup";
-    passfile = "cat /root/borgbackup/passcode";
+    repo_host = "david@kaepfnach";
+    repo_dir = "/data1/";
     startAt = "daily";
   };
   cfg = config.borg // borgDefaults;
