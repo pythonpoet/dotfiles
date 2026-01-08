@@ -11,7 +11,7 @@
     ./terminal
     inputs.nix-index-db.homeModules.nix-index
     self.modules.theme
-    inputs.agenix.homeManagerModules.default
+    inputs.agenix.homeManagerModules.age
   ];
 
   home = {
