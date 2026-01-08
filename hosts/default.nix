@@ -167,6 +167,11 @@
             enable = true;
             data_dir = "/data1/audiobookshelf";
           };
+          borg = {
+            enable = true;
+            repo_host = "david@kaepfnach";
+            repo_dir = "/data1/";
+          };
         }
         
       ];
