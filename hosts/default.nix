@@ -125,6 +125,7 @@
       };
       modules = cloud ++ [
         ./bernina
+        inputs.agenix.nixosModules.default
         "${mod}/core/users.nix"
         "${mod}/nix"
         "${mod}/programs/zsh.nix"
@@ -132,7 +133,7 @@
          {
           home-manager = {
             users.david.imports = homeImports.server;
-            extraSpecialArgs = { inherit inputs self; };
+            extraSpecialArgs = specialArgs;
           };
           immich = {
             enable = true;
@@ -167,7 +168,7 @@
             data_dir = "/data1/audiobookshelf";
           };
         }
-        inputs.agenix.nixosModules.default
+        
       ];
     };
     hal = nixosSystem {
