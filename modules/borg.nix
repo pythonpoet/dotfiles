@@ -27,7 +27,7 @@ with lib; let
       "/var/lib/vikunja"
       "/var/lib/vaultwarden"
     ];
-    repo_host = "david@kaepfnach";
+    repo_host = "root@kaepfnach";
     repo_dir = "/data1/";
     startAt = "daily";
   };
@@ -83,7 +83,7 @@ in {
       prune.keep = {
         last = 2;
       };
-      environment.BORG_RSH = "ssh -i /home/david/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new";
+      environment.BORG_RSH = "ssh -i /root/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new";
     };
   };
 }
