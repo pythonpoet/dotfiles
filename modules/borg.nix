@@ -73,17 +73,17 @@ in {
     # };
     services.borgbackup.jobs."Immich" = {
       paths = config.services.immich.mediaLocation;
-      repo = "ssh://${cfg.repo_host}//${cfg.repo_dir}";
+      repo = "${cfg.repo_host}:${cfg.repo_dir}";
       startAt = "04:00";
       compression = "zstd";
       encryption = {
         mode = "repokey-blake2";
-        passCommand = config.age.secrets.borg.path;
+        passwordFile = config.age.secrets.borg.path;
       };
       prune.keep = {
         last = 2;
       };
-      environment.BORG_RSH = "ssh -i /home/david/.ssh/id_ed25519";
+      environment.BORG_RSH = "ssh -i /home/david/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new";
     };
   };
 }
