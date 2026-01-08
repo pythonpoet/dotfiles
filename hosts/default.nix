@@ -130,6 +130,7 @@
         "${mod}/nix"
         "${mod}/programs/zsh.nix"
         "${mod}/programs/home-manager.nix"
+        "${self}/secrets/secrets.nix"
          {
           home-manager = {
             users.david.imports = homeImports.server;
