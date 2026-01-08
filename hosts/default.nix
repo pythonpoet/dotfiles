@@ -132,7 +132,7 @@
          {
           home-manager = {
             users.david.imports = homeImports.server;
-            extraSpecialArgs = specialArgs;
+            extraSpecialArgs = { inherit inputs self; };
           };
           immich = {
             enable = true;
