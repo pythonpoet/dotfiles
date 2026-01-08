@@ -131,7 +131,9 @@
         "${mod}/programs/zsh.nix"
         "${mod}/programs/home-manager.nix"
         "${self}/secrets/secrets.nix"
+        
          {
+          age.secrets.borg.file = "${self}/secrets/borg.age";
           home-manager = {
             users.david.imports = homeImports.server;
             extraSpecialArgs = specialArgs;
