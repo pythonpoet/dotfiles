@@ -133,7 +133,12 @@
         #"${self}/secrets/secrets.nix"
         
          {
-          age.secrets.borg.file = "/home/david/dotfiles/secrets/borg.age";
+          age = {
+            identityPaths= [
+              "/home/david/.ssh/id_ed25519"
+            ];
+            secrets.borg.file = "/home/david/dotfiles/secrets/borg.age";
+          };
           home-manager = {
             users.david.imports = homeImports.server;
             extraSpecialArgs = specialArgs;
