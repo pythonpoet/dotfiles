@@ -111,6 +111,7 @@
     openssl
 
     helix
+    borgbackup
  
   ];
 
