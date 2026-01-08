@@ -133,7 +133,7 @@
         #"${self}/secrets/secrets.nix"
         
          {
-          age.secrets.borg.file = "../secrets/borg.age";
+          age.secrets.borg.file = "/home/david/dotfiles/secrets/borg.age";
           home-manager = {
             users.david.imports = homeImports.server;
             extraSpecialArgs = specialArgs;
