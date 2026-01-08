@@ -93,9 +93,11 @@
   };
   users.users.david.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAOr7hdJO0P2TBs5GH+XmOi7XoBT6LiAS7Ym6IEgM2H0 david@alpakapro"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOc1VdjIPZ92jdNqIkFkn1/C8viTw/7Fqr45bYw0RUA david@bernina"
   ];
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAOr7hdJO0P2TBs5GH+XmOi7XoBT6LiAS7Ym6IEgM2H0 david@alpakapro"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOc1VdjIPZ92jdNqIkFkn1/C8viTw/7Fqr45bYw0RUA david@bernina"
   ];
 
   # Install firefox.
