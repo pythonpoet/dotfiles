@@ -20,6 +20,7 @@
   home.packages = with pkgs; [
   alacritty
   anki
+  agenix-cli
   baobab
   beeper
   bitwarden-desktop
