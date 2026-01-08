@@ -84,6 +84,7 @@ in {
       prune.keep = {
         last = 2;
       };
+      environment.BORG_RSH = "ssh -i /home/david/.ssh/id_ed25519";
     };
   };
 }
