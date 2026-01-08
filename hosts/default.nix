@@ -130,7 +130,7 @@
         "${mod}/nix"
         "${mod}/programs/zsh.nix"
         "${mod}/programs/home-manager.nix"
-        "${self}/secrets/secrets.nix"
+        #"${self}/secrets/secrets.nix"
         
          {
           age.secrets.borg.file = "${self}/secrets/borg.age";
