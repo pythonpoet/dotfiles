@@ -78,7 +78,7 @@ in {
       compression = "zstd";
       encryption = {
         mode = "repokey-blake2";
-        passwordFile = config.age.secrets.borg.path;
+        passCommand = config.age.secrets.borg.path;
       };
       prune.keep = {
         last = 2;
