@@ -195,7 +195,7 @@ in
         inherit (kernelBundle) raspberrypifw;
       })
     ];
- 
+  environment.systemPackages = [ inputs.agenix.packages.${pkgs.system}.default ];
   fileSystems."/data1" = {
     device = "/dev/disk/by-uuid/5a4cb152-78cc-4f24-9941-a11691c9bbca";
     fsType = "btrfs"; 
