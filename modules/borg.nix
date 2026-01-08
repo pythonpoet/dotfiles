@@ -58,16 +58,32 @@ in {
     };
   };
   config = mkIf cfg.enable {
-    services.borgbackup.jobs."borgbase" = {
-      paths = cfg.paths;
+    # services.borgbackup.jobs."borgbase" = {
+    #   paths = cfg.paths;
+    #   repo = "ssh://${cfg.repo_host}//${cfg.repo_dir}";
+    #   encryption = {
+    #     mode = "repokey-blake2";encryption = {
+    #     mode = "repokey-blake2";
+    #     passCommand = cfg.passfile;
+    #   };
+    #     passCommand = cfg.passfile;
+    #   };
+    #   environment.BORG_RSH = "ssh -i /root/borgbackup/ssh_key";
+    #   compression = "auto,zstd";
+    #   startAt = cfg.startAt;
+    # };
+    services.borgbackup.jobs."Immich" = {
+      paths = config.services.immich.mediaLocation;
       repo = "ssh://${cfg.repo_host}//${cfg.repo_dir}";
+      startAt = "04:00";
+      compression = "zstd";
       encryption = {
         mode = "repokey-blake2";
-        passCommand = cfg.passfile;
+        passCommand = config.age.secrets.borg.path;
       };
-      environment.BORG_RSH = "ssh -i /root/borgbackup/ssh_key";
-      compression = "auto,zstd";
-      startAt = cfg.startAt;
+      prune.keep = {
+        last = 2;
+      };
     };
   };
 }
