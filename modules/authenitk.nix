@@ -38,7 +38,7 @@ in {
       enable = true;
       # The environmentFile needs to be on the target host!
       # Best use something like sops-nix or agenix to manage it
-      environmentFile = config.secrets.authentik.path;
+      environmentFile = config.age.secrets.authentik.path;
       settings = {
         email = {
           host = "smtp.autistici.org";
