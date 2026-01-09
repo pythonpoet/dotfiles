@@ -60,7 +60,7 @@ let
         # This is mostly portions of safe network configuration defaults that
         # nixos-images and srvos provide
 
-        ervices.tailscale = {
+        services.tailscale = {
           enable = true;
           # This tells Tailscale to act as an exit node
           extraUpFlags = [ "--advertise-exit-node" ];
