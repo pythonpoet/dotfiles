@@ -141,7 +141,12 @@
               "/root/.ssh/id_ed25519"
             ];
             secrets.borg.file = "/home/david/dotfiles/secrets/borg.age";
-            secrets.email.file = "/home/david/dotfiles/secrets/email.age";
+            secrets.email = {
+              file = "/home/david/dotfiles/secrets/email.age";
+              owner = "maddy";
+              group = "maddy";
+              mode = "0400";
+            };
           };
           home-manager = {
             users.david.imports = homeImports.server;
