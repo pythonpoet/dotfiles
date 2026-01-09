@@ -29,6 +29,7 @@ in {
   config = mkIf cfg.enable {
     services.maddy = {
       enable = true;
+      localDomains = [ "davidwild.ch" "mail.davidwild.ch" ];
       hostname = "davidwild.ch";
       primaryDomain = cfg.domain;
       ensureAccounts = cfg.emails;
