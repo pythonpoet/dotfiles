@@ -51,7 +51,14 @@ in {
         disable_startup_analytics = true;
         avatars = "initials";
       };
-      systemd.services.vikunja = {
+      
+      nginx = {
+        enable = true;
+        enableACME = true;
+        host = "auth.davidwild.ch";
+      };
+    };
+    systemd.services.authentik = {
         serviceConfig = {
           ReadWritePaths = [ cfg.data_dir  ];
           BindPaths = [
@@ -59,11 +66,5 @@ in {
           ];
         };
       };
-      nginx = {
-        enable = true;
-        enableACME = true;
-        host = "auth.davidwild.ch";
-      };
-    };
   };
 }
