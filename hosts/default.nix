@@ -18,7 +18,7 @@
     #inherit (import "${self}/modules/") _cloud;
     cloud = [
       "${self}/modules/owncloud.nix"
-      "${self}/modules/vaultwarden.nix"
+      #"${self}/modules/vaultwarden.nix"
       "${self}/modules/borg.nix"
       "${self}/modules/vikunja.nix"
       "${self}/modules/incus.nix"
@@ -31,7 +31,7 @@
       "${self}/modules/reverse-proxy.nix"
       "${self}/modules/jitsi.nix"
       "${self}/modules/audiobookshelf.nix"
-      "${self}/modules/authenitk.nix"
+      #"${self}/modules/authenitk.nix"
       "${self}/modules/email.nix"
     ];
 
