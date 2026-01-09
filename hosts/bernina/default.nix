@@ -63,7 +63,7 @@ let
         services.tailscale = {
           enable = true;
           # This tells Tailscale to act as an exit node
-          extraUpFlags = [ "--advertise-exit-node" "--advertise-routes=192.168.1.0/24"];
+          extraUpFlags = [ "--advertise-exit-node" "--advertise-routes=192.168.0.0/24"];
         };
 
         networking.useNetworkd = true;
