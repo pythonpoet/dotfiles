@@ -54,10 +54,10 @@ in {
       ];
     };
 
-    # 3. Ensure ACME certificates are world-readable or group-readable
-    security.acme.defaults.email = "no-reply@davidwild.ch";
-    security.acme.acceptTerms = true;
-    security.acme.certs."${cfg.domain}".group = "acme";
+    # # 3. Ensure ACME certificates are world-readable or group-readable
+    # security.acme.defaults.email = "no-reply@davidwild.ch";
+    # security.acme.acceptTerms = true;
+    # security.acme.certs."${cfg.domain}".group = "acme";
     services.nginx = {
       enable = true;
       virtualHosts."${cfg.domain}" = {
