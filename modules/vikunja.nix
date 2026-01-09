@@ -7,29 +7,19 @@
 }:
 with lib; let
   # Default values
-  cfg =
-    config.vikunja
-    or {
-      enable = false;
-      image = "vikunja/vikunja";
-      service_jwtsecret = "<a super secure random secret>";
-      url = "https://vikunja.davidwild.ch";
-      db_path = "/var/lib/vikunja/db";
-      files_path = "/var/lib/vikunja/files";
-      port = 3456;
-    };
-  db_path_default = "/var/lib/vikunja/vikunja.db";
+  vikunjaDefaults = {
+    url = "vikunja.davidwild.ch";
+    db_path = "/data1/vikunja/db/vikunja.db";
+    files_path = "/data1/vikunja/files";
+    port = 3456;
+  };
+  cfg = config.vikunja;
+
 in {
   options.vikunja = {
     enable = mkEnableOption "Enable Vikunja";
-    image = mkOption {
-      type = types.str;
-      default = "vikunja/vikunja";
-    };
-
     service_jwtsecret = mkOption {
       type = types.str;
-      default = "<a super secure random secret>";
     };
     url = mkOption {
       type = types.str;
@@ -66,18 +56,12 @@ in {
         # };
       };
 
-
     };
     systemd.services.vikunja = {
       serviceConfig = {
-        #ReadWritePaths = [ cfg.db_path  ];
         DynamicUser = lib.mkForce false;
-        # BindPaths = [
-        #   "/data1/vikunja/db:/var/lib/vikunja/"
-        # ];
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port];
   };
-  # networking.firewall.allowedTCPPorts =  [ cfg.port ];
 }

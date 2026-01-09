@@ -5,4 +5,5 @@ let
 in {
   #"spotify.age".publicKeys = [mihai io];
   "borg.age".publicKeys = [bernina bernina_root];
+  "email.age".publicKeys = [bernina_root];
 }

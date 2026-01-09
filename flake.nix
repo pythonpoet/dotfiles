@@ -64,6 +64,7 @@
         systems.follows = "systems";
       };
     };
+    authentik.url = "github:nix-community/authentik-nix";
 
     anyrun.url = "github:fufexan/anyrun/launch-prefix";
     deploy-rs.url = "github:serokell/deploy-rs";

@@ -126,11 +126,11 @@
       modules = cloud ++ [
         ./bernina
         inputs.agenix.nixosModules.default
+        inputs.authentik.nixosModules.default
         "${mod}/core/users.nix"
         "${mod}/nix"
         "${mod}/programs/zsh.nix"
         "${mod}/programs/home-manager.nix"
-        #"${self}/secrets/secrets.nix"
         
          {
           age = {
@@ -138,6 +138,7 @@
               "/home/david/.ssh/id_ed25519"
             ];
             secrets.borg.file = "/home/david/dotfiles/secrets/borg.age";
+            secrets.email.file = "/home/david/dotfiles/secrets/email.age";
           };
           home-manager = {
             users.david.imports = homeImports.server;
