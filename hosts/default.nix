@@ -185,6 +185,7 @@
             data_dir = "/data1/audiobookshelf";
           };
           #email.enable = true;
+          authentik.enable = true;
           borg = {
             enable = true;
             repo_host = "david@kaepfnach";
