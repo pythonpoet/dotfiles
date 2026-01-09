@@ -60,7 +60,7 @@ in {
     };
     systemd.services.authentik = {
         serviceConfig = {
-          DynamicUser = false;
+          DynamicUser = lib.mkForce false;
           ReadWritePaths = [ cfg.data_dir  ];
           BindPaths = [
             "${cfg.data_dir }:/var/lib/authentik"
