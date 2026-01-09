@@ -6,7 +6,7 @@
 }:
 with lib; let
   authentikDefaults = {
-    
+    data_dir = "/data1/authentik";
   };
   cfg = config.authentik // authentikDefaults;
 in {
@@ -20,9 +20,9 @@ in {
       type = types.str;
       default = cfg.repo_host;
     };
-    repo_dir = mkOption {
+    data_dir = mkOption {
       type = types.str;
-      default = cfg.repo_dir;
+      default = cfg.data_dir;
     };
     passfile = mkOption {
       type = types.str;
@@ -50,6 +50,14 @@ in {
         };
         disable_startup_analytics = true;
         avatars = "initials";
+      };
+      systemd.services.vikunja = {
+        serviceConfig = {
+          ReadWritePaths = [ cfg.data_dir  ];
+          BindPaths = [
+            "${cfg.data_dir }:/var/lib/authentik"
+          ];
+        };
       };
       nginx = {
         enable = true;
