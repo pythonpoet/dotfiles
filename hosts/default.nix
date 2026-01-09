@@ -138,6 +138,7 @@
           age = {
             identityPaths= [
               "/home/david/.ssh/id_ed25519"
+              "/root/.ssh/id_ed25519"
             ];
             secrets.borg.file = "/home/david/dotfiles/secrets/borg.age";
             secrets.email.file = "/home/david/dotfiles/secrets/email.age";
