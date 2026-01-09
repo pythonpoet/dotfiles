@@ -60,7 +60,11 @@ let
         # This is mostly portions of safe network configuration defaults that
         # nixos-images and srvos provide
 
-        services.tailscale.enable = true;
+        ervices.tailscale = {
+          enable = true;
+          # This tells Tailscale to act as an exit node
+          extraUpFlags = [ "--advertise-exit-node" ];
+        };
 
         networking.useNetworkd = true;
         # mdns
@@ -151,6 +155,11 @@ in
        raspberryPi.bootloader = "kernel";
       
      };
+    # Tailscale exidnode config: Enable IP forwarding for the exit node to function
+    kernel.sysctl = {
+      "net.ipv4.ip_forward" = 1;
+      "net.ipv6.conf.all.forwarding" = 1;
+    };
     
     kernelPackages = kernelBundle.linuxPackages_rpi5;   # <-- keep original
     kernelPatches = [
