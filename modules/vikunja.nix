@@ -57,10 +57,10 @@ in {
       frontendScheme = "https";
       frontendHostname = cfg.url;
 
-      #database.path = cfg.db_path;
+     database.path = cfg.db_path;
       
       settings = {
-        #files.basepath = lib.mkForce cfg.files_path;
+        files.basepath = lib.mkForce cfg.files_path;
         # service = {
         #   JWTSecret = cfg.service_jwtsecret;
         # };
@@ -71,7 +71,7 @@ in {
     systemd.services.vikunja = {
       serviceConfig = {
         #ReadWritePaths = [ cfg.db_path  ];
-        DynamicUser = false;
+        DynamicUser = lib.mkForce false;
         # BindPaths = [
         #   "/data1/vikunja/db:/var/lib/vikunja/"
         # ];
