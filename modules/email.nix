@@ -45,6 +45,7 @@ in {
     security.acme.certs."mail.davidwild.ch" = {
       # This doesn't overwrite your global email; it just adds these specific
       # settings to the certificate Nginx is already requesting.
+      webroot = "/var/lib/acme/acme-challenge";
       group = "acme"; 
     };
 
@@ -58,5 +59,17 @@ in {
         }
       ];
     };    
+    systemd.services.maddy-ensure-accounts = {
+      # Wait for ACME and the main Maddy storage setup
+      after = [ "acme-mail.davidwild.ch.service" "maddy.service" ];
+      requires = [ "acme-mail.davidwild.ch.service" ];
+      
+      serviceConfig = {
+        RuntimeDirectory = "maddy";
+        # Ensure the script runs as the maddy user so it can access the secrets we chowned
+        User = "maddy"; 
+        Group = "maddy";
+      };
+    };
   };
 }
