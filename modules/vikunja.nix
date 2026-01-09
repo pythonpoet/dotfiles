@@ -70,10 +70,11 @@ in {
     };
     systemd.services.vikunja = {
       serviceConfig = {
-        ReadWritePaths = [ cfg.db_path  ];
-        BindPaths = [
-          "/data1/vikunja/db:/var/lib/vikunja/"
-        ];
+        #ReadWritePaths = [ cfg.db_path  ];
+        DynamicUser = false;
+        # BindPaths = [
+        #   "/data1/vikunja/db:/var/lib/vikunja/"
+        # ];
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port];
