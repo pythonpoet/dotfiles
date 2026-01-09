@@ -16,7 +16,7 @@ in {
     };
     data_dir = mkOption {
       type = types.str;
-      default = cfg.dataDir;
+      default = cfg.data_dir;
     };
     port = mkOption {
       type = types.port;
