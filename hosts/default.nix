@@ -31,8 +31,8 @@
       "${self}/modules/reverse-proxy.nix"
       "${self}/modules/jitsi.nix"
       "${self}/modules/audiobookshelf.nix"
-      #"${self}/modules/authenitk.nix"
-      "${self}/modules/email.nix"
+      "${self}/modules/authenitk.nix"
+      #"${self}/modules/email.nix"
     ];
 
     # get these into the module system
@@ -184,7 +184,7 @@
             enable = true;
             data_dir = "/data1/audiobookshelf";
           };
-          email.enable = true;
+          #email.enable = true;
           borg = {
             enable = true;
             repo_host = "david@kaepfnach";
