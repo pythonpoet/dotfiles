@@ -35,8 +35,8 @@ in {
       ensureCredentials = {
         # Do not use this in production. This will make passwords world-readable
         # in the Nix store
-        "no-reply@davidwild.ch".passwordFile = config.age.email.path;
-        "contact@davidwild.ch".passwordFile = config.age.email.path;
+        "no-reply@davidwild.ch".passwordFile = config.age.secrets.email.path;
+        "contact@davidwild.ch".passwordFile = config.age.secrets.email.path;
       };
     };
   };
