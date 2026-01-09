@@ -52,43 +52,6 @@ in {
           keyPath = "/var/lib/acme/${cfg.domain}/key.pem";
         }
       ];
-    };
-
-    # # 3. Ensure ACME certificates are world-readable or group-readable
-    # security.acme.defaults.email = "no-reply@davidwild.ch";
-    # security.acme.acceptTerms = true;
-    # security.acme.certs."${cfg.domain}".group = "acme";
-    services.nginx = {
-      enable = true;
-      virtualHosts."${cfg.domain}" = {
-        enableACME = true;
-        forceSSL = true;
-                # Autoconfig for Thunderbird / Apple Mail
-        locations."/.well-known/autoconfig/mail/config-v1.1.xml" = {
-          alias = pkgs.writeText "config-v1.1.xml" ''
-            <clientConfig version="1.1">
-              <emailProvider id="${cfg.domain}">
-                <domain>${cfg.domain}</domain>
-                <displayName>David Wild Mail</displayName>
-                <incomingServer type="imap">
-                  <hostname>${cfg.domain}</hostname>
-                  <port>993</port>
-                  <socketType>SSL</socketType>
-                  <authentication>password-cleartext</authentication>
-                  <username>%EMAILADDRESS%</username>
-                </incomingServer>
-                <outgoingServer type="smtp">
-                  <hostname>${cfg.domain}</hostname>
-                  <port>465</port>
-                  <socketType>SSL</socketType>
-                  <authentication>password-cleartext</authentication>
-                  <username>%EMAILADDRESS%</username>
-                </outgoingServer>
-              </emailProvider>
-            </clientConfig>
-          '';
-        };
-      };
-    };
+    };    
   };
 }
