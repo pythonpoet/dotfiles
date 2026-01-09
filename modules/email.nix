@@ -6,10 +6,12 @@
 }:
 with lib; let
   emailDefaults = {
-    "no-reply@davidwild.ch"
-    "contact@davidwild.ch"
-  };
-  domain = "davidwild.ch";
+   emails = [
+     "no-reply@davidwild.ch"
+     "contact@davidwild.ch"
+   ];
+  
+  domain = "davidwild.ch";};
   cfg = config.email // emailDefaults;
 in {
   options.email = {
