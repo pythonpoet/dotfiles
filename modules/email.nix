@@ -42,6 +42,11 @@ in {
     };
     # 1. Give Maddy permission to read the certificates
     users.users.maddy.extraGroups = [ "acme" ];
+    security.acme.certs."mail.davidwild.ch" = {
+      # This doesn't overwrite your global email; it just adds these specific
+      # settings to the certificate Nginx is already requesting.
+      group = "acme"; 
+    };
 
     # 2. Tell Maddy where to find the Nginx-generated certificates
     services.maddy.tls = {
