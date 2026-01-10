@@ -59,7 +59,7 @@ in {
             providers = [
               {
                 name = "Login with Authentik";
-                authurl = "https://auth.davidwild.ch/application/o/vikunja"; 
+                authurl = "https://auth.davidwild.ch/application/o/vikunja/"; 
                 clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
                 clientsecret = ""; # Leave this as an empty string!
                 # clientsecret = {
