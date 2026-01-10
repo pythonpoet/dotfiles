@@ -161,7 +161,7 @@ in {
           };
         };
         "auth.davidwild.ch" = {
-          inherit (sslSettings) addSSl enableACME;
+          inherit (sslSettings) addSSL enableACME;
           locations."/" = {
             proxyPass = "https://localhost:9443";
             proxyWebsockets = true;
