@@ -37,7 +37,7 @@ in {
     };
     secretConfigFile = mkOption {
       type = types.nullOr types.path;
-      default = null;
+      default = config.age.secrets.vikunja-config.path;
       description = "Path to the decrypted agenix config.yaml file.";
     };
   };
