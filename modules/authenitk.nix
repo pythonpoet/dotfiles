@@ -53,7 +53,7 @@ in {
       };
       
       nginx = {
-        enable = true;
+        enable = false;
         enableACME = true;
         host = "auth.davidwild.ch";
       };
