@@ -64,6 +64,8 @@ in {
     systemd.services.authentik = {
       serviceConfig = {
         DynamicUser = lib.mkForce false;
+        User = "authentik";
+        Group = "authentik";
         
         # 1. This ensures the dynamic user has a persistent ID for this service
         # so that file ownership remains valid across reboots.
@@ -76,7 +78,7 @@ in {
         BindPaths = [
           "${cfg.data_dir}:/var/lib/authentik"
         ];
-        PermissionsStartOnly = false;
+        #PermissionsStartOnly = false;
       };
     };
     users.users.authentik = {
