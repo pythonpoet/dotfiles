@@ -50,7 +50,7 @@ in {
       port = cfg.port;
       frontendScheme = "https";
       frontendHostname = cfg.url;
-      #environmentFiles = [cfg.secretConfigFile];
+      environmentFiles = [config.age.secrets.vikunja-config.path];
       settings = {
         auth = {
           local.enabled = false;
