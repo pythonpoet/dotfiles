@@ -45,7 +45,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.vikunja = {config.age
+    services.vikunja = {
       enable = true;
       port = cfg.port;
       frontendScheme = "https";
