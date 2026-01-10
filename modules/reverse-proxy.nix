@@ -73,8 +73,8 @@ in {
       # Use recommended settings
       # recommendedGzipSettings = true;
       # recommendedOptimisation = true;
-      # recommendedProxySettings = true;
-      # recommendedTlsSettings = true;
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
       
       virtualHosts = {
         "grafana.davidwild.ch" = {
