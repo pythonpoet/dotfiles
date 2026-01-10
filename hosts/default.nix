@@ -144,7 +144,7 @@
             secrets.borg.file = "/home/david/dotfiles/secrets/borg.age";
             secrets.authentik.file = "/home/david/dotfiles/secrets/authentik.age";
             secrets.vikunja-config = {
-              file = /home/david/dotfiles/secrets/vikunja-config.yaml.age;
+              file = /home/david/dotfiles/secrets/vikunja-config.age;
               mode = "0440";
               group = "keys"; 
             };

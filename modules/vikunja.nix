@@ -45,11 +45,28 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.vikunja = {
+    services.vikunja = {config.age
       enable = true;
       port = cfg.port;
       frontendScheme = "https";
       frontendHostname = cfg.url;
+      environmentFile = cfg.secretConfigFile;
+      settings = {
+        auth = {
+          local.enabled = false;
+          openid = {
+            enabled = true;
+            providers = [
+              {
+                name = "Login with Authentik";
+                authurl = "https://auth.davidwild.ch/application/o/vikunja"; 
+                clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
+                scope = "openid profile email";
+              }
+            ]
+          }
+        }
+      };
     };
     systemd.services.vikunja = {
       serviceConfig = {
@@ -57,16 +74,7 @@ in {
         BindPaths = [
           "${cfg.db_path}:/var/lib/vikunja/"
         ];
-        SupplementaryGroups = [ "keys" ];
-        ExecStart = lib.mkForce "${cfg.package}/bin/vikunja";
       };
-      environment =  {
-        VIKUNJA_SERVICE_CONFIGPATH = "${cfg.secretConfigFile}";
-      };
-    };
-    # Only link the generated config to /etc if no secret config is provided
-    environment.etc."vikunja/config.yaml" = lib.mkIf (cfg.secretConfigFile == null) {
-      source = configFile;
     };
     networking.firewall.allowedTCPPorts = [cfg.port];
   };

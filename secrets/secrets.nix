@@ -7,5 +7,5 @@ in {
   "borg.age".publicKeys = [bernina bernina_root];
   "email.age".publicKeys = [bernina_root];
   "authentik.age".publicKeys = [bernina_root];
-  "vikunja-config.yaml.age".publicKeys = [bernina_root];
+  "vikunja-config.age".publicKeys = [bernina_root];
 }
