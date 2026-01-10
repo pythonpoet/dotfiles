@@ -81,6 +81,15 @@ in {
         #PermissionsStartOnly = false;
       };
     };
+    systemd.services.authentik-worker = {
+      serviceConfig = {
+        DynamicUser = lib.mkForce false;
+        User = "authentik";
+        Group = "authentik";
+        ReadWritePaths = [ cfg.data_dir ];
+        BindPaths = [ "${cfg.data_dir}:/var/lib/authentik" ];
+      };
+    };
     users.users.authentik = {
       isSystemUser = true;
       group = "authentik"; 
