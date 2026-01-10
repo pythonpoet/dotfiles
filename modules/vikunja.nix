@@ -62,7 +62,7 @@ in {
                 authurl = "https://auth.davidwild.ch/application/o/vikunja"; 
                 clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
                 clientsecret = {
-                  file = config.age.secrets.vikunja-openid-secret.path;
+                  file = config.age.secrets.vikunja-config.path;
                 };
                 scope = "openid profile email";
               }
