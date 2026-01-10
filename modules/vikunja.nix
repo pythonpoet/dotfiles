@@ -1,4 +1,3 @@
-# https://vikunja.io/docs/full-docker-example/
 {
   config,
   pkgs,
@@ -61,10 +60,6 @@ in {
                 name = "Login with Authentik";
                 authurl = "https://auth.davidwild.ch/application/o/vikunja/"; 
                 clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
-                clientsecret = ""; # Leave this as an empty string!
-                # clientsecret = {
-                #   file = config.age.secrets.vikunja-config.path;
-                # };
                 scope = "openid profile email";
               }
             ];
@@ -85,6 +80,8 @@ in {
         ReadOnlyPaths = [ "/run/agenix" ];
       };
     };
+    environment.etc."vikunja/config.yaml".source = lib.mkForce config.age.secrets.vikunja-config.path;
+
     networking.firewall.allowedTCPPorts = [cfg.port];
   };
 }
