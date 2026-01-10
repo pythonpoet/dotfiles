@@ -61,7 +61,7 @@ in {
                 name = "Login with Authentik";
                 authurl = "https://auth.davidwild.ch/application/o/vikunja"; 
                 clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
-                #clientsecret = ""; # Leave this as an empty string!
+                clientsecret = ""; # Leave this as an empty string!
                 # clientsecret = {
                 #   file = config.age.secrets.vikunja-config.path;
                 # };
@@ -80,7 +80,7 @@ in {
         ];
         SupplementaryGroups = [ "keys" ];
         # This allows the dynamic user to read files owned by the 'keys' group
- 
+        environmentFiles = [ cfg.secretConfigFile ];
         ReadOnlyPaths = [ "/run/agenix" ];
       };
     };
