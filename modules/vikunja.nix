@@ -47,10 +47,10 @@ in {
       frontendScheme = "https";
       frontendHostname = cfg.url;
 
-     database.path = cfg.db_path;
+     #database.path = cfg.db_path;
       
       settings = {
-        files.basepath = lib.mkForce cfg.files_path;
+        #files.basepath = lib.mkForce cfg.files_path;
         # service = {
         #   JWTSecret = cfg.service_jwtsecret;
         # };
@@ -59,7 +59,10 @@ in {
     };
     systemd.services.vikunja = {
       serviceConfig = {
-        DynamicUser = lib.mkForce false;
+        ReadWritePaths = [ cfg.db_path  ];
+        BindPaths = [
+          "/data1/vikunja/db:/var/lib/vikunja/"
+        ];
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port];

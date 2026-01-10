@@ -62,13 +62,23 @@ in {
     "d ${cfg.data_dir} 0750 authentik authentik -"
   ];
     systemd.services.authentik = {
-        serviceConfig = {
-          DynamicUser = lib.mkForce true;
-          ReadWritePaths = [ cfg.data_dir  ];
-          BindPaths = [
-            "${cfg.data_dir }:/var/lib/authentik"
-          ];
-        };
+      serviceConfig = {
+        DynamicUser = lib.mkForce true;
+        
+        # 1. This ensures the dynamic user has a persistent ID for this service
+        # so that file ownership remains valid across reboots.
+        StateDirectory = "authentik"; 
+        StateDirectoryMode = "0750";
+
+        # 2. Map your external drive to the internal state dir
+        # Note: Systemd will attempt to chown the source of a BindPath 
+        # if it's listed as a StateDirectory.
+        BindPaths = [
+          "${cfg.data_dir}:/var/lib/authentik"
+        ];
       };
+    };
+    users.users.authentik = {};
+    users.groups.authentik = {};
   };
 }
