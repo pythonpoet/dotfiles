@@ -61,9 +61,10 @@ in {
                 name = "Login with Authentik";
                 authurl = "https://auth.davidwild.ch/application/o/vikunja"; 
                 clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
-                clientsecret = {
-                  file = config.age.secrets.vikunja-config.path;
-                };
+                clientsecret = ""; # Leave this as an empty string!
+                # clientsecret = {
+                #   file = config.age.secrets.vikunja-config.path;
+                # };
                 scope = "openid profile email";
               }
             ];
@@ -77,6 +78,7 @@ in {
         BindPaths = [
           "${cfg.db_path}:/var/lib/vikunja/"
         ];
+        SupplementaryGroups = [ "keys" ];
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port];
