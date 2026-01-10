@@ -73,6 +73,7 @@ in {
       };
     };
     systemd.services.vikunja = {
+      environmentFiles = [ cfg.secretConfigFile ];
       serviceConfig = {
         ReadWritePaths = [ cfg.db_path  ];
         BindPaths = [
@@ -80,7 +81,7 @@ in {
         ];
         SupplementaryGroups = [ "keys" ];
         # This allows the dynamic user to read files owned by the 'keys' group
-        environmentFiles = [ cfg.secretConfigFile ];
+        
         ReadOnlyPaths = [ "/run/agenix" ];
       };
     };
