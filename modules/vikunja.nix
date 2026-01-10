@@ -6,6 +6,7 @@
   ...
 }:
 with lib; let
+
   # Default values
   vikunjaDefaults = {
     url = "vikunja.davidwild.ch";
@@ -21,6 +22,7 @@ in {
     service_jwtsecret = mkOption {
       type = types.str;
     };
+    package = mkPackageOption pkgs "vikunja" { };
     url = mkOption {
       type = types.str;
       default = "vikunja.davidwild.ch";
@@ -56,7 +58,7 @@ in {
           "${cfg.db_path}:/var/lib/vikunja/"
         ];
         SupplementaryGroups = [ "keys" ];
-        ExecStart = lib.mkForce "${services.vikunja.package}/bin/vikunja";
+        ExecStart = lib.mkForce "${cfg.package}/bin/vikunja";
       };
       environment = lib.mkIf (cfg.secretConfigFile != null) {
         VIKUNJA_SERVICE_CONFIGPATH = "${cfg.secretConfigFile}";
