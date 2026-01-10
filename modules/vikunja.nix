@@ -50,7 +50,7 @@ in {
       port = cfg.port;
       frontendScheme = "https";
       frontendHostname = cfg.url;
-      environmentFiles = [cfg.secretConfigFile];
+      #environmentFiles = [cfg.secretConfigFile];
       settings = {
         auth = {
           local.enabled = false;
@@ -73,7 +73,7 @@ in {
       };
     };
     systemd.services.vikunja = {
-      environmentFiles = [ cfg.secretConfigFile ];
+      #environmentFiles = [ cfg.secretConfigFile ];
       serviceConfig = {
         ReadWritePaths = [ cfg.db_path  ];
         BindPaths = [
