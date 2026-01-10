@@ -72,7 +72,7 @@ in {
       enable = true;
       # Use recommended settings
       # recommendedGzipSettings = true;
-      # recommendedOptimisation = true;
+      recommendedOptimisation = true;
       # recommendedProxySettings = true;
       recommendedTlsSettings = true;
       
