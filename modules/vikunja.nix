@@ -38,7 +38,7 @@ in {
       default = 3456;
     };
     secretConfigFile = mkOption {
-      type = types.nullOr types.path;
+      type = types.path;
       default = config.age.secrets.vikunja-config.path;
       description = "Path to the decrypted agenix config.yaml file.";
     };
@@ -60,7 +60,7 @@ in {
         SupplementaryGroups = [ "keys" ];
         ExecStart = lib.mkForce "${cfg.package}/bin/vikunja";
       };
-      environment = lib.mkIf (cfg.secretConfigFile != null) {
+      environment =  {
         VIKUNJA_SERVICE_CONFIGPATH = "${cfg.secretConfigFile}";
       };
     };
