@@ -71,10 +71,10 @@ in {
     services.nginx = {
       enable = true;
       # Use recommended settings
-      recommendedGzipSettings = true;
-      recommendedOptimisation = true;
-      recommendedProxySettings = true;
-      recommendedTlsSettings = true;
+      # recommendedGzipSettings = true;
+      # recommendedOptimisation = true;
+      # recommendedProxySettings = true;
+      # recommendedTlsSettings = true;
       
       virtualHosts = {
         "grafana.davidwild.ch" = {
