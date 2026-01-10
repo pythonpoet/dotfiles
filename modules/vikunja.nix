@@ -56,7 +56,7 @@ in {
           "${cfg.db_path}:/var/lib/vikunja/"
         ];
         SupplementaryGroups = [ "keys" ];
-        ExecStart = lib.mkForce "${cfg.package}/bin/vikunja";
+        ExecStart = lib.mkForce "${services.vikunja.package}/bin/vikunja";
       };
       environment = lib.mkIf (cfg.secretConfigFile != null) {
         VIKUNJA_SERVICE_CONFIGPATH = "${cfg.secretConfigFile}";
