@@ -76,6 +76,7 @@ in {
         BindPaths = [
           "${cfg.data_dir}:/var/lib/authentik"
         ];
+        PermissionsStartOnly = false;
       };
     };
     users.users.authentik = {
