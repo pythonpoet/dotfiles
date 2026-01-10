@@ -50,7 +50,7 @@ in {
       port = cfg.port;
       frontendScheme = "https";
       frontendHostname = cfg.url;
-      environmentFile = cfg.secretConfigFile;
+      environmentFiles = [cfg.secretConfigFile];
       settings = {
         auth = {
           local.enabled = false;
