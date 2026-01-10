@@ -78,8 +78,11 @@ in {
         ];
       };
     };
-    users.users.authentik = {};
+    users.users.authentik = {
+      isSystemUser = true;
+      group = "authentik"; 
+    };
+
     users.groups.authentik = {};
-    users.users.authentik.isSystemUser = true;
   };
 }
