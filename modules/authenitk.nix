@@ -86,6 +86,8 @@ in {
         DynamicUser = lib.mkForce false;
         User = "authentik";
         Group = "authentik";
+        StateDirectory = "authentik";
+        StateDirectoryMode = "0750";
         ReadWritePaths = [ cfg.data_dir ];
         BindPaths = [ "${cfg.data_dir}:/var/lib/authentik" ];
       };
