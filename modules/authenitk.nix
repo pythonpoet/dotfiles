@@ -63,7 +63,7 @@ in {
   ];
     systemd.services.authentik = {
       serviceConfig = {
-        DynamicUser = lib.mkForce true;
+        DynamicUser = lib.mkForce false;
         
         # 1. This ensures the dynamic user has a persistent ID for this service
         # so that file ownership remains valid across reboots.
