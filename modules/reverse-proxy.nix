@@ -70,6 +70,12 @@ in {
 
     services.nginx = {
       enable = true;
+      # Use recommended settings
+      recommendedGzipSettings = true;
+      recommendedOptimisation = true;
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
+      
       virtualHosts = {
         "grafana.davidwild.ch" = {
           inherit (sslSettings) addSSL enableACME;
@@ -154,6 +160,12 @@ in {
             extraConfig = extraConfig;
           };
         };
+        "auth.davidwild.ch" = {
+          inherit (sslSettings) addSSl enableACME;
+          locations."/" = {
+            proxyPass = "https://localhost:9443"
+          }
+        }
         # "bbcs-121-149.pub.wingo.ch" = {
         #   locations."/" = {
         #     return = 444;
