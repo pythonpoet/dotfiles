@@ -80,5 +80,6 @@ in {
     };
     users.users.authentik = {};
     users.groups.authentik = {};
+    users.users.authentik.isSystemUser = true;
   };
 }
