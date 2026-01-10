@@ -79,6 +79,9 @@ in {
           "${cfg.db_path}:/var/lib/vikunja/"
         ];
         SupplementaryGroups = [ "keys" ];
+        # This allows the dynamic user to read files owned by the 'keys' group
+ 
+        ReadOnlyPaths = [ "/run/agenix" ];
       };
     };
     networking.firewall.allowedTCPPorts = [cfg.port];
