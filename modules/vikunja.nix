@@ -9,11 +9,11 @@ with lib; let
   # Default values
   vikunjaDefaults = {
     url = "vikunja.davidwild.ch";
-    db_path = "/data1/vikunja/db/vikunja.db";
+    db_path = "/data1/vikunja/db";
     files_path = "/data1/vikunja/files";
     port = 3456;
   };
-  cfg = config.vikunja;
+  cfg = config.vikunja // vikunjaDefaults;
 
 in {
   options.vikunja = {
@@ -35,35 +35,36 @@ in {
       type = types.port;
       default = 3456;
     };
-
+    secretConfigFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = "Path to the decrypted agenix config.yaml file.";
+    };
   };
 
   config = mkIf cfg.enable {
-    
-
     services.vikunja = {
       enable = true;
       port = cfg.port;
       frontendScheme = "https";
       frontendHostname = cfg.url;
-
-     #database.path = cfg.db_path;
-      
-      settings = {
-        #files.basepath = lib.mkForce cfg.files_path;
-        # service = {
-        #   JWTSecret = cfg.service_jwtsecret;
-        # };
-      };
-
     };
     systemd.services.vikunja = {
       serviceConfig = {
         ReadWritePaths = [ cfg.db_path  ];
         BindPaths = [
-          "/data1/vikunja/db:/var/lib/vikunja/"
+          "${cfg.db_path}:/var/lib/vikunja/"
         ];
+        SupplementaryGroups = [ "keys" ];
+        ExecStart = lib.mkForce "${cfg.package}/bin/vikunja";
       };
+      environment = lib.mkIf (cfg.secretConfigFile != null) {
+        VIKUNJA_SERVICE_CONFIGPATH = "${cfg.secretConfigFile}";
+      };
+    };
+    # Only link the generated config to /etc if no secret config is provided
+    environment.etc."vikunja/config.yaml" = lib.mkIf (cfg.secretConfigFile == null) {
+      source = configFile;
     };
     networking.firewall.allowedTCPPorts = [cfg.port];
   };
