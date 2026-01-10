@@ -163,9 +163,11 @@ in {
         "auth.davidwild.ch" = {
           inherit (sslSettings) addSSl enableACME;
           locations."/" = {
-            proxyPass = "https://localhost:9443"
-          }
-        }
+            proxyPass = "https://localhost:9443";
+            proxyWebsockets = true;
+            extraConfig = extraConfig;
+          };
+        };
         # "bbcs-121-149.pub.wingo.ch" = {
         #   locations."/" = {
         #     return = 444;
