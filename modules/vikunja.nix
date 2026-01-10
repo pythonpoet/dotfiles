@@ -63,9 +63,9 @@ in {
                 clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
                 scope = "openid profile email";
               }
-            ]
-          }
-        }
+            ];
+          };
+        };
       };
     };
     systemd.services.vikunja = {
