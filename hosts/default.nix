@@ -2,6 +2,7 @@
   self,
   inputs,
   stdenv,
+  config,
   ...
 }: {
   flake.nixosConfigurations = let
