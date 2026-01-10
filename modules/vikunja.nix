@@ -61,6 +61,9 @@ in {
                 name = "Login with Authentik";
                 authurl = "https://auth.davidwild.ch/application/o/vikunja"; 
                 clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
+                clientsecret = {
+                  file = config.age.secrets.vikunja-openid-secret.path;
+                };
                 scope = "openid profile email";
               }
             ];
