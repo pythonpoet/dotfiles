@@ -77,7 +77,7 @@ in {
         ];
         SupplementaryGroups = [ "keys" ];
         # This allows the dynamic user to read files owned by the 'keys' group
-        Environment = [ "client_secret=" + config.age.secrets.vikunja-config.path];
+        Environment = [ "client_secret=${config.age.secrets.vikunja-config.path}"];
         ReadOnlyPaths = [ "/run/agenix" ];
       };
     };
