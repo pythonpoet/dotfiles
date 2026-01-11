@@ -60,6 +60,7 @@ in {
                 name = "Login with Authentik";
                 authurl = "https://auth.davidwild.ch/application/o/vikunja/"; 
                 clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
+                clientsecret = "$" + "{client_secret}";
                 scope = "openid profile email";
               }
             ];
@@ -76,11 +77,11 @@ in {
         ];
         SupplementaryGroups = [ "keys" ];
         # This allows the dynamic user to read files owned by the 'keys' group
-        
+        Environment = [ "client_secret=" + config.age.secrets.vikunja-config.path];
         ReadOnlyPaths = [ "/run/agenix" ];
       };
     };
-    environment.etc."vikunja/config.yaml".source = lib.mkForce config.age.secrets.vikunja-config.path;
+    #environment.etc."vikunja/config.yaml".source = lib.mkForce config.age.secrets.vikunja-config.path;
 
     networking.firewall.allowedTCPPorts = [cfg.port];
   };
