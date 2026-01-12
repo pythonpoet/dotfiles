@@ -67,6 +67,8 @@ in {
             ];
           };
         };
+        database.path = cfg.db_path;
+        files.basepath = cfig.files_path
       };
     };
     # 1. Create a "Setup" service to handle the secret injection
@@ -86,7 +88,7 @@ in {
     };
 
     script = ''
-      SECRET=$(cat ${config.age.secrets.vikunja-config.path} | tr -d '"' | tr -d "'")
+      SECRET=$(cat ${config.age.secrets.vikunja-config.path})
       
       # Read from the Nix store and write to the writable path
       ${pkgs.gnused}/bin/sed "s|{client_secret}|$SECRET|g" /etc/vikunja/config.yaml \
