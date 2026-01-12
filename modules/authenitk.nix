@@ -52,11 +52,11 @@ in {
         avatars = "initials";
       };
       
-      nginx = {
-        enable = true;
-        enableACME = true;
-        host = "auth.davidwild.ch";
-      };
+      # nginx = {
+      #   enable = true;
+      #   enableACME = true;
+      #   host = "auth.davidwild.ch";
+      # };
     };
     systemd.tmpfiles.rules = [
     "d ${cfg.data_dir} 0750 authentik authentik -"

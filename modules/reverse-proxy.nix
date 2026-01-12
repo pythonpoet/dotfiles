@@ -160,14 +160,14 @@ in {
             extraConfig = extraConfig;
           };
         };
-        # "auth.davidwild.ch" = {
-        #   inherit (sslSettings) addSSL enableACME;
-        #   locations."/" = {
-        #     proxyPass = "https://localhost:9443";
-        #     proxyWebsockets = true;
-        #     extraConfig = extraConfig;
-        #   };
-        # };
+        "auth.davidwild.ch" = {
+          inherit (sslSettings) addSSL enableACME;
+          locations."/" = {
+            proxyPass = "https://localhost:9443";
+            proxyWebsockets = true;
+            extraConfig = extraConfig;
+          };
+        };
         # "bbcs-121-149.pub.wingo.ch" = {
         #   locations."/" = {
         #     return = 444;
