@@ -67,7 +67,7 @@ in {
             ];
           };
         };
-        database.path = lib.mkForce cfg.db_path;
+        database.path = lib.mkForce "/data1/vikunja/db/vikunja.db";
         files.basepath = lib.mkForce cfg.files_path;
       };
     };
