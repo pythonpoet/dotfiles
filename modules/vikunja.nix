@@ -83,7 +83,7 @@ in {
           ExecStartPre = pkgs.writeShellScript "vikunja-patch-config" ''
             export client_secret=$(cat ${config.age.secrets.vikunja-config.path})
         
-            # envsubst reads the template and replaces ${client_secret} 
+            # envsubst reads the template and replaces 
             # with the actual value of the environment variable.
             # This is immune to 'sed' delimiter errors.
             # Take the nix-generated file and process it into /run
