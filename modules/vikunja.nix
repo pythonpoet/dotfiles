@@ -81,12 +81,12 @@ in {
         ReadOnlyPaths = [ "/run/agenix" ];
             # Use ExecStartPre to perform the sed replacement
           ExecStartPre = pkgs.writeShellScript "vikunja-patch-config" ''
-            # 1. Read secret into variable
-            SECRET=$(cat ${config.age.secrets.vikunja-config.path})
-            
-            
-            # 2. Use sed to replace the placeholder
-            # We use \$\{client_secret\} to escape the shell's own variable expansion
+            export client_secret=$(cat ${config.age.secrets.vikunja.path})
+        
+            # envsubst reads the template and replaces ${client_secret} 
+            # with the actual value of the environment variable.
+            # This is immune to 'sed' delimiter errors.
+            # Take the nix-generated file and process it into /run
             ${pkgs.gnused}/bin/sed -i "s|''${client_secret}|$SECRET|g" /etc/vikunja/config.yaml
             
           '';
