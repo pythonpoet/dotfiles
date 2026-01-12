@@ -85,16 +85,23 @@ in {
       # 1. The Patch Script
       # Note: No 'serviceConfig' nesting here!
       ExecStartPre = pkgs.writeShellScript "vikunja-patch-config" ''
+        # Ensure the target file exists so the mount doesn't fail next time
+        # and so we have a writable destination.
+        touch /var/lib/vikunja/config.yaml
+
         # Get the secret from the age file
         SECRET=$(cat ${config.age.secrets.vikunja-config.path})
         
-        # Use sed to read the Nix-generated config and write it to a writable location.
-        # Since you changed the placeholder to {client_secret}, we match that exactly.
+        # Read from the Nix store (/etc/...) and write to our writable path
         ${pkgs.gnused}/bin/sed "s|{client_secret}|$SECRET|g" /etc/vikunja/config.yaml \
-          > /var/lib/vikunja/config.patched.yaml
+        > /var/lib/vikunja/config.yaml
+        
+        chmod 600 /var/lib/vikunja/config.yaml
           
-        chmod 600 /var/lib/vikunja/config.patched.yaml
       '';
+      BindReadOnlyPaths = [
+      "/var/lib/vikunja/config.yaml:/etc/vikunja/config.yaml"
+    ];
 
       # 2. Force Vikunja to use the patched file
       ExecStart = lib.mkForce "${config.services.vikunja.package}/bin/vikunja --config /var/lib/vikunja/config.patched.yaml";
