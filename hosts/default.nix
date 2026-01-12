@@ -30,7 +30,7 @@
       "${self}/modules/postgresql.nix"
       "${self}/modules/owncloud.nix"
       "${self}/modules/reverse-proxy.nix"
-      "${self}/modules/jitsi.nix"
+      #"${self}/modules/jitsi.nix"
       "${self}/modules/audiobookshelf.nix"
       "${self}/modules/authenitk.nix"
       #"${self}/modules/email.nix"
@@ -178,10 +178,10 @@
             files_path = "/data1/vikunja/files";
             #secretConfigFile = age.secrets.vikunja-config.path;
           };
-          jitsi = {
-            enable = false;
-            domain = "jitsi.davidwild.ch";
-          };
+          # jitsi = {
+          #   enable = false;
+          #   domain = "jitsi.davidwild.ch";
+          # };
           audiobookshelf = {
             enable = true;
             data_dir = "/data1/audiobookshelf";
