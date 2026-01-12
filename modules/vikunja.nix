@@ -81,7 +81,7 @@ in {
         ReadOnlyPaths = [ "/run/agenix" ];
             # Use ExecStartPre to perform the sed replacement
           ExecStartPre = pkgs.writeShellScript "vikunja-patch-config" ''
-            export client_secret=$(cat ${config.age.secrets.vikunja.path})
+            export client_secret=$(cat ${config.age.secrets.vikunja-config.path})
         
             # envsubst reads the template and replaces ${client_secret} 
             # with the actual value of the environment variable.
