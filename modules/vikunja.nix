@@ -60,7 +60,7 @@ in {
                 name = "Login with Authentik";
                 authurl = "https://auth.davidwild.ch/application/o/vikunja/"; 
                 clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
-                clientsecret = "$" + "{client_secret}";
+                clientsecret = "{client_secret}";
                 scope = "openid profile email";
               }
             ];
@@ -88,7 +88,7 @@ in {
         
         # Use sed to read the Nix-generated config and write it to a writable location
         # We target /var/lib/vikunja/ because the service definitely has access there
-        ${pkgs.gnused}/bin/sed "s|''${client_secret}|$SECRET|g" /etc/vikunja/config.yaml \
+        ${pkgs.gnused}/bin/sed "s|{client_secret}|$SECRET|g" /etc/vikunja/config.yaml \
           > /var/lib/vikunja/config.patched.yaml
           
         chmod 600 /var/lib/vikunja/config.patched.yaml
