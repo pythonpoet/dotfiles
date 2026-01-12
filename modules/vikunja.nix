@@ -51,8 +51,12 @@ in {
       frontendHostname = cfg.url;
       environmentFiles = [config.age.secrets.vikunja-config.path];
       settings = {
+        service = {
+          enableregistration = false;
+          JWTSecret = "{jwt_secret}";
+        };
         auth = {
-          local.enabled = false;
+          local.enabled = true;
           openid = {
             enabled = true;
             providers = [
@@ -87,11 +91,16 @@ in {
     };
 
     script = ''
-      SECRET=$(cat ${config.age.secrets.vikunja-config.path})
+      source ${config.age.secrets.vikunja-config.path}
+
+      ${pkgs.gnused}/bin/sed -e "s|{client_secret}|$client_secret|g" \
+                            -e "s|{jwt_secret}|$jwt_secret|g" \
+                            /etc/vikunja/config.yaml > ${patchedConfigPath}
+      # SECRET=$(cat ${config.age.secrets.vikunja-config.path})
       
-      # Read from the Nix store and write to the writable path
-      ${pkgs.gnused}/bin/sed "s|{client_secret}|$SECRET|g" /etc/vikunja/config.yaml \
-        > ${patchedConfigPath}
+      # # Read from the Nix store and write to the writable path
+      # ${pkgs.gnused}/bin/sed "s|{client_secret}|$SECRET|g" /etc/vikunja/config.yaml \
+      #   > ${patchedConfigPath}
         
       chmod 644 ${patchedConfigPath}
     '';
