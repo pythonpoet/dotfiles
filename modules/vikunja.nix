@@ -68,7 +68,7 @@ in {
           };
         };
         database.path = lib.mkForce cfg.db_path;
-        files.basepath = lib.mkForce cfig.files_path;
+        files.basepath = lib.mkForce cfg.files_path;
       };
     };
     # 1. Create a "Setup" service to handle the secret injection
