@@ -114,6 +114,7 @@ let
           tree
           git
           helix
+          hugo
           inputs.agenix.packages.${pkgs.system}.default
         ];
 

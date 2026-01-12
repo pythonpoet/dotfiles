@@ -75,6 +75,9 @@ in {
       };
     };
     # 1. Create a "Setup" service to handle the secret injection
+    # Inspect overwritten file with:
+    # sudo systemd-run --pipe --property=BindReadOnlyPaths="/var/lib/private/vikunja/config.patched.yaml:/etc/vikunja/config.yaml" cat /etc/vikunja/config.yaml
+    # if it fails to be overwritten -> restart vikunja-config-setup
   systemd.services.vikunja-config-setup = {
     description = "Prepare patched Vikunja config with secrets";
     wantedBy = [ "multi-user.target" ];
