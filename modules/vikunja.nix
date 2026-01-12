@@ -89,10 +89,13 @@ in {
             # Take the nix-generated file and process it into /run
             ${pkgs.gnused}/bin/sed "s|''${client_secret}|$SECRET|g" /etc/vikunja/config.yaml \
           > /run/vikunja/config.yaml
-          
+
            chmod 600 /run/vikunja/config.yaml
             
           '';
+          BindReadOnlyPaths = [
+        "/run/vikunja/config.yaml:/etc/vikunja/config.yaml"
+      ];
         ExecStart = lib.mkForce "${config.services.vikunja.package}/bin/vikunja --config /run/vikunja/config.yaml";
       };
     };
