@@ -82,13 +82,15 @@ in {
             # Use ExecStartPre to perform the sed replacement
           ExecStartPre = pkgs.writeShellScript "vikunja-patch-config" ''
             export client_secret=$(cat ${config.age.secrets.vikunja-config.path})
-        
+            mkdir -p /run/vikunja
             # envsubst reads the template and replaces 
             # with the actual value of the environment variable.
             # This is immune to 'sed' delimiter errors.
             # Take the nix-generated file and process it into /run
             ${pkgs.gnused}/bin/sed "s|''${client_secret}|$SECRET|g" /etc/vikunja/config.yaml \
           > /run/vikunja/config.yaml
+          
+           chmod 600 /run/vikunja/config.yaml
             
           '';
         ExecStart = lib.mkForce "${config.services.vikunja.package}/bin/vikunja --config /run/vikunja/config.yaml";
