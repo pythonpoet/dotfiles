@@ -86,7 +86,7 @@ in {
       # Note: No 'serviceConfig' nesting here!
       ExecStartPre = pkgs.writeShellScript "vikunja-patch-config" ''
         # Get the secret from the age file
-        SECRET=$(cat ${config.age.secrets.vikunja.path})
+        SECRET=$(cat ${config.age.secrets.vikunja-config.path})
         
         # Use sed to read the Nix-generated config and write it to a writable location.
         # Since you changed the placeholder to {client_secret}, we match that exactly.
