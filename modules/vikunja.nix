@@ -79,6 +79,18 @@ in {
         # This allows the dynamic user to read files owned by the 'keys' group
         Environment = [ "client_secret=${config.age.secrets.borg.path}"];
         ReadOnlyPaths = [ "/run/agenix" ];
+            # Use ExecStartPre to perform the sed replacement
+          ExecStartPre = pkgs.writeShellScript "vikunja-patch-config" ''
+            # 1. Read secret into variable
+            SECRET=$(cat ${config.age.secrets.vikunja.path})
+            
+            
+            # 2. Use sed to replace the placeholder ${client_secret}
+            # We use \$\{client_secret\} to escape the shell's own variable expansion
+            ${pkgs.gnused}/bin/sed -i "s|\${client_secret}|$SECRET|g" /var/lib/vikunja/config.yaml
+            
+          '';
+
       };
     };
     #environment.etc."vikunja/config.yaml".source = lib.mkForce config.age.secrets.vikunja-config.path;
