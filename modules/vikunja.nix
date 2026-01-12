@@ -68,7 +68,7 @@ in {
         };
       };
     };
-    systemd.services.vikunja = {
+    
       #environmentFiles = [ cfg.secretConfigFile ];
       systemd.services.vikunja = {
   after = [ "agenix.service" ];
@@ -99,7 +99,6 @@ in {
       # 2. Force Vikunja to use the patched file
       ExecStart = lib.mkForce "${config.services.vikunja.package}/bin/vikunja --config /var/lib/vikunja/config.patched.yaml";
     };
-  };
     };
     #environment.etc."vikunja/config.yaml".source = lib.mkForce config.age.secrets.vikunja-config.path;
 
