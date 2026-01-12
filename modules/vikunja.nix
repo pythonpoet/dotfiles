@@ -124,7 +124,13 @@ in {
       ExecStart = lib.mkForce "${cfg.package}/bin/vikunja web";
 
       # Your other specific settings
-      ReadWritePaths = [ cfg.db_path ];
+      ReadWritePaths = [ 
+        cfg.db_path 
+        cfg.files_path
+        ];
+      # 3. Ensure the dynamic user can traverse the path
+      # If /data1 is owned by root, the service needs to be able to reach the subdir
+      BindPaths = [ "/data1/vikunja/db" ];
       SupplementaryGroups = [ "keys" ];
       ReadOnlyPaths = [ "/run/agenix" ];
     };
