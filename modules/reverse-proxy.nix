@@ -73,7 +73,7 @@ in {
       # Use recommended settings
       # recommendedGzipSettings = true;
       recommendedOptimisation = true;
-      ecommendedProxySettings = lib.mkForce false;
+      recommendedProxySettings = lib.mkForce false;
       recommendedTlsSettings = true;
       
       virtualHosts = {
