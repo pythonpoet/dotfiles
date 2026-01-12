@@ -58,7 +58,7 @@ in {
             providers = [
               {
                 name = "Login with Authentik";
-                authurl = "https://:9443/application/o/vikunja/"; 
+                authurl = "https://localhost:9443/application/o/vikunja/"; 
                 clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
                 clientsecret = "{client_secret}";
                 scope = "openid profile email";
