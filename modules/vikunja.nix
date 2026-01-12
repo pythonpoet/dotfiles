@@ -87,7 +87,7 @@ in {
             
             # 2. Use sed to replace the placeholder
             # We use \$\{client_secret\} to escape the shell's own variable expansion
-            ${pkgs.gnused}/bin/sed -i "s|''${client_secret}|$SECRET|g"/var/lib/vikunja/config.yaml
+            ${pkgs.gnused}/bin/sed -i "s|''${client_secret}|$SECRET|g" /etc/vikunja/config.yaml
             
           '';
 
