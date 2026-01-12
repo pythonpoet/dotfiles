@@ -86,13 +86,13 @@ in {
     };
 
     script = ''
-      SECRET=$(cat ${config.age.secrets.vikunja-config.path})
+      SECRET=$(cat ${config.age.secrets.vikunja-config.path} | tr -d '"' | tr -d "'")
       
       # Read from the Nix store and write to the writable path
       ${pkgs.gnused}/bin/sed "s|{client_secret}|$SECRET|g" /etc/vikunja/config.yaml \
         > ${patchedConfigPath}
         
-      chmod 600 ${patchedConfigPath}
+      chmod 644 ${patchedConfigPath}
     '';
   };
 
@@ -104,9 +104,11 @@ in {
 
     serviceConfig = {
       # Now the file definitely exists, so BindReadOnlyPaths will NOT fail
+      
       BindReadOnlyPaths = [
         "${patchedConfigPath}:/etc/vikunja/config.yaml"
       ];
+      StateDirectory = "vikunja";
 
       # Correct command for Vikunja
       ExecStart = lib.mkForce "${cfg.package}/bin/vikunja web";
