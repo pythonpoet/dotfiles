@@ -70,36 +70,36 @@ in {
     };
     systemd.services.vikunja = {
       #environmentFiles = [ cfg.secretConfigFile ];
-      serviceConfig = {
-        ReadWritePaths = [ cfg.db_path  ];
-        BindPaths = [
-          "${cfg.db_path}:/var/lib/vikunja/"
-        ];
-        SupplementaryGroups = [ "keys" ];
-        # This allows the dynamic user to read files owned by the 'keys' group
-        #Environment = [ "client_secret=${config.age.secrets.borg.path}"];
-        ReadOnlyPaths = [ "/run/agenix" ];
+      systemd.services.vikunja = {
+  after = [ "agenix.service" ];
+  
+    serviceConfig = {
+      # Combine all your existing settings here
+      ReadWritePaths = [ cfg.db_path ];
+      BindPaths = [
+        "${cfg.db_path}:/var/lib/vikunja/"
+      ];
+      SupplementaryGroups = [ "keys" ];
+      ReadOnlyPaths = [ "/run/agenix" ];
 
-        serviceConfig = {
-      # 1. Run the patch script before the service starts
+      # 1. The Patch Script
+      # Note: No 'serviceConfig' nesting here!
       ExecStartPre = pkgs.writeShellScript "vikunja-patch-config" ''
         # Get the secret from the age file
         SECRET=$(cat ${config.age.secrets.vikunja.path})
         
-        # Use sed to read the Nix-generated config and write it to a writable location
-        # We target /var/lib/vikunja/ because the service definitely has access there
+        # Use sed to read the Nix-generated config and write it to a writable location.
+        # Since you changed the placeholder to {client_secret}, we match that exactly.
         ${pkgs.gnused}/bin/sed "s|{client_secret}|$SECRET|g" /etc/vikunja/config.yaml \
           > /var/lib/vikunja/config.patched.yaml
           
         chmod 600 /var/lib/vikunja/config.patched.yaml
       '';
 
-      # 2. Force Vikunja to use the patched file instead of /etc/vikunja/config.yaml
+      # 2. Force Vikunja to use the patched file
       ExecStart = lib.mkForce "${config.services.vikunja.package}/bin/vikunja --config /var/lib/vikunja/config.patched.yaml";
     };
-
-
-      };
+  };
     };
     #environment.etc."vikunja/config.yaml".source = lib.mkForce config.age.secrets.vikunja-config.path;
 
