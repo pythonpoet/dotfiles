@@ -25,7 +25,6 @@ in {
     package = mkPackageOption pkgs "vikunja" { };
     url = mkOption {
       type = types.str;
-      default = "vikunja.davidwild.ch";
     };
     db_path = mkOption {
       type = types.str;
