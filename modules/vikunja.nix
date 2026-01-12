@@ -77,12 +77,12 @@ in {
         ];
         SupplementaryGroups = [ "keys" ];
         # This allows the dynamic user to read files owned by the 'keys' group
-        Environment = [ "client_secret=${config.age.secrets.borg.path}"];
+        #Environment = [ "client_secret=${config.age.secrets.borg.path}"];
         ReadOnlyPaths = [ "/run/agenix" ];
             # Use ExecStartPre to perform the sed replacement
           ExecStartPre = pkgs.writeShellScript "vikunja-patch-config" ''
             # 1. Read secret into variable
-            SECRET=$(cat ${config.age.secrets.vikunja.path})
+            SECRET=$(cat ${config.age.secrets.vikunja-config.path})
             
             
             # 2. Use sed to replace the placeholder ${client_secret}
