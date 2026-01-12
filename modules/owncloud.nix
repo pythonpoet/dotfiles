@@ -92,7 +92,7 @@ in {
 
             # Tika
             SEARCH_EXTRACTOR_TYPE = mkIf cfg.enable_full_text_search "tika";
-            SEARCH_EXTRACTOR_TIKA_TIKA_URL = mkIf cfg.enable_full_text_search "http://tika:9998";
+            SEARCH_EXTRACTOR_TIKA_TIKA_URL = mkIf cfg.enable_full_text_search "http://localhost:9998";
             FRONTEND_FULL_TEXT_SEARCH_ENABLED = mkIf cfg.enable_full_text_search "true";
           };
         };
@@ -127,7 +127,7 @@ in {
         };
       };
     };
-    networking.firewall.allowedTCPPorts = [9200 9980 5232];
+    networking.firewall.allowedTCPPorts = [9200 9980 9998 5232];
     # (
     #   if cfg.enable
     #   then [9980]

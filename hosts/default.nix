@@ -141,10 +141,10 @@
               "/home/david/.ssh/id_ed25519"
               "/root/.ssh/id_ed25519"
             ];
-            secrets.borg.file = ../secrets/borg.age;
-            secrets.authentik.file = ../secrets/authentik.age;
+            secrets.borg.file = "/home/david/dotfiles/secrets/borg.age";
+            secrets.authentik.file = "/home/david/dotfiles/secrets/authentik.age";
             secrets.vikunja-config = {
-              file = ../secrets/vikunja-config.age;
+              file = "/home/david/dotfiles/secrets/vikunja-config.age";
               mode = "0440";
               group = "keys"; 
             };
