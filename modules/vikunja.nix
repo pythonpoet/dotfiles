@@ -79,10 +79,10 @@ in {
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
-      # Use the same user as vikunja to ensure permissions are correct
-      User = "vikunja";
-      Group = "vikunja";
-      StateDirectory = "vikunja";
+      # Run as root to ensure we can create directories and read secrets
+      User = "root"; 
+      # Ensures /var/lib/vikunja exists
+      StateDirectory = "vikunja"; 
     };
 
     script = ''
