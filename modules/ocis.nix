@@ -69,10 +69,10 @@ in {
       environment = {
           OCIS_URL = cfg.domain;
           OCIS_LOG_LEVEL = "error";
-          OCIS_INSECURE = true;
-          TLS_INSECURE = true;
-          TLS_SKIP_VERIFY_CLIENT_CERT = true;
-          OCIS_HTTP_TLS_ENABLED = true;
+          OCIS_INSECURE = "true";
+          TLS_INSECURE = "true";
+          TLS_SKIP_VERIFY_CLIENT_CERT = "true";
+          OCIS_HTTP_TLS_ENABLED = "true";
 
           # Collabora
           COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "Collabora";

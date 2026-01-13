@@ -52,7 +52,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:pythonpoet/nixpkgs/nixos-25.11-with-keys";
 
     # rest of inputs, alphabetical order
 
