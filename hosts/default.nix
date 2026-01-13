@@ -18,7 +18,7 @@
     inherit (import mod) laptop;
     #inherit (import "${self}/modules/") _cloud;
     cloud = [
-      "${self}/modules/owncloud.nix"
+      "${self}/modules/ocis.nix"
       #"${self}/modules/vaultwarden.nix"
       "${self}/modules/borg.nix"
       "${self}/modules/vikunja.nix"
@@ -170,7 +170,7 @@
           cloud = {
             enable =true;
             data_dir = "/data1/ocis/data";
-            config_file = "/data1/ocis/config/ocis.yaml";
+            config_file = "/data1/ocis/config/";
           };
           vikunja = {
             enable = true;
