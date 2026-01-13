@@ -28,7 +28,7 @@
       "${self}/modules/ml/kokoro.nix"
       "${self}/modules/immich.nix"
       "${self}/modules/postgresql.nix"
-      "${self}/modules/owncloud.nix"
+      #"${self}/modules/owncloud.nix"
       "${self}/modules/reverse-proxy.nix"
       #"${self}/modules/jitsi.nix"
       "${self}/modules/audiobookshelf.nix"
