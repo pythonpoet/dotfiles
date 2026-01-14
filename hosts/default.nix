@@ -168,7 +168,7 @@
             };
           };
           cloud = {
-            enable =true;
+            enable =false;
             data_dir = "/data1/ocis/data";
             config_file = "/data1/ocis/config/";
           };
