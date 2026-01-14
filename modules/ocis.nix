@@ -68,7 +68,7 @@ in {
       stateDir = cfg.data_dir;
       environment = {
           OCIS_URL = cfg.domain;
-          OCIS_LOG_LEVEL = "error";
+          OCIS_LOG_LEVEL = "info";
           OCIS_INSECURE = "true";
           TLS_INSECURE = "true";
           TLS_SKIP_VERIFY_CLIENT_CERT = "true";
@@ -78,6 +78,7 @@ in {
           
           # Ensure the IDP (which gave the error) also uses these or trusts them
           IDP_LDAP_TLSSKIPVERIFY = "true";
+          MICRO_REGISTRY = "nats-js-kv";
 
           # Collabora
           COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "Collabora";
