@@ -144,7 +144,7 @@ in {
           };
         };
 
-        "cloud.davidwild.ch" = {
+        "xcloud.davidwild.ch" = {
          inherit (sslSettings) addSSL enableACME;
           locations."/" = {
             proxyPass = "https://127.0.0.1:9200";
