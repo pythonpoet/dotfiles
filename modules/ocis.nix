@@ -72,6 +72,9 @@ in {
           OCIS_INSECURE = "true";
           TLS_INSECURE = "true";
           TLS_SKIP_VERIFY_CLIENT_CERT = "true";
+          
+          LDAP_TLSSKIPVERIFY = "true";
+          OCIS_LDAP_TLSSKIPVERIFY = "true";
           OCIS_HTTP_TLS_ENABLED = "true";
           PROXY_TLS_CERT = "/var/lib/acme/cloud.davidwild.ch/fullchain.pem";
           PROXY_TLS_KEY = "/var/lib/acme/cloud.davidwild.ch/key.pem";
