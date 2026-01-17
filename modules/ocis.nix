@@ -72,7 +72,7 @@ in {
           OCIS_INSECURE = "true";
           TLS_INSECURE = "true";
           TLS_SKIP_VERIFY_CLIENT_CERT = "true";
-          
+          OCIS_LDAP_INSECURE = "true";
           LDAP_TLSSKIPVERIFY = "true";
           OCIS_LDAP_TLSSKIPVERIFY = "true";
           OCIS_HTTP_TLS_ENABLED = "true";

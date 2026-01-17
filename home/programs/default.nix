@@ -57,6 +57,7 @@
   #flatpak
   popcorntime
   postgresql_17
+  swi-prolog
   R
   readest
   resources
