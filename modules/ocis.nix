@@ -34,7 +34,7 @@ in {
     };
     domain = mkOption {
       type = types.str;
-      default = "https://xcloud.davidwild.ch";
+      default = "https://cloud.davidwild.ch";
     };
 
     enable_radicale = mkOption {
@@ -71,13 +71,13 @@ in {
           OCIS_LOG_LEVEL = "info";
           OCIS_INSECURE = "true";
           TLS_INSECURE = "true";
-          TLS_SKIP_VERIFY_CLIENT_CERT = "true";
-          OCIS_LDAP_INSECURE = "true";
-          LDAP_TLSSKIPVERIFY = "true";
-          OCIS_LDAP_TLSSKIPVERIFY = "true";
-          OCIS_HTTP_TLS_ENABLED = "true";
-          PROXY_TLS_CERT = "/var/lib/acme/cloud.davidwild.ch/fullchain.pem";
-          PROXY_TLS_KEY = "/var/lib/acme/cloud.davidwild.ch/key.pem";
+          # TLS_SKIP_VERIFY_CLIENT_CERT = "true";
+          # OCIS_LDAP_INSECURE = "true";
+          # LDAP_TLSSKIPVERIFY = "true";
+          # OCIS_LDAP_TLSSKIPVERIFY = "true";
+          # OCIS_HTTP_TLS_ENABLED = "true";
+          # PROXY_TLS_CERT = "/var/lib/acme/cloud.davidwild.ch/fullchain.pem";
+          # PROXY_TLS_KEY = "/var/lib/acme/cloud.davidwild.ch/key.pem";
           
           # Ensure the IDP (which gave the error) also uses these or trusts them
           IDP_LDAP_TLSSKIPVERIFY = "true";
