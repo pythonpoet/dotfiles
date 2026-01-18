@@ -96,6 +96,7 @@ in {
       "blob:"
       "https://auth.davidwild.ch"
       "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
+      "https://auth.davidwild.ch/application/o/token/"
     ];
   };
 };
