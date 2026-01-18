@@ -8,4 +8,5 @@ in {
   "email.age".publicKeys = [bernina_root];
   "authentik.age".publicKeys = [bernina_root];
   "vikunja-config.age".publicKeys = [bernina_root];
+  "onlyoffice.age".publicKeys = [bernina_root];
 }
