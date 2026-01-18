@@ -67,7 +67,7 @@ in {
     # --- Global / OIDC Core ---
     OC_URL = cfg.domain;
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
-    PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
+    PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
     OC_LOG_LEVEL = "error";
     PROXY_TLS = "false";  # Disable internal TLS
