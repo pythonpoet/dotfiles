@@ -81,7 +81,7 @@ in {
     PROXY_OIDC_REWRITE_WELLKNOWN = "true";
     PROXY_EXTERNAL_ADDR = "https://cloud.davidwild.ch";
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none";
-    PROXY_OIDC_SKIP_USER_INFO = "false";
+    PROXY_OIDC_SKIP_USER_INFO = "true";
     PROXY_AUTOPROVISION_ACCOUNTS = "true";
     #PROXY_AUTOPROVISION_ACCOUNTS = "true";
     PROXY_AUTOPROVISION_CLAIM_USERNAME = "preferred_username";
@@ -116,8 +116,7 @@ in {
 
     # Keep your existing role assignment settings
     proxy.role_assignment = {
-      driver = "oidc";
-      oidc_role_mapper.role_claim = "opencloud_roles";
+      driver = "default"; 
     };
     };
     };
