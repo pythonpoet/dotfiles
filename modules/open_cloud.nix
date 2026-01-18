@@ -91,7 +91,8 @@ in {
       environment = {
         OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
         OC_EXCLUDE_RUN_SERVICES = "idp";
-        
+        OC_LOG_LEVEL = "error";
+        OC_URL = cfg.domain;
         # PROXY_OIDC_REWRITE_WELLKNOWN = "true";
         # PROXY_AUTOPROVISION_ACCOUNTS = "true";
         # GRAPH_USERNAME_MATCH = "true";
