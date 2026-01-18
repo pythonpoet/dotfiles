@@ -28,6 +28,10 @@ in {
       type = types.port;
       default = 9200;
     };
+    domain = mkOption {
+      type = types.str;
+      default = "https://cloud.davidwild.ch";
+    };
 
     enable_radicale = mkOption {
       type = types.bool;
