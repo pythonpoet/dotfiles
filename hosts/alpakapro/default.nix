@@ -46,17 +46,17 @@
     services = {
       fstrim.enable = true;
       flatpak.enable = true;
-      howdy = {
-        enable = true;
-        package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.howdy;
-        settings = {
-          core = {
-            no_confirmation = true;
-            abort_if_ssh = true;
-          };
-          video.dark_threshold = 90;
-        };
-      };
+      # howdy = {
+      #   enable = true;
+      #   package = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system}.howdy;
+      #   settings = {
+      #     core = {
+      #       no_confirmation = true;
+      #       abort_if_ssh = true;
+      #     };
+      #     video.dark_threshold = 90;
+      #   };
+      # };
 
       # linux-enable-ir-emitter = {
       #   enable = true;
@@ -65,14 +65,14 @@
     };
 
     #TODO Hydra put somewhere else:
-    services.hydra = {
-      enable = true;
-      hydraURL = "http://localhost:3000";
-      notificationSender = "hydra@localhost";
-      # buildMachinesFiles = [];
-      useSubstitutes = true;
-      listenHost = "127.0.0.1";
-    };
+    # services.hydra = {
+    #   enable = true;
+    #   hydraURL = "http://localhost:3000";
+    #   notificationSender = "hydra@localhost";
+    #   # buildMachinesFiles = [];
+    #   useSubstitutes = true;
+    #   listenHost = "127.0.0.1";
+    # };
     nix.buildMachines = [
     { hostName = "localhost";
       systems = [ "aarch64-linux" "armv7l-linux" ] ;
@@ -82,6 +82,6 @@
     }];
 
   # https://github.com/NixOS/hydra/issues/1186#issuecomment-1231513076
-  systemd.services.hydra-evaluator.environment.GC_DONT_GC = "true";
+  # systemd.services.hydra-evaluator.environment.GC_DONT_GC = "true";
   };
 }

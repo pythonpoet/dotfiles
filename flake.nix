@@ -52,7 +52,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "github:NixOs/nixpkgs/master";
+    nixpkgs.url = "github:NixOs/nixpkgs/nixos-25.11";
 
     # rest of inputs, alphabetical order
 
@@ -99,7 +99,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    yazi.url = "github:sxyazi/yazi";
+    #yazi.url = "github:sxyazi/yazi";
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";

@@ -18,7 +18,8 @@
     inherit (import mod) laptop;
     #inherit (import "${self}/modules/") _cloud;
     cloud = [
-      "${self}/modules/ocis.nix"
+      #"${self}/modules/ocis.nix"
+      "${self}/modules/openc_cloud.nix"
       #"${self}/modules/vaultwarden.nix"
       "${self}/modules/borg.nix"
       "${self}/modules/vikunja.nix"
@@ -70,10 +71,10 @@
           }
 
           # enable unmerged Howdy
-          {disabledModules = ["security/pam.nix"];}
-          "${howdy}/nixos/modules/security/pam.nix"
-          "${howdy}/nixos/modules/services/security/howdy"
-          "${howdy}/nixos/modules/services/misc/linux-enable-ir-emitter.nix"
+          # {disabledModules = ["security/pam.nix"];}
+          # "${howdy}/nixos/modules/security/pam.nix"
+          # "${howdy}/nixos/modules/services/security/howdy"
+          #"${howdy}/nixos/modules/services/misc/linux-enable-ir-emitter.nix"
 
           # inputs.agenix.nixosModules.default
           inputs.chaotic.nixosModules.default
@@ -169,8 +170,8 @@
           };
           cloud = {
             enable =true;
-            data_dir = "/data1/ocis/data";
-            config_file = "/data1/ocis/config/";
+            data_dir = "/data1/opencloud/";
+            #config_file = "/data1/ocis/config/";
           };
           vikunja = {
             enable = true;
