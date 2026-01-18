@@ -92,7 +92,7 @@ in {
     WEB_CSP_REPORT_ONLY = "false";
     WEB_OIDC_CLIENT_ID = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
     WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
-    WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
+    WEB_OIDC_METADATA_URL = "https://auth.davidwild.ch/application/o/opencloud/.well-known/openid-configuration";
     # This fixes your final CSP 'token' error:
     #WEB_CSP_CONNECT_SRC = "'self' blob: https://auth.davidwild.ch https://raw.githubusercontent.com/opencloud-eu/awesome-apps/";
   };
