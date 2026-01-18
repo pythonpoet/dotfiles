@@ -67,7 +67,7 @@ in {
     # --- Global / OIDC Core ---
     OC_URL = cfg.domain;
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
-    PROXY_OIDC_ISSUER = "https://auth.davidwild.ch";
+    PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
     OC_LOG_LEVEL = "error";
     PROXY_TLS = "false";  # Disable internal TLS
@@ -75,6 +75,7 @@ in {
 
     # --- Proxy & User Mapping ---
     PROXY_OIDC_REWRITE_WELLKNOWN = "true";
+    PROXY_EXTERNAL_ADDR = "https://cloud.davidwild.ch";
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none";
     PROXY_OIDC_SKIP_USER_INFO = "false";
     PROXY_AUTOPROVISION_ACCOUNTS = "false";
