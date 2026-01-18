@@ -63,6 +63,7 @@ in {
       #configDir = cfg.config_file;
       stateDir = cfg.data_dir;
       settings = {
+        oidc.issuer = "https://auth.davidwild.ch/application/o/opencloud/";
           proxy = {
             auto_provision_accounts = true;
             oidc = {
@@ -87,6 +88,11 @@ in {
             };
           };
         };
+      environment = {
+        OC_EXCLUDE_RUN_SERVICES = "idp";
+        PROXY_USER_OIDC_CLAIM = "preferred_username";
+        PROXY_USER_CS3_CLAIM = "username";
+      };
       # environment = {
       #     OC_URL = cfg.domain;
       #     OC_LOG_LEVEL = "error";
