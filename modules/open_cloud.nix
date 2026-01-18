@@ -78,6 +78,7 @@ in {
     PROXY_USER_CS3_CLAIM = "username";
 
     # --- Web Frontend & CSP ---
+    WEB_CSP_REPORT_ONLY = "false";
     WEB_OIDC_CLIENT_ID = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
     WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
     WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
