@@ -110,6 +110,7 @@ in {
         connect-src:
           - "'self'"
           - "blob:"
+          - "http://127.0.0.1:9200"
           - "https://auth.davidwild.ch"
           - "https://cloud.davidwild.ch"
           - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
