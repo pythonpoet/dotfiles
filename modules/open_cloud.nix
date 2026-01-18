@@ -80,6 +80,7 @@ in {
             web = {
               config = {
                 oidc = {
+                  authority = "https://auth.davidwild.ch/application/o/opencloud/";
                   scope = "openid profile email opencloud_roles";
                 };
               };
