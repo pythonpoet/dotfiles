@@ -75,6 +75,7 @@ in {
     # ADD THESE TWO LINES:
     WEB_OIDC_SCOPE = "openid profile email opencloud_roles";
     PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM = "opencloud_roles";
+    PROXY_ROLE_ASSIGNMENT_DRIVER = "oidc";
 
     # --- Proxy & User Mapping ---
     PROXY_OIDC_REWRITE_WELLKNOWN = "true";
