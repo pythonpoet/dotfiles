@@ -103,8 +103,8 @@ in {
     web.web.config = {
       # 1. Fix the OIDC settings here
       oidc = {
-        authority = "https://cloud.davidwild.ch";
-        metadataUrl = "https://cloud.davidwild.ch/.well-known/openid-configuration";
+        authority = "https://auth.cloud.davidwild.ch";
+        #metadataUrl = "https://cloud.davidwild.ch/.well-known/openid-configuration";
       };
       # 2. Force the CSP connect-src to include Authentik
       csp.directives.connect-src = [
