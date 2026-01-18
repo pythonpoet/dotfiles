@@ -145,7 +145,7 @@ in {
         # Inherit defaults for others
         child-src: ["'self'"]
         font-src: ["'self'"]
-        frame-src: ["'self'", "blob:", "https://embed.diagrams.net/"]
+        frame-src: ["'self'", "blob:", "https://embed.diagrams.net/", "https://office.davidwild.ch"]
         img-src: ["'self'", "data:", "blob:"]
         media-src: ["'self'"]
         object-src: ["'self'", "blob:"]
