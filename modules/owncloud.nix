@@ -50,7 +50,7 @@ in {
       type = types.str;
     };
 
-    enable_collabora = mkOption {
+    enable_onlyoffice = mkOption {
       type = types.bool;
       default = false;
     };
@@ -82,13 +82,13 @@ in {
             OCIS_HTTP_TLS_ENABLED = "true";
 
             # Collabora
-            COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "Collabora";
-            COLLABORATION_APP_PRODUCT = mkIf cfg.enable_collabora "Collabora";
-            COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_collabora "Open office documents with Collabora";
-            COLLABORATION_APP_ICON = mkIf cfg.enable_collabora "image-edit";
-            COLLABORATION_APP_ADDR = mkIf cfg.enable_collabora "http://127.0.0.1:9980";
-            COLLABORATION_APP_INSECURE = mkIf cfg.enable_collabora "true";
-            COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_collabora "true";
+            COLLABORATION_APP_NAME = mkIf cfg.enable_onlyoffice "Collabora";
+            COLLABORATION_APP_PRODUCT = mkIf cfg.enable_onlyoffice "Collabora";
+            COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_onlyoffice "Open office documents with Collabora";
+            COLLABORATION_APP_ICON = mkIf cfg.enable_onlyoffice "image-edit";
+            COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9980";
+            COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "true";
+            COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
 
             # Tika
             SEARCH_EXTRACTOR_TYPE = mkIf cfg.enable_full_text_search "tika";
@@ -97,7 +97,7 @@ in {
           };
         };
 
-        collabora = mkIf cfg.enable_collabora {
+        collabora = mkIf cfg.enable_onlyoffice {
           image = "collabora/code";
           ports = ["9980:9980"];
           autoStart = true;
