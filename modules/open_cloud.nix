@@ -111,6 +111,7 @@ in {
         "'self'"
         "blob:"
         "https://auth.davidwild.ch"
+        "https://cloud.davidwild.ch"
         "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
       ];
     };
