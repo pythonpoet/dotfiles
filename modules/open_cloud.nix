@@ -81,7 +81,7 @@ in {
             web = {
               config = {
                 oidc = {
-                  authority = "https://auth.davidwild.ch/application/o/opencloud/";
+                  authority = "https://cloud.davidwild.ch";
                   scope = "openid profile email opencloud_roles";
                 };
               };
@@ -93,6 +93,11 @@ in {
         OC_EXCLUDE_RUN_SERVICES = "idp";
         OC_LOG_LEVEL = "error";
         OC_URL = cfg.domain;
+        # --- ADD THESE FOR OIDC/WEB ---
+        WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
+        WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
+        WEB_CSP_CONNECT_SRC = "'self' blob: https://auth.davidwild.ch https://raw.githubusercontent.com/opencloud-eu/awesome-apps/";
+        # ------------------------------
         # PROXY_OIDC_REWRITE_WELLKNOWN = "true";
         # PROXY_AUTOPROVISION_ACCOUNTS = "true";
         # GRAPH_USERNAME_MATCH = "true";
