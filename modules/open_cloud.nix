@@ -69,6 +69,8 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
     OC_LOG_LEVEL = "error";
+    PROXY_TLS = "false";  # Disable internal TLS
+    HTTP_TLS = "false";   # Disable internal TLS
 
     # --- Proxy & User Mapping ---
     PROXY_OIDC_REWRITE_WELLKNOWN = "true";
@@ -88,20 +90,29 @@ in {
 
   # Only use settings for complex nested structures like role mapping
   settings = {
+    # This section generates /etc/opencloud/web.yaml
+    web.web.config = {
+      # 1. Fix the OIDC settings here
+      oidc = {
+        authority = "https://cloud.davidwild.ch";
+        metadataUrl = "https://cloud.davidwild.ch/.well-known/openid-configuration";
+      };
+      # 2. Force the CSP connect-src to include Authentik
+      csp.directives.connect-src = [
+        "'self'"
+        "blob:"
+        "https://auth.davidwild.ch"
+        "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
+      ];
+    };
+
+    # Keep your existing role assignment settings
     proxy.role_assignment = {
       driver = "oidc";
       oidc_role_mapper.role_claim = "opencloud_roles";
     };
-    web.web.config.csp.directives.connect-src = [
-      "'self'"
-      "blob:"
-      "https://auth.davidwild.ch"
-      "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
-      "https://auth.davidwild.ch/application/o/token/"
-    ];
-  };
-};
-    
+    };
+    };
     #TODO add collabora
     # virtualisation.oci-containers = {
     #   backend = "podman";
