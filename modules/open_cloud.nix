@@ -82,7 +82,7 @@ in {
     WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
     WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
     # This fixes your final CSP 'token' error:
-    WEB_CSP_CONNECT_SRC = "'self' blob: https://auth.davidwild.ch https://raw.githubusercontent.com/opencloud-eu/awesome-apps/";
+    #WEB_CSP_CONNECT_SRC = "'self' blob: https://auth.davidwild.ch https://raw.githubusercontent.com/opencloud-eu/awesome-apps/";
   };
 
   # Only use settings for complex nested structures like role mapping
@@ -91,6 +91,12 @@ in {
       driver = "oidc";
       oidc_role_mapper.role_claim = "opencloud_roles";
     };
+    web.web.config.csp.directives.connect-src = [
+      "'self'"
+      "blob:"
+      "https://auth.davidwild.ch"
+      "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
+    ];
   };
 };
     
