@@ -67,6 +67,7 @@ in {
             auto_provision_accounts = true;
             oidc = {
               rewrite_well_known = true;
+              issuer = "https://auth.davidwild.ch/application/o/opencloud/";
             };
             role_assignment = {
               driver = "oidc";
