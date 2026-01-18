@@ -77,7 +77,7 @@ in {
     PROXY_OIDC_REWRITE_WELLKNOWN = "true";
     PROXY_EXTERNAL_ADDR = "https://cloud.davidwild.ch";
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; # Trust the signature
-    PROXY_OIDC_SKIP_USER_INFO = "true";            # Use ID Token claims instead of calling Authentik API
+    PROXY_OIDC_SKIP_USER_INFO = "false";            # Use ID Token claims instead of calling Authentik API
     PROXY_AUTOPROVISION_ACCOUNTS = "true";         # Create user on first login
 
     # --- Role Assignment (Environment Version) ---
