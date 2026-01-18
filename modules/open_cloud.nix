@@ -70,11 +70,9 @@ in {
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
     OC_LOG_LEVEL = "error";
-    PROXY_TLS = "false";
-    HTTP_TLS = "false";
 
     # --- Authentication Fixes ---
-    PROXY_OIDC_REWRITE_WELLKNOWN = "true";
+    #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
     PROXY_EXTERNAL_ADDR = "https://cloud.davidwild.ch";
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; # Trust the signature
     PROXY_OIDC_SKIP_USER_INFO = "false";            # Use ID Token claims instead of calling Authentik API
@@ -91,54 +89,65 @@ in {
     PROXY_USER_OIDC_CLAIM = "preferred_username";
     PROXY_USER_CS3_CLAIM = "username";
 
-    # --- Web Frontend & CSP ---
-    WEB_OIDC_CLIENT_ID = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
-    WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
-    WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
   };
   # Only use settings for complex nested structures like role mapping
   settings = {
-    # This section generates /etc/opencloud/web.yaml
     web.web.config = {
-      # 1. Fix the OIDC settings here
       oidc = {
-        
-        #metadataUrl = "https://cloud.davidwild.ch/.well-known/openid-configuration";
+        authority = "https://cloud.davidwild.ch";
+      metadataUrl = "https://cloud.davidwild.ch/.well-known/openid-configuration";
+      client_id = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
       };
-  
     };
-
-    # Keep your existing role assignment settings
-    proxy.role_assignment = {
-      driver = "default"; 
+    proxy = {
+      external_addr = "https://cloud.davidwild.ch";
+      auto_provision_accounts = true;
+      oidc = {
+        issuer = "https://auth.davidwild.ch/application/o/opencloud/";
+        access_token_verify_method = "none";
+        rewrite_well_known = true;
+        skip_user_info = false;
+      };
+      # Identity Mapping
+      user_oidc_claim = "preferred_username";
+      user_cs3_claim = "username";
+      role_assignment = {
+        driver = "default"; 
+      };
+      # Claim Mapping for Auto-Provisioning
+      autoprovision_claims = {
+        username = "preferred_username";
+        email = "email";
+        displayname = "name";
+      };
     };
     };
     };
     environment.etc."opencloud/csp.yaml".text = ''
-  directives:
-    connect-src:
-      - "'self'"
-      - "blob:"
-      - "https://auth.davidwild.ch"
-      - "https://cloud.davidwild.ch"
-      - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
-    script-src:
-      - "'self'"
-      - "'unsafe-inline'"
-    style-src:
-      - "'self'"
-      - "'unsafe-inline'"
-    # Inherit defaults for others
-    child-src: ["'self'"]
-    font-src: ["'self'"]
-    frame-src: ["'self'", "blob:", "https://embed.diagrams.net/"]
-    img-src: ["'self'", "data:", "blob:"]
-    media-src: ["'self'"]
-    object-src: ["'self'", "blob:"]
-    manifest-src: ["'self'"]
-    frame-ancestors: ["'self'"]
-'';
+      directives:
+        connect-src:
+          - "'self'"
+          - "blob:"
+          - "https://auth.davidwild.ch"
+          - "https://cloud.davidwild.ch"
+          - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
+        script-src:
+          - "'self'"
+          - "'unsafe-inline'"
+        style-src:
+          - "'self'"
+          - "'unsafe-inline'"
+        # Inherit defaults for others
+        child-src: ["'self'"]
+        font-src: ["'self'"]
+        frame-src: ["'self'", "blob:", "https://embed.diagrams.net/"]
+        img-src: ["'self'", "data:", "blob:"]
+        media-src: ["'self'"]
+        object-src: ["'self'", "blob:"]
+        manifest-src: ["'self'"]
+        frame-ancestors: ["'self'"]
+    '';
     #TODO add collabora
     # virtualisation.oci-containers = {
     #   backend = "podman";
