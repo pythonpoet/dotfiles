@@ -70,6 +70,8 @@ in {
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
     OC_LOG_LEVEL = "error";
+    PROXY_TLS = "false";
+    HTTP_TLS = "false";
 
     # --- Authentication Fixes ---
     #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
