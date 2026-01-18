@@ -57,97 +57,42 @@ in {
   };
   config = mkIf cfg.enable {
     services.opencloud = {
-      enable = true;
-      url = cfg.domain;
-      port = cfg.port;
-      #configDir = cfg.config_file;
-      stateDir = cfg.data_dir;
-      settings = {
-        oidc.issuer = "https://auth.davidwild.ch/application/o/opencloud/";
-          proxy = {
-            auto_provision_accounts = true;
-            oidc = {
-              rewrite_well_known = true;
-              issuer = "https://auth.davidwild.ch/application/o/opencloud/";
-            };
-            role_assignment = {
-              driver = "oidc";
-              oidc_role_mapper = {
-                role_claim = "opencloud_roles";
-              };
-            };
-          };
-          web = {
-            web = {
-              config = {
-                oidc = {
-                  authority = "https://cloud.davidwild.ch";
-                  scope = "openid profile email opencloud_roles";
-                };
-              };
-            };
-          };
-        };
-      environment = {
-        OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
-        OC_EXCLUDE_RUN_SERVICES = "idp";
-        OC_LOG_LEVEL = "error";
-        OC_URL = cfg.domain;
-        WEB_OIDC_CLIENT_ID = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
-        # --- ADD THESE FOR OIDC/WEB ---
-        WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
-        WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
-        WEB_CSP_CONNECT_SRC = "'self' blob: https://auth.davidwild.ch https://raw.githubusercontent.com/opencloud-eu/awesome-apps/";
-        # ------------------------------
-        # PROXY_OIDC_REWRITE_WELLKNOWN = "true";
-        # PROXY_AUTOPROVISION_ACCOUNTS = "true";
-        # GRAPH_USERNAME_MATCH = "true";
-        # PROXY_USER_OIDC_CLAIM = "preferred_username";
-        # PROXY_USER_CS3_CLAIM = "username";
-        # WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
+  enable = true;
+  url = cfg.domain;
+  port = cfg.port;
+  stateDir = cfg.data_dir;
 
-      };
-      # environment = {
-      #     OC_URL = cfg.domain;
-      #     OC_LOG_LEVEL = "error";
-      #     OC_INSECURE = "true";
-      #     TLS_INSECURE = "true";
-      #     # if certifciate expiration problem: delete ldap.crt and ldap.key in OC-data/idm
-      #     IDP_LDAP_TLSSKIPVERIFY = "true";
-      #     MICRO_REGISTRY = "nats-js-kv";
-      #     # auth
+  # We use environment variables for everything possible to keep the config clean.
+  environment = {
+    # --- Global / OIDC Core ---
+    OC_URL = cfg.domain;
+    OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
+    OC_EXCLUDE_RUN_SERVICES = "idp";
+    OC_LOG_LEVEL = "error";
 
-      #     OC_OIDC_ISSUER="https://auth.davidwild.ch/application/o/opencloud/";
-      #     OC_OIDC_CLIENT_ID="nNlMbe2mhzvQMHyC7YWi6ZMO8HpPHu2EwfOzumgT";
-          
-      #     #PROXY_OIDC_REWRITE_WELLKNOWN="true";
-      #     #PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD="none";
-      #     # WEB_OIDC_CLIENT_ID="ocis";
-      #     # PROXY_OIDC_ISSUER="https://auth.davidwild.ch/application/o/opencloud/";
-      #     # PROXY_OIDC_REWRITE_WELLKNOWN="true";
-      #     # PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD="none";
-      #     # PROXY_OIDC_SKIP_USER_INFO="false";
-      #     # PROXY_AUTOPROVISION_ACCOUNTS="false";
-      #     # PROXY_AUTOPROVISION_CLAIM_USERNAME="preferred_username";
-      #     # PROXY_AUTOPROVISION_CLAIM_EMAIL="email";
-      #     # PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME="name";
-      #     # PROXY_AUTOPROVISION_CLAIM_GROUPS="groups";
+    # --- Proxy & User Mapping ---
+    PROXY_OIDC_REWRITE_WELLKNOWN = "true";
+    PROXY_AUTOPROVISION_ACCOUNTS = "true";
+    GRAPH_USERNAME_MATCH = "none";
+    PROXY_USER_OIDC_CLAIM = "preferred_username";
+    PROXY_USER_CS3_CLAIM = "username";
 
-      #     # Collabora
-      #     COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "Collabora";
-      #     COLLABORATION_APP_PRODUCT = mkIf cfg.enable_collabora "Collabora";
-      #     COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_collabora "Open office documents with Collabora";
-      #     COLLABORATION_APP_ICON = mkIf cfg.enable_collabora "image-edit";
-      #     COLLABORATION_APP_ADDR = mkIf cfg.enable_collabora "http://127.0.0.1:9980";
-      #     COLLABORATION_APP_INSECURE = mkIf cfg.enable_collabora "true";
-      #     COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_collabora "true";
+    # --- Web Frontend & CSP ---
+    WEB_OIDC_CLIENT_ID = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
+    WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
+    WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
+    # This fixes your final CSP 'token' error:
+    WEB_CSP_CONNECT_SRC = "'self' blob: https://auth.davidwild.ch https://raw.githubusercontent.com/opencloud-eu/awesome-apps/";
+  };
 
-      #     # Tika
-      #     SEARCH_EXTRACTOR_TYPE = mkIf cfg.enable_full_text_search "tika";
-      #     SEARCH_EXTRACTOR_TIKA_TIKA_URL = mkIf cfg.enable_full_text_search "http://localhost:9998";
-      #     FRONTEND_FULL_TEXT_SEARCH_ENABLED = mkIf cfg.enable_full_text_search "true";
-      #   };
-      };
+  # Only use settings for complex nested structures like role mapping
+  settings = {
+    proxy.role_assignment = {
+      driver = "oidc";
+      oidc_role_mapper.role_claim = "opencloud_roles";
+    };
+  };
+};
     
     #TODO add collabora
     # virtualisation.oci-containers = {
