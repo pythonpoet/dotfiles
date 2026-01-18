@@ -91,8 +91,14 @@ in {
       environment = {
         OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
         OC_EXCLUDE_RUN_SERVICES = "idp";
+        
+        PROXY_OIDC_REWRITE_WELLKNOWN = "true";
+        PROXY_AUTOPROVISION_ACCOUNTS = "true";
+        GRAPH_USERNAME_MATCH = "true";
         PROXY_USER_OIDC_CLAIM = "preferred_username";
         PROXY_USER_CS3_CLAIM = "username";
+        WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
+
       };
       # environment = {
       #     OC_URL = cfg.domain;
