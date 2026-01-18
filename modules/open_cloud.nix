@@ -159,6 +159,12 @@ in {
     postgresPasswordFile = config.age.secrets.onlyoffice.path;
     securityNonceFile = config.age.secrets.onlyofficesec.path;
   };
+    services.tika = {
+      enable = true;
+      port = 9998;
+      # Optional: listen only on localhost for security
+      listenAddress = "127.0.0.1";
+    };
     #TODO add collabora
     # virtualisation.oci-containers = {
     #   backend = "podman";

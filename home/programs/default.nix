@@ -52,6 +52,7 @@
   nodejs_20
   openssl
   owncloud-client
+  opencloud-desktop
   overskride
   geckodriver
   #flatpak
