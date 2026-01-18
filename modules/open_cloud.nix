@@ -157,7 +157,7 @@ in {
     port = 9981;
     hostname = "https://office.davidwild.ch";
     postgresPasswordFile = config.age.secrets.onlyoffice.path;
-    securityNonceFile = config.age.secrets.onlyoffice-security.path;
+    securityNonceFile = config.age.secrets.onlyofficesec.path;
   };
     #TODO add collabora
     # virtualisation.oci-containers = {
