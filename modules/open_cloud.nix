@@ -98,14 +98,14 @@ in {
     WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
 
-    COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "OnlyOffice";
-    COLLABORATION_APP_PRODUCT = mkIf cfg.enable_collabora "OnlyOffice";
-    COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_collabora "Open office documents with OnlyOffice";
-    COLLABORATION_APP_ICON = mkIf cfg.enable_collabora "image-edit";
-    COLLABORATION_APP_ADDR = mkIf cfg.enable_collabora "http://127.0.0.1:9981";
-    COLLABORATION_WOPI_SRC = mkIf cfg.enable_collabora "https://office.davidwild.ch";
-    COLLABORATION_APP_INSECURE = mkIf cfg.enable_collabora "true";
-    COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_collabora "true";
+    COLLABORATION_APP_NAME = mkIf cfg.enable_onlyoffice "OnlyOffice";
+    COLLABORATION_APP_PRODUCT = mkIf cfg.enable_onlyoffice "OnlyOffice";
+    COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_onlyoffice "Open office documents with OnlyOffice";
+    COLLABORATION_APP_ICON = mkIf cfg.enable_onlyoffice "image-edit";
+    COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9981";
+    COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "https://office.davidwild.ch";
+    COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "true";
+    COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
 
   };
   # Only use settings for complex nested structures like role mapping
@@ -170,7 +170,7 @@ in {
     #   backend = "podman";
     #   containers = {
 
-    #     collabora = mkIf cfg.enable_collabora {
+    #     collabora = mkIf cfg. {
     #       image = "collabora/code";
     #       ports = ["9980:9980"];
     #       autoStart = true;
