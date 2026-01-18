@@ -93,6 +93,7 @@ in {
         OC_EXCLUDE_RUN_SERVICES = "idp";
         OC_LOG_LEVEL = "error";
         OC_URL = cfg.domain;
+        WEB_OIDC_CLIENT_ID = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
         # --- ADD THESE FOR OIDC/WEB ---
         WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
         WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
