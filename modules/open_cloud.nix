@@ -46,7 +46,7 @@ in {
       type = types.str;
     };
 
-    enable_collabora = mkOption {
+    enable_onlyoffice = mkOption {
       type = types.bool;
       default = false;
     };
@@ -72,6 +72,7 @@ in {
     OC_LOG_LEVEL = "error";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
+    OC_JWT_SECRET = "whatever";
 
     # --- Authentication Fixes ---
     #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
@@ -96,6 +97,16 @@ in {
     WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
     WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
+
+    COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "OnlyOffice";
+    COLLABORATION_APP_PRODUCT = mkIf cfg.enable_collabora "OnlyOffice";
+    COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_collabora "Open office documents with OnlyOffice";
+    COLLABORATION_APP_ICON = mkIf cfg.enable_collabora "image-edit";
+    COLLABORATION_APP_ADDR = mkIf cfg.enable_collabora "http://127.0.0.1:9981";
+    COLLABORATION_WOPI_SRC = mkIf cfg.enable_collabora "https://office.davidwild.ch";
+    COLLABORATION_APP_INSECURE = mkIf cfg.enable_collabora "true";
+    COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_collabora "true";
+
   };
   # Only use settings for complex nested structures like role mapping
   settings = {
@@ -141,6 +152,12 @@ in {
         manifest-src: ["'self'"]
         frame-ancestors: ["'self'"]
     '';
+   services.onlyoffice = mkIf cfg.enable_onlyoffice {
+    enable = true;
+    port = 9981;
+    hostname = "https://office.davidwild.ch";
+    postgresPasswordFile = config.age.secrets.onlyoffice.path;
+  };
     #TODO add collabora
     # virtualisation.oci-containers = {
     #   backend = "podman";

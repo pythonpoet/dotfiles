@@ -152,6 +152,14 @@ in {
             extraConfig = extraConfig;
           };
         };
+        "office.davidwild.ch" = {
+         inherit (sslSettings) addSSL enableACME;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:9989";
+            proxyWebsockets = true;
+            extraConfig = extraConfig;
+          };
+        };
         "vikunja.davidwild.ch" = {
          inherit (sslSettings) addSSL enableACME;
           locations."/" = {
