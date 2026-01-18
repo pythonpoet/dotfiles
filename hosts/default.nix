@@ -19,7 +19,7 @@
     #inherit (import "${self}/modules/") _cloud;
     cloud = [
       #"${self}/modules/ocis.nix"
-      "${self}/modules/openc_cloud.nix"
+      "${self}/modules/open_cloud.nix"
       #"${self}/modules/vaultwarden.nix"
       "${self}/modules/borg.nix"
       "${self}/modules/vikunja.nix"
