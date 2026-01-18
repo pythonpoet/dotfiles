@@ -93,6 +93,7 @@ in {
     WEB_OIDC_CLIENT_ID = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
     WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
     WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
+    PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
     # This fixes your final CSP 'token' error:
     #WEB_CSP_CONNECT_SRC = "'self' blob: https://auth.davidwild.ch https://raw.githubusercontent.com/opencloud-eu/awesome-apps/";
   };
@@ -123,6 +124,30 @@ in {
     };
     };
     };
+    environment.etc."opencloud/csp.yaml".text = ''
+  directives:
+    connect-src:
+      - "'self'"
+      - "blob:"
+      - "https://auth.davidwild.ch"
+      - "https://cloud.davidwild.ch"
+      - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
+    script-src:
+      - "'self'"
+      - "'unsafe-inline'"
+    style-src:
+      - "'self'"
+      - "'unsafe-inline'"
+    # Inherit defaults for others
+    child-src: ["'self'"]
+    font-src: ["'self'"]
+    frame-src: ["'self'", "blob:", "https://embed.diagrams.net/"]
+    img-src: ["'self'", "data:", "blob:"]
+    media-src: ["'self'"]
+    object-src: ["'self'", "blob:"]
+    manifest-src: ["'self'"]
+    frame-ancestors: ["'self'"]
+'';
     #TODO add collabora
     # virtualisation.oci-containers = {
     #   backend = "podman";
