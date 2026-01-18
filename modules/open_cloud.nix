@@ -72,6 +72,9 @@ in {
     OC_LOG_LEVEL = "error";
     PROXY_TLS = "false";  # Disable internal TLS
     HTTP_TLS = "false";   # Disable internal TLS
+    # ADD THESE TWO LINES:
+    WEB_OIDC_SCOPE = "openid profile email opencloud_roles";
+    PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM = "opencloud_roles";
 
     # --- Proxy & User Mapping ---
     PROXY_OIDC_REWRITE_WELLKNOWN = "true";
@@ -104,17 +107,10 @@ in {
     web.web.config = {
       # 1. Fix the OIDC settings here
       oidc = {
-        authority = "https://auth.cloud.davidwild.ch";
+        
         #metadataUrl = "https://cloud.davidwild.ch/.well-known/openid-configuration";
       };
-      # 2. Force the CSP connect-src to include Authentik
-      csp.directives.connect-src = [
-        "'self'"
-        "blob:"
-        "https://auth.davidwild.ch"
-        "https://cloud.davidwild.ch"
-        "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
-      ];
+  
     };
 
     # Keep your existing role assignment settings
