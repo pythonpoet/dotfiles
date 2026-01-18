@@ -64,45 +64,55 @@ in {
 
   # We use environment variables for everything possible to keep the config clean.
   environment = {
+    # --- Global / OIDC Core ---
     OC_URL = cfg.domain;
+    OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
+    PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
     OC_LOG_LEVEL = "error";
-    PROXY_TLS = "false";
-    HTTP_TLS = "false";
-    # Point to the managed CSP file
+
+    # --- Authentication Fixes ---
+    #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
+    PROXY_EXTERNAL_ADDR = "https://cloud.davidwild.ch";
+    PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; # Trust the signature
+    PROXY_OIDC_SKIP_USER_INFO = "false";            # Use ID Token claims instead of calling Authentik API
+    PROXY_AUTOPROVISION_ACCOUNTS = "true";         # Create user on first login
+
+    # --- Role Assignment (Environment Version) ---
+    # We set this here to ensure it wins over any stray file configs
+    PROXY_ROLE_ASSIGNMENT_DRIVER = "default"; 
+
+    # --- User Mapping ---
+    PROXY_AUTOPROVISION_CLAIM_USERNAME = "preferred_username";
+    PROXY_AUTOPROVISION_CLAIM_EMAIL = "email";
+    PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME = "name";
+    PROXY_USER_OIDC_CLAIM = "preferred_username";
+    PROXY_USER_CS3_CLAIM = "username";
+
+    # --- Web Frontend & CSP ---
+    WEB_OIDC_CLIENT_ID = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
+    WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
+    WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
   };
   # Only use settings for complex nested structures like role mapping
   settings = {
     web.web.config = {
       oidc = {
-        authority = "https://cloud.davidwild.ch";
-      metadataUrl = "http://127.0.0.1:9200/.well-known/openid-configuration";
-      client_id = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
+        
       };
     };
     proxy = {
-      external_addr = "https://cloud.davidwild.ch";
       auto_provision_accounts = true;
       oidc = {
-        issuer = "https://auth.davidwild.ch/application/o/opencloud/";
-        access_token_verify_method = "none";
         rewrite_well_known = true;
         skip_user_info = false;
       };
-      # Identity Mapping
-      user_oidc_claim = "preferred_username";
-      user_cs3_claim = "username";
       role_assignment = {
         driver = "default"; 
       };
-      # Claim Mapping for Auto-Provisioning
-      autoprovision_claims = {
-        username = "preferred_username";
-        email = "email";
-        displayname = "name";
-      };
     };
+
     };
     };
     environment.etc."opencloud/csp.yaml".text = ''
@@ -110,7 +120,6 @@ in {
         connect-src:
           - "'self'"
           - "blob:"
-          - "http://127.0.0.1:9200"
           - "https://auth.davidwild.ch"
           - "https://cloud.davidwild.ch"
           - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
