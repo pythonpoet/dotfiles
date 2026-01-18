@@ -77,7 +77,7 @@ in {
     web.web.config = {
       oidc = {
         authority = "https://cloud.davidwild.ch";
-      metadataUrl = "https://cloud.davidwild.ch/.well-known/openid-configuration";
+      metadataUrl = "http://127.0.0.1:9200/.well-known/openid-configuration";
       client_id = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
       };
     };
