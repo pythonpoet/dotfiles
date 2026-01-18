@@ -89,6 +89,7 @@ in {
           };
         };
       environment = {
+        OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
         OC_EXCLUDE_RUN_SERVICES = "idp";
         PROXY_USER_OIDC_CLAIM = "preferred_username";
         PROXY_USER_CS3_CLAIM = "username";
