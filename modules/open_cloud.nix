@@ -64,31 +64,12 @@ in {
 
   # We use environment variables for everything possible to keep the config clean.
   environment = {
-    # --- Global / OIDC Core ---
     OC_URL = cfg.domain;
-    OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
-    PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
     OC_LOG_LEVEL = "error";
-
-    # --- Authentication Fixes ---
-    #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
-    PROXY_EXTERNAL_ADDR = "https://cloud.davidwild.ch";
-    PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; # Trust the signature
-    PROXY_OIDC_SKIP_USER_INFO = "false";            # Use ID Token claims instead of calling Authentik API
-    PROXY_AUTOPROVISION_ACCOUNTS = "true";         # Create user on first login
-
-    # --- Role Assignment (Environment Version) ---
-    # We set this here to ensure it wins over any stray file configs
-    PROXY_ROLE_ASSIGNMENT_DRIVER = "default"; 
-
-    # --- User Mapping ---
-    PROXY_AUTOPROVISION_CLAIM_USERNAME = "preferred_username";
-    PROXY_AUTOPROVISION_CLAIM_EMAIL = "email";
-    PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME = "name";
-    PROXY_USER_OIDC_CLAIM = "preferred_username";
-    PROXY_USER_CS3_CLAIM = "username";
-
+    PROXY_TLS = "false";
+    HTTP_TLS = "false";
+    # Point to the managed CSP file
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
   };
   # Only use settings for complex nested structures like role mapping
