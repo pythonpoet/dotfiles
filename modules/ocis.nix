@@ -68,20 +68,29 @@ in {
       stateDir = cfg.data_dir;
       environment = {
           OCIS_URL = cfg.domain;
-          OCIS_LOG_LEVEL = "info";
+          OCIS_LOG_LEVEL = "error";
           OCIS_INSECURE = "true";
           TLS_INSECURE = "true";
-          # TLS_SKIP_VERIFY_CLIENT_CERT = "true";
-          # OCIS_LDAP_INSECURE = "true";
-          # LDAP_TLSSKIPVERIFY = "true";
-          # OCIS_LDAP_TLSSKIPVERIFY = "true";
-          # OCIS_HTTP_TLS_ENABLED = "true";
-          # PROXY_TLS_CERT = "/var/lib/acme/cloud.davidwild.ch/fullchain.pem";
-          # PROXY_TLS_KEY = "/var/lib/acme/cloud.davidwild.ch/key.pem";
-          
-          # Ensure the IDP (which gave the error) also uses these or trusts them
+          # if certifciate expiration problem: delete ldap.crt and ldap.key in ocis-data/idm
           IDP_LDAP_TLSSKIPVERIFY = "true";
           MICRO_REGISTRY = "nats-js-kv";
+          # auth
+
+          OCIS_OIDC_ISSUER="https://auth.davidwild.ch/application/o/ocis/";
+          OCIS_OIDC_CLIENT_ID="nNlMbe2mhzvQMHyC7YWi6ZMO8HpPHu2EwfOzumgT";
+          
+          #PROXY_OIDC_REWRITE_WELLKNOWN="true";
+          #PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD="none";
+          WEB_OIDC_CLIENT_ID="ocis";
+          PROXY_OIDC_ISSUER="https://auth.davidwild.ch/application/o/ocis/";
+          PROXY_OIDC_REWRITE_WELLKNOWN="true";
+          PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD="none";
+          PROXY_OIDC_SKIP_USER_INFO="false";
+          PROXY_AUTOPROVISION_ACCOUNTS="false";
+          PROXY_AUTOPROVISION_CLAIM_USERNAME="preferred_username";
+          PROXY_AUTOPROVISION_CLAIM_EMAIL="email";
+          PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME="name";
+          PROXY_AUTOPROVISION_CLAIM_GROUPS="groups";
 
           # Collabora
           COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "Collabora";
