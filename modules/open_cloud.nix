@@ -106,6 +106,10 @@ in {
     COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "https://office.davidwild.ch";
     COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "true";
     COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
+    PROXY_EXTERNAL_ADDR = "https://cloud.davidwild.ch";
+    PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "jwt"; 
+    PROXY_OIDC_SKIP_USER_INFO = "true"; # Changed to true to fix 401 errors
+    PROXY_AUTOPROVISION_ACCOUNTS = "true";
 
   };
   # Only use settings for complex nested structures like role mapping
