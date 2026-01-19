@@ -74,6 +74,12 @@ in {
     HTTP_TLS = "false";
     OC_JWT_SECRET = "whatever";
     
+  
+    # --- Missing Required Variables ---
+    # These are standard defaults for oCis on a single machine
+    OC_REVA_GATEWAY = "127.0.0.1:9142";
+    MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
+    
 
     # --- Authentication Fixes ---
     #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
