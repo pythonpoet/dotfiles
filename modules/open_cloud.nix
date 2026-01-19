@@ -139,6 +139,7 @@ in {
         connect-src:
           - "'self'"
           - "blob:"
+          - "https://update.opencloud.eu/"
           - "https://office.davidwild.ch"
           - "http://office.davidwild.ch"
           - "https://auth.davidwild.ch"
