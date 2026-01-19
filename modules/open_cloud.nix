@@ -85,6 +85,7 @@ in {
     # Ensure the gateway points to the registry-resolved name
     #OC_REVA_GATEWAY = "127.0.0.1:9142";
     #PROXY_GATEWAY_ADDR = "127.0.0.1:9142";
+    STORAGE_USERS_DRIVER = "ocis";
     
 
     # --- Authentication Fixes ---
