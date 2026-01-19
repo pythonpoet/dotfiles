@@ -70,7 +70,7 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
-    OC_ADD_RUN_SERVICES = "collaboration,app-registry";
+    OC_ADD_RUN_SERVICES = "app-registry,collaboration";
     OC_LOG_LEVEL = "error";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
@@ -87,12 +87,12 @@ in {
     #PROXY_GATEWAY_ADDR = "127.0.0.1:9142";
     STORAGE_USERS_DRIVER = "ocis";
     
-    OC_GRPC_CLIENT_TIMEOUT = "30s";
+  #   OC_GRPC_CLIENT_TIMEOUT = "30s";
   
-  # Tell the collaboration service to retry the registration if the gateway is busy
-  # This prevents the immediate "context canceled" on first attempt
-    COLLABORATION_GRPC_RETRY_COUNT = "10";
-    COLLABORATION_GRPC_RETRY_DELAY = "2s";
+  # # Tell the collaboration service to retry the registration if the gateway is busy
+  # # This prevents the immediate "context canceled" on first attempt
+  #   COLLABORATION_GRPC_RETRY_COUNT = "10";
+  #   COLLABORATION_GRPC_RETRY_DELAY = "2s";
 
     # --- Authentication Fixes ---
     #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
@@ -122,7 +122,7 @@ in {
     COLLABORATION_APP_PRODUCT = mkIf cfg.enable_onlyoffice "OnlyOffice";
     COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_onlyoffice "Open office documents with OnlyOffice";
     COLLABORATION_APP_ICON = mkIf cfg.enable_onlyoffice "image-edit";
-    COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
+    COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "https://office.davidwild.ch";
     COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "https://office.davidwild.ch";
     COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "true";
     COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
