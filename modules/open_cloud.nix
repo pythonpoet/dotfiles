@@ -169,16 +169,7 @@ in {
     securityNonceFile = config.age.secrets.onlyofficesec.path;
     # TODO implement
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
-    nginx = {
-    addSSL = true;
-    enableACME = true;
-    # Add this to force Nginx to redirect to https
-    extraConfig = ''
-      if ($scheme = http) {
-        return 301 https://$host$request_uri;
-      }
-    '';
-  };
+
   };
   services.nginx = {
     # 1. The Upstream Fix: Forces Nginx to use IPv4 (127.0.0.1) instead of IPv6 ([::1])
