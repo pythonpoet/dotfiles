@@ -110,7 +110,7 @@ in {
     COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
-    PROXY_OIDC_SKIP_USER_INFO = "true"; # Changed to true to fix 401 errors
+    PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
     
 
   };
