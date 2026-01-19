@@ -75,6 +75,8 @@ in {
     PROXY_TLS = "false";
     HTTP_TLS = "false";
     OC_JWT_SECRET = "whatever";
+    NATS_NATS_HOST="127.0.0.1";
+    NATS_NATS_PORT="9233";
     
     # --- Missing Required Variables ---
     # These are standard defaults for oCis on a single machine
