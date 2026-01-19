@@ -139,6 +139,8 @@ in {
         connect-src:
           - "'self'"
           - "blob:"
+          - "https://office.davidwild.ch"
+          - "http://office.davidwild.ch"
           - "https://auth.davidwild.ch"
           - "https://cloud.davidwild.ch"
           - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
@@ -161,11 +163,22 @@ in {
    services.onlyoffice = mkIf cfg.enable_onlyoffice {
     enable = true;
     port = 9982;
+    enableExampleServer = true;
     hostname = "office.davidwild.ch";
     postgresPasswordFile = config.age.secrets.onlyoffice.path;
     securityNonceFile = config.age.secrets.onlyofficesec.path;
     # TODO implement
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
+    nginx = {
+    addSSL = true;
+    enableACME = true;
+    # Add this to force Nginx to redirect to https
+    extraConfig = ''
+      if ($scheme = http) {
+        return 301 https://$host$request_uri;
+      }
+    '';
+  };
   };
   services.nginx.upstreams.onlyoffice-docservice.servers = lib.mkForce {
     "127.0.0.1:9982" = { };
