@@ -70,7 +70,7 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
-    OC_ADD_RUN_SERVICES = "gateway,app-registry,collaboration";
+    OC_ADD_RUN_SERVICES = "gateway,app-registry,collaboration,frontend";
     OC_LOG_LEVEL = "error";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
@@ -122,7 +122,7 @@ in {
     COLLABORATION_APP_PRODUCT = mkIf cfg.enable_onlyoffice "OnlyOffice";
     COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_onlyoffice "Open office documents with OnlyOffice";
     COLLABORATION_APP_ICON = mkIf cfg.enable_onlyoffice "image-edit";
-    COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "https://office.davidwild.ch";
+    COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
     COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "https://office.davidwild.ch";
     COLLABORATION_WOPI_SECRET = "whatever";
     COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "false";
@@ -131,7 +131,12 @@ in {
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
-    
+    MICRO_REGISTRY = "nats-js-kv";
+MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
+OC_REVA_GATEWAY = "127.0.0.1:9142";
+
+# Tell the app-registry where OnlyOffice lives
+APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
 
   };
   # Only use settings for complex nested structures like role mapping
