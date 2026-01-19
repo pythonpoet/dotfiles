@@ -77,8 +77,9 @@ in {
   
     # --- Missing Required Variables ---
     # These are standard defaults for oCis on a single machine
-    OC_REVA_GATEWAY = "127.0.0.1:9142";
-    MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
+    # OC_REVA_GATEWAY = "127.0.0.1:9142";
+    # MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
+    MICRO_REGISTRY = "nats";
     
 
     # --- Authentication Fixes ---
