@@ -132,8 +132,9 @@ in {
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
     MICRO_REGISTRY = "nats-js-kv";
-MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
-OC_REVA_GATEWAY = "127.0.0.1:9142";
+    MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
+    OC_REVA_GATEWAY = "127.0.0.1:9142";
+    COLLABORATION_CS3_GATEWAY = "127.0.0.1:9142";
 
 # Tell the app-registry where OnlyOffice lives
 APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
