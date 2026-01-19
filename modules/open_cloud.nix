@@ -191,7 +191,7 @@ in {
         proxy_set_header X-Forwarded-Host $host;
       '';
     };
-    services.nginx.virtualHosts."cloud.davidwild.ch" = {
+    virtualHosts."cloud.davidwild.ch" = {
   # ... your existing SSL config ...
   extraConfig = ''
     # Disable buffering for SSE (Server-Sent Events)
