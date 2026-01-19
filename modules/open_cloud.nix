@@ -180,8 +180,25 @@ in {
     '';
   };
   };
-  services.nginx.upstreams.onlyoffice-docservice.servers = lib.mkForce {
-    "127.0.0.1:9982" = { };
+  services.nginx = {
+    # 1. The Upstream Fix: Forces Nginx to use IPv4 (127.0.0.1) instead of IPv6 ([::1])
+    # This solves the "Connection Refused" error we saw in your logs.
+    upstreams."onlyoffice-docservice".servers = lib.mkForce {
+      "127.0.0.1:9982" = { };
+    };
+
+    # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
+    virtualHosts."office.davidwild.ch" = {
+      addSSL = true;
+      enableACME = true;
+      forceSSL = true; # Automatically redirects http:// to https://
+
+      extraConfig = ''
+        # Ensures OnlyOffice knows it is being accessed over HTTPS
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+      '';
+    };
   };
     services.tika = {
       enable = true;
