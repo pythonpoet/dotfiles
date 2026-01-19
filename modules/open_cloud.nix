@@ -191,6 +191,20 @@ in {
         proxy_set_header X-Forwarded-Host $host;
       '';
     };
+    services.nginx.virtualHosts."cloud.davidwild.ch" = {
+  # ... your existing SSL config ...
+  extraConfig = ''
+    # Disable buffering for SSE (Server-Sent Events)
+    proxy_buffering off;
+    proxy_cache off;
+    proxy_read_timeout 24h;
+    
+    # Required for OpenCloud internal communication
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+  '';
+};
   };
     services.tika = {
       enable = true;
