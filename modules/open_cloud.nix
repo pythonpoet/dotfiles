@@ -81,9 +81,8 @@ in {
     # MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
     MICRO_REGISTRY = "nats-js-kv";
     # Ensure the gateway points to the registry-resolved name
-    OC_REVA_GATEWAY = "com.owncloud.api.gateway";
-    # This is often needed to help services find the registry
-    MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
+    OC_REVA_GATEWAY = "127.0.0.1:9142";
+    PROXY_GATEWAY_ADDR = "127.0.0.1:9142";
     
 
     # --- Authentication Fixes ---
