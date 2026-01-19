@@ -117,14 +117,15 @@ in {
     WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
     WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
-
+    COLLABORATION_SERVICE_NAME = "collaboration";
     COLLABORATION_APP_NAME = mkIf cfg.enable_onlyoffice "OnlyOffice";
     COLLABORATION_APP_PRODUCT = mkIf cfg.enable_onlyoffice "OnlyOffice";
     COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_onlyoffice "Open office documents with OnlyOffice";
     COLLABORATION_APP_ICON = mkIf cfg.enable_onlyoffice "image-edit";
     COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "https://office.davidwild.ch";
     COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "https://office.davidwild.ch";
-    COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "true";
+    COLLABORATION_WOPI_SECRET = "whatever";
+    COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "false";
     COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
     COLLABORATION_OO_SECRET = "whatever";
     
