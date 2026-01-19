@@ -87,6 +87,12 @@ in {
     #PROXY_GATEWAY_ADDR = "127.0.0.1:9142";
     STORAGE_USERS_DRIVER = "ocis";
     
+    OC_GRPC_CLIENT_TIMEOUT = "30s";
+  
+  # Tell the collaboration service to retry the registration if the gateway is busy
+  # This prevents the immediate "context canceled" on first attempt
+    COLLABORATION_GRPC_RETRY_COUNT = "10";
+    COLLABORATION_GRPC_RETRY_DELAY = "2s";
 
     # --- Authentication Fixes ---
     #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
