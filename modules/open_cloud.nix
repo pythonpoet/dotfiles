@@ -329,7 +329,7 @@ in {
         };
       };
     };
-    networking.firewall.allowedTCPPorts = [9200 9980 9998 5232];
+    networking.firewall.allowedTCPPorts = [9200 9980 8222 4222 9998 5232];
   };
 }
 
