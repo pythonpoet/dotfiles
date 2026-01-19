@@ -69,12 +69,12 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
+    OC_ADD_RUN_SERVICES = "collaboration";
     OC_LOG_LEVEL = "error";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
     OC_JWT_SECRET = "whatever";
     
-  
     # --- Missing Required Variables ---
     # These are standard defaults for oCis on a single machine
     # OC_REVA_GATEWAY = "127.0.0.1:9142";
