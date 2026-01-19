@@ -109,7 +109,7 @@ in {
     COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
     COLLABORATION_OO_SECRET = "whatever";
     
-    PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "jwt"; 
+    PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "true"; # Changed to true to fix 401 errors
     
 
@@ -159,7 +159,7 @@ in {
         media-src: ["'self'"]
         object-src: ["'self'", "blob:"]
         manifest-src: ["'self'"]
-        frame-ancestors: ["'self'", https://cloud.davidwild.ch] 
+        frame-ancestors: ["'self'", "https://cloud.davidwild.ch"] 
     '';
    services.onlyoffice = mkIf cfg.enable_onlyoffice {
     enable = true;
