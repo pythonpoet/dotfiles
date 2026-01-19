@@ -159,7 +159,7 @@ in {
         media-src: ["'self'"]
         object-src: ["'self'", "blob:"]
         manifest-src: ["'self'"]
-        frame-ancestors: ["'self'"]
+        frame-ancestors: ["'self'", https://cloud.davidwild.ch] 
     '';
    services.onlyoffice = mkIf cfg.enable_onlyoffice {
     enable = true;
@@ -186,7 +186,10 @@ in {
       forceSSL = true; # Automatically redirects http:// to https://
 
       extraConfig = ''
-        # Ensures OnlyOffice knows it is being accessed over HTTPS
+        # OnlyOffice needs to be able to be framed by your cloud domain
+        # We must clear any global 'DENY' headers
+        more_clear_headers "X-Frame-Options";
+        
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-Host $host;
       '';
