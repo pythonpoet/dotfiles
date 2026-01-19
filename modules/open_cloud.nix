@@ -167,6 +167,9 @@ in {
     # TODO implement
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
   };
+  services.nginx.upstreams.onlyoffice-docservice.servers = lib.mkForce {
+    "127.0.0.1:9982" = { };
+  };
     services.tika = {
       enable = true;
       port = 9998;
