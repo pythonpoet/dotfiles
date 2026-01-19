@@ -70,7 +70,7 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
-    #OC_ADD_RUN_SERVICES = "gateway,app-registry,collaboration,frontend";
+    OC_ADD_RUN_SERVICES = "nats,gateway,app-registry,collaboration,frontend";
     OC_LOG_LEVEL = "error";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
