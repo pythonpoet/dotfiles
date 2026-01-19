@@ -104,7 +104,7 @@ in {
     COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_onlyoffice "Open office documents with OnlyOffice";
     COLLABORATION_APP_ICON = mkIf cfg.enable_onlyoffice "image-edit";
     COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
-    COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "https://office.davidwild.ch";
+    COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";#"https://office.davidwild.ch";
     COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "true";
     COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
     COLLABORATION_OO_SECRET = "whatever";
@@ -164,7 +164,7 @@ in {
     enable = true;
     port = 9982;
     #enableExampleServer = true;
-    hostname = "office.davidwild.ch";
+    hostname = "localhost";#"office.davidwild.ch";
     postgresPasswordFile = config.age.secrets.onlyoffice.path;
     securityNonceFile = config.age.secrets.onlyofficesec.path;
     # TODO implement
@@ -178,18 +178,18 @@ in {
       "127.0.0.1:9982" = { };
     };
 
-    # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
-    virtualHosts."office.davidwild.ch" = {
-      addSSL = true;
-      enableACME = true;
-      forceSSL = true; # Automatically redirects http:// to https://
+    # # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
+    # virtualHosts."office.davidwild.ch" = {
+    #   addSSL = true;
+    #   enableACME = true;
+    #   forceSSL = true; # Automatically redirects http:// to https://
 
-      extraConfig = ''
-        # Ensures OnlyOffice knows it is being accessed over HTTPS
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host $host;
-      '';
-    };
+    #   extraConfig = ''
+    #     # Ensures OnlyOffice knows it is being accessed over HTTPS
+    #     proxy_set_header X-Forwarded-Proto $scheme;
+    #     proxy_set_header X-Forwarded-Host $host;
+    #   '';
+    # };
   };
     services.tika = {
       enable = true;
