@@ -180,7 +180,7 @@ in {
 
     # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
     virtualHosts."office.davidwild.ch" = {
-      addSSL = true;
+      #addSSL = true;
       enableACME = true;
       forceSSL = true; # Automatically redirects http:// to https://
 
