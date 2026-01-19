@@ -71,7 +71,7 @@ in {
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
     OC_ADD_RUN_SERVICES = "nats,gateway,app-registry,collaboration,frontend";
-    OC_LOG_LEVEL = "error";
+    OC_LOG_LEVEL = "debug";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
     OC_JWT_SECRET = "whatever";
@@ -91,8 +91,8 @@ in {
   
   # # Tell the collaboration service to retry the registration if the gateway is busy
   # # This prevents the immediate "context canceled" on first attempt
-  #   COLLABORATION_GRPC_RETRY_COUNT = "10";
-  #   COLLABORATION_GRPC_RETRY_DELAY = "2s";
+     COLLABORATION_GRPC_RETRY_COUNT = "10";
+  COLLABORATION_GRPC_RETRY_DELAY = "2s";
 
     # --- Authentication Fixes ---
     #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
@@ -125,20 +125,21 @@ in {
     COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
     COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "https://office.davidwild.ch";
     COLLABORATION_WOPI_SECRET = "whatever";
-    COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "false";
+    COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "true";
     COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
     COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
-    MICRO_REGISTRY = "nats-js-kv";
-    MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
+    # MICRO_REGISTRY = "nats-js-kv";
+    # MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
+
     OC_REVA_GATEWAY = "127.0.0.1:9142";
     COLLABORATION_CS3_GATEWAY = "127.0.0.1:9142";
     GATEWAY_GRPC_ADDR = "127.0.0.1:9142";
 
 # Tell the app-registry where OnlyOffice lives
-APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
+#APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
 
   };
   # Only use settings for complex nested structures like role mapping
