@@ -79,6 +79,7 @@ in {
     NATS_NATS_PORT="9233";
     MICRO_REGISTRY_ADDRESS="127.0.0.1:9233";
     
+    
     # --- Missing Required Variables ---
     # These are standard defaults for oCis on a single machine
     # OC_REVA_GATEWAY = "127.0.0.1:9142";
@@ -126,7 +127,7 @@ in {
     COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_onlyoffice "Open office documents with OnlyOffice";
     COLLABORATION_APP_ICON = mkIf cfg.enable_onlyoffice "image-edit";
     COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
-    COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "https://office.davidwild.ch";
+    COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
     COLLABORATION_WOPI_SECRET = "whatever";
     COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "true";
     COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
