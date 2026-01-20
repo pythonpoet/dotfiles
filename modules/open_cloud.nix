@@ -139,6 +139,8 @@ in {
 		COLLABORATION_WOPI_SRC =  "http://127.0.0.1:9300"; #<- Internal Link to the OpenCloud-Service and add 1/2*
 		COLLABORATION_APP_ADDR =  "https://office.davidwild.ch"; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="false";
+    COLLABORATION_ENABLED = true;
+    OCM_GATEWAY_ENABLED = true;
 
 		
 		COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
