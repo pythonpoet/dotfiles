@@ -70,7 +70,7 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
-    OC_ADD_RUN_SERVICES = "collaboration";
+    #OC_ADD_RUN_SERVICES = "collaboration";
 #   gateway
 #   app-registry
 #   collaboration
@@ -163,10 +163,14 @@ OC_STARTUP_TIMEOUT = "60s";
     COLLABORATION_CS3_GATEWAY = "eu.opencloud.api.gateway";
     GATEWAY_GRPC_ADDR = "127.0.0.1:9142";
     COLLABORATION_GRPC_CLIENT_REQUEST_TIMEOUT = "10s";
+    WEB_CONFIG_APPS_ONLYOFFICE_ENABLED = "true";
+  
+  # Ensure the UI knows where the WOPI bridge is
+  WEB_CONFIG_APPS_ONLYOFFICE_URL = "https://cloud.davidwild.ch/wopi/";
 
 # Tell the app-registry where OnlyOffice lives
 APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS = "eu.opencloud.api.collaboration";
-APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
+#APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
     OC_SYSTEM_USER_ID = "akadmin";
   };
   # Only use settings for complex nested structures like role mapping
