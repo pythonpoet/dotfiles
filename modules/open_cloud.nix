@@ -70,7 +70,7 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
-    OC_ADD_RUN_SERVICES = "collaboration";
+    #OC_ADD_RUN_SERVICES = "collaboration";
     #COLLABORATION_GRPC_CLIENT_REQUEST_TIMEOUT = "60s";
 #   gateway
 #   app-registry
