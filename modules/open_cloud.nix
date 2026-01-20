@@ -110,8 +110,8 @@ in {
     COLLABORATION_LOG_LEVEL = "info";
 
 		
-		COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
-    COLLABORATION_GRPC_ADDR = "0.0.0.0:9301";
+		# COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
+    # COLLABORATION_GRPC_ADDR = "0.0.0.0:9301";
     COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
