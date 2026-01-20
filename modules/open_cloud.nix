@@ -70,50 +70,15 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
-    #OC_ADD_RUN_SERVICES = "collaboration";
-    #COLLABORATION_GRPC_CLIENT_REQUEST_TIMEOUT = "60s";
-#   gateway
-#   app-registry
-#   collaboration
-#   frontend
-#   nats
-#   storage-system
-#   storage-users
-#   settings
-#   users
-# '';
+    OC_ADD_RUN_SERVICES = "collaboration";
     OC_LOG_LEVEL = "debug";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
     OC_JWT_SECRET = "whatever";
-    # NATS_NATS_HOST="127.0.0.1";
-    # NATS_NATS_PORT="9233";
-    # MICRO_REGISTRY_ADDRESS="127.0.0.1:9233";
     
-    
-    # --- Missing Required Variables ---
-    # These are standard defaults for oCis on a single machine
-    # OC_REVA_GATEWAY = "127.0.0.1:9142";
-    # MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
-    
-    #MICRO_REGISTRY = "nats-js-kv";
-    # Ensure the gateway points to the registry-resolved name
-    #OC_REVA_GATEWAY = "127.0.0.1:9142";
-    #PROXY_GATEWAY_ADDR = "127.0.0.1:9142";
     STORAGE_USERS_DRIVER = "ocis";
-    
-  #   OC_GRPC_CLIENT_TIMEOUT = "30s";
-  
-  # # Tell the collaboration service to retry the registration if the gateway is busy
-  # # This prevents the immediate "context canceled" on first attempt
-#      COLLABORATION_GRPC_RETRY_COUNT = "10";
-#   COLLABORATION_GRPC_RETRY_DELAY = "2s";
-# OC_STARTUP_TIMEOUT = "60s";
-    # --- Authentication Fixes ---
-    #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
+
     PROXY_EXTERNAL_ADDR = "https://cloud.davidwild.ch";
-    #PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; # Trust the signature
-    #PROXY_OIDC_SKIP_USER_INFO = "false";            # Use ID Token claims instead of calling Authentik API
     PROXY_AUTOPROVISION_ACCOUNTS = "true";         # Create user on first login
 
     # --- Role Assignment (Environment Version) ---
@@ -134,7 +99,7 @@ in {
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
 
     COLLABORA_DOMAIN = "https://office.davidwild.ch";
-    FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";#""eu.opencloud.api.app-registry";
+    FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
 		COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch"; #<- Internal Link to the OpenCloud-Service and add 1/2*
@@ -147,50 +112,12 @@ in {
 		
 		COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
     COLLABORATION_GRPC_ADDR = "0.0.0.0:9301";
-		#COLLABORATION_HTTP_ADDR = "127.0.0.1:9300"; # <- only localhost
-    # COLLABORATION_SERVICE_NAME = "collaboration";
-    # COLLABORATION_APP_NAME = mkIf cfg.enable_onlyoffice "OnlyOffice";
-    # COLLABORATION_APP_PRODUCT = mkIf cfg.enable_onlyoffice "OnlyOffice";
-    # COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_onlyoffice "Open office documents with OnlyOffice";
-    # COLLABORATION_APP_ICON = mkIf cfg.enable_onlyoffice "image-edit";
-    # COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
-    # COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
-    # COLLABORATION_WOPI_SECRET = "whatever";
-    # COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "true";
-    # COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
     COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
     MICRO_REGISTRY = "nats-js-kv";
     MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
-
-    # OC_REVA_GATEWAY = "eu.opencloud.api.gateway";
-    # COLLABORATION_CS3_GATEWAY = "eu.opencloud.api.gateway";
-    # GATEWAY_GRPC_ADDR = "127.0.0.1:9142";
-    # COLLABORATION_GRPC_CLIENT_REQUEST_TIMEOUT = "10s";
-    # WEB_CONFIG_APPS_ONLYOFFICE_ENABLED = "true";
-  
-  # Ensure the UI knows where the WOPI bridge is
-  #WEB_CONFIG_APPS_ONLYOFFICE_URL = "https://cloud.davidwild.ch/wopi/";
-  # APPREGISTRY_MIMETYPES_JSON = builtins.toJSON [
-  #     { extension = "docx"; mime_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; app = "OnlyOffice"; }
-  #     { extension = "xlsx"; mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; app = "OnlyOffice"; }
-  #     { extension = "pptx"; mime_type = "application/vnd.openxmlformats-officedocument.presentationml.presentation"; app = "OnlyOffice"; }
-  #   ];
-
-# Tell the app-registry where OnlyOffice lives
-#APPREGISTRY_PROTOCOLS_WOPI_ENDPOINT = "eu.opencloud.api.collaboration";
-#APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
-# OC_REVA_GATEWAY = "eu.opencloud.api.gateway";
-#     COLLABORATION_CS3_GATEWAY = "eu.opencloud.api.gateway";
-    # COLLABORATION_SKIP_HEALTH_CHECKS = "true";
-    
-    # COLLABORATION_GRPC_ADDR = "127.0.0.1:9301";
-    # COLLABORATION_HTTP_ADDR = "127.0.0.1:9300";
-    
-    # # Ensure the gateway is reached via IPv4
-    # OC_REVA_GATEWAY = "127.0.0.1:9142";
 
     GODEBUG = "netdns=go";
     OC_SYSTEM_USER_ID = "akadmin";
