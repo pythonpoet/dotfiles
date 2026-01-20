@@ -132,16 +132,16 @@ OC_STARTUP_TIMEOUT = "60s";
     WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
     COLLABORA_DOMAIN = "https://office.davidwild.ch";
-    FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.app-registry";
+    FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";#""eu.opencloud.api.app-registry";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
-		COLLABORATION_WOPI_SRC =  "https://cloud.davidwild.ch"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+		COLLABORATION_WOPI_SRC =  "http://davidwild.ch:9300"; #<- Internal Link to the OpenCloud-Service and add 1/2*
 		COLLABORATION_APP_ADDR =  "https://office.davidwild.ch"; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="false";
 
 		
-		#COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
-		COLLABORATION_HTTP_ADDR = "127.0.0.1:9300"; # <- only localhost
+		COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
+		#COLLABORATION_HTTP_ADDR = "127.0.0.1:9300"; # <- only localhost
     # COLLABORATION_SERVICE_NAME = "collaboration";
     # COLLABORATION_APP_NAME = mkIf cfg.enable_onlyoffice "OnlyOffice";
     # COLLABORATION_APP_PRODUCT = mkIf cfg.enable_onlyoffice "OnlyOffice";
