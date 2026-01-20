@@ -188,7 +188,7 @@
           };
           cloud = {
             enable =true;
-            data_dir = "/home/david/test/";
+            data_dir = "/home/david/test/opencloud";
             enable_onlyoffice = true;
             #config_file = "/data1/ocis/config/";
           };
