@@ -180,6 +180,9 @@ in {
 # Tell the app-registry where OnlyOffice lives
 #APPREGISTRY_PROTOCOLS_WOPI_ENDPOINT = "eu.opencloud.api.collaboration";
 #APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
+OC_REVA_GATEWAY = "eu.opencloud.api.gateway";
+    COLLABORATION_CS3_GATEWAY = "eu.opencloud.api.gateway";
+    COLLABORATION_SKIP_HEALTH_CHECKS = "true";
     OC_SYSTEM_USER_ID = "akadmin";
   };
   # Only use settings for complex nested structures like role mapping
