@@ -137,7 +137,7 @@ in {
     FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";#""eu.opencloud.api.app-registry";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
-		COLLABORATION_WOPI_SRC =  "https://office.davidwild.ch"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+		COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch"; #<- Internal Link to the OpenCloud-Service and add 1/2*
 		COLLABORATION_APP_ADDR =  "https://office.davidwild.ch"; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_ENABLED = "true";
@@ -162,8 +162,8 @@ in {
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
-    # MICRO_REGISTRY = "nats-js-kv";
-    # MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
+    MICRO_REGISTRY = "nats-js-kv";
+    MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
 
     # OC_REVA_GATEWAY = "eu.opencloud.api.gateway";
     # COLLABORATION_CS3_GATEWAY = "eu.opencloud.api.gateway";
