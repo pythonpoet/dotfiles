@@ -110,8 +110,8 @@ in {
     COLLABORATION_LOG_LEVEL = "info";
 
 		
-		# COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
-    # COLLABORATION_GRPC_ADDR = "0.0.0.0:9301";
+		COLLABORATION_HTTP_ADDR = "0.0.0.0:9400"; #<- listen to all interfaces or
+    COLLABORATION_GRPC_ADDR = "0.0.0.0:9301";
     COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
@@ -273,7 +273,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-      proxyPass = "http://127.0.0.1:9300";
+      proxyPass = "http://127.0.0.1:9400";
       extraConfig = ''
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
