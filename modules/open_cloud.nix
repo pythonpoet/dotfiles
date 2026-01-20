@@ -260,16 +260,22 @@ in {
     virtualHosts."cloud.davidwild.ch" = {
       # ... your existing SSL config ...
       extraConfig = ''
-        # Disable buffering for SSE (Server-Sent Events)
-        proxy_buffering off;
-        proxy_cache off;
-        proxy_read_timeout 24h;
-        
-        # Required for OpenCloud internal communication
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-      '';
+      proxy_buffering off;
+      proxy_cache off;
+      proxy_read_timeout 24h;
+
+      # Standard Headers
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+
+      # WebSocket Support (Required for OnlyOffice)
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      
+      # Security: Allow iFraming
+      proxy_hide_header X-Frame-Options;
+    '';
     };
   virtualHosts."wopi.davidwild.ch" = {
     enableACME = true;
