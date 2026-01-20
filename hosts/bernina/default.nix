@@ -211,7 +211,7 @@ in
   fileSystems."/data1" = {
     device = "/dev/disk/by-uuid/5a4cb152-78cc-4f24-9941-a11691c9bbca";
     fsType = "btrfs"; 
-    options = ["defaults" "noatime" "compress=zstd" "nofail"];
+    options = ["defaults" "noatime" "compress=zstd" "user_xattr" "nofail"];
   };
 
   fileSystems."/data2" = {
