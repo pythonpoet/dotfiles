@@ -141,6 +141,7 @@ in {
 		COLLABORATION_APP_INSECURE ="false";
     COLLABORATION_ENABLED = "true";
     OCM_GATEWAY_ENABLED = "true";
+    COLLABORATION_LOG_LEVEL = "info";
 
 		
 		COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
