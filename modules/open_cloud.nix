@@ -125,13 +125,13 @@ in {
     FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
-		COLLABORATION_WOPI_SRC =  "http://127.0.0.1:9300"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+		COLLABORATION_WOPI_SRC =  "http://127.0.0.1:9982"; #<- Internal Link to the OpenCloud-Service and add 1/2*
 		COLLABORATION_APP_ADDR =  "https://office.davidwild.ch"; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="false";
 
 		
 		#COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
-		COLLABORATION_HTTP_ADDR = "127.0.0.1:9300"; # <- only localhost
+		COLLABORATION_HTTP_ADDR = "127.0.0.1:9982"; # <- only localhost
     # COLLABORATION_SERVICE_NAME = "collaboration";
     # COLLABORATION_APP_NAME = mkIf cfg.enable_onlyoffice "OnlyOffice";
     # COLLABORATION_APP_PRODUCT = mkIf cfg.enable_onlyoffice "OnlyOffice";
