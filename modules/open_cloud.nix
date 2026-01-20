@@ -139,7 +139,7 @@ in {
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
 		COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch"; #<- Internal Link to the OpenCloud-Service and add 1/2*
 		COLLABORATION_APP_ADDR =  "https://office.davidwild.ch"; #<- External Link to OnlyOffice for iframe
-		COLLABORATION_APP_INSECURE ="false";
+		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_ENABLED = "true";
     OCM_GATEWAY_ENABLED = "true";
     COLLABORATION_LOG_LEVEL = "info";
