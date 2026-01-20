@@ -144,7 +144,7 @@ in {
     COLLABORATION_LOG_LEVEL = "info";
 
 		
-		COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
+		#COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
 		#COLLABORATION_HTTP_ADDR = "127.0.0.1:9300"; # <- only localhost
     # COLLABORATION_SERVICE_NAME = "collaboration";
     # COLLABORATION_APP_NAME = mkIf cfg.enable_onlyoffice "OnlyOffice";
@@ -180,9 +180,16 @@ in {
 # Tell the app-registry where OnlyOffice lives
 #APPREGISTRY_PROTOCOLS_WOPI_ENDPOINT = "eu.opencloud.api.collaboration";
 #APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
-OC_REVA_GATEWAY = "eu.opencloud.api.gateway";
-    COLLABORATION_CS3_GATEWAY = "eu.opencloud.api.gateway";
+# OC_REVA_GATEWAY = "eu.opencloud.api.gateway";
+#     COLLABORATION_CS3_GATEWAY = "eu.opencloud.api.gateway";
     COLLABORATION_SKIP_HEALTH_CHECKS = "true";
+    
+    COLLABORATION_GRPC_ADDR = "127.0.0.1:9301";
+    COLLABORATION_HTTP_ADDR = "127.0.0.1:9300";
+    
+    # Ensure the gateway is reached via IPv4
+    OC_REVA_GATEWAY = "127.0.0.1:9142";
+
     GODEBUG = "netdns=go";
     OC_SYSTEM_USER_ID = "akadmin";
   };
