@@ -183,6 +183,7 @@ in {
 OC_REVA_GATEWAY = "eu.opencloud.api.gateway";
     COLLABORATION_CS3_GATEWAY = "eu.opencloud.api.gateway";
     COLLABORATION_SKIP_HEALTH_CHECKS = "true";
+    GODEBUG = "netdns=go";
     OC_SYSTEM_USER_ID = "akadmin";
   };
   # Only use settings for complex nested structures like role mapping
