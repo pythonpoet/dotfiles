@@ -166,15 +166,15 @@ OC_STARTUP_TIMEOUT = "60s";
     WEB_CONFIG_APPS_ONLYOFFICE_ENABLED = "true";
   
   # Ensure the UI knows where the WOPI bridge is
-  WEB_CONFIG_APPS_ONLYOFFICE_URL = "https://cloud.davidwild.ch/wopi/";
-  APPREGISTRY_MIMETYPES_JSON = builtins.toJSON [
-      { extension = "docx"; mime_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; app = "OnlyOffice"; }
-      { extension = "xlsx"; mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; app = "OnlyOffice"; }
-      { extension = "pptx"; mime_type = "application/vnd.openxmlformats-officedocument.presentationml.presentation"; app = "OnlyOffice"; }
-    ];
+  #WEB_CONFIG_APPS_ONLYOFFICE_URL = "https://cloud.davidwild.ch/wopi/";
+  # APPREGISTRY_MIMETYPES_JSON = builtins.toJSON [
+  #     { extension = "docx"; mime_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; app = "OnlyOffice"; }
+  #     { extension = "xlsx"; mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; app = "OnlyOffice"; }
+  #     { extension = "pptx"; mime_type = "application/vnd.openxmlformats-officedocument.presentationml.presentation"; app = "OnlyOffice"; }
+  #   ];
 
 # Tell the app-registry where OnlyOffice lives
-APPREGISTRY_PROTOCOLS_WOPI_ENDPOINT = "eu.opencloud.api.collaboration";
+#APPREGISTRY_PROTOCOLS_WOPI_ENDPOINT = "eu.opencloud.api.collaboration";
 #APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
     OC_SYSTEM_USER_ID = "akadmin";
   };
