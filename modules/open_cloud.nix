@@ -140,8 +140,8 @@ in {
 		COLLABORATION_APP_INSECURE ="false";
 
 		
-		#COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
-		COLLABORATION_HTTP_ADDR = "127.0.0.1:9300"; # <- only localhost
+		COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
+		#COLLABORATION_HTTP_ADDR = "127.0.0.1:9300"; # <- only localhost
     # COLLABORATION_SERVICE_NAME = "collaboration";
     # COLLABORATION_APP_NAME = mkIf cfg.enable_onlyoffice "OnlyOffice";
     # COLLABORATION_APP_PRODUCT = mkIf cfg.enable_onlyoffice "OnlyOffice";
@@ -159,9 +159,9 @@ in {
     MICRO_REGISTRY = "nats-js-kv";
     MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
 
-    # OC_REVA_GATEWAY = "127.0.0.1:9142";
-    # COLLABORATION_CS3_GATEWAY = "127.0.0.1:9142";
-    # GATEWAY_GRPC_ADDR = "127.0.0.1:9142";
+    OC_REVA_GATEWAY = "127.0.0.1:9142";
+    COLLABORATION_CS3_GATEWAY = "127.0.0.1:9142";
+    GATEWAY_GRPC_ADDR = "127.0.0.1:9142";
 
 # Tell the app-registry where OnlyOffice lives
 #APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
