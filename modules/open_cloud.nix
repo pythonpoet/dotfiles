@@ -70,14 +70,14 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
-    OC_ADD_RUN_SERVICES = "gateway,app-registry,collaboration,frontend";
+    #OC_ADD_RUN_SERVICES = "gateway,app-registry,collaboration,frontend";
     OC_LOG_LEVEL = "debug";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
     OC_JWT_SECRET = "whatever";
-    NATS_NATS_HOST="127.0.0.1";
-    NATS_NATS_PORT="9233";
-    MICRO_REGISTRY_ADDRESS="127.0.0.1:9233";
+    # NATS_NATS_HOST="127.0.0.1";
+    # NATS_NATS_PORT="9233";
+    # MICRO_REGISTRY_ADDRESS="127.0.0.1:9233";
     
     
     # --- Missing Required Variables ---
@@ -85,7 +85,7 @@ in {
     # OC_REVA_GATEWAY = "127.0.0.1:9142";
     # MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
     
-    MICRO_REGISTRY = "nats-js-kv";
+    #MICRO_REGISTRY = "nats-js-kv";
     # Ensure the gateway points to the registry-resolved name
     #OC_REVA_GATEWAY = "127.0.0.1:9142";
     #PROXY_GATEWAY_ADDR = "127.0.0.1:9142";
@@ -95,8 +95,8 @@ in {
   
   # # Tell the collaboration service to retry the registration if the gateway is busy
   # # This prevents the immediate "context canceled" on first attempt
-     COLLABORATION_GRPC_RETRY_COUNT = "10";
-  COLLABORATION_GRPC_RETRY_DELAY = "2s";
+  #    COLLABORATION_GRPC_RETRY_COUNT = "10";
+  # COLLABORATION_GRPC_RETRY_DELAY = "2s";
 
     # --- Authentication Fixes ---
     #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
@@ -121,16 +121,27 @@ in {
     WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
     WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
-    COLLABORATION_SERVICE_NAME = "collaboration";
-    COLLABORATION_APP_NAME = mkIf cfg.enable_onlyoffice "OnlyOffice";
-    COLLABORATION_APP_PRODUCT = mkIf cfg.enable_onlyoffice "OnlyOffice";
-    COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_onlyoffice "Open office documents with OnlyOffice";
-    COLLABORATION_APP_ICON = mkIf cfg.enable_onlyoffice "image-edit";
-    COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
-    COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
-    COLLABORATION_WOPI_SECRET = "whatever";
-    COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "true";
-    COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
+    COLLABORA_DOMAIN = "https://office.davidwild.ch";
+    FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
+    COLLABORATION_APP_NAME = "OnlyOffice";
+		COLLABORATION_APP_PRODUCT = "OnlyOffice";
+		COLLABORATION_WOPI_SRC =  "http://127.0.0.1:9300"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+		COLLABORATION_APP_ADDR =  "https://office.davidwild.ch"; #<- External Link to OnlyOffice for iframe
+		COLLABORATION_APP_INSECURE ="false";
+
+		
+		#COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
+		COLLABORATION_HTTP_ADDR = "127.0.0.1:9300"; # <- only localhost
+    # COLLABORATION_SERVICE_NAME = "collaboration";
+    # COLLABORATION_APP_NAME = mkIf cfg.enable_onlyoffice "OnlyOffice";
+    # COLLABORATION_APP_PRODUCT = mkIf cfg.enable_onlyoffice "OnlyOffice";
+    # COLLABORATION_APP_DESCRIPTION = mkIf cfg.enable_onlyoffice "Open office documents with OnlyOffice";
+    # COLLABORATION_APP_ICON = mkIf cfg.enable_onlyoffice "image-edit";
+    # COLLABORATION_APP_ADDR = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
+    # COLLABORATION_WOPI_SRC = mkIf cfg.enable_onlyoffice "http://127.0.0.1:9982";
+    # COLLABORATION_WOPI_SECRET = "whatever";
+    # COLLABORATION_APP_INSECURE = mkIf cfg.enable_onlyoffice "true";
+    # COLLABORATION_APP_PROOF_DISABLE = mkIf cfg.enable_onlyoffice "true";
     COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
@@ -138,9 +149,9 @@ in {
     # MICRO_REGISTRY = "nats-js-kv";
     # MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
 
-    OC_REVA_GATEWAY = "127.0.0.1:9142";
-    COLLABORATION_CS3_GATEWAY = "127.0.0.1:9142";
-    GATEWAY_GRPC_ADDR = "127.0.0.1:9142";
+    # OC_REVA_GATEWAY = "127.0.0.1:9142";
+    # COLLABORATION_CS3_GATEWAY = "127.0.0.1:9142";
+    # GATEWAY_GRPC_ADDR = "127.0.0.1:9142";
 
 # Tell the app-registry where OnlyOffice lives
 #APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";

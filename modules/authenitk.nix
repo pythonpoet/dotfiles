@@ -68,7 +68,7 @@ in {
         Group = "authentik";
         
         # 1. This ensures the dynamic user has a persistent ID for this service
-        # so that file ownership remains valid across reboots.
+        # so environmentFilethat file ownership remains valid across reboots.
         StateDirectory = "authentik"; 
         StateDirectoryMode = "0750";
 
