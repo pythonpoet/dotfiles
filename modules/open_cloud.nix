@@ -229,6 +229,8 @@ in {
    services.onlyoffice = mkIf cfg.enable_onlyoffice {
     enable = true;
     port = 9982;
+    enableExampleServer = true;
+    examplePort = 9982;
     #enableExampleServer = true;
     hostname = "office.davidwild.ch";
     postgresPasswordFile = config.age.secrets.onlyoffice.path;
