@@ -70,7 +70,7 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
-#     OC_ADD_RUN_SERVICES = ''
+    OC_ADD_RUN_SERVICES = "clollaboration"
 #   gateway
 #   app-registry
 #   collaboration
@@ -132,7 +132,7 @@ OC_STARTUP_TIMEOUT = "60s";
     WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
     COLLABORA_DOMAIN = "https://office.davidwild.ch";
-    FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
+    FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.app-registry";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
 		COLLABORATION_WOPI_SRC =  "http://127.0.0.1:9300"; #<- Internal Link to the OpenCloud-Service and add 1/2*
@@ -165,6 +165,7 @@ OC_STARTUP_TIMEOUT = "60s";
     COLLABORATION_GRPC_CLIENT_REQUEST_TIMEOUT = "10s";
 
 # Tell the app-registry where OnlyOffice lives
+APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS = "eu.opencloud.api.collaboration";
 APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
     OC_SYSTEM_USER_ID = "akadmin";
   };
