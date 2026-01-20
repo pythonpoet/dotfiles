@@ -135,7 +135,7 @@ OC_STARTUP_TIMEOUT = "60s";
     FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.app-registry";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
-		COLLABORATION_WOPI_SRC =  "http://127.0.0.1:9300"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+		COLLABORATION_WOPI_SRC =  "https://cloud.davidwild.ch"; #<- Internal Link to the OpenCloud-Service and add 1/2*
 		COLLABORATION_APP_ADDR =  "https://office.davidwild.ch"; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="false";
 
@@ -167,9 +167,14 @@ OC_STARTUP_TIMEOUT = "60s";
   
   # Ensure the UI knows where the WOPI bridge is
   WEB_CONFIG_APPS_ONLYOFFICE_URL = "https://cloud.davidwild.ch/wopi/";
+  APPREGISTRY_MIMETYPES_JSON = builtins.toJSON [
+      { extension = "docx"; mime_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; app = "OnlyOffice"; }
+      { extension = "xlsx"; mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; app = "OnlyOffice"; }
+      { extension = "pptx"; mime_type = "application/vnd.openxmlformats-officedocument.presentationml.presentation"; app = "OnlyOffice"; }
+    ];
 
 # Tell the app-registry where OnlyOffice lives
-APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS = "eu.opencloud.api.collaboration";
+APPREGISTRY_PROTOCOLS_WOPI_ENDPOINT = "eu.opencloud.api.collaboration";
 #APPREGISTRY_PROTOCOLS_WOPI_ENDPOINTS_ONLYOFFICE = "http://127.0.0.1:9982/hosting/discovery";
     OC_SYSTEM_USER_ID = "akadmin";
   };
