@@ -69,7 +69,7 @@ in {
     OC_URL = cfg.domain;
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
-    OC_EXCLUDE_RUN_SERVICES = "idp";
+    #OC_EXCLUDE_RUN_SERVICES = "idp";
     #OC_ADD_RUN_SERVICES = "collaboration";
     OC_LOG_LEVEL = "debug";
     PROXY_TLS = "false";
@@ -110,7 +110,7 @@ in {
     COLLABORATION_LOG_LEVEL = "info";
 
 		
-		COLLABORATION_HTTP_ADDR = "0.0.0.0:9400"; #<- listen to all interfaces or
+		COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
     COLLABORATION_GRPC_ADDR = "0.0.0.0:9301";
     COLLABORATION_OO_SECRET = "whatever";
     
@@ -273,7 +273,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-      proxyPass = "http://127.0.0.1:9400";
+      proxyPass = "http://127.0.0.1:9300";
       extraConfig = ''
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
