@@ -69,8 +69,8 @@ in {
     OC_URL = cfg.domain;
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
-    #OC_EXCLUDE_RUN_SERVICES = "idp";
-    OC_ADD_RUN_SERVICES = "gateway,collaboration";
+    OC_EXCLUDE_RUN_SERVICES = "idp";
+    #OC_ADD_RUN_SERVICES = "collaboration";
     OC_LOG_LEVEL = "debug";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
