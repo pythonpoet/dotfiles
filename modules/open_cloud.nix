@@ -131,6 +131,7 @@ OC_STARTUP_TIMEOUT = "60s";
     WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
     WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
+
     COLLABORA_DOMAIN = "https://office.davidwild.ch";
     FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";#""eu.opencloud.api.app-registry";
     COLLABORATION_APP_NAME = "OnlyOffice";
@@ -159,11 +160,11 @@ OC_STARTUP_TIMEOUT = "60s";
     MICRO_REGISTRY = "nats-js-kv";
     MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
 
-    OC_REVA_GATEWAY = "eu.opencloud.api.gateway";
-    COLLABORATION_CS3_GATEWAY = "eu.opencloud.api.gateway";
-    GATEWAY_GRPC_ADDR = "127.0.0.1:9142";
-    COLLABORATION_GRPC_CLIENT_REQUEST_TIMEOUT = "10s";
-    WEB_CONFIG_APPS_ONLYOFFICE_ENABLED = "true";
+    # OC_REVA_GATEWAY = "eu.opencloud.api.gateway";
+    # COLLABORATION_CS3_GATEWAY = "eu.opencloud.api.gateway";
+    # GATEWAY_GRPC_ADDR = "127.0.0.1:9142";
+    # COLLABORATION_GRPC_CLIENT_REQUEST_TIMEOUT = "10s";
+    # WEB_CONFIG_APPS_ONLYOFFICE_ENABLED = "true";
   
   # Ensure the UI knows where the WOPI bridge is
   #WEB_CONFIG_APPS_ONLYOFFICE_URL = "https://cloud.davidwild.ch/wopi/";
