@@ -107,7 +107,7 @@ in {
   # # This prevents the immediate "context canceled" on first attempt
      COLLABORATION_GRPC_RETRY_COUNT = "10";
   COLLABORATION_GRPC_RETRY_DELAY = "2s";
-
+OC_STARTUP_TIMEOUT = "60s";
     # --- Authentication Fixes ---
     #PROXY_OIDC_REWRITE_WELLKNOWN = "true";
     PROXY_EXTERNAL_ADDR = "https://cloud.davidwild.ch";
