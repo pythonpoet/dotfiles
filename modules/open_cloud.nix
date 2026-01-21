@@ -114,7 +114,7 @@ in {
     COLLABORATION_JWT_SECRET = "whatever";
 
 		
-		COLLABORATION_HTTP_ADDR = "${internal_host}:${toString wopi_port+1}"; #<- listen to all interfaces or
+		COLLABORATION_HTTP_ADDR = "${internal_host}:${toString (wopi_port+1)}"; #<- listen to all interfaces or
     COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
