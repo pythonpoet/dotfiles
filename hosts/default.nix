@@ -144,6 +144,7 @@
             ];
             secrets.borg.file = "/home/david/dotfiles/secrets/borg.age";
             secrets.authentik.file = "/home/david/dotfiles/secrets/authentik.age";
+            secrets.maxmind-licence.file = "/home/david/dotfiles/secrets/maxmind-licence.age";
             secrets.onlyofficesec = {
               file = "/home/david/dotfiles/secrets/onlyofficesec.age";
               owner = "onlyoffice"; 

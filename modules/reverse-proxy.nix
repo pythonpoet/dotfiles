@@ -49,7 +49,7 @@ in {
       max_mind_licence_key = mkOption {
         type = types.str;
         description = "licence key to download maxmind databases";
-        default = "/data1/geoip/maxmind-licence_key";
+        default = config.age.secrets.maxmind-licence.path;
       };
 
       max_mind_database_path = mkOption {
