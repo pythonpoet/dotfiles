@@ -267,7 +267,7 @@ in {
     };
     virtualHosts."cloud.davidwild.ch" = {
       locations."/" = {
-      proxyPass = "http://0.0.0.0:9200";
+      proxyPass = "http://127.0.0.1:9200";
       extraConfig = ''
       proxy_buffering off;
       proxy_cache off;
