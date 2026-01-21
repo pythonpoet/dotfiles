@@ -247,7 +247,7 @@ in {
       enableACME = true;
       forceSSL = true; # Automatically redirects http:// to https://
       locations."/" = {
-      proxyPass = "http://0.0.0.0:9982";
+      # proxyPass = "http://0.0.0.0:9982";
       extraConfig = ''
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
