@@ -14,7 +14,7 @@
 }:
 with lib; let
   # List of ports to enable
-  internal_host = "127.0.0.1";
+  internal_host = "0.0.0.0";
   opencould_port = 9200;
   wopi_port = 9300;
   onlyoffice_url = "https://office.davidwild.ch";
