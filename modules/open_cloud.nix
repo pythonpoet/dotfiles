@@ -111,6 +111,7 @@ in {
 		COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
+    COLLABORATION_JWT_SECRET = "whatever";
 
 		
 		COLLABORATION_HTTP_ADDR = "${internal_host}:${toString wopi_port}"; #<- listen to all interfaces or
