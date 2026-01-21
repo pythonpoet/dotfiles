@@ -91,6 +91,7 @@ in {
     PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME = "name";
     PROXY_USER_OIDC_CLAIM = "preferred_username";
     PROXY_USER_CS3_CLAIM = "username";
+    PROXY_HTTP_ADDR = "0.0.0.0:9200";
 
     # --- Web Frontend & CSP ---
     WEB_OIDC_CLIENT_ID = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
