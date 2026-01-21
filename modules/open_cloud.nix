@@ -109,7 +109,7 @@ in {
     COLLABORATION_LOG_LEVEL = "info";
 
 		
-		COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
+		#COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
     #COLLABORATION_GRPC_ADDR = "0.0.0.0:9301";
     # OC_REVA_GATEWAY = "127.0.0.1:9142";
     # COLLABORATION_CS3_GATEWAY = "127.0.0.1:9142";
