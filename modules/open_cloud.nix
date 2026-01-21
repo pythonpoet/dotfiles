@@ -109,7 +109,7 @@ in {
     COLLABORATION_LOG_LEVEL = "info";
 
 		
-		COLLABORATION_HTTP_ADDR = "127.0.0.1:9300"; #<- listen to all interfaces or
+		COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
     #COLLABORATION_GRPC_ADDR = "0.0.0.0:9301";
     # OC_REVA_GATEWAY = "127.0.0.1:9142";
     # COLLABORATION_CS3_GATEWAY = "127.0.0.1:9142";
@@ -118,7 +118,7 @@ in {
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
     MICRO_REGISTRY = "nats-js-kv";
-    MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
+    MICRO_REGISTRY_ADDRESS = "0.0.0.0:9233";
 
     GODEBUG = "netdns=go";
     OC_SYSTEM_USER_ID = "akadmin";
@@ -237,15 +237,24 @@ in {
   services.nginx = {
     # 1. The Upstream Fix: Forces Nginx to use IPv4 (127.0.0.1) instead of IPv6 ([::1])
     # This solves the "Connection Refused" error we saw in your logs.
-    upstreams."onlyoffice-docservice".servers = lib.mkForce {
-      "127.0.0.1:9982" = { };
-    };
+    # upstreams."onlyoffice-docservice".servers = lib.mkForce {
+    #   "127.0.0.1:9982" = { };
+    # };
 
     # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
     virtualHosts."office.davidwild.ch" = {
       #addSSL = true;
       enableACME = true;
       forceSSL = true; # Automatically redirects http:// to https://
+      locations."/" = {
+      proxyPass = "http://0.0.0.0:9982";
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+      '';
+    };
 
       extraConfig = ''
         # OnlyOffice needs to be able to be framed by your cloud domain
@@ -280,7 +289,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
-      proxyPass = "http://127.0.0.1:9300";
+      proxyPass = "http://0.0.0.0:9300";
       extraConfig = ''
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
