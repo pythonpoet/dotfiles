@@ -337,6 +337,11 @@ in {
         };
       };
     };
+    systemd.services.opencloud.serviceConfig = {
+  # This prevents the service from even seeing the IPv6 'Address Family'
+  RestrictAddressFamilies = [ "AF_INET" "AF_UNIX" "AF_NETLINK" ]; 
+  # Note: We omitted AF_INET6 here.
+};
     networking.firewall.allowedTCPPorts = [9200 9980 8222 4222 9998 5232];
   };
 }
