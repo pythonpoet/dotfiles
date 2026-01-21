@@ -159,9 +159,9 @@ in
     # Tailscale exidnode config: Enable IP forwarding for the exit node to function
     kernel.sysctl = {
       "net.ipv4.ip_forward" = 1;
-      "net.ipv6.conf.all.forwarding" = 1;
-      "net.ipv4.conf.all.forwarding" = 1; # Added for completeness
-      "net.ipv6.conf.default.forwarding" = 1; # Often required to silence the warning
+      "net.ipv6.conf.all.forwarding" = 0;
+      "net.ipv4.conf.all.forwarding" = 0; # Added for completeness
+      "net.ipv6.conf.default.forwarding" = 0; # Often required to silence the warning
     };
     
     kernelPackages = kernelBundle.linuxPackages_rpi5;   # <-- keep original
