@@ -118,10 +118,9 @@ in {
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
-    MICRO_REGISTRY = "nats-js-kv";
-    MICRO_REGISTRY_ADDRESS = "0.0.0.0:9233";
+    # MICRO_REGISTRY = "nats-js-kv";
+    # MICRO_REGISTRY_ADDRESS = "0.0.0.0:9233";
 
-    GODEBUG = "netdns=go";
     OC_SYSTEM_USER_ID = "akadmin";
   };
   # Only use settings for complex nested structures like role mapping
