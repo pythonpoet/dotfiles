@@ -122,6 +122,7 @@ in {
     # MICRO_REGISTRY = "nats-js-kv";
     # MICRO_REGISTRY_ADDRESS = "0.0.0.0:9233";
     GODEBUG="netdns=go";
+    OC_CHECK_REACHABILITY = "false";
     OC_SYSTEM_USER_ID = "akadmin";
   };
   # Only use settings for complex nested structures like role mapping
