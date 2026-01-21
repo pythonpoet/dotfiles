@@ -14,7 +14,11 @@
 }:
 with lib; let
   # List of ports to enable
-  #
+  internal_host = "0.0.0.0";
+  opencould_port = 9200;
+  wopi_port = 9300;
+  onlyoffice_url = "https://office.davidwild.ch";
+  opencloud_url = "https://cloud.davidwild.ch";
   cfg = config.cloud;
 in {
   options.cloud = {
@@ -27,11 +31,11 @@ in {
     };
     port = mkOption {
       type = types.port;
-      default = 9200;
+      default = opencould_port;
     };
     domain = mkOption {
       type = types.str;
-      default = "https://cloud.davidwild.ch";
+      default = opencloud_url;
     };
 
     enable_radicale = mkOption {
@@ -78,7 +82,7 @@ in {
     
     STORAGE_USERS_DRIVER = "ocis";
 
-    PROXY_EXTERNAL_ADDR = "https://cloud.davidwild.ch";
+    PROXY_EXTERNAL_ADDR = opencloud_url;
     PROXY_AUTOPROVISION_ACCOUNTS = "true";         # Create user on first login
 
     # --- Role Assignment (Environment Version) ---
@@ -91,28 +95,25 @@ in {
     PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME = "name";
     PROXY_USER_OIDC_CLAIM = "preferred_username";
     PROXY_USER_CS3_CLAIM = "username";
-    PROXY_HTTP_ADDR = "0.0.0.0:9200";
+    PROXY_HTTP_ADDR = "${internal_host}:${toString opencould_port}";
 
     # --- Web Frontend & CSP ---
     WEB_OIDC_CLIENT_ID = "9jFTfaHSUZuztAPiiGu6dYciLDyeIRkXsixnZsxx";
-    WEB_OIDC_AUTHORITY = "https://cloud.davidwild.ch";
-    WEB_OIDC_METADATA_URL = "https://cloud.davidwild.ch/.well-known/openid-configuration";
+    WEB_OIDC_AUTHORITY = opencloud_url;
+    WEB_OIDC_METADATA_URL = "${opencloud_url}/.well-known/openid-configuration";
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
 
-    COLLABORA_DOMAIN = "https://office.davidwild.ch";
+    COLLABORA_DOMAIN = onlyoffice_url;
     FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
-		COLLABORATION_WOPI_SRC =  "http://0.0.0.0:9982"; #<- Internal Link to the OpenCloud-Service and add 1/2*
-		COLLABORATION_APP_ADDR =  "https://office.davidwild.ch"; #<- External Link to OnlyOffice for iframe
+		COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+		COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
 
 		
-		#COLLABORATION_HTTP_ADDR = "0.0.0.0:9300"; #<- listen to all interfaces or
-    #COLLABORATION_GRPC_ADDR = "0.0.0.0:9301";
-    # OC_REVA_GATEWAY = "127.0.0.1:9142";
-    # COLLABORATION_CS3_GATEWAY = "127.0.0.1:9142";
+		COLLABORATION_HTTP_ADDR = "${internal_host}:${toString wopi_port}"; #<- listen to all interfaces or
     COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
