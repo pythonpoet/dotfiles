@@ -70,7 +70,7 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
-    #OC_ADD_RUN_SERVICES = "collaboration";
+    OC_ADD_RUN_SERVICES = "collaboration";
     OC_LOG_LEVEL = "debug";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
@@ -266,7 +266,8 @@ in {
       '';
     };
     virtualHosts."cloud.davidwild.ch" = {
-      # ... your existing SSL config ...
+      locations."/" = {
+      proxyPass = "http://0.0.0.0:9200";
       extraConfig = ''
       proxy_buffering off;
       proxy_cache off;
@@ -284,6 +285,7 @@ in {
       # Security: Allow iFraming
       proxy_hide_header X-Frame-Options;
     '';
+    };
     };
   virtualHosts."wopi.davidwild.ch" = {
     enableACME = true;
