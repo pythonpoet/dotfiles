@@ -104,19 +104,19 @@ in {
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
 
     #COLLABORA_DOMAIN = onlyoffice_url;
-    # FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
-    # COLLABORA_DOMAIN = "office.davidwild.ch";
-    # COLLABORATION_APP_NAME = "OnlyOffice";
-		# COLLABORATION_APP_PRODUCT = "OnlyOffice";
-		# COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
-		# COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
-		# COLLABORATION_APP_INSECURE ="true";
-    # COLLABORATION_LOG_LEVEL = "info";
-    # COLLABORATION_JWT_SECRET = "whatever";
+    FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
+    COLLABORA_DOMAIN = "office.davidwild.ch";
+    COLLABORATION_APP_NAME = "OnlyOffice";
+		COLLABORATION_APP_PRODUCT = "OnlyOffice";
+		COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+		COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
+		COLLABORATION_APP_INSECURE ="true";
+    COLLABORATION_LOG_LEVEL = "info";
+    COLLABORATION_JWT_SECRET = "whatever";
 
 		
-		# COLLABORATION_HTTP_ADDR = "${internal_host}:${toString (wopi_port)}"; #<- listen to all interfaces or
-    # COLLABORATION_OO_SECRET = "whatever";
+		COLLABORATION_HTTP_ADDR = "${internal_host}:${toString (wopi_port)}"; #<- listen to all interfaces or
+    COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
@@ -151,23 +151,33 @@ in {
         connect-src:
           - "'self'"
           - "blob:"
-          - "https://update.opencloud.eu/"
           - "https://office.davidwild.ch"
-          - "http://office.davidwild.ch"
           - "https://auth.davidwild.ch"
           - "https://cloud.davidwild.ch"
           - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
         script-src:
           - "'self'"
           - "'unsafe-inline'"
+          - "https://cloud.davidwild.ch"
         style-src:
           - "'self'"
           - "'unsafe-inline'"
         # Inherit defaults for others
         child-src: ["'self'"]
         font-src: ["'self'"]
-        frame-src: ["'self'", "blob:", "https://embed.diagrams.net/", "https://office.davidwild.ch"]
-        img-src: ["'self'", "data:", "blob:"]
+        frame-src:
+          - '''self'''
+          - 'blob:'
+          - 'https://embed.diagrams.net/'
+          - "https://office.davidwild.ch"
+          - 'https://docs.opencloud.eu'
+          img-src:
+          - '''self'''
+          - 'data:'
+          - 'blob:'
+          - 'https://raw.githubusercontent.com/opencloud-eu/awesome-apps/'
+          - 'https://tile.openstreetmap.org/'
+          - 'https://office.davidwild.ch/'
         media-src: ["'self'"]
         object-src: ["'self'", "blob:"]
         manifest-src: ["'self'"]
@@ -249,25 +259,35 @@ in {
       #addSSL = true;
       enableACME = true;
       forceSSL = true; # Automatically redirects http:// to https://
+      extraConfig = ''
+        client_max_body_size 500M;
+        # Ensure we clear headers that might block iframes globally
+        more_clear_headers "X-Frame-Options";
+      '';
       locations."/" = {
       # proxyPass = "http://0.0.0.0:9982";
-      extraConfig = ''
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-      '';
+      proxyWebsockets = true; # Highly recommended for OnlyOffice editors
+    
+    extraConfig = ''
+      # Headers from your original snippet
+      proxy_set_header Accept-Encoding "";
+      proxy_buffering off;
+      proxy_read_timeout 3600s;
+      proxy_send_timeout 3600s;
+
+      # Security & Iframe headers
+      # Note: 'more_clear_headers' is used here if the 'headers-more' module is active
+      proxy_hide_header X-Frame-Options;
+      add_header Content-Security-Policy "frame-ancestors 'self' https://*.domain.de";
+      
+      # Standard Proxy Headers
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+    '';
     };
 
-      extraConfig = ''
-        # OnlyOffice needs to be able to be framed by your cloud domain
-        # We must clear any global 'DENY' headers
-        more_clear_headers "X-Frame-Options";
-        
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host $host;
-      '';
-    };
     virtualHosts."cloud.davidwild.ch" = {
   # ... your existing SSL config ...
   extraConfig = ''
