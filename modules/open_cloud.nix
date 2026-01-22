@@ -104,19 +104,19 @@ in {
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
 
     #COLLABORA_DOMAIN = onlyoffice_url;
-    FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
-    COLLABORA_DOMAIN = "office.davidwild.ch";
-    COLLABORATION_APP_NAME = "OnlyOffice";
-		COLLABORATION_APP_PRODUCT = "OnlyOffice";
-		COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
-		COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
-		COLLABORATION_APP_INSECURE ="true";
-    COLLABORATION_LOG_LEVEL = "info";
-    COLLABORATION_JWT_SECRET = "whatever";
+    # FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
+    # COLLABORA_DOMAIN = "office.davidwild.ch";
+    # COLLABORATION_APP_NAME = "OnlyOffice";
+		# COLLABORATION_APP_PRODUCT = "OnlyOffice";
+		# COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+		# COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
+		# COLLABORATION_APP_INSECURE ="true";
+    # COLLABORATION_LOG_LEVEL = "info";
+    # COLLABORATION_JWT_SECRET = "whatever";
 
 		
-		COLLABORATION_HTTP_ADDR = "${internal_host}:${toString (wopi_port)}"; #<- listen to all interfaces or
-    COLLABORATION_OO_SECRET = "whatever";
+		# COLLABORATION_HTTP_ADDR = "${internal_host}:${toString (wopi_port)}"; #<- listen to all interfaces or
+    # COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
