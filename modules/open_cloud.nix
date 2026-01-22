@@ -166,13 +166,13 @@ in {
         child-src: ["'self'"]
         font-src: ["'self'"]
         frame-src:
-          - '''self'''
+          - "'self'"
           - 'blob:'
           - 'https://embed.diagrams.net/'
           - "https://office.davidwild.ch"
           - 'https://docs.opencloud.eu'
         img-src:
-          - '''self'''
+          - "'self'"
           - 'data:'
           - 'blob:'
           - 'https://raw.githubusercontent.com/opencloud-eu/awesome-apps/'
