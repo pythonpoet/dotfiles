@@ -74,7 +74,7 @@ in {
     OC_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
-    #OC_ADD_RUN_SERVICES = "collaboration";
+    OC_ADD_RUN_SERVICES = "collaboration";
     OC_LOG_LEVEL = "debug";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
@@ -105,6 +105,7 @@ in {
 
     #COLLABORA_DOMAIN = onlyoffice_url;
     FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
+    COLLABORA_DOMAIN = "office.davidwild.ch";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
 		COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
