@@ -171,7 +171,7 @@ in {
           - 'https://embed.diagrams.net/'
           - "https://office.davidwild.ch"
           - 'https://docs.opencloud.eu'
-          img-src:
+        img-src:
           - '''self'''
           - 'data:'
           - 'blob:'
@@ -318,25 +318,28 @@ in {
   };
   };
 
-    services.tika = {
-      enable = true;
-      port = 9998;
-      # Optional: listen only on localhost for security
-      listenAddress = "127.0.0.1";
-    };
+    # services.tika = {
+    #   enable = true;
+    #   port = 9998;
+    #   # Optional: listen only on localhost for security
+    #   listenAddress = "127.0.0.1";
+    # };
     #TODO add collabora
-    # virtualisation.oci-containers = {
-    #   backend = "podman";
-    #   containers = {
+    virtualisation.oci-containers = {
+      backend = "podman";
+      containers = {
 
-    #     collabora = mkIf cfg. {
-    #       image = "collabora/code";
-    #       ports = ["9980:9980"];
-    #       autoStart = true;
-    #       environment = {
-    #         extra_params = "--o:ssl.enable=false";
-    #       };
-    #     };
+        collabora = mkIf cfg. {
+          image = "onlyoffice/documentserver:latest";
+          ports = ["9980:9980"];
+          autoStart = true;
+          environment = {
+            WOPI_ENABLED= "true";
+            JWT_ENABLED = "true";
+            JWT_SECRET="whatever";
+            #extra_params = "--o:ssl.enable=false";
+          };
+        }; };};
     #     tika = mkIf cfg.enable_full_text_search {
     #       image = "apache/tika:latest-full";
     #       ports = ["9998:9998"];
