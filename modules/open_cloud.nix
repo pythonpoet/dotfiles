@@ -194,6 +194,7 @@ in {
     postgresPasswordFile = config.age.secrets.onlyoffice.path;
     securityNonceFile = config.age.secrets.onlyofficesec.path;
     wopi = true;
+    nginx = false;
     # TODO implement
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
@@ -201,7 +202,7 @@ in {
   systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre =
   lib.mkBefore [
     (pkgs.writeShellScript "onlyoffice-wopi-fix" ''
-      mkdir -p /var/lib/onlyoffice/documentserver/server/FileConverter/bin/templates
+      mkdir -p /var/lib/onlyoffice/documentserver/document-templates/new
       chown -R onlyoffice:onlyoffice /var/lib/onlyoffice/documentserver
     '')
   ];
@@ -310,7 +311,7 @@ in {
         more_clear_headers "X-Frame-Options";
       '';
       locations."/" = {
-      # proxyPass = "http://0.0.0.0:9982";
+       proxyPass = "http://0.0.0.0:9982";
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
     extraConfig = ''
