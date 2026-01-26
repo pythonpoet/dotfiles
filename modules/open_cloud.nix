@@ -14,7 +14,7 @@
 }:
 with lib; let
   # List of ports to enable
-  internal_host = "0.0.0.0";
+  internal_host = "127.0.0.1";
   opencould_port = 9200;
   wopi_port = 9300;
   onlyoffice_url = "https://office.davidwild.ch";
@@ -113,6 +113,7 @@ in {
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
     COLLABORATION_JWT_SECRET = "whatever";
+    COLLABORATION_CS3API_DATAGATEWAY_INSECURE = "true";
 
 		
 		COLLABORATION_HTTP_ADDR = "${internal_host}:${toString (wopi_port)}"; #<- listen to all interfaces or
