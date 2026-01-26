@@ -198,10 +198,10 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-  systemd.services.onlyoffice-docservice = lib.mkForce{
+  systemd.services.onlyoffice-docservice = {
   serviceConfig = {
     # 1. Create the path in /run/onlyoffice/...
-    RuntimeDirectory = "onlyoffice/documentserver/document-templates/new/en-US";
+    RuntimeDirectory = lib.mkForce "onlyoffice/documentserver/document-templates/new/en-US";
     
     # 2. Map that path to the /var/www path the app is hardcoded to use
     BindPaths = [
