@@ -198,33 +198,22 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-systemd.services.onlyoffice-docservice.serviceConfig = {
-  # 1. Standardize the Runtime directory
-  RuntimeDirectory = lib.mkForce "onlyoffice";
+systemd.services.onlyoffice-docservice = {
+  # 1. Ensure the folder exists in the service's view
+  serviceConfig.RuntimeDirectory = lib.mkForce "onlyoffice";
 
-  # 2. Tell systemd to ensure the destination path exists 
-  # by making it a 'MountPoint' or ensuring it is accessible.
-  # This creates the /var/www/... path in the private namespace automatically.
-  InaccessiblePaths = [
-    "-/var/www/onlyoffice/documentserver"
-  ];
+  # 2. Inject environment variables to redirect the path logic
+  environment = {
+    # This overrides the internal path for templates
+    # We point it to the directory we know is writable
+    "services_CoAuthoring_wopi_templatePath" = "/run/onlyoffice/documentserver/document-templates/new";
+  };
 
-  # 3. Now perform the Bind
-  BindPaths = [
-    "/run/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
-  ];
-
-  # 4. Create the SOURCE files in Prestart
-  ExecStartPre = lib.mkBefore [
-    (pkgs.writeShellScript "setup-onlyoffice-paths" ''
-      # Ensure config dir exists
-      mkdir -p /run/onlyoffice/config
-      
-      # Create the fake template structure in /run (the source)
+  # 3. Create the folder structure in /run
+  serviceConfig.ExecStartPre = lib.mkBefore [
+    (pkgs.writeShellScript "setup-onlyoffice-run-paths" ''
       mkdir -p /run/onlyoffice/documentserver/document-templates/new/en-US
-      
-      # If the original module prestart hasn't run yet, 
-      # we need to make sure permissions are correct for the onlyoffice user
+      # Permission check
       chown -R onlyoffice:onlyoffice /run/onlyoffice
     '')
   ];
