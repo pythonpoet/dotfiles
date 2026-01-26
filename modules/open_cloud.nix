@@ -198,12 +198,21 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-  systemd.services.onlyoffice-docservice.serviceConfig = {
-  # This maps the templates from the nix store into the path the service expects
-  BindReadOnlyPaths = [
-    "${pkgs.onlyoffice-documentserver}/var/www/onlyoffice/documentserver/document-templates:/var/www/onlyoffice/documentserver/document-templates"
-  ];
-};
+  systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre = lib.mkAfter [
+  (pkgs.writeShellScript "fix-onlyoffice-templates" ''
+    mkdir -p /var/lib/onlyoffice/documentserver/document-templates
+    # Find where the templates actually live in the package and link them
+    SRC_TEMPLATES="${pkgs.onlyoffice-documentserver}/var/www/onlyoffice/documentserver/document-templates"
+    
+    if [ -d "$SRC_TEMPLATES" ]; then
+        ln -sfn "$SRC_TEMPLATES"/* /var/lib/onlyoffice/documentserver/document-templates/
+    fi
+    
+    # Create the specific path the error complained about if it's still missing
+    mkdir -p /var/www/onlyoffice/documentserver/
+    ln -sfn /var/lib/onlyoffice/documentserver/document-templates /var/www/onlyoffice/documentserver/document-templates
+  '')
+];
   # ... other config ...
 
   # systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre = lib.mkForce (
