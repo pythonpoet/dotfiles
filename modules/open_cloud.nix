@@ -199,26 +199,33 @@ in {
 
   };
 systemd.services.onlyoffice-docservice.serviceConfig = {
-  # 1. Reset RuntimeDirectory to what the module expects to fix permissions
+  # 1. Standardize the Runtime directory
   RuntimeDirectory = lib.mkForce "onlyoffice";
 
-  # 2. Use a standard BindPath that points to a folder we'll create manually
+  # 2. Tell systemd to ensure the destination path exists 
+  # by making it a 'MountPoint' or ensuring it is accessible.
+  # This creates the /var/www/... path in the private namespace automatically.
+  InaccessiblePaths = [
+    "-/var/www/onlyoffice/documentserver"
+  ];
+
+  # 3. Now perform the Bind
   BindPaths = [
     "/run/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
   ];
 
-  # 3. Create the WHOLE tree in one go during Prestart
-  # We use mkBefore to ensure this happens before the module tries to copy configs.
+  # 4. Create the SOURCE files in Prestart
   ExecStartPre = lib.mkBefore [
     (pkgs.writeShellScript "setup-onlyoffice-paths" ''
-      # Ensure the config dir exists so the original script doesn't fail
+      # Ensure config dir exists
       mkdir -p /run/onlyoffice/config
       
-      # Create the fake template structure for the WOPI check
+      # Create the fake template structure in /run (the source)
       mkdir -p /run/onlyoffice/documentserver/document-templates/new/en-US
       
-      # Create the mount point inside the service namespace
-      mkdir -p /var/www/onlyoffice/documentserver
+      # If the original module prestart hasn't run yet, 
+      # we need to make sure permissions are correct for the onlyoffice user
+      chown -R onlyoffice:onlyoffice /run/onlyoffice
     '')
   ];
 };
