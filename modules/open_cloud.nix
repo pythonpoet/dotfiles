@@ -198,10 +198,12 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-  systemd.tmpfiles.rules = [
-  "d /var/www/onlyoffice/documentserver 0755 onlyoffice onlyoffice -"
-  "L+ /var/www/onlyoffice/documentserver/document-templates - - - - ${pkgs.onlyoffice-documentserver}/var/www/onlyoffice/documentserver/document-templates"
-];
+  systemd.services.onlyoffice-docservice.serviceConfig = {
+  # This maps the templates from the nix store into the path the service expects
+  BindReadOnlyPaths = [
+    "${pkgs.onlyoffice-documentserver}/var/www/onlyoffice/documentserver/document-templates:/var/www/onlyoffice/documentserver/document-templates"
+  ];
+};
   # ... other config ...
 
   # systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre = lib.mkForce (
