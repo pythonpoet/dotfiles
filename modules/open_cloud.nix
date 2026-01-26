@@ -184,6 +184,11 @@ in {
         manifest-src: ["'self'"]
         frame-ancestors: ["'self'", "https://cloud.davidwild.ch"] 
     '';
+    options.services.onlyoffice.nginx.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether OnlyOffice should configure nginx automatically.";
+    };
    services.onlyoffice = mkIf cfg.enable_onlyoffice {
     enable = true;
     port = 9982;
@@ -194,18 +199,18 @@ in {
     postgresPasswordFile = config.age.secrets.onlyoffice.path;
     securityNonceFile = config.age.secrets.onlyofficesec.path;
     wopi = true;
-    nginx = false;
+    nginx.enable = false;
     # TODO implement
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-  systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre =
-  lib.mkBefore [
-    (pkgs.writeShellScript "onlyoffice-wopi-fix" ''
-      mkdir -p /var/lib/onlyoffice/documentserver/document-templates/new
-      chown -R onlyoffice:onlyoffice /var/lib/onlyoffice/documentserver
-    '')
-  ];
+  # systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre =
+  # lib.mkBefore [
+  #   (pkgs.writeShellScript "onlyoffice-wopi-fix" ''
+  #     mkdir -p /var/lib/onlyoffice/documentserver/document-templates/new
+  #     chown -R onlyoffice:onlyoffice /var/lib/onlyoffice/documentserver
+  #   '')
+  # ];
 
 # systemd.services.onlyoffice-docservice = {
 #   # 1. Ensure the folder exists in the service's view
