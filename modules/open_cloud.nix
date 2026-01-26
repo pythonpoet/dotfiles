@@ -184,11 +184,7 @@ in {
         manifest-src: ["'self'"]
         frame-ancestors: ["'self'", "https://cloud.davidwild.ch"] 
     '';
-    options.services.onlyoffice.nginx.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Whether OnlyOffice should configure nginx automatically.";
-    };
+
    services.onlyoffice = mkIf cfg.enable_onlyoffice {
     enable = true;
     port = 9982;
