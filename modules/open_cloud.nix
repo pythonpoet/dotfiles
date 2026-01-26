@@ -198,7 +198,7 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-  systemd.services.onlyoffice-docservice = {
+  systemd.services.onlyoffice-docservice = lib.mkForce{
   serviceConfig = {
     # 1. Create the path in /run/onlyoffice/...
     RuntimeDirectory = "onlyoffice/documentserver/document-templates/new/en-US";
