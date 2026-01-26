@@ -198,26 +198,34 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-systemd.services.onlyoffice-docservice = {
-  # 1. Ensure the folder exists in the service's view
-  serviceConfig.RuntimeDirectory = lib.mkForce "onlyoffice";
-
-  # 2. Inject environment variables to redirect the path logic
-  environment = {
-    # This overrides the internal path for templates
-    # We point it to the directory we know is writable
-    "services_CoAuthoring_wopi_templatePath" = "/run/onlyoffice/documentserver/document-templates/new";
-  };
-
-  # 3. Create the folder structure in /run
-  serviceConfig.ExecStartPre = lib.mkBefore [
-    (pkgs.writeShellScript "setup-onlyoffice-run-paths" ''
-      mkdir -p /run/onlyoffice/documentserver/document-templates/new/en-US
-      # Permission check
-      chown -R onlyoffice:onlyoffice /run/onlyoffice
+  systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre =
+  lib.mkBefore [
+    (pkgs.writeShellScript "onlyoffice-wopi-fix" ''
+      mkdir -p /var/lib/onlyoffice/documentserver/server/FileConverter/bin/templates
+      chown -R onlyoffice:onlyoffice /var/lib/onlyoffice/documentserver
     '')
   ];
-};
+
+# systemd.services.onlyoffice-docservice = {
+#   # 1. Ensure the folder exists in the service's view
+#   serviceConfig.RuntimeDirectory = lib.mkForce "onlyoffice";
+
+#   # 2. Inject environment variables to redirect the path logic
+#   environment = {
+#     # This overrides the internal path for templates
+#     # We point it to the directory we know is writable
+#     "services_CoAuthoring_wopi_templatePath" = "/run/onlyoffice/documentserver/document-templates/new";
+#   };
+
+#   # 3. Create the folder structure in /run
+#   serviceConfig.ExecStartPre = lib.mkBefore [
+#     (pkgs.writeShellScript "setup-onlyoffice-run-paths" ''
+#       mkdir -p /run/onlyoffice/documentserver/document-templates/new/en-US
+#       # Permission check
+#       chown -R onlyoffice:onlyoffice /run/onlyoffice
+#     '')
+#   ];
+# };
 #   systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre = lib.mkAfter [
 #   (pkgs.writeShellScript "fix-onlyoffice-templates" ''
 #     mkdir -p /var/lib/onlyoffice/documentserver/document-templates
