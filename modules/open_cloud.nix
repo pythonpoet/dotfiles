@@ -198,24 +198,29 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-  systemd.services.onlyoffice-docservice = {
-  serviceConfig = {
-    # 1. Create the path in /run/onlyoffice/...
-    RuntimeDirectory = lib.mkForce "onlyoffice/documentserver/document-templates/new/en-US";
-    
-    # 2. Map that path to the /var/www path the app is hardcoded to use
-    BindPaths = [
-      "/run/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
-    ];
+systemd.services.onlyoffice-docservice.serviceConfig = {
+  # 1. Reset RuntimeDirectory to what the module expects to fix permissions
+  RuntimeDirectory = lib.mkForce "onlyoffice";
 
-    # 3. Create the parent directory structure inside the private namespace
-    # so the 'BindPaths' mount point actually exists.
-    ExecStartPre = lib.mkBefore [
-      (pkgs.writeShellScript "setup-fake-var-www" ''
-        mkdir -p /var/www/onlyoffice/documentserver
-      '')
-    ];
-  };
+  # 2. Use a standard BindPath that points to a folder we'll create manually
+  BindPaths = [
+    "/run/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
+  ];
+
+  # 3. Create the WHOLE tree in one go during Prestart
+  # We use mkBefore to ensure this happens before the module tries to copy configs.
+  ExecStartPre = lib.mkBefore [
+    (pkgs.writeShellScript "setup-onlyoffice-paths" ''
+      # Ensure the config dir exists so the original script doesn't fail
+      mkdir -p /run/onlyoffice/config
+      
+      # Create the fake template structure for the WOPI check
+      mkdir -p /run/onlyoffice/documentserver/document-templates/new/en-US
+      
+      # Create the mount point inside the service namespace
+      mkdir -p /var/www/onlyoffice/documentserver
+    '')
+  ];
 };
 #   systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre = lib.mkAfter [
 #   (pkgs.writeShellScript "fix-onlyoffice-templates" ''
