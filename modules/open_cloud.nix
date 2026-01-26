@@ -198,24 +198,25 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-  systemd.tmpfiles.rules = [
-  "d /var/lib/onlyoffice/documentserver/document-templates 0755 onlyoffice onlyoffice -"
-  # This copies the templates from the Nix Store to a writeable location on boot
-  "C+ /var/lib/onlyoffice/documentserver/document-templates - - - - ${pkgs.onlyoffice-documentserver}/var/www/onlyoffice/documentserver/document-templates"
-];
-systemd.services.onlyoffice-docservice.serviceConfig = {
-  # Map the templates to the hardcoded path the app wants
-  BindPaths = [
-    "/var/lib/onlyoffice/documentserver/document-templates:/var/www/onlyoffice/documentserver/document-templates"
-  ];
-  # Ensure the directory exists in the namespace before mounting
-  RuntimeDirectory = "onlyoffice"; 
+  systemd.services.onlyoffice-docservice = {
+  serviceConfig = {
+    # 1. Create the path in /run/onlyoffice/...
+    RuntimeDirectory = "onlyoffice/documentserver/document-templates/new/en-US";
+    
+    # 2. Map that path to the /var/www path the app is hardcoded to use
+    BindPaths = [
+      "/run/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
+    ];
+
+    # 3. Create the parent directory structure inside the private namespace
+    # so the 'BindPaths' mount point actually exists.
+    ExecStartPre = lib.mkBefore [
+      (pkgs.writeShellScript "setup-fake-var-www" ''
+        mkdir -p /var/www/onlyoffice/documentserver
+      '')
+    ];
+  };
 };
-systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre = lib.mkBefore [
-  (pkgs.writeShellScript "create-var-www" ''
-    mkdir -p /var/www/onlyoffice/documentserver
-  '')
-];
 #   systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre = lib.mkAfter [
 #   (pkgs.writeShellScript "fix-onlyoffice-templates" ''
 #     mkdir -p /var/lib/onlyoffice/documentserver/document-templates
