@@ -147,9 +147,18 @@ in {
         "cloud.davidwild.ch" = {
          inherit (sslSettings) addSSL enableACME;
           locations."/" = {
-            proxyPass = "http://0.0.0.0:9200";
+            proxyPass = "http://127.0.0.1:9200";
             proxyWebsockets = true;
-            extraConfig = extraConfig;
+            extraConfig = "
+             # Disable buffering for SSE (Server-Sent Events)
+              proxy_buffering off;
+              proxy_cache off;
+              proxy_read_timeout 24h;
+              
+              # Required for OpenCloud internal communication
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_set_header X-Forwarded-Host $host;
+              proxy_set_header X-Real-IP $remote_addr;";
           };
         };
         # "office.davidwild.ch" = {

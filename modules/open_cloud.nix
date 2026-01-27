@@ -203,43 +203,6 @@ in {
   };
 
 
-# systemd.services.onlyoffice-docservice = {
-#   serviceConfig = {
-#     # Ensure the state directory is initialized
-#     StateDirectory = "onlyoffice";
-#     # Bind our persistent state over the expected application path
-#     BindPaths = [
-#       "/var/lib/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
-#     ];
-#   };
-
-#   preStart = lib.mkAfter ''
-#     # 1. Destination in the persistent /var/lib (mapped to /var/www)
-#     TPL_DEST="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
-    
-#     # 2. Source in the Nix Store
-#     # We use the package's internal path
-#     TPL_SRC="${config.services.onlyoffice.package}/var/www/onlyoffice/documentserver/document-templates/new/en-US"
-
-#     echo "Syncing templates from $TPL_SRC to $TPL_DEST..."
-    
-#     mkdir -p "$TPL_DEST"
-
-#     if [ -d "$TPL_SRC" ]; then
-#       # Copy or symlink the templates into the persistent directory
-#       ln -sf "$TPL_SRC"/* "$TPL_DEST/"
-#       echo "Templates linked successfully."
-#     else
-#       echo "Error: Source templates not found in Nix Store at $TPL_SRC"
-#     fi
-
-#     # 3. Ensure permissions allow the onlyoffice user to read them
-#     chown -R onlyoffice:onlyoffice /var/lib/onlyoffice/documentserver
-#     chmod -R 755 /var/lib/onlyoffice/documentserver
-#   '';
-# };
-
-
   services.nginx = {
     # 1. The Upstream Fix: Forces Nginx to use IPv4 (127.0.0.1) instead of IPv6 ([::1])
     # This solves the "Connection Refused" error we saw in your logs.
