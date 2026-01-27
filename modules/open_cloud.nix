@@ -184,6 +184,7 @@ in {
         manifest-src: ["'self'"]
         frame-ancestors: ["'self'", "https://cloud.davidwild.ch"] 
     '';
+    
 
    services.onlyoffice = mkIf cfg.enable_onlyoffice {
     enable = true;
@@ -200,6 +201,25 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
+  systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre =
+  lib.mkAfter [
+    (pkgs.writeShellScript "onlyoffice-fix-newfiletemplate" ''
+      set -euo pipefail
+
+      TEMPLATE_DIR="/var/www/onlyoffice/documentserver/document-templates/new"
+      LOCALE="en-US"
+
+      mkdir -p "$TEMPLATE_DIR/$LOCALE"
+      chown -R onlyoffice:onlyoffice /var/www/onlyoffice
+      chmod -R 755 /var/www/onlyoffice
+
+      jq '
+        .services.CoAuthoring.server.newFileTemplate = "'"$TEMPLATE_DIR"'"
+      ' /run/onlyoffice/config/default.json \
+        | sponge /run/onlyoffice/config/default.json
+    '')
+  ];
+
   # systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre =
   # lib.mkBefore [
   #   (pkgs.writeShellScript "onlyoffice-wopi-fix" ''
