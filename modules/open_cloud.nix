@@ -201,24 +201,32 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-  systemd.services.onlyoffice-docservice = {
+  systemd.tmpfiles.rules = [
+  "d /var/lib/onlyoffice/documentserver/document-templates/new/en-US 0750 onlyoffice onlyoffice -"
+];
+  
+systemd.services.onlyoffice-docservice = {
   serviceConfig = {
-    StateDirectory = "onlyoffice";
-
+    # This remains necessary because OnlyOffice is hardcoded 
+    # to look in /var/www/ inside its FHS wrapper.
     BindPaths = [
       "/var/lib/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
     ];
-
-    User = "onlyoffice";
-    Group = "onlyoffice";
   };
 
-  preStart = ''
-    set -e
+  # We override the preStart to populate the templates
+  preStart = lib.mkAfter ''
+    # Path to templates in the Nix store package
+    TEMPLATE_SRC="${config.services.onlyoffice.package}/var/www/onlyoffice/documentserver/document-templates/new/en-US"
+    DEST="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
 
-    BASE="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
-
-    mkdir -p "$BASE"
+    mkdir -p "$DEST"
+    
+    # OnlyOffice WOPI crashes if it finds an empty directory.
+    # We symlink the default templates from the package into the state dir.
+    if [ -d "$TEMPLATE_SRC" ]; then
+      ln -sf "$TEMPLATE_SRC"/* "$DEST/"
+    fi
 
     chown -R onlyoffice:onlyoffice /var/lib/onlyoffice
   '';
