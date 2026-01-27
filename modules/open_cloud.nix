@@ -201,41 +201,22 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-  # 1. Ensure the directory exists on the host with correct permissions
-systemd.tmpfiles.rules = [
-  "d /var/lib/onlyoffice/documentserver/document-templates/new/en-US 0750 onlyoffice onlyoffice -"
-];
+
 
 systemd.services.onlyoffice-docservice = {
-  # We need to make sure our custom preStart runs alongside the module's preStart
-  preStart = lib.mkAfter ''
-    # Path where the actual templates live in the Nix Store
-    TEMPLATE_SRC="${config.services.onlyoffice.package}/var/www/onlyoffice/documentserver/document-templates/new/en-US"
-    # Path where the app looks (which is bind-mounted to /var/lib/...)
-    DEST_DIR="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
-
-    mkdir -p "$DEST_DIR"
-
-    # OnlyOffice WOPI crashes if it finds an empty directory. 
-    # We symlink the default templates from the Nix store into our state directory.
-    if [ -d "$TEMPLATE_SRC" ]; then
-      echo "Populating OnlyOffice templates from $TEMPLATE_SRC..."
-      ln -sf "$TEMPLATE_SRC"/* "$DEST_DIR/"
-    fi
-    
-    # Ensure the app can actually read them
-    chown -R onlyoffice:onlyoffice /var/lib/onlyoffice
-  '';
-
   serviceConfig = {
-    # Ensure systemd creates the parent state directory
-    StateDirectory = "onlyoffice";
-    
-    # This maps the state dir to the path the hardcoded Node.js app expects
+    # Remove the broad bind to /var/www/onlyoffice/documentserver
+    # Instead, we only bind the directories that OnlyOffice needs to write to.
     BindPaths = [
-      "/var/lib/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
+      "/var/lib/onlyoffice/documentserver/App_Data:/var/www/onlyoffice/documentserver/App_Data"
     ];
   };
+
+  # Fix the preStart to ensure the writeable sub-directories exist
+  preStart = lib.mkAfter ''
+    mkdir -p /var/lib/onlyoffice/documentserver/App_Data
+    chown -R onlyoffice:onlyoffice /var/lib/onlyoffice/documentserver/App_Data
+  '';
 };
 
 
