@@ -105,7 +105,7 @@ in {
 
     #COLLABORA_DOMAIN = onlyoffice_url;
     #FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
-    COLLABORA_DOMAIN = "office.davidwild.ch";
+    COLLABORA_DOMAIN = "0.0.0.0:9982";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
 		COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
@@ -195,7 +195,7 @@ in {
     hostname = "office.davidwild.ch";
     postgresPasswordFile = config.age.secrets.onlyoffice.path;
     securityNonceFile = config.age.secrets.onlyofficesec.path;
-    wopi = false;
+    wopi = true;
     nginx.enable = false;
     # TODO implement
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
