@@ -204,21 +204,17 @@ in {
   systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre =
   lib.mkAfter [
     (pkgs.writeShellScript "onlyoffice-fix-newfiletemplate" ''
-      set -euo pipefail
+      set -e
 
-      TEMPLATE_DIR="/var/www/onlyoffice/documentserver/document-templates/new"
-      LOCALE="en-US"
+      BASE="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
 
-      mkdir -p "$TEMPLATE_DIR/$LOCALE"
-      chown -R onlyoffice:onlyoffice /var/www/onlyoffice
-      chmod -R 755 /var/www/onlyoffice
+      mkdir -p "$BASE"
 
-      jq '
-        .services.CoAuthoring.server.newFileTemplate = "'"$TEMPLATE_DIR"'"
-      ' /run/onlyoffice/config/default.json \
-        | sponge /run/onlyoffice/config/default.json
+      # ensure ownership inside StateDirectory (allowed)
+      chown -R onlyoffice:onlyoffice /var/lib/onlyoffice
     '')
   ];
+
 
   # systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre =
   # lib.mkBefore [
