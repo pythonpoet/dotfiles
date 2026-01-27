@@ -158,6 +158,7 @@ in {
           - "https://auth.davidwild.ch"
           - "https://cloud.davidwild.ch"
           - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
+          - "http://127.0.0.1:9982"
         script-src:
           - "'self'"
           - "'unsafe-inline'"
