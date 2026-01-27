@@ -108,7 +108,7 @@ in {
     COLLABORA_DOMAIN = "office.davidwild.ch";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
-		COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+		COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch";#"http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
 		COLLABORATION_APP_ADDR =  "http://127.0.0.1:9982";#onlyoffice_url; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
@@ -247,17 +247,17 @@ in {
 
     virtualHosts."cloud.davidwild.ch" = {
   # ... your existing SSL config ...
-  extraConfig = ''
-    # Disable buffering for SSE (Server-Sent Events)
-    proxy_buffering off;
-    proxy_cache off;
-    proxy_read_timeout 24h;
+  # extraConfig = ''
+  #   # Disable buffering for SSE (Server-Sent Events)
+  #   proxy_buffering off;
+  #   proxy_cache off;
+  #   proxy_read_timeout 24h;
     
-    # Required for OpenCloud internal communication
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_set_header X-Forwarded-Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-  '';
+  #   # Required for OpenCloud internal communication
+  #   proxy_set_header X-Forwarded-Proto $scheme;
+  #   proxy_set_header X-Forwarded-Host $host;
+  #   proxy_set_header X-Real-IP $remote_addr;
+  # '';
   };
   virtualHosts."wopi.davidwild.ch" = {
     enableACME = true;
