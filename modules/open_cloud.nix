@@ -109,7 +109,7 @@ in {
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
 		COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
-		COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
+		COLLABORATION_APP_ADDR =  "http://127.0.0.1:9982";#onlyoffice_url; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
     COLLABORATION_JWT_SECRET = "whatever";
@@ -240,100 +240,6 @@ systemd.services.onlyoffice-docservice = {
 };
 
 
-  # systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre =
-  # lib.mkBefore [
-  #   (pkgs.writeShellScript "onlyoffice-wopi-fix" ''
-  #     mkdir -p /var/lib/onlyoffice/documentserver/document-templates/new
-  #     chown -R onlyoffice:onlyoffice /var/lib/onlyoffice/documentserver
-  #   '')
-  # ];
-
-# systemd.services.onlyoffice-docservice = {
-#   # 1. Ensure the folder exists in the service's view
-#   serviceConfig.RuntimeDirectory = lib.mkForce "onlyoffice";
-
-#   # 2. Inject environment variables to redirect the path logic
-#   environment = {
-#     # This overrides the internal path for templates
-#     # We point it to the directory we know is writable
-#     "services_CoAuthoring_wopi_templatePath" = "/run/onlyoffice/documentserver/document-templates/new";
-#   };
-
-#   # 3. Create the folder structure in /run
-#   serviceConfig.ExecStartPre = lib.mkBefore [
-#     (pkgs.writeShellScript "setup-onlyoffice-run-paths" ''
-#       mkdir -p /run/onlyoffice/documentserver/document-templates/new/en-US
-#       # Permission check
-#       chown -R onlyoffice:onlyoffice /run/onlyoffice
-#     '')
-#   ];
-# };
-#   systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre = lib.mkAfter [
-#   (pkgs.writeShellScript "fix-onlyoffice-templates" ''
-#     mkdir -p /var/lib/onlyoffice/documentserver/document-templates
-#     # Find where the templates actually live in the package and link them
-#     SRC_TEMPLATES="${pkgs.onlyoffice-documentserver}/var/www/onlyoffice/documentserver/document-templates"
-    
-#     if [ -d "$SRC_TEMPLATES" ]; then
-#         ln -sfn "$SRC_TEMPLATES"/* /var/lib/onlyoffice/documentserver/document-templates/
-#     fi
-    
-#     # Create the specific path the error complained about if it's still missing
-#     mkdir -p /var/www/onlyoffice/documentserver/
-#     ln -sfn /var/lib/onlyoffice/documentserver/document-templates /var/www/onlyoffice/documentserver/document-templates
-#   '')
-# ];
-  # ... other config ...
-
-  # systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre = lib.mkForce (
-  #   let
-  #     # Use the same 'cfg' logic from the OnlyOffice module
-  #     ooCfg = config.services.onlyoffice;
-      
-  #     onlyoffice-prestart-fixed = pkgs.writeShellScript "onlyoffice-prestart-fixed" ''
-  #       PATH=$PATH:${lib.makeBinPath [ pkgs.jq pkgs.moreutils config.services.postgresql.package ]}
-  #       umask 077
-  #       mkdir -p /run/onlyoffice/config/ /var/lib/onlyoffice/documentserver/sdkjs/{slide/themes,common}/ /var/lib/onlyoffice/documentserver/{fonts,server/FileConverter/bin}/
-  #       cp -r ${ooCfg.package}/etc/onlyoffice/documentserver/* /run/onlyoffice/config/
-  #       chmod u+w /run/onlyoffice/config/default.json
-
-  #       FS_SECRET_STRING=$(cut -d '"' -f 2 < ${ooCfg.securityNonceFile})
-        
-  #       # We inject .wopi.enable = true here to fix the 404 on /hosting/discovery
-  #       jq '
-  #         .storage.fs.secretString = "'$FS_SECRET_STRING'" |
-  #         .services.CoAuthoring.server.port = ${toString ooCfg.port} |
-  #         .services.CoAuthoring.sql.dbHost = "${ooCfg.postgresHost}" |
-  #         .services.CoAuthoring.sql.dbName = "${ooCfg.postgresName}" |
-  #         .services.CoAuthoring.sql.dbUser = "${ooCfg.postgresUser}" |
-  #         .wopi.enable = true |
-  #         .rabbitmq.url = "${ooCfg.rabbitmqUrl}"
-  #         ${lib.optionalString (ooCfg.postgresPasswordFile != null) ''
-  #           | .services.CoAuthoring.sql.dbPass = "'"$(cat ${ooCfg.postgresPasswordFile})"'"
-  #         ''}
-  #         ${lib.optionalString (ooCfg.jwtSecretFile != null) ''
-  #           | .services.CoAuthoring.token.enable.browser = true
-  #           | .services.CoAuthoring.token.enable.request.inbox = true
-  #           | .services.CoAuthoring.token.enable.request.outbox = true
-  #           | .services.CoAuthoring.secret.inbox.string = "'"$(cat ${ooCfg.jwtSecretFile})"'"
-  #           | .services.CoAuthoring.secret.outbox.string = "'"$(cat ${ooCfg.jwtSecretFile})"'"
-  #           | .services.CoAuthoring.secret.session.string = "'"$(cat ${ooCfg.jwtSecretFile})"'"
-  #         ''}
-  #       ' /run/onlyoffice/config/default.json | sponge /run/onlyoffice/config/default.json
-
-  #       chmod u+w /run/onlyoffice/config/production-linux.json
-  #       jq '.FileConverter.converter.x2tPath = "${ooCfg.x2t}/bin/x2t"' \
-  #         /run/onlyoffice/config/production-linux.json | sponge /run/onlyoffice/config/production-linux.json
-
-  #       # Ensure database is ready
-  #       if psql -d onlyoffice -c "SELECT 'task_result'::regclass;" >/dev/null 2>&1; then
-  #         psql -d onlyoffice -f ${ooCfg.package}/var/www/onlyoffice/documentserver/server/schema/postgresql/removetbl.sql
-  #       fi
-  #       psql -d onlyoffice -f ${ooCfg.package}/var/www/onlyoffice/documentserver/server/schema/postgresql/createdb.sql
-  #     '';
-  #   in
-  #     [ onlyoffice-prestart-fixed ]
-  # );
   services.nginx = {
     # 1. The Upstream Fix: Forces Nginx to use IPv4 (127.0.0.1) instead of IPv6 ([::1])
     # This solves the "Connection Refused" error we saw in your logs.
@@ -352,7 +258,7 @@ systemd.services.onlyoffice-docservice = {
         more_clear_headers "X-Frame-Options";
       '';
       locations."/" = {
-       proxyPass = "http://0.0.0.0:9982";
+       proxyPass = "http://127.0.0.1:9982";
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
     extraConfig = ''
