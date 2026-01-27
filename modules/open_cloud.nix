@@ -14,7 +14,7 @@
 }:
 with lib; let
   # List of ports to enable
-  internal_host = "127.0.0.1";
+  internal_host = "0.0.0.0";
   opencould_port = 9200;
   wopi_port = 9300;
   onlyoffice_url = "https://office.davidwild.ch";
@@ -109,7 +109,7 @@ in {
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
 		COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
-		COLLABORATION_APP_ADDR =  "http://127.0.0.1:9982";#onlyoffice_url; #<- External Link to OnlyOffice for iframe
+		COLLABORATION_APP_ADDR =  "http://0.0.0.0:9982";#onlyoffice_url; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
     COLLABORATION_JWT_SECRET = "whatever";
@@ -203,48 +203,48 @@ in {
   };
 
 
-systemd.services.onlyoffice-docservice = {
-  serviceConfig = {
-    # Ensure the state directory is initialized
-    StateDirectory = "onlyoffice";
-    # Bind our persistent state over the expected application path
-    BindPaths = [
-      "/var/lib/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
-    ];
-  };
+# systemd.services.onlyoffice-docservice = {
+#   serviceConfig = {
+#     # Ensure the state directory is initialized
+#     StateDirectory = "onlyoffice";
+#     # Bind our persistent state over the expected application path
+#     BindPaths = [
+#       "/var/lib/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
+#     ];
+#   };
 
-  preStart = lib.mkAfter ''
-    # 1. Destination in the persistent /var/lib (mapped to /var/www)
-    TPL_DEST="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
+#   preStart = lib.mkAfter ''
+#     # 1. Destination in the persistent /var/lib (mapped to /var/www)
+#     TPL_DEST="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
     
-    # 2. Source in the Nix Store
-    # We use the package's internal path
-    TPL_SRC="${config.services.onlyoffice.package}/var/www/onlyoffice/documentserver/document-templates/new/en-US"
+#     # 2. Source in the Nix Store
+#     # We use the package's internal path
+#     TPL_SRC="${config.services.onlyoffice.package}/var/www/onlyoffice/documentserver/document-templates/new/en-US"
 
-    echo "Syncing templates from $TPL_SRC to $TPL_DEST..."
+#     echo "Syncing templates from $TPL_SRC to $TPL_DEST..."
     
-    mkdir -p "$TPL_DEST"
+#     mkdir -p "$TPL_DEST"
 
-    if [ -d "$TPL_SRC" ]; then
-      # Copy or symlink the templates into the persistent directory
-      ln -sf "$TPL_SRC"/* "$TPL_DEST/"
-      echo "Templates linked successfully."
-    else
-      echo "Error: Source templates not found in Nix Store at $TPL_SRC"
-    fi
+#     if [ -d "$TPL_SRC" ]; then
+#       # Copy or symlink the templates into the persistent directory
+#       ln -sf "$TPL_SRC"/* "$TPL_DEST/"
+#       echo "Templates linked successfully."
+#     else
+#       echo "Error: Source templates not found in Nix Store at $TPL_SRC"
+#     fi
 
-    # 3. Ensure permissions allow the onlyoffice user to read them
-    chown -R onlyoffice:onlyoffice /var/lib/onlyoffice/documentserver
-    chmod -R 755 /var/lib/onlyoffice/documentserver
-  '';
-};
+#     # 3. Ensure permissions allow the onlyoffice user to read them
+#     chown -R onlyoffice:onlyoffice /var/lib/onlyoffice/documentserver
+#     chmod -R 755 /var/lib/onlyoffice/documentserver
+#   '';
+# };
 
 
   services.nginx = {
-    # 1. The Upstream Fix: Forces Nginx to use IPv4 (127.0.0.1) instead of IPv6 ([::1])
+    # 1. The Upstream Fix: Forces Nginx to use IPv4 (0.0.0.0) instead of IPv6 ([::1])
     # This solves the "Connection Refused" error we saw in your logs.
     # upstreams."onlyoffice-docservice".servers = lib.mkForce {
-    #   "127.0.0.1:9982" = { };
+    #   "0.0.0.0:9982" = { };
     # };
 
     # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
@@ -258,7 +258,7 @@ systemd.services.onlyoffice-docservice = {
         more_clear_headers "X-Frame-Options";
       '';
       locations."/" = {
-       proxyPass = "http://127.0.0.1:9982";
+       proxyPass = "http://0.0.0.0:9982";
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
     extraConfig = ''
