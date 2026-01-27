@@ -195,7 +195,7 @@ in {
     hostname = "office.davidwild.ch";
     postgresPasswordFile = config.age.secrets.onlyoffice.path;
     securityNonceFile = config.age.secrets.onlyofficesec.path;
-    wopi = true;
+    wopi = false;
     nginx.enable = false;
     # TODO implement
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
