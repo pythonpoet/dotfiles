@@ -274,6 +274,7 @@ in {
   #   };
   # };
   };
+  networking.hosts."127.0.0.1" = [ "office.davidwild.ch" "cloud.davidwild.ch" ];
 
     # services.tika = {
     #   enable = true;
