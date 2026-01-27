@@ -205,17 +205,33 @@ in {
 
 systemd.services.onlyoffice-docservice = {
   serviceConfig = {
-    # Remove the broad bind to /var/www/onlyoffice/documentserver
-    # Instead, we only bind the directories that OnlyOffice needs to write to.
+    StateDirectory = "onlyoffice";
+    # Keep your BindPaths as is
     BindPaths = [
-      "/var/lib/onlyoffice/documentserver/App_Data:/var/www/onlyoffice/documentserver/App_Data"
+      "/var/lib/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
     ];
   };
 
-  # Fix the preStart to ensure the writeable sub-directories exist
   preStart = lib.mkAfter ''
-    mkdir -p /var/lib/onlyoffice/documentserver/App_Data
-    chown -R onlyoffice:onlyoffice /var/lib/onlyoffice/documentserver/App_Data
+    # 1. Path to the templates in the Nix Store
+    TEMPLATE_SRC="${config.services.onlyoffice.package}/var/www/onlyoffice/documentserver/document-templates/new/en-US"
+    
+    # 2. Path in your persistent state (the source of your bind mount)
+    STATE_DEST="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
+
+    # 3. Create the directory structure
+    mkdir -p "$STATE_DEST"
+
+    # 4. Symlink the files from the Store into the State dir
+    # This makes them visible to OnlyOffice after the bind mount happens
+    if [ -d "$TEMPLATE_SRC" ]; then
+      echo "Populating templates from Nix store..."
+      ln -sf "$TEMPLATE_SRC"/* "$STATE_DEST/"
+    fi
+
+    # 5. Ensure permissions are correct for the onlyoffice user
+    chown -R onlyoffice:onlyoffice /var/lib/onlyoffice
+    chmod -R 755 /var/lib/onlyoffice/documentserver/document-templates
   '';
 };
 
