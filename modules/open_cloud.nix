@@ -211,39 +211,39 @@ in {
     # };
 
     # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
-    virtualHosts."office.davidwild.ch" = {
-      #addSSL = true;
-      enableACME = true;
-      forceSSL = true; # Automatically redirects http:// to https://
-      extraConfig = ''
-        client_max_body_size 500M;
-        # Ensure we clear headers that might block iframes globally
-        more_clear_headers "X-Frame-Options";
-      '';
-      locations."/" = {
-       proxyPass = "http://127.0.0.1:9982";
-      proxyWebsockets = true; # Highly recommended for OnlyOffice editors
+    # virtualHosts."office.davidwild.ch" = {
+    #   #addSSL = true;
+    #   enableACME = true;
+    #   forceSSL = true; # Automatically redirects http:// to https://
+    #   extraConfig = ''
+    #     client_max_body_size 500M;
+    #     # Ensure we clear headers that might block iframes globally
+    #     more_clear_headers "X-Frame-Options";
+    #   '';
+    #   locations."/" = {
+    #    proxyPass = "http://127.0.0.1:9982";
+    #   proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
-    extraConfig = ''
-      # Headers from your original snippet
-      proxy_set_header Accept-Encoding "";
-      proxy_buffering off;
-      proxy_read_timeout 3600s;
-      proxy_send_timeout 3600s;
+    # extraConfig = ''
+    #   # Headers from your original snippet
+    #   proxy_set_header Accept-Encoding "";
+    #   proxy_buffering off;
+    #   proxy_read_timeout 3600s;
+    #   proxy_send_timeout 3600s;
 
-      # Security & Iframe headers
-      # Note: 'more_clear_headers' is used here if the 'headers-more' module is active
-      proxy_hide_header X-Frame-Options;
-      add_header Content-Security-Policy "frame-ancestors 'self' https://*.domain.de";
+    #   # Security & Iframe headers
+    #   # Note: 'more_clear_headers' is used here if the 'headers-more' module is active
+    #   proxy_hide_header X-Frame-Options;
+    #   add_header Content-Security-Policy "frame-ancestors 'self' https://*.domain.de";
       
-      # Standard Proxy Headers
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-    '';
-    };
-    };
+    #   # Standard Proxy Headers
+    #   proxy_set_header Host $host;
+    #   proxy_set_header X-Real-IP $remote_addr;
+    #   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #   proxy_set_header X-Forwarded-Proto $scheme;
+    # '';
+    # };
+    # };
 
     virtualHosts."cloud.davidwild.ch" = {
   # ... your existing SSL config ...
@@ -259,19 +259,19 @@ in {
   #   proxy_set_header X-Real-IP $remote_addr;
   # '';
   };
-  virtualHosts."wopi.davidwild.ch" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
-      proxyPass = "http://${internal_host}:${toString wopi_port}";
-      extraConfig = ''
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-      '';
-    };
-  };
+  # virtualHosts."wopi.davidwild.ch" = {
+  #   enableACME = true;
+  #   forceSSL = true;
+  #   locations."/" = {
+  #     proxyPass = "http://${internal_host}:${toString wopi_port}";
+  #     extraConfig = ''
+  #       proxy_set_header Host $host;
+  #       proxy_set_header X-Real-IP $remote_addr;
+  #       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  #       proxy_set_header X-Forwarded-Proto $scheme;
+  #     '';
+  #   };
+  # };
   };
 
     # services.tika = {
