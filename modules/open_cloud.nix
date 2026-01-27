@@ -105,11 +105,11 @@ in {
 
     #COLLABORA_DOMAIN = onlyoffice_url;
     #FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
-    COLLABORA_DOMAIN = "0.0.0.0:9982";
+    COLLABORA_DOMAIN = "office.davidwild.ch";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
 		COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
-		COLLABORATION_APP_ADDR =  "http://0.0.0.0:9982";#onlyoffice_url; #<- External Link to OnlyOffice for iframe
+		COLLABORATION_APP_ADDR =  "http://12.0.0.1:9982";#onlyoffice_url; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
     COLLABORATION_JWT_SECRET = "whatever";
@@ -122,7 +122,7 @@ in {
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
     # MICRO_REGISTRY = "nats-js-kv";
-    # MICRO_REGISTRY_ADDRESS = "0.0.0.0:9233";
+    # MICRO_REGISTRY_ADDRESS = "12.0.0.1:9233";
     GODEBUG="netdns=go";
     OC_CHECK_REACHABILITY = "false";
     OC_SYSTEM_USER_ID = "akadmin";
@@ -241,10 +241,10 @@ in {
 
 
   services.nginx = {
-    # 1. The Upstream Fix: Forces Nginx to use IPv4 (0.0.0.0) instead of IPv6 ([::1])
+    # 1. The Upstream Fix: Forces Nginx to use IPv4 (12.0.0.1) instead of IPv6 ([::1])
     # This solves the "Connection Refused" error we saw in your logs.
     # upstreams."onlyoffice-docservice".servers = lib.mkForce {
-    #   "0.0.0.0:9982" = { };
+    #   "12.0.0.1:9982" = { };
     # };
 
     # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
@@ -258,7 +258,7 @@ in {
         more_clear_headers "X-Frame-Options";
       '';
       locations."/" = {
-       proxyPass = "http://0.0.0.0:9982";
+       proxyPass = "http://12.0.0.1:9982";
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
     extraConfig = ''
@@ -339,27 +339,27 @@ in {
     #     };
     #   };
     # };
-    services.radicale = mkIf cfg.enable_radicale {
-      enable = true;
-      settings = {
-        server = {
-          hosts = ["0.0.0.0:${toString cfg.port_radicale}" "[::]:${toString cfg.port_radicale}"];
-        };
-        auth = {
-          type = "htpasswd";
-          htpasswd_filename = "${cfg.path_radicale}/users";
-          htpasswd_encryption = "autodetect";
-        };
-        storage = {
-          filesystem_folder = "${cfg.path_radicale}/collections";
-        };
-      };
-    };
-    systemd.services.opencloud.serviceConfig = {
-  # This prevents the service from even seeing the IPv6 'Address Family'
-  RestrictAddressFamilies = [ "AF_INET" "AF_UNIX" "AF_NETLINK" ]; 
-  # Note: We omitted AF_INET6 here.
-};
+    # services.radicale = mkIf cfg.enable_radicale {
+    #   enable = true;
+    #   settings = {
+    #     server = {
+    #       hosts = ["0.0.0.0:${toString cfg.port_radicale}" "[::]:${toString cfg.port_radicale}"];
+    #     };
+    #     auth = {
+    #       type = "htpasswd";
+    #       htpasswd_filename = "${cfg.path_radicale}/users";
+    #       htpasswd_encryption = "autodetect";
+    #     };
+    #     storage = {
+    #       filesystem_folder = "${cfg.path_radicale}/collections";
+    #     };
+    #   };
+    # };
+#     systemd.services.opencloud.serviceConfig = {
+#   # This prevents the service from even seeing the IPv6 'Address Family'
+#   RestrictAddressFamilies = [ "AF_INET" "AF_UNIX" "AF_NETLINK" ]; 
+#   # Note: We omitted AF_INET6 here.
+# };
     networking.firewall.allowedTCPPorts = [9200 9980 8222 4222 9998 5232];
   };
 }
