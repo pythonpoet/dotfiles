@@ -205,33 +205,37 @@ in {
 
 systemd.services.onlyoffice-docservice = {
   serviceConfig = {
+    # Ensure the state directory is initialized
     StateDirectory = "onlyoffice";
-    # Keep your BindPaths as is
+    # Bind our persistent state over the expected application path
     BindPaths = [
       "/var/lib/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
     ];
   };
 
   preStart = lib.mkAfter ''
-    # 1. Path to the templates in the Nix Store
-    TEMPLATE_SRC="${config.services.onlyoffice.package}/var/www/onlyoffice/documentserver/document-templates/new/en-US"
+    # 1. Destination in the persistent /var/lib (mapped to /var/www)
+    TPL_DEST="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
     
-    # 2. Path in your persistent state (the source of your bind mount)
-    STATE_DEST="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
+    # 2. Source in the Nix Store
+    # We use the package's internal path
+    TPL_SRC="${config.services.onlyoffice.package}/var/www/onlyoffice/documentserver/document-templates/new/en-US"
 
-    # 3. Create the directory structure
-    mkdir -p "$STATE_DEST"
+    echo "Syncing templates from $TPL_SRC to $TPL_DEST..."
+    
+    mkdir -p "$TPL_DEST"
 
-    # 4. Symlink the files from the Store into the State dir
-    # This makes them visible to OnlyOffice after the bind mount happens
-    if [ -d "$TEMPLATE_SRC" ]; then
-      echo "Populating templates from Nix store..."
-      ln -sf "$TEMPLATE_SRC"/* "$STATE_DEST/"
+    if [ -d "$TPL_SRC" ]; then
+      # Copy or symlink the templates into the persistent directory
+      ln -sf "$TPL_SRC"/* "$TPL_DEST/"
+      echo "Templates linked successfully."
+    else
+      echo "Error: Source templates not found in Nix Store at $TPL_SRC"
     fi
 
-    # 5. Ensure permissions are correct for the onlyoffice user
-    chown -R onlyoffice:onlyoffice /var/lib/onlyoffice
-    chmod -R 755 /var/lib/onlyoffice/documentserver/document-templates
+    # 3. Ensure permissions allow the onlyoffice user to read them
+    chown -R onlyoffice:onlyoffice /var/lib/onlyoffice/documentserver
+    chmod -R 755 /var/lib/onlyoffice/documentserver
   '';
 };
 
