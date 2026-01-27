@@ -235,7 +235,7 @@ in {
       # Security & Iframe headers
       # Note: 'more_clear_headers' is used here if the 'headers-more' module is active
       proxy_hide_header X-Frame-Options;
-      add_header Content-Security-Policy "frame-ancestors 'self' https://*.domain.de";
+      add_header Content-Security-Policy "frame-ancestors 'self' https://*.davidwild.ch;";
       
       # Standard Proxy Headers
       proxy_set_header Host $host;
