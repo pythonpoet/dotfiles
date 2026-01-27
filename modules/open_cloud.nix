@@ -201,19 +201,28 @@ in {
     jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
-  systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre =
-  lib.mkAfter [
-    (pkgs.writeShellScript "onlyoffice-fix-newfiletemplate" ''
-      set -e
+  systemd.services.onlyoffice-docservice = {
+  serviceConfig = {
+    StateDirectory = "onlyoffice";
 
-      BASE="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
+    BindPaths = [
+      "/var/lib/onlyoffice/documentserver:/var/www/onlyoffice/documentserver"
+    ];
 
-      mkdir -p "$BASE"
+    User = "onlyoffice";
+    Group = "onlyoffice";
+  };
 
-      # ensure ownership inside StateDirectory (allowed)
-      chown -R onlyoffice:onlyoffice /var/lib/onlyoffice
-    '')
-  ];
+  preStart = ''
+    set -e
+
+    BASE="/var/lib/onlyoffice/documentserver/document-templates/new/en-US"
+
+    mkdir -p "$BASE"
+
+    chown -R onlyoffice:onlyoffice /var/lib/onlyoffice
+  '';
+};
 
 
   # systemd.services.onlyoffice-docservice.serviceConfig.ExecStartPre =
