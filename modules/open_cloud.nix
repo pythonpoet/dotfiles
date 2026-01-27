@@ -175,6 +175,7 @@ in {
           - 'https://embed.diagrams.net/'
           - "https://office.davidwild.ch"
           - 'https://docs.opencloud.eu'
+          - 'http://127.0.0.1:9982'
         img-src:
           - "'self'"
           - 'data:'
