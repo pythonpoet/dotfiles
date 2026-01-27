@@ -14,7 +14,7 @@
 }:
 with lib; let
   # List of ports to enable
-  internal_host = "0.0.0.0";
+  internal_host = "127.0.0.1";
   opencould_port = 9200;
   wopi_port = 9300;
   onlyoffice_url = "https://office.davidwild.ch";
@@ -109,7 +109,7 @@ in {
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
 		COLLABORATION_WOPI_SRC =  "http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
-		COLLABORATION_APP_ADDR =  "http://12.0.0.1:9982";#onlyoffice_url; #<- External Link to OnlyOffice for iframe
+		COLLABORATION_APP_ADDR =  "http://127.0.0.1:9982";#onlyoffice_url; #<- External Link to OnlyOffice for iframe
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
     COLLABORATION_JWT_SECRET = "whatever";
@@ -122,7 +122,7 @@ in {
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
     # MICRO_REGISTRY = "nats-js-kv";
-    # MICRO_REGISTRY_ADDRESS = "12.0.0.1:9233";
+    # MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
     GODEBUG="netdns=go";
     OC_CHECK_REACHABILITY = "false";
     OC_SYSTEM_USER_ID = "akadmin";
@@ -241,10 +241,10 @@ in {
 
 
   services.nginx = {
-    # 1. The Upstream Fix: Forces Nginx to use IPv4 (12.0.0.1) instead of IPv6 ([::1])
+    # 1. The Upstream Fix: Forces Nginx to use IPv4 (127.0.0.1) instead of IPv6 ([::1])
     # This solves the "Connection Refused" error we saw in your logs.
     # upstreams."onlyoffice-docservice".servers = lib.mkForce {
-    #   "12.0.0.1:9982" = { };
+    #   "127.0.0.1:9982" = { };
     # };
 
     # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
@@ -258,7 +258,7 @@ in {
         more_clear_headers "X-Frame-Options";
       '';
       locations."/" = {
-       proxyPass = "http://12.0.0.1:9982";
+       proxyPass = "http://127.0.0.1:9982";
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
     extraConfig = ''
