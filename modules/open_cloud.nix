@@ -17,7 +17,7 @@ with lib; let
   internal_host = "127.0.0.1";
   opencould_port = 9200;
   wopi_port = 9300;
-  onlyoffice_url = "http://office.davidwild.ch";
+  onlyoffice_url = "https://office.davidwild.ch";
   opencloud_url = "https://cloud.davidwild.ch";
   cfg = config.cloud;
 in {
@@ -233,6 +233,7 @@ in {
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
     extraConfig = ''
+      proxy_set_header X-Forwarded-Proto https;
       proxy_read_timeout 3600s;
       proxy_send_timeout 3600s;
       proxy_buffering off;
@@ -244,7 +245,6 @@ in {
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
       proxy_set_header X-Forwarded-Host $host; # Important for OnlyOffice callback
     '';
     };
