@@ -17,7 +17,7 @@ with lib; let
   internal_host = "127.0.0.1";
   opencould_port = 9200;
   wopi_port = 9300;
-  onlyoffice_url = "https://office.davidwild.ch";
+  onlyoffice_url = "http://office.davidwild.ch";
   opencloud_url = "https://cloud.davidwild.ch";
   cfg = config.cloud;
 in {
@@ -155,6 +155,7 @@ in {
           - "'self'"
           - "blob:"
           - "https://office.davidwild.ch"
+          - "http://office.davidwild.ch"
           - "https://auth.davidwild.ch"
           - "https://cloud.davidwild.ch"
           - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
@@ -175,6 +176,7 @@ in {
           - 'https://embed.diagrams.net/'
           - "https://office.davidwild.ch"
           - 'https://docs.opencloud.eu'
+          - "http://office.davidwild.ch"
           - 'http://127.0.0.1:9982'
         img-src:
           - "'self'"
@@ -219,8 +221,8 @@ in {
     virtualHosts."office.davidwild.ch" = {
 
       #addSSL = true;
-      enableACME = true;
-      forceSSL = true; # Automatically redirects http:// to https://
+      # enableACME = true;
+      # forceSSL = true; # Automatically redirects http:// to https://
       extraConfig = ''
         client_max_body_size 500M;
         # Ensure we clear headers that might block iframes globally
