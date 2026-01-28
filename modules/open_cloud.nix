@@ -233,7 +233,6 @@ in {
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
     extraConfig = ''
-      proxy_set_header X-Forwarded-Proto https;
       proxy_read_timeout 3600s;
       proxy_send_timeout 3600s;
       proxy_buffering off;
@@ -245,6 +244,7 @@ in {
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
       proxy_set_header X-Forwarded-Host $host; # Important for OnlyOffice callback
     '';
     };
