@@ -215,11 +215,12 @@ in {
     # };
 
     # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
-    listen = [
+    
+    virtualHosts."office.davidwild.ch" = {
+      listen = [
     { addr = "0.0.0.0"; port = 443; ssl = true; }
     { addr = "127.0.0.1"; port = 443; ssl = true; }
   ];
-    virtualHosts."office.davidwild.ch" = {
       #addSSL = true;
       enableACME = true;
       forceSSL = true; # Automatically redirects http:// to https://
