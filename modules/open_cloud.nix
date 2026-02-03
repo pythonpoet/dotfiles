@@ -232,7 +232,7 @@ in {
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
     extraConfig = ''
-      header_up X-Forwarded-Proto https
+      proxy_set_header X-Forwarded-Proto https;
     '';
     };
     };
