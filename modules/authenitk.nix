@@ -55,7 +55,7 @@ in {
         };
         disable_startup_analytics = true;
         avatars = "initials";
-        port = cfg.port; 
+       # port = cfg.port; 
       };
       
       # nginx = {
