@@ -109,7 +109,7 @@ in {
     COLLABORA_DOMAIN = "office.davidwild.ch";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
-		#COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch";#"http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+		COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch";#"http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
 		COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
 
 		COLLABORATION_APP_INSECURE ="true";
@@ -265,19 +265,19 @@ in {
   #   proxy_set_header X-Real-IP $remote_addr;
   # '';
   };
-  # virtualHosts."wopi.davidwild.ch" = {
-  #   enableACME = true;
-  #   forceSSL = true;
-  #   locations."/" = {
-  #     proxyPass = "http://${internal_host}:${toString wopi_port}";
-  #     extraConfig = ''
-  #       proxy_set_header Host $host;
-  #       proxy_set_header X-Real-IP $remote_addr;
-  #       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  #       proxy_set_header X-Forwarded-Proto $scheme;
-  #     '';
-  #   };
-  # };
+  virtualHosts."wopi.davidwild.ch" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+      proxyPass = "http://${internal_host}:${toString wopi_port}";
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+      '';
+    };
+  };
   };
   networking.hosts."127.0.0.1" = [ "office.davidwild.ch" "cloud.davidwild.ch" ];
 
