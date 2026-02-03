@@ -228,7 +228,7 @@ in {
         more_clear_headers "X-Frame-Options";
       '';
       locations."/" = {
-       proxyPass = "https://127.0.0.1:9982";
+       proxyPass = "http://127.0.0.1:9982";
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
     extraConfig = ''
@@ -241,10 +241,11 @@ in {
       
       # Standard Proxy Headers (Required for OnlyOffice to know its public name)
       proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-      proxy_set_header X-Forwarded-Host $host; # Important for OnlyOffice callback
+      add_header X-Frame-Options "ALLOWALL"; 
+      # proxy_set_header X-Real-IP $remote_addr;
+      # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      # proxy_set_header X-Forwarded-Proto $scheme;
+      # proxy_set_header X-Forwarded-Host $host; # Important for OnlyOffice callback
     '';
     };
     };
