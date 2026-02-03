@@ -164,35 +164,35 @@ in {
         script-src:
           - "'self'"
           - "'unsafe-inline'"
+          - "'unsafe-eval'"
           - "https://cloud.davidwild.ch"
-          - "https://*.davidwild.ch""
+          - "https://*.davidwild.ch"
         style-src:
           - "'self'"
           - "'unsafe-inline'"
-        # Inherit defaults for others
         child-src: ["'self'"]
         font-src: ["'self'"]
         frame-src:
           - "'self'"
-          - 'blob:'
-          - 'https://embed.diagrams.net/'
+          - "blob:"
+          - "https://embed.diagrams.net/"
           - "https://office.davidwild.ch"
-          - 'https://docs.opencloud.eu'
+          - "https://docs.opencloud.eu"
           - "http://office.davidwild.ch"
-          - 'http://127.0.0.1:9982'
+          - "http://127.0.0.1:9982"
           - "https://*.davidwild.ch"
         img-src:
           - "'self'"
-          - 'data:'
-          - 'blob:'
-          - 'https://raw.githubusercontent.com/opencloud-eu/awesome-apps/'
-          - 'https://tile.openstreetmap.org/'
-          - 'https://office.davidwild.ch/'
-          - 'https://*.davidwild.ch"
+          - "data:"
+          - "blob:"
+          - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
+          - "https://tile.openstreetmap.org/"
+          - "https://office.davidwild.ch/"
+          - "https://*.davidwild.ch"
         media-src: ["'self'"]
         object-src: ["'self'", "blob:"]
         manifest-src: ["'self'"]
-        frame-ancestors: ["'self'", "https://cloud.davidwild.ch"] 
+        frame-ancestors: ["'self'", "https://cloud.davidwild.ch"]
     '';
     
 
