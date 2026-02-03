@@ -64,6 +64,7 @@ in {
       #   host = "auth.davidwild.ch";
       # };
     };
+    networking.firewall.allowedTCPPorts = [cfg.port];
     systemd.tmpfiles.rules = [
     "d ${cfg.data_dir} 0750 authentik authentik -"
   ];
