@@ -241,11 +241,12 @@ in {
       
       # Standard Proxy Headers (Required for OnlyOffice to know its public name)
       proxy_set_header Host $host;
+      
       add_header X-Frame-Options "ALLOWALL"; 
-      # proxy_set_header X-Real-IP $remote_addr;
-      # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      # proxy_set_header X-Forwarded-Proto $scheme;
-      # proxy_set_header X-Forwarded-Host $host; # Important for OnlyOffice callback
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Host $host; # Important for OnlyOffice callback
     '';
     };
     };
