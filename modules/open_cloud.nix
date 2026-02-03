@@ -155,18 +155,15 @@ in {
           - "'self'"
           - "blob:"
           - "https://office.davidwild.ch"
-          - "http://office.davidwild.ch"
           - "https://auth.davidwild.ch"
           - "https://cloud.davidwild.ch"
           - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
-          - "http://127.0.0.1:9982"
           - "https://*.davidwild.ch"
         script-src:
           - "'self'"
           - "'unsafe-inline'"
           - "'unsafe-eval'"
           - "https://cloud.davidwild.ch"
-          - "https://*.davidwild.ch"
         style-src:
           - "'self'"
           - "'unsafe-inline'"
@@ -178,8 +175,6 @@ in {
           - "https://embed.diagrams.net/"
           - "https://office.davidwild.ch"
           - "https://docs.opencloud.eu"
-          - "http://office.davidwild.ch"
-          - "http://127.0.0.1:9982"
           - "https://*.davidwild.ch"
         img-src:
           - "'self'"
@@ -233,7 +228,7 @@ in {
         more_clear_headers "X-Frame-Options";
       '';
       locations."/" = {
-       proxyPass = "http://127.0.0.1:9982";
+       proxyPass = "https://127.0.0.1:9982";
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
     extraConfig = ''
