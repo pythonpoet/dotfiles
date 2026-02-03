@@ -232,21 +232,7 @@ in {
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
     extraConfig = ''
-      proxy_read_timeout 3600s;
-      proxy_send_timeout 3600s;
-      proxy_buffering off;
-
-      # Correct the CSP to allow your actual domain
-      add_header Content-Security-Policy "frame-ancestors 'self' https://*.davidwild.ch";
-      
-      # Standard Proxy Headers (Required for OnlyOffice to know its public name)
-      proxy_set_header Host $host;
-      
-      add_header X-Frame-Options "ALLOWALL"; 
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-      proxy_set_header X-Forwarded-Host $host; # Important for OnlyOffice callback
+      header_up X-Forwarded-Proto https
     '';
     };
     };
