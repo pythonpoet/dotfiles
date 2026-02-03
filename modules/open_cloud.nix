@@ -198,7 +198,7 @@ in {
     # enableExampleServer = true;
     # examplePort = 9982;
     #enableExampleServer = true;
-    hostname = "office.davidwild.ch";
+    hostname = "https://office.davidwild.ch";
     postgresPasswordFile = config.age.secrets.onlyoffice.path;
     securityNonceFile = config.age.secrets.onlyofficesec.path;
     wopi = true;
