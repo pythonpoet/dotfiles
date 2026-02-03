@@ -58,11 +58,11 @@ in {
        # port = cfg.port; 
       };
       
-      # nginx = {
-      #   enable = true;
-      #   enableACME = true;
-      #   host = "auth.davidwild.ch";
-      # };
+      nginx = {
+        enable = true;
+        enableACME = true;
+        host = "auth.davidwild.ch";
+      };
     };
     networking.firewall.allowedTCPPorts = [cfg.port];
     systemd.tmpfiles.rules = [
