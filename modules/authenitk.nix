@@ -55,7 +55,7 @@ in {
         };
         disable_startup_analytics = true;
         avatars = "initials";
-        listen = "127.0.0.1:${toString cfg.port}"; 
+        port = cfg.port; 
       };
       
       # nginx = {
