@@ -202,7 +202,7 @@ in {
     wopi = true;
     nginx.enable = false;
     # TODO implement
-    jwtSecretFile = #config.age.secrets.onlyoffice-jwt.path;
+    jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
   };
 
