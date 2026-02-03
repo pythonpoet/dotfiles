@@ -160,10 +160,12 @@ in {
           - "https://cloud.davidwild.ch"
           - "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
           - "http://127.0.0.1:9982"
+          - "https://*.davidwild.ch"
         script-src:
           - "'self'"
           - "'unsafe-inline'"
           - "https://cloud.davidwild.ch"
+          - "https://*.davidwild.ch""
         style-src:
           - "'self'"
           - "'unsafe-inline'"
@@ -178,6 +180,7 @@ in {
           - 'https://docs.opencloud.eu'
           - "http://office.davidwild.ch"
           - 'http://127.0.0.1:9982'
+          - "https://*.davidwild.ch"
         img-src:
           - "'self'"
           - 'data:'
@@ -185,6 +188,7 @@ in {
           - 'https://raw.githubusercontent.com/opencloud-eu/awesome-apps/'
           - 'https://tile.openstreetmap.org/'
           - 'https://office.davidwild.ch/'
+          - 'https://*.davidwild.ch"
         media-src: ["'self'"]
         object-src: ["'self'", "blob:"]
         manifest-src: ["'self'"]
