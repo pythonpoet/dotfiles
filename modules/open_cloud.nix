@@ -221,8 +221,8 @@ in {
     virtualHosts."office.davidwild.ch" = {
 
       #addSSL = true;
-      # enableACME = true;
-      # forceSSL = true; # Automatically redirects http:// to https://
+       enableACME = true;
+       forceSSL = true; # Automatically redirects http:// to https://
       extraConfig = ''
         client_max_body_size 500M;
         # Ensure we clear headers that might block iframes globally
