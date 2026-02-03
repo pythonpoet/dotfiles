@@ -195,10 +195,8 @@ in {
    services.onlyoffice = mkIf cfg.enable_onlyoffice {
     enable = true;
     port = 9982;
-    # enableExampleServer = true;
-    # examplePort = 9982;
-    #enableExampleServer = true;
-    hostname = "https://office.davidwild.ch";
+
+    hostname = "office.davidwild.ch";
     postgresPasswordFile = config.age.secrets.onlyoffice.path;
     securityNonceFile = config.age.secrets.onlyofficesec.path;
     wopi = true;
@@ -281,8 +279,7 @@ in {
     };
   };
   };
-  networking.hosts."127.0.0.1" = [ "office.davidwild.ch" "cloud.davidwild.ch" ];
-
+  
     # services.tika = {
     #   enable = true;
     #   port = 9998;
