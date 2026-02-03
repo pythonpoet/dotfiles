@@ -189,7 +189,7 @@ in {
         "auth.davidwild.ch" = {
           inherit (sslSettings) addSSL enableACME;
           locations."/" = {
-            proxyPass = "https://localhost:9443";
+            proxyPass = "http://localhost:9000";
             proxyWebsockets = true;
             extraConfig = extraConfig;
           };
