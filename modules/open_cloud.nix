@@ -176,6 +176,7 @@ in {
           - "https://office.davidwild.ch"
           - "https://docs.opencloud.eu"
           - "https://*.davidwild.ch"
+          - "http://*.davidwild.ch"
         img-src:
           - "'self'"
           - "data:"
