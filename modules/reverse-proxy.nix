@@ -72,9 +72,9 @@ in {
       enable = true;
       # Use recommended settings
       # recommendedGzipSettings = true;
-      #recommendedOptimisation = true;
+      recommendedOptimisation = true;
       recommendedProxySettings = lib.mkForce true;
-      #recommendedTlsSettings = true;
+      recommendedTlsSettings = true;
       
       virtualHosts = {
         "grafana.davidwild.ch" = {
