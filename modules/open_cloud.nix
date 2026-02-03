@@ -236,6 +236,8 @@ in {
 
 
       # proxy_set_header X-Forwarded-Host $host;
+      sub_filter 'http://office.davidwild.ch' 'https://office.davidwild.ch';
+      sub_filter_once off;
     
 
         proxy_set_header Host $host;
