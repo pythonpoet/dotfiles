@@ -7,6 +7,7 @@
 with lib; let
   authentikDefaults = {
     data_dir = "/data1/authentik";
+    port = 9443;
   };
   cfg = config.authentik // authentikDefaults;
 in {
@@ -23,6 +24,10 @@ in {
     data_dir = mkOption {
       type = types.str;
       default = cfg.data_dir;
+    };
+    port  = mkOption {
+      type = types.port;
+      default = cfg.port;
     };
     passfile = mkOption {
       type = types.str;
@@ -50,6 +55,7 @@ in {
         };
         disable_startup_analytics = true;
         avatars = "initials";
+        listen = "127.0.0.1:${toString cfg.port}"; 
       };
       
       # nginx = {
