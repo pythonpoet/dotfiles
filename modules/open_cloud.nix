@@ -236,8 +236,11 @@ in {
 
 
       # proxy_set_header X-Forwarded-Host $host;
-      sub_filter 'http://office.davidwild.ch' 'https://office.davidwild.ch';
-      sub_filter_once off;
+     sub_filter 'http://office.davidwild.ch' 'https://office.davidwild.ch';
+          sub_filter_once off;
+          sub_filter_types application/json application/javascript text/xml;
+        # Crucial: disable compression so sub_filter can read the text
+          proxy_set_header Accept-Encoding "";
     
 
         proxy_set_header Host $host;
