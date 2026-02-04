@@ -29,14 +29,14 @@ in
           locations."/" = {
             proxyPass = "http://127.0.0.1:${toString cfg.port}";
             proxyWebsockets = true;
-            extraConfig = """
+            extraConfig = ''
               proxy_set_header Host $host;
               proxy_set_header X-Real-IP $remote_addr;
               proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               proxy_set_header X-Forwarded-Proto $scheme;
               proxy_set_header X-Request-Id $request_id; # Add X-Request-Id header
               client_max_body_size 32G;
-              """;
+              '';
           };
         };
      
