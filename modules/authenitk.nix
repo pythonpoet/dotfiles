@@ -55,9 +55,9 @@ in {
         };
         disable_startup_analytics = true;
         avatars = "initials";
-        listen = {
-          metrics = "0.0.0.0:9303"; 
-        };
+        # listen = {
+        #   metrics = "0.0.0.0:9303"; 
+        # };
       };
       
       nginx = {
