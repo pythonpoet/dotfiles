@@ -23,6 +23,24 @@ in
     };
   };
   config = mkIf cfg.enable {
+    services.nginx.virtualHosts."audiobookshelf.davidwild.ch" = {
+          addSSL = true;
+          enableACME = true;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString cfg.port}";
+            proxyWebsockets = true;
+            extraConfig = extraConfig;
+            # Add these back since you disabled recommendedProxySettings
+            # extraConfig = ''
+            #   proxy_set_header Host $host;
+            #   proxy_set_header X-Real-IP $remote_addr;
+            #   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            #   proxy_set_header X-Forwarded-Proto $scheme;
+            #   proxy_set_header X-Forwarded-Host $host;
+            #   proxy_set_header X-Forwarded-Port $server_port;
+            # '' + extraConfig;
+          };
+        };
      
   services.audiobookshelf = {
     enable = true;

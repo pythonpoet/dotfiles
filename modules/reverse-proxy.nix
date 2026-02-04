@@ -170,30 +170,6 @@ in {
               proxy_set_header X-Real-IP $remote_addr;";
           };
         };
-        # "office.davidwild.ch" = {
-        #  inherit (sslSettings) addSSL enableACME;
-        #   locations."/" = {
-        #     proxyPass = "http://127.0.0.1:9982";
-        #     proxyWebsockets = true;
-        #     extraConfig = extraConfig;
-        #   };
-        # };
-        "vikunja.davidwild.ch" = {
-         inherit (sslSettings) addSSL enableACME;
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:3456";
-            proxyWebsockets = true;
-            extraConfig = extraConfig;
-          };
-        };
-        # "auth.davidwild.ch" = {
-        #   inherit (sslSettings) addSSL enableACME;
-        #   locations."/" = {
-        #     proxyPass = "http://localhost:9000";
-        #     proxyWebsockets = true;
-        #     extraConfig = extraConfig;
-        #   };
-        # };
         # "bbcs-121-149.pub.wingo.ch" = {
         #   locations."/" = {
         #     return = 444;
