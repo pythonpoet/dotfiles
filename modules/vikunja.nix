@@ -59,7 +59,7 @@ in {
               proxy_set_header X-Request-Id $request_id; # Add X-Request-Id header
             """;
           };
-      }
+      };
     };
 
     services.vikunja = {
