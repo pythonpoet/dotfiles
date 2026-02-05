@@ -66,6 +66,10 @@ in {
         host = "auth.davidwild.ch";
       };
     };
+    services.nginx.virtualHosts."auth.davidwild.ch".locations."/".extraConfig = ''
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Host $host;
+    '';
     networking.firewall.allowedTCPPorts = [cfg.port];
     systemd.tmpfiles.rules = [
     "d ${cfg.data_dir} 0750 authentik authentik -"
