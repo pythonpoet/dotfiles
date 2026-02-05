@@ -67,7 +67,7 @@ in {
       };
     };
     services.nginx.virtualHosts."auth.davidwild.ch".locations."/".extraConfig = ''
-      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-Host $host;
     '';
     networking.firewall.allowedTCPPorts = [cfg.port];
