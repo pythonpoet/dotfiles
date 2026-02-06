@@ -196,19 +196,19 @@ in {
     '';
     
 
-  #  services.onlyoffice = mkIf cfg.enable_onlyoffice {
-  #   enable = true;
-  #   port = 9982;
+   services.onlyoffice = mkIf cfg.enable_onlyoffice {
+    enable = true;
+    port = 9982;
 
-  #   hostname = "office.davidwild.ch";
-  #   postgresPasswordFile = config.age.secrets.onlyoffice.path;
-  #   securityNonceFile = config.age.secrets.onlyofficesec.path;
-  #   wopi = true;
-  #   nginx.enable = false;
-  #   # TODO implement
-  #   jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
+    hostname = "office.davidwild.ch";
+    postgresPasswordFile = config.age.secrets.onlyoffice.path;
+    securityNonceFile = config.age.secrets.onlyofficesec.path;
+    wopi = true;
+    nginx.enable = false;
+    # TODO implement
+    jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
-  # };
+  };
   
 
 
@@ -255,27 +255,27 @@ in {
   };
   };
   
-    virtualisation.oci-containers = {
-      backend = "podman";
-      containers = {
+    # virtualisation.oci-containers = {
+    #   backend = "podman";
+    #   containers = {
 
-        onlyoffice =  {
-          image = "onlyoffice/documentserver:latest";
-          ports = ["9982:80"];
-          autoStart = true;
-          environment = {
+    #     onlyoffice =  {
+    #       image = "onlyoffice/documentserver:latest";
+    #       ports = ["9982:80"];
+    #       autoStart = true;
+    #       environment = {
 
-            WOPI_ENABLED= "true";
-            JWT_ENABLED = "true";
-            JWT_SECRET="whatever";
-            NODE_TLS_REJECT_UNAUTHORIZED = "0";
-            USE_UNAUTHORIZED_STORAGE = "true";
+    #         WOPI_ENABLED= "true";
+    #         JWT_ENABLED = "true";
+    #         JWT_SECRET="whatever";
+    #         NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    #         USE_UNAUTHORIZED_STORAGE = "true";
 
-          };
-          extraOptions = [
-            "--add-host=bernina:host-gateway"
-          ];
-        }; };};
+    #       };
+    #       extraOptions = [
+    #         "--add-host=bernina:host-gateway"
+    #       ];
+    #     }; };};
     #     tika = mkIf cfg.enable_full_text_search {
     #       image = "apache/tika:latest-full";
     #       ports = ["9998:9998"];
