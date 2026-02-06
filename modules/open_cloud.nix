@@ -238,6 +238,35 @@ in {
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         '';
       };
+      # Radicale endpoints for CalDAV and CardDAV
+        "/caldav/" = {
+          proxyPass = "http://127.0.0.1:5232";
+          extraConfig = "
+            proxy_set_header X-Remote-User $remote_user; # provide username to CalDAV
+            proxy_set_header X-Script-Name /caldav;
+          ";
+        };
+        "/.well-known/caldav" = {
+          proxyPass = "http://127.0.0.1:5232";
+          extraConfig = "
+            proxy_set_header X-Remote-User $remote_user; # provide username to CalDAV
+            proxy_set_header X-Script-Name /caldav;
+          ";
+        };
+        "/carddav/" = {
+          proxyPass = "http://127.0.0.1:5232";
+          extraConfig = "
+            proxy_set_header X-Remote-User $remote_user; # provide username to CardDAV
+            proxy_set_header X-Script-Name /carddav;
+          ";
+        };
+        "/.well-known/carddav/" = {
+          proxyPass = "http://127.0.0.1:5232";
+          extraConfig = "
+            proxy_set_header X-Remote-User $remote_user; # provide username to CardDAV
+            proxy_set_header X-Script-Name /carddav;
+          ";
+        }
     };
   
 
@@ -271,28 +300,38 @@ in {
             "--add-host=bernina:host-gateway"
           ];
         }; };};
+    # TODO file search engine
     #     tika = mkIf cfg.enable_full_text_search {
     #       image = "apache/tika:latest-full";
     #       ports = ["9998:9998"];
     #     };
     #   };
     # };
-    # services.radicale = mkIf cfg.enable_radicale {
-    #   enable = true;
-    #   settings = {
-    #     server = {
-    #       hosts = ["0.0.0.0:${toString cfg.port_radicale}" "[::]:${toString cfg.port_radicale}"];
-    #     };
-    #     auth = {
-    #       type = "htpasswd";
-    #       htpasswd_filename = "${cfg.path_radicale}/users";
-    #       htpasswd_encryption = "autodetect";
-    #     };
-    #     storage = {
-    #       filesystem_folder = "${cfg.path_radicale}/collections";
-    #     };
-    #   };
-    # };
+    services.radicale = mkIf cfg.enable_radicale {
+      enable = true;
+      settings = {
+        server = {
+          hosts = [ "127.0.0.1:5232" ];
+          ssl = false;
+        };
+        auth = {
+          type = "http_x_remote_user"; # disable authentication, and use the username that OpenCloud provides is
+        };
+        web = {
+          type = "none";
+        };
+        storage = {
+          filesystem_folder = "${cfg.path_radicale}/collections";
+        };
+        logging = {
+          level = "debug"; # optional, enable debug logging
+          bad_put_request_content = true; # only if level=debug
+          request_header_on_debug = true; # only if level=debug
+          request_content_on_debug = true; # only if level=debug
+          response_content_on_debug = true; # only if level=debug
+        };
+      };
+    };
 
     networking.firewall.allowedTCPPorts = [9200 9980 8222 4222 9998 5232];
   };
