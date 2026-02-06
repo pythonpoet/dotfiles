@@ -225,18 +225,21 @@ in {
     more_clear_headers "X-Frame-Options";
   '';
   locations."/" = {
-    proxyPass = "http://0.0.0.0:9982"; # Use http here!
+    proxyPass = "http://12.0.0.1:9982"; # Use http here!
     proxyWebsockets = true;
     extraConfig = ''
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       
-      # THIS IS THE MAGIC LINE:
-      # It tells the container to generate https:// links for the browser
-      proxy_set_header X-Forwarded-Proto https; 
+      # These are CRITICAL for OnlyOffice
+      proxy_set_header X-Forwarded-Host $host;
+      proxy_set_header X-Forwarded-Proto https;
       
-      #proxy_redirect http:// https://;
+      # Helps with 400 errors related to large headers
+      proxy_buffer_size 128k;
+      proxy_buffers 4 256k;
+      proxy_busy_buffers_size 256k;
     '';
   };
 };
