@@ -270,7 +270,7 @@ in {
   #   proxy_set_header X-Forwarded-Host $host;
   #   proxy_set_header X-Real-IP $remote_addr;
   # '';
-  };
+
   virtualHosts."wopi.davidwild.ch" = {
     enableACME = true;
     forceSSL = true;
