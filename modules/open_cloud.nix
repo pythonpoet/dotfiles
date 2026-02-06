@@ -306,7 +306,7 @@ in {
             "--add-host=bernina:host-gateway"
           ];
         }; };};
-    # TODO file search engine
+    # TODO file search engine opensearch!
     #     tika = mkIf cfg.enable_full_text_search {
     #       image = "apache/tika:latest-full";
     #       ports = ["9998:9998"];
@@ -337,18 +337,19 @@ in {
           response_content_on_debug = true; # only if level=debug
         };
       };
-      # 1. Create the directory automatically
-      systemd.tmpfiles.rules = [
+      
+    };
+    # 1. Create the directory automatically
+      systemd.tmpfiles.rules = mkIf cfg.enable_radicale[
         "d ${cfg.path_radicale} 0750 radicale radicale -"
       ];
 
       # 2. Grant the Radicale service permission to access this path
-      systemd.services.radicale.serviceConfig = {
+      systemd.services.radicale.serviceConfig = mkIf cfg.enable_radicale {
         ReadWritePaths = [ cfg.path_radicale ];
         # Ensure the service can create the folder if it's missing
         ConfigurationDirectory = "radicale"; 
       };
-    };
 
     networking.firewall.allowedTCPPorts = [9200 9980 8222 4222 9998 5232];
   };
