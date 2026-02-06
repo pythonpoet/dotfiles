@@ -225,7 +225,7 @@ in {
     more_clear_headers "X-Frame-Options";
   '';
   locations."/" = {
-    proxyPass = "http://127.0.0.1:9982"; # Use http here!
+    proxyPass = "http://0.0.0.0:9982"; # Use http here!
     proxyWebsockets = true;
     extraConfig = ''
       proxy_set_header Host $host;
