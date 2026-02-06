@@ -192,7 +192,7 @@
             data_dir = "/data1/opencloud/";
             enable_onlyoffice = true;
             enable_radicale = true;
-            path_radicale = /data1/radicale/;
+            path_radicale = "/data1/radicale/";
             #config_file = "/data1/ocis/config/";
           };
           vikunja = {
