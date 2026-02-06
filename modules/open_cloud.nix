@@ -220,19 +220,19 @@ in {
     virtualHosts."office.davidwild.ch" = {
   forceSSL = true; # Force browsers to stay on HTTPS
   enableACME = true;
-  extraConfig = ''
-    client_max_body_size 500M;
+  # extraConfig = ''
+  #   client_max_body_size 500M;
 
-  '';
+  # '';
   locations."/" = {
     proxyPass = "http://127.0.0.1:9982"; # Use http here!
     proxyWebsockets = true;
-    extraConfig = ''
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-    '';
+    # extraConfig = ''
+    #   proxy_set_header Host $host;
+    #   proxy_set_header X-Real-IP $remote_addr;
+    #   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #   proxy_set_header X-Forwarded-Proto $scheme;
+    # '';
   };
 };
 
