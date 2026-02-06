@@ -218,27 +218,28 @@ in {
     # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
     
     virtualHosts."office.davidwild.ch" = {
-
-      forceSSL = true;
-       enableACME = true;
-      # forceSSL = true; # Automatically redirects http:// to https://
-      extraConfig = ''
-        client_max_body_size 500M;
-        # Ensure we clear headers that might block iframes globally
-        more_clear_headers "X-Frame-Options";
-      '';
-      locations."/" = {
-       proxyPass = "https://127.0.0.1:9982";
-      proxyWebsockets = true; # Highly recommended for OnlyOffice editors
-    
-      extraConfig = ''
-                proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+  forceSSL = true; # Force browsers to stay on HTTPS
+  enableACME = true;
+  extraConfig = ''
+    client_max_body_size 500M;
+    more_clear_headers "X-Frame-Options";
+  '';
+  locations."/" = {
+    proxyPass = "http://127.0.0.1:9982"; # Use http here!
+    proxyWebsockets = true;
+    extraConfig = ''
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      
+      # THIS IS THE MAGIC LINE:
+      # It tells the container to generate https:// links for the browser
+      proxy_set_header X-Forwarded-Proto https; 
+      
+      proxy_redirect http:// https://;
     '';
-    };
-    };
+  };
+};
 
     virtualHosts."cloud.davidwild.ch" = {
   # ... your existing SSL config ...
@@ -282,7 +283,7 @@ in {
 
         onlyoffice =  {
           image = "onlyoffice/documentserver:latest";
-          ports = ["9982:443"];
+          ports = ["9982:80"];
           autoStart = true;
           environment = {
   
