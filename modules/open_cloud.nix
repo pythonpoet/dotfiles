@@ -231,23 +231,14 @@ in {
        proxyPass = "http://127.0.0.1:9982";
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
-    extraConfig = ''
-
-
-      # proxy_set_header X-Forwarded-Host $host;
-    #  sub_filter 'http://office.davidwild.ch' 'https://office.davidwild.ch';
-    #       sub_filter_once off;
-    #       sub_filter_types application/json application/javascript text/xml;
-        # Crucial: disable compression so sub_filter can read the text
-          proxy_set_header Accept-Encoding "";
-    
-
-        # proxy_set_header Host $host;
-        # proxy_set_header X-Real-IP $remote_addr;
-        # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-        proxy_set_header X-Forwarded-Proto https;
-        # proxy_set_header X-Forwarded-Ssl on;
+      extraConfig = ''
+        proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto https; # Explicitly tell OnlyOffice it is HTTPS
+      
+      # Important: OnlyOffice sometimes redirects to 'localhost' internally
+      proxy_redirect http:// https://;
     '';
     };
     };
