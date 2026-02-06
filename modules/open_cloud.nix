@@ -109,14 +109,14 @@ in {
     COLLABORA_DOMAIN = "office.davidwild.ch";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
-		COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch";#"http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+		#COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch";#"http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
 		COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
 
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
     COLLABORATION_JWT_SECRET = "whatever";
     COLLABORATION_CS3API_DATAGATEWAY_INSECURE = "true";
-
+    COLLABORATION_CS3_GATEWAY = "${internal_host}:9142";
 		
 		#COLLABORATION_HTTP_ADDR = "${internal_host}:${toString (wopi_port)}"; #<- listen to all interfaces or
     #COLLABORATION_OO_SECRET = "";# "whatever";
@@ -208,68 +208,39 @@ in {
   
 
 
-  services.nginx = {
-    # 1. The Upstream Fix: Forces Nginx to use IPv4 (127.0.0.1) instead of IPv6 ([::1])
-    # This solves the "Connection Refused" error we saw in your logs.
-    # upstreams."onlyoffice-docservice".servers = lib.mkForce {
-    #   "127.0.0.1:9982" = { };
-    # };
-
-    # 2. The VirtualHost Fix: Merges SSL and Redirect logic into the OnlyOffice domain
-    
+  services.nginx = {    
     virtualHosts."office.davidwild.ch" = {
-  forceSSL = true; # Force browsers to stay on HTTPS
-  enableACME = true;
-  # extraConfig = ''
-  #   client_max_body_size 500M;
-
-  # '';
-  locations."/" = {
-    proxyPass = "http://${internal_host}:9982"; # Use http here!
-    proxyWebsockets = true;
-    # extraConfig = ''
-    #   proxy_set_header Host $host;
-    #   proxy_set_header X-Real-IP $remote_addr;
-    #   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    #   proxy_set_header X-Forwarded-Proto $scheme;
-    # '';
-  };
-};
+      forceSSL = true; # Force browsers to stay on HTTPS
+      enableACME = true;
+      locations."/" = {
+        proxyPass = "http://${internal_host}:9982"; # Use http here!
+        proxyWebsockets = true;
+      };
+    };
 
     virtualHosts."cloud.davidwild.ch" = {
-  addSSL = true;
-  enableACME = true;
-  locations."/" = {
-    proxyPass = "http://${internal_host}:${toString opencould_port}";
-    proxyWebsockets = true;
-    extraConfig = ''
-      proxy_buffering off;
-      proxy_cache off;
-      proxy_read_timeout 24h;
+      addSSL = true;
+      enableACME = true;
+      locations."/" = {
+        proxyPass = "http://${internal_host}:${toString opencould_port}";
+        proxyWebsockets = true;
+        extraConfig = ''
+          proxy_buffering off;
+          proxy_cache off;
+          proxy_read_timeout 24h;
 
-      # CRITICAL: Pass the Authorization header through!
-      proxy_set_header Authorization $http_authorization;
-      proxy_pass_header Authorization;
+          # CRITICAL: Pass the Authorization header through!
+          proxy_set_header Authorization $http_authorization;
+          proxy_pass_header Authorization;
 
-      proxy_set_header X-Forwarded-Proto $scheme;
-      proxy_set_header X-Forwarded-Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    '';
-  };
-};
-  # ... your existing SSL config ...
-  # extraConfig = ''
-  #   # Disable buffering for SSE (Server-Sent Events)
-  #   proxy_buffering off;
-  #   proxy_cache off;
-  #   proxy_read_timeout 24h;
-    
-  #   # Required for OpenCloud internal communication
-  #   proxy_set_header X-Forwarded-Proto $scheme;
-  #   proxy_set_header X-Forwarded-Host $host;
-  #   proxy_set_header X-Real-IP $remote_addr;
-  # '';
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        '';
+      };
+    };
+  
 
   virtualHosts."wopi.davidwild.ch" = {
     enableACME = true;
@@ -286,13 +257,6 @@ in {
   };
   };
   
-    # services.tika = {
-    #   enable = true;
-    #   port = 9998;
-    #   # Optional: listen only on localhost for security
-    #   listenAddress = "127.0.0.1";
-    # };
-    #TODO add collabora
     virtualisation.oci-containers = {
       backend = "podman";
       containers = {
@@ -340,11 +304,7 @@ in {
     #     };
     #   };
     # };
-#     systemd.services.opencloud.serviceConfig = {
-#   # This prevents the service from even seeing the IPv6 'Address Family'
-#   RestrictAddressFamilies = [ "AF_INET" "AF_UNIX" "AF_NETLINK" ]; 
-#   # Note: We omitted AF_INET6 here.
-# };
+
     networking.firewall.allowedTCPPorts = [9200 9980 8222 4222 9998 5232];
   };
 }
