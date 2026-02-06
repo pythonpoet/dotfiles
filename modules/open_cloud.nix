@@ -291,7 +291,9 @@ in {
             # PROTO = "http";
             # USE_UNAUTHORIZED_STORAGE = "false";
           };
-          extraHosts = ["127.0.0.1:9300"];
+          extraOptions = [
+            "--add-host=127.0.0.1:9300"
+          ];
         }; };};
     #     tika = mkIf cfg.enable_full_text_search {
     #       image = "apache/tika:latest-full";
