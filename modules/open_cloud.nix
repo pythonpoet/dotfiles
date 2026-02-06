@@ -293,7 +293,7 @@ in {
             JWT_SECRET="whatever";
             NODE_TLS_REJECT_UNAUTHORIZED = "0";
             ONLYOFFICE_HTTPS_HSTS_ENABLED = "true";
-            PROTO = "https";
+            PROTO = "http";
           };
         }; };};
     #     tika = mkIf cfg.enable_full_text_search {
