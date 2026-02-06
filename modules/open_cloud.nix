@@ -119,7 +119,7 @@ in {
     COLLABORATION_LOG_LEVEL = "info";
     COLLABORATION_JWT_SECRET = "whatever";
     COLLABORATION_CS3API_DATAGATEWAY_INSECURE = "true";
-    COLLABORATION_HTTP_ADDR = "0.0.0.0:9300";
+    #COLLABORATION_HTTP_ADDR = "0.0.0.0:9300";
     
 		
 		#COLLABORATION_HTTP_ADDR = "${internal_host}:${toString (wopi_port)}"; #<- listen to all interfaces or
