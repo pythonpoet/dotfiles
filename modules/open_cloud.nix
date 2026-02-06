@@ -192,19 +192,20 @@ in {
     '';
     
 
-   services.onlyoffice = mkIf cfg.enable_onlyoffice {
-    enable = true;
-    port = 9982;
+  #  services.onlyoffice = mkIf cfg.enable_onlyoffice {
+  #   enable = true;
+  #   port = 9982;
 
-    hostname = "office.davidwild.ch";
-    postgresPasswordFile = config.age.secrets.onlyoffice.path;
-    securityNonceFile = config.age.secrets.onlyofficesec.path;
-    wopi = true;
-    nginx.enable = false;
-    # TODO implement
-    jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
+  #   hostname = "office.davidwild.ch";
+  #   postgresPasswordFile = config.age.secrets.onlyoffice.path;
+  #   securityNonceFile = config.age.secrets.onlyofficesec.path;
+  #   wopi = true;
+  #   nginx.enable = false;
+  #   # TODO implement
+  #   jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
 
-  };
+  # };
+  
 
 
   services.nginx = {
@@ -287,21 +288,23 @@ in {
     #   listenAddress = "127.0.0.1";
     # };
     #TODO add collabora
-    # virtualisation.oci-containers = {
-    #   backend = "podman";
-    #   containers = {
+    virtualisation.oci-containers = {
+      backend = "podman";
+      containers = {
 
-    #     collabora =  {
-    #       image = "onlyoffice/documentserver:latest";
-    #       ports = ["9980:9980"];
-    #       autoStart = true;
-    #       environment = {
-    #         WOPI_ENABLED= "true";
-    #         JWT_ENABLED = "true";
-    #         JWT_SECRET="whatever";
-    #         #extra_params = "--o:ssl.enable=false";
-    #       };
-    #     }; };};
+        collabora =  {
+          image = "onlyoffice/documentserver:latest";
+          ports = ["9982:80"];
+          autoStart = true;
+          environment = {
+  
+            USE_UNAUTHORIZED_STORAGE = "false";
+            WOPI_ENABLED= "true";
+            JWT_ENABLED = "true";
+            JWT_SECRET="whatever";
+            #extra_params = "--o:ssl.enable=false";
+          };
+        }; };};
     #     tika = mkIf cfg.enable_full_text_search {
     #       image = "apache/tika:latest-full";
     #       ports = ["9998:9998"];
