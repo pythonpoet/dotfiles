@@ -218,57 +218,62 @@ in {
     };
 
     virtualHosts."cloud.davidwild.ch" = {
-      addSSL = true;
-      enableACME = true;
-      locations."/" = {
-        proxyPass = "http://${internal_host}:${toString opencould_port}";
-        proxyWebsockets = true;
-        extraConfig = ''
-          proxy_buffering off;
-          proxy_cache off;
-          proxy_read_timeout 24h;
+  addSSL = true;
+  enableACME = true;
+  
+  # Everything path-related goes inside this block
+  locations = {
+    "/" = {
+      proxyPass = "http://${internal_host}:${toString opencould_port}";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_read_timeout 24h;
 
-          # CRITICAL: Pass the Authorization header through!
-          proxy_set_header Authorization $http_authorization;
-          proxy_pass_header Authorization;
+        proxy_set_header Authorization $http_authorization;
+        proxy_pass_header Authorization;
 
-          proxy_set_header X-Forwarded-Proto $scheme;
-          proxy_set_header X-Forwarded-Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        '';
-      
-      # Radicale endpoints for CalDAV and CardDAV
-        "/caldav/" = {
-          proxyPass = "http://127.0.0.1:5232";
-          extraConfig = "
-            proxy_set_header X-Remote-User $remote_user; # provide username to CalDAV
-            proxy_set_header X-Script-Name /caldav;
-          ";
-        };
-        "/.well-known/caldav" = {
-          proxyPass = "http://127.0.0.1:5232";
-          extraConfig = "
-            proxy_set_header X-Remote-User $remote_user; # provide username to CalDAV
-            proxy_set_header X-Script-Name /caldav;
-          ";
-        };
-        "/carddav/" = {
-          proxyPass = "http://127.0.0.1:5232";
-          extraConfig = "
-            proxy_set_header X-Remote-User $remote_user; # provide username to CardDAV
-            proxy_set_header X-Script-Name /carddav;
-          ";
-        };
-        "/.well-known/carddav/" = {
-          proxyPass = "http://127.0.0.1:5232";
-          extraConfig = "
-            proxy_set_header X-Remote-User $remote_user; # provide username to CardDAV
-            proxy_set_header X-Script-Name /carddav;
-          ";
-        };
-      };
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      '';
     };
+
+    "/caldav/" = {
+      proxyPass = "http://127.0.0.1:5232/";
+      extraConfig = ''
+        proxy_set_header X-Remote-User $remote_user;
+        proxy_set_header X-Script-Name /caldav;
+      '';
+    };
+
+    "/.well-known/caldav" = {
+      proxyPass = "http://127.0.0.1:5232/";
+      extraConfig = ''
+        proxy_set_header X-Remote-User $remote_user;
+        proxy_set_header X-Script-Name /caldav;
+      '';
+    };
+
+    "/carddav/" = {
+      proxyPass = "http://127.0.0.1:5232/";
+      extraConfig = ''
+        proxy_set_header X-Remote-User $remote_user;
+        proxy_set_header X-Script-Name /carddav;
+      '';
+    };
+
+    "/.well-known/carddav" = {
+      proxyPass = "http://127.0.0.1:5232/";
+      extraConfig = ''
+        proxy_set_header X-Remote-User $remote_user;
+        proxy_set_header X-Script-Name /carddav;
+      '';
+    };
+  }; # End of locations
+};
   
 
   virtualHosts."wopi.davidwild.ch" = {
