@@ -236,7 +236,7 @@ in {
       # It tells the container to generate https:// links for the browser
       proxy_set_header X-Forwarded-Proto https; 
       
-      proxy_redirect http:// https://;
+      #proxy_redirect http:// https://;
     '';
   };
 };
