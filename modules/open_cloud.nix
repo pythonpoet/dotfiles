@@ -237,6 +237,27 @@ in {
 };
 
     virtualHosts."cloud.davidwild.ch" = {
+  addSSL = true;
+  enableACME = true;
+  locations."/" = {
+    proxyPass = "http://${internal_host}:${toString opencould_port}";
+    proxyWebsockets = true;
+    extraConfig = ''
+      proxy_buffering off;
+      proxy_cache off;
+      proxy_read_timeout 24h;
+
+      # CRITICAL: Pass the Authorization header through!
+      proxy_set_header Authorization $http_authorization;
+      proxy_pass_header Authorization;
+
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    '';
+  };
+};
   # ... your existing SSL config ...
   # extraConfig = ''
   #   # Disable buffering for SSE (Server-Sent Events)
