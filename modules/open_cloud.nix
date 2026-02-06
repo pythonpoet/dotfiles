@@ -286,11 +286,12 @@ in {
             WOPI_ENABLED= "true";
             JWT_ENABLED = "true";
             JWT_SECRET="whatever";
-            # NODE_TLS_REJECT_UNAUTHORIZED = "0";
+            NODE_TLS_REJECT_UNAUTHORIZED = "0";
             # ONLYOFFICE_HTTPS_HSTS_ENABLED = "true";
             # PROTO = "http";
             # USE_UNAUTHORIZED_STORAGE = "false";
           };
+          extraHosts = ["127.0.0.1:9300"];
         }; };};
     #     tika = mkIf cfg.enable_full_text_search {
     #       image = "apache/tika:latest-full";
