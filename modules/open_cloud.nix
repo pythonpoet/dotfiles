@@ -228,17 +228,14 @@ in {
         more_clear_headers "X-Frame-Options";
       '';
       locations."/" = {
-       proxyPass = "http://127.0.0.1:9982";
+       proxyPass = "https://127.0.0.1:9982";
       proxyWebsockets = true; # Highly recommended for OnlyOffice editors
     
       extraConfig = ''
-        proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto https; # Explicitly tell OnlyOffice it is HTTPS
-      
-      # Important: OnlyOffice sometimes redirects to 'localhost' internally
-      proxy_redirect http:// https://;
+                proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     '';
     };
     };
@@ -285,7 +282,7 @@ in {
 
         onlyoffice =  {
           image = "onlyoffice/documentserver:latest";
-          ports = ["9982:80"];
+          ports = ["9982:443"];
           autoStart = true;
           environment = {
   
