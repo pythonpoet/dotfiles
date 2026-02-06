@@ -14,7 +14,7 @@
 }:
 with lib; let
   # List of ports to enable
-  internal_host = "127.0.0.1";
+  internal_host = "0.0.0.0";
   opencould_port = 9200;
   wopi_port = 9300;
   onlyoffice_url = "https://office.davidwild.ch";
@@ -225,7 +225,7 @@ in {
 
   # '';
   locations."/" = {
-    proxyPass = "http://127.0.0.1:9982"; # Use http here!
+    proxyPass = "http://${internal_host}:9982"; # Use http here!
     proxyWebsockets = true;
     # extraConfig = ''
     #   proxy_set_header Host $host;
@@ -291,9 +291,9 @@ in {
             # PROTO = "http";
             # USE_UNAUTHORIZED_STORAGE = "false";
           };
-          extraOptions = [
-            "--add-host=localhost:9300"
-          ];
+          # extraOptions = [
+          #   "--add-host=localhost:9300"
+          # ];
         }; };};
     #     tika = mkIf cfg.enable_full_text_search {
     #       image = "apache/tika:latest-full";
