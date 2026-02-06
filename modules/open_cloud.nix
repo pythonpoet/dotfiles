@@ -62,10 +62,10 @@ in {
   };
   config = mkIf cfg.enable {
     services.opencloud = {
-  enable = true;
-  url = cfg.domain;
-  port = cfg.port;
-  stateDir = cfg.data_dir;
+      enable = true;
+      url = cfg.domain;
+      port = cfg.port;
+      stateDir = cfg.data_dir;
 
   # We use environment variables for everything possible to keep the config clean.
   environment = {
@@ -105,26 +105,19 @@ in {
     WEB_OIDC_METADATA_URL = "${opencloud_url}/.well-known/openid-configuration";
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
 
-    #COLLABORA_DOMAIN = onlyoffice_url;
-    #
+
     FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
     COLLABORA_DOMAIN = "office.davidwild.ch";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
-    #COLLABORATION_WOPI_SRC = "http://bernina:9300";
-		COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch";#"http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
-		COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
-
+ 
+		COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch";
+		COLLABORATION_APP_ADDR =  onlyoffice_url; 
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
-    COLLABORATION_JWT_SECRET = "whatever";
+    COLLABORATION_JWT_SECRET = "whateever";
     COLLABORATION_CS3API_DATAGATEWAY_INSECURE = "true";
-    # COLLABORATION_PROOF_SKIP_VERIFY = "true";
-    # COLLABORATION_WOPI_SKIP_PROOF = "true";
-    #COLLABORATION_HTTP_ADDR = "0.0.0.0:9300";
     
-		
-		#COLLABORATION_HTTP_ADDR = "${internal_host}:${toString (wopi_port)}"; #<- listen to all interfaces or
     COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
