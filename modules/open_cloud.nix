@@ -80,7 +80,9 @@ in {
     HTTP_TLS = "false";
     OC_JWT_SECRET = "whatever";
     
-    #STORAGE_USERS_DRIVER = "ocis";
+    STORAGE_USERS_DRIVER = "ocis";
+    STORAGE_METADATA_DRIVER = "ocis";
+
 
     PROXY_EXTERNAL_ADDR = opencloud_url;
     PROXY_AUTOPROVISION_ACCOUNTS = "true";         # Create user on first login
