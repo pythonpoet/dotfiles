@@ -287,6 +287,8 @@ in {
             JWT_ENABLED = "true";
             JWT_SECRET="whatever";
             NODE_TLS_REJECT_UNAUTHORIZED = "0";
+            WOPI_SKIP_PROOF = "true";
+            USE_UNAUTHORIZED_STORAGE = "true";
             # ONLYOFFICE_HTTPS_HSTS_ENABLED = "true";
             # PROTO = "http";
             # USE_UNAUTHORIZED_STORAGE = "false";
