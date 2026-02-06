@@ -266,7 +266,7 @@ in {
             proxy_set_header X-Remote-User $remote_user; # provide username to CardDAV
             proxy_set_header X-Script-Name /carddav;
           ";
-        }
+        };
     };
   
 
