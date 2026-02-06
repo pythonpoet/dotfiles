@@ -292,7 +292,7 @@ in {
       backend = "podman";
       containers = {
 
-        collabora =  {
+        onlyoffice =  {
           image = "onlyoffice/documentserver:latest";
           ports = ["9982:80"];
           autoStart = true;
@@ -302,7 +302,8 @@ in {
             WOPI_ENABLED= "true";
             JWT_ENABLED = "true";
             JWT_SECRET="whatever";
-            #extra_params = "--o:ssl.enable=false";
+            NODE_TLS_REJECT_UNAUTHORIZED = "0";
+            extra_params = "--o:ssl.enable=false";
           };
         }; };};
     #     tika = mkIf cfg.enable_full_text_search {
