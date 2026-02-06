@@ -337,6 +337,17 @@ in {
           response_content_on_debug = true; # only if level=debug
         };
       };
+      # 1. Create the directory automatically
+      systemd.tmpfiles.rules = [
+        "d ${cfg.path_radicale} 0750 radicale radicale -"
+      ];
+
+      # 2. Grant the Radicale service permission to access this path
+      systemd.services.radicale.serviceConfig = {
+        ReadWritePaths = [ cfg.path_radicale ];
+        # Ensure the service can create the folder if it's missing
+        ConfigurationDirectory = "radicale"; 
+      };
     };
 
     networking.firewall.allowedTCPPorts = [9200 9980 8222 4222 9998 5232];
