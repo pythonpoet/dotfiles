@@ -75,7 +75,7 @@ in {
     PROXY_OIDC_ISSUER = "https://auth.davidwild.ch/application/o/opencloud/";
     OC_EXCLUDE_RUN_SERVICES = "idp";
     OC_ADD_RUN_SERVICES = "collaboration";
-    OC_LOG_LEVEL = "debug";
+    OC_LOG_LEVEL = "info";
     PROXY_TLS = "false";
     HTTP_TLS = "false";
     OC_JWT_SECRET = "whatever";
@@ -106,17 +106,17 @@ in {
     PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
 
 
-    FRONTEND_APP_HANDLER_VIEW_APP_ADDR = "eu.opencloud.api.collaboration";
-    COLLABORA_DOMAIN = "office.davidwild.ch";
-    COLLABORATION_APP_NAME = "OnlyOffice";
-		COLLABORATION_APP_PRODUCT = "OnlyOffice";
+    FRONTEND_APP_HANDLER_VIEW_APP_ADDR =  mkIf cfg.enable_onlyoffice "eu.opencloud.api.collaboration";
+    COLLABORA_DOMAIN =  mkIf cfg.enable_onlyoffice "office.davidwild.ch";
+    COLLABORATION_APP_NAME =  mkIf cfg.enable_onlyoffice "OnlyOffice";
+		COLLABORATION_APP_PRODUCT =  mkIf cfg.enable_onlyoffice "OnlyOffice";
  
-		COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch";
-		COLLABORATION_APP_ADDR =  onlyoffice_url; 
-		COLLABORATION_APP_INSECURE ="true";
-    COLLABORATION_LOG_LEVEL = "info";
-    COLLABORATION_JWT_SECRET = "whatever";
-    COLLABORATION_CS3API_DATAGATEWAY_INSECURE = "true";
+		COLLABORATION_WOPI_SRC =  mkIf cfg.enable_onlyoffice "https://wopi.davidwild.ch";
+		COLLABORATION_APP_ADDR =   mkIf cfg.enable_onlyoffice onlyoffice_url; 
+		COLLABORATION_APP_INSECURE =  mkIf cfg.enable_onlyoffice "true";
+    COLLABORATION_LOG_LEVEL =  mkIf cfg.enable_onlyoffice "info";
+    COLLABORATION_JWT_SECRET =  mkIf cfg.enable_onlyoffice "whatever";
+    COLLABORATION_CS3API_DATAGATEWAY_INSECURE =  mkIf cfg.enable_onlyoffice "true";
     
     COLLABORATION_OO_SECRET = "whatever";
     
@@ -148,7 +148,7 @@ in {
 
     };
     };
-    environment.etc."opencloud/csp.yaml".text = ''
+    environment.etc."opencloud/csp.yaml".text = mkIf cfg.enable_onlyoffice ''
       directives:
         connect-src:
           - "'self'"
@@ -241,7 +241,7 @@ in {
           '';
         };
 
-        "/caldav/" = {
+        "/caldav/" = mkIf cfg.enable_radicale {
           proxyPass = "http://127.0.0.1:5232/";
           extraConfig = ''
             proxy_set_header X-Remote-User $remote_user;
@@ -249,7 +249,7 @@ in {
           '';
         };
 
-        "/.well-known/caldav" = {
+        "/.well-known/caldav" = mkIf cfg.enable_radicale {
           proxyPass = "http://127.0.0.1:5232/";
           extraConfig = ''
             proxy_set_header X-Remote-User $remote_user;
@@ -257,7 +257,7 @@ in {
           '';
         };
 
-        "/carddav/" = {
+        "/carddav/" = mkIf cfg.enable_radicale {
           proxyPass = "http://127.0.0.1:5232/";
           extraConfig = ''
             proxy_set_header X-Remote-User $remote_user;
@@ -265,7 +265,7 @@ in {
           '';
         };
 
-        "/.well-known/carddav" = {
+        "/.well-known/carddav" = mkIf cfg.enable_radicale {
           proxyPass = "http://127.0.0.1:5232/";
           extraConfig = ''
             proxy_set_header X-Remote-User $remote_user;
