@@ -222,7 +222,7 @@ in {
   enableACME = true;
   extraConfig = ''
     client_max_body_size 500M;
-    more_clear_headers "X-Frame-Options";
+
   '';
   locations."/" = {
     proxyPass = "http://127.0.0.1:9982"; # Use http here!
@@ -231,15 +231,7 @@ in {
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      
-      # These are CRITICAL for OnlyOffice
-      proxy_set_header X-Forwarded-Host $host;
-      proxy_set_header X-Forwarded-Proto https;
-      
-      # Helps with 400 errors related to large headers
-      proxy_buffer_size 128k;
-      proxy_buffers 4 256k;
-      proxy_busy_buffers_size 256k;
+      proxy_set_header X-Forwarded-Proto $scheme;
     '';
   };
 };
@@ -290,13 +282,14 @@ in {
           autoStart = true;
           environment = {
   
-            USE_UNAUTHORIZED_STORAGE = "false";
+            
             WOPI_ENABLED= "true";
             JWT_ENABLED = "true";
             JWT_SECRET="whatever";
             NODE_TLS_REJECT_UNAUTHORIZED = "0";
             ONLYOFFICE_HTTPS_HSTS_ENABLED = "true";
             PROTO = "http";
+            USE_UNAUTHORIZED_STORAGE = "false";
           };
         }; };};
     #     tika = mkIf cfg.enable_full_text_search {
