@@ -115,7 +115,7 @@ in {
 		COLLABORATION_APP_ADDR =  onlyoffice_url; 
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
-    COLLABORATION_JWT_SECRET = "whateever";
+    COLLABORATION_JWT_SECRET = "whatever";
     COLLABORATION_CS3API_DATAGATEWAY_INSECURE = "true";
     
     COLLABORATION_OO_SECRET = "whatever";
@@ -218,62 +218,62 @@ in {
     };
 
     virtualHosts."cloud.davidwild.ch" = {
-  addSSL = true;
-  enableACME = true;
+      forceSSL = true;
+      enableACME = true;
   
-  # Everything path-related goes inside this block
-  locations = {
-    "/" = {
-      proxyPass = "http://${internal_host}:${toString opencould_port}";
-      proxyWebsockets = true;
-      extraConfig = ''
-        proxy_buffering off;
-        proxy_cache off;
-        proxy_read_timeout 24h;
+      # Everything path-related goes inside this block
+      locations = {
+        "/" = {
+          proxyPass = "http://${internal_host}:${toString opencould_port}";
+          proxyWebsockets = true;
+          extraConfig = ''
+            proxy_buffering off;
+            proxy_cache off;
+            proxy_read_timeout 24h;
 
-        proxy_set_header Authorization $http_authorization;
-        proxy_pass_header Authorization;
+            proxy_set_header Authorization $http_authorization;
+            proxy_pass_header Authorization;
 
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      '';
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          '';
+        };
+
+        "/caldav/" = {
+          proxyPass = "http://127.0.0.1:5232/";
+          extraConfig = ''
+            proxy_set_header X-Remote-User $remote_user;
+            proxy_set_header X-Script-Name /caldav;
+          '';
+        };
+
+        "/.well-known/caldav" = {
+          proxyPass = "http://127.0.0.1:5232/";
+          extraConfig = ''
+            proxy_set_header X-Remote-User $remote_user;
+            proxy_set_header X-Script-Name /caldav;
+          '';
+        };
+
+        "/carddav/" = {
+          proxyPass = "http://127.0.0.1:5232/";
+          extraConfig = ''
+            proxy_set_header X-Remote-User $remote_user;
+            proxy_set_header X-Script-Name /carddav;
+          '';
+        };
+
+        "/.well-known/carddav" = {
+          proxyPass = "http://127.0.0.1:5232/";
+          extraConfig = ''
+            proxy_set_header X-Remote-User $remote_user;
+            proxy_set_header X-Script-Name /carddav;
+          '';
+        };
+      }; # End of locations
     };
-
-    "/caldav/" = {
-      proxyPass = "http://127.0.0.1:5232/";
-      extraConfig = ''
-        proxy_set_header X-Remote-User $remote_user;
-        proxy_set_header X-Script-Name /caldav;
-      '';
-    };
-
-    "/.well-known/caldav" = {
-      proxyPass = "http://127.0.0.1:5232/";
-      extraConfig = ''
-        proxy_set_header X-Remote-User $remote_user;
-        proxy_set_header X-Script-Name /caldav;
-      '';
-    };
-
-    "/carddav/" = {
-      proxyPass = "http://127.0.0.1:5232/";
-      extraConfig = ''
-        proxy_set_header X-Remote-User $remote_user;
-        proxy_set_header X-Script-Name /carddav;
-      '';
-    };
-
-    "/.well-known/carddav" = {
-      proxyPass = "http://127.0.0.1:5232/";
-      extraConfig = ''
-        proxy_set_header X-Remote-User $remote_user;
-        proxy_set_header X-Script-Name /carddav;
-      '';
-    };
-  }; # End of locations
-};
   
 
   virtualHosts."wopi.davidwild.ch" = {
