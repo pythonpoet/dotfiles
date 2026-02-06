@@ -119,13 +119,13 @@ in {
     COLLABORATION_LOG_LEVEL = "info";
     COLLABORATION_JWT_SECRET = "whatever";
     COLLABORATION_CS3API_DATAGATEWAY_INSECURE = "true";
-    COLLABORATION_PROOF_SKIP_VERIFY = "true";
-    COLLABORATION_WOPI_SKIP_PROOF = "true";
+    # COLLABORATION_PROOF_SKIP_VERIFY = "true";
+    # COLLABORATION_WOPI_SKIP_PROOF = "true";
     #COLLABORATION_HTTP_ADDR = "0.0.0.0:9300";
     
 		
 		#COLLABORATION_HTTP_ADDR = "${internal_host}:${toString (wopi_port)}"; #<- listen to all interfaces or
-    #COLLABORATION_OO_SECRET = "";# "whatever";
+    COLLABORATION_OO_SECRET = "whatever";
     
     PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD = "none"; 
     PROXY_OIDC_SKIP_USER_INFO = "false"; # Changed to true to fix 401 errors
