@@ -292,7 +292,7 @@ in {
             # USE_UNAUTHORIZED_STORAGE = "false";
           };
           extraOptions = [
-            "--add-host=127.0.0.1:9300"
+            "--add-host=localhost:9300"
           ];
         }; };};
     #     tika = mkIf cfg.enable_full_text_search {
