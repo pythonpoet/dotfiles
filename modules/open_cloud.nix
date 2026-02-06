@@ -111,13 +111,15 @@ in {
     COLLABORA_DOMAIN = "office.davidwild.ch";
     COLLABORATION_APP_NAME = "OnlyOffice";
 		COLLABORATION_APP_PRODUCT = "OnlyOffice";
-		COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch";#"http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
+    COLLABORATION_WOPI_SRC = "http://bernina:9300";
+		#COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch";#"http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
 		COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
 
 		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
     COLLABORATION_JWT_SECRET = "whatever";
     COLLABORATION_CS3API_DATAGATEWAY_INSECURE = "true";
+    COLLABORATION_HTTP_ADDR = "0.0.0.0:9300";
     
 		
 		#COLLABORATION_HTTP_ADDR = "${internal_host}:${toString (wopi_port)}"; #<- listen to all interfaces or
@@ -280,9 +282,9 @@ in {
             # PROTO = "http";
             # USE_UNAUTHORIZED_STORAGE = "false";
           };
-          # extraOptions = [
-          #   "--add-host=localhost:9300"
-          # ];
+          extraOptions = [
+            "--add-host=bernina:host-gateway"
+          ];
         }; };};
     #     tika = mkIf cfg.enable_full_text_search {
     #       image = "apache/tika:latest-full";
