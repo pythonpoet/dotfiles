@@ -286,10 +286,10 @@ in {
             WOPI_ENABLED= "true";
             JWT_ENABLED = "true";
             JWT_SECRET="whatever";
-            NODE_TLS_REJECT_UNAUTHORIZED = "0";
-            ONLYOFFICE_HTTPS_HSTS_ENABLED = "true";
-            PROTO = "http";
-            USE_UNAUTHORIZED_STORAGE = "false";
+            # NODE_TLS_REJECT_UNAUTHORIZED = "0";
+            # ONLYOFFICE_HTTPS_HSTS_ENABLED = "true";
+            # PROTO = "http";
+            # USE_UNAUTHORIZED_STORAGE = "false";
           };
         }; };};
     #     tika = mkIf cfg.enable_full_text_search {
