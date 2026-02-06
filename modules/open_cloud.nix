@@ -112,7 +112,7 @@ in {
 		COLLABORATION_WOPI_SRC =  "https://wopi.davidwild.ch";#"http://${internal_host}:${toString wopi_port}"; #<- Internal Link to the OpenCloud-Service and add 1/2*
 		COLLABORATION_APP_ADDR =  onlyoffice_url; #<- External Link to OnlyOffice for iframe
 
-		COLLABORATION_APP_INSECURE ="false";
+		COLLABORATION_APP_INSECURE ="true";
     COLLABORATION_LOG_LEVEL = "info";
     COLLABORATION_JWT_SECRET = "whatever";
     COLLABORATION_CS3API_DATAGATEWAY_INSECURE = "true";
