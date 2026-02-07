@@ -190,7 +190,23 @@ in {
         frame-ancestors: ["'self'", "https://cloud.davidwild.ch"]
     '';
     
-
+   # secrets.onlyoffice = {
+  #   file = "/home/david/dotfiles/secrets/onlyoffice.age";
+  #   owner = "onlyoffice"; 
+  #   group = "onlyoffice"; 
+  #   mode = "0440";
+  #   };
+  #   secrets.onlyoffice-jwt = {
+  #   file = "/home/david/dotfiles/secrets/onlyoffice-jwt.age";
+  #   owner = "onlyoffice"; 
+  #   group = "onlyoffice"; 
+  #   mode = "0440";
+  #   };
+  # secrets.vikunja-config = {
+  #   file = "/home/david/dotfiles/secrets/vikunja-config.age";
+  #   mode = "0440";
+  #   group = "keys"; 
+  # };
   #  services.onlyoffice = mkIf cfg.enable_onlyoffice {
   #   enable = true;
   #   port = 9982;

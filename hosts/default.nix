@@ -151,23 +151,7 @@
               group = "onlyoffice"; 
               mode = "0440";
               };
-            secrets.onlyoffice = {
-              file = "/home/david/dotfiles/secrets/onlyoffice.age";
-              owner = "onlyoffice"; 
-              group = "onlyoffice"; 
-              mode = "0440";
-              };
-              secrets.onlyoffice-jwt = {
-              file = "/home/david/dotfiles/secrets/onlyoffice-jwt.age";
-              owner = "onlyoffice"; 
-              group = "onlyoffice"; 
-              mode = "0440";
-              };
-            secrets.vikunja-config = {
-              file = "/home/david/dotfiles/secrets/vikunja-config.age";
-              mode = "0440";
-              group = "keys"; 
-            };
+           
           };
           home-manager = {
             users.david.imports = homeImports.server;
