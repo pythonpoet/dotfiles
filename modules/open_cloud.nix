@@ -202,11 +202,12 @@ in {
   #   group = "onlyoffice"; 
   #   mode = "0440";
   #   };
-  # secrets.vikunja-config = {
-  #   file = "/home/david/dotfiles/secrets/vikunja-config.age";
-  #   mode = "0440";
-  #   group = "keys"; 
-  # };
+      # secrets.onlyofficesec = {
+      # file = "/home/david/dotfiles/secrets/onlyofficesec.age";
+      # owner = "onlyoffice"; 
+      # group = "onlyoffice"; 
+      # mode = "0440";
+      # };
   #  services.onlyoffice = mkIf cfg.enable_onlyoffice {
   #   enable = true;
   #   port = 9982;
