@@ -67,7 +67,7 @@ in {
       # Everything path-related goes inside this block
       locations = {
         "/" = {
-          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyPass = "https://127.0.0.1:${toString cfg.port}";
           proxyWebsockets = true;
           extraConfig = ''
             proxy_buffering off;
