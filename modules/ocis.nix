@@ -34,7 +34,7 @@ in {
     };
     domain = mkOption {
       type = types.str;
-      default = "https://oldcloud.davidwild.ch";
+      default = "oldcloud.davidwild.ch";
     };
 
     enable_radicale = mkOption {
@@ -85,12 +85,12 @@ in {
         };};};
     services.ocis = {
       enable = true;
-      url = cfg.domain;
+      url = "https://${cfg.domain}";
       port = cfg.port;
       configDir = cfg.config_file;
       stateDir = cfg.data_dir;
       environment = {
-          OCIS_URL = cfg.domain;
+          OCIS_URL = "https://${cfg.domain}";
           OCIS_LOG_LEVEL = "error";
           OCIS_INSECURE = "true";
           TLS_INSECURE = "true";
