@@ -60,6 +60,29 @@ in {
     };
   };
   config = mkIf cfg.enable {
+    services.nginx.virtualHosts."${cfg.domain}" = {
+      forceSSL = true;
+      enableACME = true;
+  
+      # Everything path-related goes inside this block
+      locations = {
+        "/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyWebsockets = true;
+          extraConfig = ''
+            proxy_buffering off;
+            proxy_cache off;
+            proxy_read_timeout 24h;
+
+            proxy_set_header Authorization $http_authorization;
+            proxy_pass_header Authorization;
+
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          '';
+        };};};
     services.ocis = {
       enable = true;
       url = cfg.domain;
