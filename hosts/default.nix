@@ -18,7 +18,7 @@
     inherit (import mod) laptop;
     #inherit (import "${self}/modules/") _cloud;
     cloud = [
-      #"${self}/modules/ocis.nix"
+      "${self}/modules/ocis.nix"
       "${self}/modules/open_cloud.nix"
       #"${self}/modules/vaultwarden.nix"
       "${self}/modules/borg.nix"
@@ -177,6 +177,11 @@
             enable_radicale = true;
             path_radicale = "/data1/radicale/";
             #config_file = "/data1/ocis/config/";
+          };
+          oldcloud = {
+            enable =true;
+            data_dir = "/data1/ocis/";
+            config_file = "/data1/ocis/config/";
           };
           vikunja = {
             enable = true;

@@ -34,7 +34,7 @@ in {
     };
     domain = mkOption {
       type = types.str;
-      default = "https://cloud.davidwild.ch";
+      default = "https://oldcloud.davidwild.ch";
     };
 
     enable_radicale = mkOption {
