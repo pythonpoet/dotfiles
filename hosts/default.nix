@@ -179,7 +179,7 @@
             #config_file = "/data1/ocis/config/";
           };
           oldcloud = {
-            enable =true;
+            enable =false;
             data_dir = "/data1/ocis/";
             config_file = "/data1/ocis/config/";
           };
