@@ -14,9 +14,9 @@
 with lib; let
   # List of ports to enable
   #
-  cfg = config.cloud;
+  cfg = config.oldcloud;
 in {
-  options.cloud = {
+  options.oldcloud = {
     enable = mkEnableOption "Enable ownCloud infininty Scale (ocis)";
     data_dir = mkOption {
       type = types.str;
@@ -34,7 +34,7 @@ in {
     };
     domain = mkOption {
       type = types.str;
-      default = "https://cloud.davidwild.ch";
+      default = "https://oldcloud.davidwild.ch";
     };
 
     enable_radicale = mkOption {
@@ -76,21 +76,21 @@ in {
           MICRO_REGISTRY = "nats-js-kv";
           # auth
 
-          OCIS_OIDC_ISSUER="https://auth.davidwild.ch/application/o/ocis/";
-          OCIS_OIDC_CLIENT_ID="nNlMbe2mhzvQMHyC7YWi6ZMO8HpPHu2EwfOzumgT";
+          # OCIS_OIDC_ISSUER="https://auth.davidwild.ch/application/o/ocis/";
+          # OCIS_OIDC_CLIENT_ID="nNlMbe2mhzvQMHyC7YWi6ZMO8HpPHu2EwfOzumgT";
           
-          #PROXY_OIDC_REWRITE_WELLKNOWN="true";
-          #PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD="none";
-          WEB_OIDC_CLIENT_ID="ocis";
-          PROXY_OIDC_ISSUER="https://auth.davidwild.ch/application/o/ocis/";
-          PROXY_OIDC_REWRITE_WELLKNOWN="true";
-          PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD="none";
-          PROXY_OIDC_SKIP_USER_INFO="false";
-          PROXY_AUTOPROVISION_ACCOUNTS="false";
-          PROXY_AUTOPROVISION_CLAIM_USERNAME="preferred_username";
-          PROXY_AUTOPROVISION_CLAIM_EMAIL="email";
-          PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME="name";
-          PROXY_AUTOPROVISION_CLAIM_GROUPS="groups";
+          # #PROXY_OIDC_REWRITE_WELLKNOWN="true";
+          # #PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD="none";
+          # WEB_OIDC_CLIENT_ID="ocis";
+          # PROXY_OIDC_ISSUER="https://auth.davidwild.ch/application/o/ocis/";
+          # PROXY_OIDC_REWRITE_WELLKNOWN="true";
+          # PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD="none";
+          # PROXY_OIDC_SKIP_USER_INFO="false";
+          # PROXY_AUTOPROVISION_ACCOUNTS="false";
+          # PROXY_AUTOPROVISION_CLAIM_USERNAME="preferred_username";
+          # PROXY_AUTOPROVISION_CLAIM_EMAIL="email";
+          # PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME="name";
+          # PROXY_AUTOPROVISION_CLAIM_GROUPS="groups";
 
           # Collabora
           COLLABORATION_APP_NAME = mkIf cfg.enable_collabora "Collabora";

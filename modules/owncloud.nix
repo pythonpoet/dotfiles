@@ -14,9 +14,9 @@
 with lib; let
   # List of ports to enable
   #
-  cfg = config.cloud;
+  cfg = config.oldcloud;
 in {
-  options.cloud = {
+  options.oldcloud = {
     enable = mkEnableOption "Enable ownCloud infininty Scale (ocis)";
     data_dir = mkOption {
       type = types.str;
