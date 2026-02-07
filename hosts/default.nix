@@ -151,7 +151,11 @@
               group = "onlyoffice"; 
               mode = "0440";
               };
-           
+            secrets.vikunja-config = {
+              file = "/home/david/dotfiles/secrets/vikunja-config.age";
+              mode = "0440";
+              group = "keys"; 
+            };
           };
           home-manager = {
             users.david.imports = homeImports.server;
