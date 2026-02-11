@@ -75,8 +75,9 @@ in {
       recommendedOptimisation = true;
       recommendedProxySettings = lib.mkForce true;
       recommendedTlsSettings = true;
-           
-        
+      
+      virtualHosts = {
+                
         "davidwild.ch" = {
          inherit (sslSettings) addSSL enableACME;
           locations."/" = {
