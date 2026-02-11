@@ -9,6 +9,15 @@ with lib; let
  in {
   options.analytics = {
     enable = mkEnableOption "Enable Analytics service";
+    
+    domain = mkOption {
+      type = types.str;
+      default = "grafana.davidwild.ch";
+    };
+    port = mkOption {
+      type = types.port;
+      default = 2342;
+    };
     };
 
   config.analytics = mkIf cfg.enable {
@@ -21,9 +30,9 @@ with lib; let
       };
       server = {
         http_addr = "127.0.0.1";
-        http_port = 2342;
+        http_port = cfg.port;
         enable_gzip = true;
-        domain = "grafana.davidwild.ch";
+        domain = cfg.domain;
         # The origin from which you are accessing Grafana.
         # You can specify multiple origins separated by a space or a comma.
         allow_embedding = true;
