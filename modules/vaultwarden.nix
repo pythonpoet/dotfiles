@@ -30,7 +30,7 @@ in {
   config = mkIf cfg.enable {
     # default config doesnt set ACME
     services.nginx.virtualHosts.${cfg.domain}.enableACME = true;
-    systemd.services.vaultwarden.serviceConfig.StateDirectory = lib.mkForce cfg.data_dir;
+    #systemd.services.vaultwarden.serviceConfig.StateDirectory = lib.mkForce cfg.data_dir;
       services.vaultwarden = {
       
       enable = true;
