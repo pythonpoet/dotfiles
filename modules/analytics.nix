@@ -7,7 +7,7 @@
 with lib; let 
   cfg = config.analytics;
  in {
-  option.analytics = {
+  options.analytics = {
     enable = mkEnableOption "Enable Analytics service";
     };
 
