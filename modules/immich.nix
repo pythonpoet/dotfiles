@@ -9,6 +9,10 @@ in
 {
   options.immich = {
     enable = mkEnableOption "Enable immich server";
+    domain = mkOption{
+      type = typse.str;
+      default = "immich.davidwild.ch";
+    };
     data_dir = mkOption {
       type = types.str;
       default = "/mnt/sda1/immich";
@@ -39,7 +43,14 @@ in
     };
   };
   config = mkIf cfg.enable {
-     
+  services.nginx.virtualHosts."${cfg.domain}" = {
+    addSSL = true;
+    enableACME = true;
+    locations."/" = {
+        proxyPass = "http://127.0.0.1:${toString cfg.port}";
+        proxyWebsockets = true;
+    };
+  };  
   services.immich = {
     enable = true;
     port = cfg.port;
