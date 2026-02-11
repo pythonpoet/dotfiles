@@ -39,7 +39,7 @@ in {
       domain = cfg.domain;
       
 
-      #dataDir = lib.mkForce cfg.data_dir;
+      dataDir = cfg.data_dir;
       # in order to avoid having  ADMIN_TOKEN in the nix store it can be also set with the help of an environment file
       # be aware that this file must be created by hand (or via secrets management like sops)
       environmentFile = config.age.secrets.vaultwarden.path;
@@ -51,7 +51,7 @@ in {
           ROCKET_PORT = cfg.port;
           ROCKET_LOG = "critical";
 
-          DATA_FOLDER = cfg.data_dir;
+          #DATA_FOLDER = cfg.data_dir;
 
           SSO_ENABLED="true";
           SSO_AUTHORITY="https://auth.davidwild.ch/application/o/vaultwarden/";
