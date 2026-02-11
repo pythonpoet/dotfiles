@@ -19,7 +19,7 @@ with lib; let
       default = 2342;
     };
     dataDir= mkOption {
-      type = types.port;
+      type = types.str;
       default = "/data1/grafana";
     };
     };
