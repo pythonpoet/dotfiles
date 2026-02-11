@@ -21,7 +21,7 @@ with lib; let
     dataDir= mkOption {
       type = types.port;
       default = "/data1/grafana";
-    }
+    };
     };
 
   config = mkIf cfg.enable {
