@@ -54,16 +54,11 @@ in {
           SSO_AUTHORITY="https://auth.davidwild.ch/application/o/vaultwarden/";
 
           SSO_SCOPES="openid email profile offline_access";
-          SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION="false";
-          "SSO_CLIENT_CACHE_EXPIRATION"="0";
+          SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION="true";
+          SSO_CLIENT_CACHE_EXPIRATION="0";
           SSO_ONLY="false"; # Set to true to disable email+master password login and require SSO
           SSO_SIGNUPS_MATCH_EMAIL="true"; # Match fi
 
-          host = "smtp.autistici.org";
-          port = 587;
-          username = "davidoff@bastardi.net";
-          use_tls = true;
-          use_ssl = false;
           # This example assumes a mailserver running on localhost,
           # thus without transport encryption.
           # If you use an external mail server, follow:
