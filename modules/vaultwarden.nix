@@ -41,7 +41,7 @@ in {
       #dataDir = lib.mkForce cfg.data_dir;
       # in order to avoid having  ADMIN_TOKEN in the nix store it can be also set with the help of an environment file
       # be aware that this file must be created by hand (or via secrets management like sops)
-      environmentFile = config.secrets.age.vaultwarden.path;
+      environmentFile = config.age.secrets.vaultwarden.path;
       config = {
           # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
           SIGNUPS_ALLOWED = false;
