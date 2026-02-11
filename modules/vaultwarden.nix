@@ -28,10 +28,12 @@ in {
     };
   };
   config = mkIf cfg.enable {
+    servces.nginx.virtualHosts.${cfg.domain}.enableACME = true;
       services.vaultwarden = {
       
       enable = true;
       configureNginx = true;
+      
       domain = cfg.domain;
       backupDir = cfg.data_dir;
 
