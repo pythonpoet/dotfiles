@@ -50,8 +50,6 @@ in {
           ROCKET_PORT = cfg.port;
           ROCKET_LOG = "critical";
 
-          #DATA_FOLDER = cfg.data_dir;
-
           SSO_ENABLED="true";
           SSO_AUTHORITY="https://auth.davidwild.ch/application/o/vaultwarden/";
 
