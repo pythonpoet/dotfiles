@@ -10,7 +10,7 @@ with lib; let
     PortLoki = 3100;
 
   };
-  cfg = config.analytics // default;
+  cfg = config.analytics // defaults;
  in {
   options.analytics = {
     enable = mkEnableOption "Enable Analytics service";
