@@ -71,7 +71,7 @@ in {
     services.nginx = {
       enable = true;
       # Use recommended settings
-      # recommendedGzipSettings = true;
+      recommendedGzipSettings = true;
       recommendedOptimisation = true;
       recommendedProxySettings = lib.mkForce true;
       recommendedTlsSettings = true;
