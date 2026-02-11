@@ -48,7 +48,7 @@ with lib; let
     addSSL = true;
     enableACME = true;
     locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString ccfg.port}";
+        proxyPass = "http://127.0.0.1:${toString cfg.port}";
         proxyWebsockets = true;
     };
   };
