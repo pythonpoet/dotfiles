@@ -10,7 +10,7 @@ in
   options.immich = {
     enable = mkEnableOption "Enable immich server";
     domain = mkOption{
-      type = typse.str;
+      type = types.str;
       default = "immich.davidwild.ch";
     };
     data_dir = mkOption {
