@@ -41,7 +41,6 @@ in {
       environmentFile = cofnig.secrets.age.vaultwarden.path;
       config = {
           # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
-          DOMAIN = "https:// ${toString cfg.domain}";
           SIGNUPS_ALLOWED = false;
 
           ROCKET_ADDRESS = "127.0.0.1";
