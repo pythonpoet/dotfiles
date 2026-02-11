@@ -20,8 +20,7 @@ with lib; let
     };
     };
 
-  config.analytics = mkIf cfg.enable {
-
+  config = mkIf cfg.enable {
   services.grafana = {
     enable = true;
     settings = {
