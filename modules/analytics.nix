@@ -44,6 +44,24 @@ with lib; let
         cors_allow_origin = "*"; # Or a specific domain, e.g., "https://your-domain.com"
         cors_allow_headers = "accept, origin, content-type";
       };
+    provision = {
+      enable = true;
+      datasources.settings.datasources = [
+        # Connect to your Prometheus instance (Port 9001 per your config)
+        {
+          name = "Prometheus";
+          type = "prometheus";
+          url = "http://127.0.0.1:9001";
+          isDefault = true;
+        }
+        # Connect to your Loki instance (Port 3100)
+        {
+          name = "Loki";
+          type = "loki";
+          url = "http://127.0.0.1:3100";
+        }
+      ];
+    };
 
       analytics.reporting_enabled = false;
     };
