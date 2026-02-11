@@ -142,16 +142,16 @@ with lib; let
               target_label = "unit";
             }
           ];
-          pipeline_stages = [
-            { json.expressions = { 
-                lat = "lat"; 
-                lon = "lon"; 
-                city = "city_name"; 
-                country = "country_code"; 
-              }; 
-            }
-            { labels = { lat = ""; lon = ""; city = ""; country = ""; }; }
-          ];
+          # pipeline_stages = [
+          #   { json.expressions = { 
+          #       lat = "lat"; 
+          #       lon = "lon"; 
+          #       city = "city_name"; 
+          #       country = "country_code"; 
+          #     }; 
+          #   }
+          #   { labels = { lat = ""; lon = ""; city = ""; country = ""; }; }
+          # ];
         }
 
         # Nginx access logs (supports both old and new formats)]i
