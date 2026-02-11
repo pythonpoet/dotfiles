@@ -205,6 +205,9 @@
           };
           #email.enable = true;
           authentik.enable = true;
+          analytics = {
+            enable = true;
+          };
           borg = {
             enable = true;
             repo_host = "david@kaepfnach";

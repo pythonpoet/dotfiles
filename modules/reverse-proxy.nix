@@ -75,17 +75,7 @@ in {
       recommendedOptimisation = true;
       recommendedProxySettings = lib.mkForce true;
       recommendedTlsSettings = true;
-      
-      virtualHosts = {
-        "grafana.davidwild.ch" = {
-          inherit (sslSettings) addSSL enableACME;
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
-            proxyWebsockets = true;
-            extraConfig = extraConfig;
-          };
-        };
-        
+           
         
         "davidwild.ch" = {
          inherit (sslSettings) addSSL enableACME;
