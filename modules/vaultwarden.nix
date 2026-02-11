@@ -16,7 +16,7 @@ in {
     };
     port = mkOption {
       type = types.port;
-      default = 9988;
+      default = 9968;
     };
     domain = mkOption {
       type = types.str;
