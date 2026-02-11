@@ -190,6 +190,11 @@
             files_path = "/data1/vikunja/files";
             #secretConfigFile = age.secrets.vikunja-config.path;
           };
+          vaultwarden = {
+            enable = true;
+            domain = "vault.davidwild.ch";
+            data_dir = "/data1/vaultwarden";
+          };
           # jitsi = {
           #   enable = false;
           #   domain = "jitsi.davidwild.ch";
