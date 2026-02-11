@@ -53,6 +53,8 @@
   openssl
   owncloud-client
   opencloud-desktop
+  opencloud-desktop-shell-integration-nautilus
+
   overskride
   geckodriver
   #flatpak

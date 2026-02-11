@@ -12,4 +12,5 @@ in {
   "onlyofficesec.age".publicKeys = [bernina_root];
   "onlyoffice-jwt.age".publicKeys = [bernina_root];
   "maxmind-licence.age".publicKeys = [bernina_root];
+  "vaultwarden.age".publicKeys = [bernina_root];
 }
