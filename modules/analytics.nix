@@ -63,7 +63,7 @@ with lib; let
     port = 9001;
     scrapeConfigs = [
       {
-        job_name = "alpakapi5";
+        job_name = "bernina";
         static_configs = [
           {
             targets = ["127.0.0.1:${toString config.services.prometheus.exporters.node.port}"];
@@ -109,7 +109,7 @@ with lib; let
             max_age = "12h";
             labels = {
               job = "systemd-journal";
-              host = "alpakapi5";
+              host = "bernina";
             };
           };
           relabel_configs = [
@@ -130,7 +130,7 @@ with lib; let
               labels = {
                 # Keep only essential, low-cardinality labels
                 job = "nginx";
-                host = "alpakapi5";
+                host = "bernina";
                 __path__ = "/var/log/nginx/access.log";
               };
             }
