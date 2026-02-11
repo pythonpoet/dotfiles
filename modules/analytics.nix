@@ -18,11 +18,16 @@ with lib; let
       type = types.port;
       default = 2342;
     };
+    dataDir= mkOption {
+      type = types.port;
+      default = "/data1/grafana";
+    }
     };
 
   config = mkIf cfg.enable {
   services.grafana = {
     enable = true;
+    dataDir = cfg.dataDir;
     settings = {
       auth = {
         disable_login_form = false;
@@ -39,6 +44,7 @@ with lib; let
         cors_allow_origin = "*"; # Or a specific domain, e.g., "https://your-domain.com"
         cors_allow_headers = "accept, origin, content-type";
       };
+
       analytics.reporting_enabled = false;
     };
   };
