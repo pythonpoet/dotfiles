@@ -77,7 +77,7 @@ in {
       recommendedTlsSettings = true;
       
       virtualHosts = {
-                
+
         "davidwild.ch" = {
          inherit (sslSettings) addSSL enableACME;
           locations."/" = {
@@ -119,33 +119,33 @@ in {
             '';
           };
         };
-        "immich.davidwild.ch" = {
-          inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
+        # "immich.davidwild.ch" = {
+        #   inherit (sslSettings) addSSL enableACME; # Use the sslSettings variable
+        #   locations."/" = {
+        #     proxyPass = "http://127.0.0.1:9988"; # 
+        #     proxyWebsockets = true;
+        #     extraConfig = extraConfig;
+        #   };
+        # };
+
+
+        "bbcs-121-149.pub.wingo.ch" = {
           locations."/" = {
-            proxyPass = "http://127.0.0.1:9988"; # 
-            proxyWebsockets = true;
-            extraConfig = extraConfig;
+            return = 444;
           };
+          # Enable SSL for this server block if needed
+          inherit (sslSettings) addSSL enableACME;
+          # forceSSL = true;
         };
 
-
-        # "bbcs-121-149.pub.wingo.ch" = {
-        #   locations."/" = {
-        #     return = 444;
-        #   };
-        #   # Enable SSL for this server block if needed
-        #   inherit (sslSettings) addSSL enableACME;
-        #   # forceSSL = true;
-        # };
-
-        # # Blocking for IP address 144.2.121.149
-        # "144.2.121.149" = {
-        #   locations."/" = {
-        #     return = 444;
-        #   };
-        #   # inherit (sslSettings) addSSL;
-        #   #forceSSL = true;
-        # };
+        # Blocking for IP address 144.2.121.149
+        "144.2.121.149" = {
+          locations."/" = {
+            return = 444;
+          };
+          # inherit (sslSettings) addSSL;
+          #forceSSL = true;
+        };
       };
     
 
