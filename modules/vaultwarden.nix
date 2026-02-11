@@ -47,7 +47,7 @@ in {
           ROCKET_LOG = "critical";
 
           SSO_ENABLED="true";
-          SSO_AUTHORITY="https://${domain}/application/o/vaultwarden/";
+          SSO_AUTHORITY="https://auth.davidwild.ch/application/o/vaultwarden/";
 
           SSO_SCOPES="openid email profile offline_access";
           SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION="false";
