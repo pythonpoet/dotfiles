@@ -34,6 +34,7 @@
       #"${self}/modules/jitsi.nix"
       "${self}/modules/audiobookshelf.nix"
       "${self}/modules/authenitk.nix"
+      "${self}/modules/analytics.nix"
       #"${self}/modules/email.nix"
     ];
 
