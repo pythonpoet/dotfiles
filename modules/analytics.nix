@@ -5,7 +5,12 @@
   ...
 }: 
 with lib; let 
-  cfg = config.analytics;
+  defaults = {
+    PortPrometheus = 3014;
+    PortLoki = 3100;
+
+  };
+  cfg = config.analytics // default;
  in {
   options.analytics = {
     enable = mkEnableOption "Enable Analytics service";
@@ -54,14 +59,14 @@ with lib; let
         {
           name = "Prometheus";
           type = "prometheus";
-          url = "http://127.0.0.1:9001";
+          url = "http://127.0.0.1:${toString cfg.PortPrometheus}";
           isDefault = true;
         }
         # Connect to your Loki instance (Port 3100)
         {
           name = "Loki";
           type = "loki";
-          url = "http://127.0.0.1:3100";
+          url = "http://127.0.0.1:${toString cfg.PortLoki}";
         }
       ];
     };
@@ -79,7 +84,7 @@ with lib; let
   
   services.prometheus = {
     enable = true;
-    port = 9001;
+    port = cfg.PortPrometheus;
     scrapeConfigs = [
       {
         job_name = "bernina";
