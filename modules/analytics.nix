@@ -44,6 +44,9 @@ with lib; let
         cors_allow_origin = "*"; # Or a specific domain, e.g., "https://your-domain.com"
         cors_allow_headers = "accept, origin, content-type";
       };
+    
+      analytics.reporting_enabled = false;
+    };
     provision = {
       enable = true;
       datasources.settings.datasources = [
@@ -63,8 +66,6 @@ with lib; let
       ];
     };
 
-      analytics.reporting_enabled = false;
-    };
   };
   # nginx reverse proxy
   services.nginx.virtualHosts.${cfg.domain} = {
