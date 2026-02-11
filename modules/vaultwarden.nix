@@ -10,10 +10,6 @@ in {
   options.vaultwarden = {
     enable = mkEnableOption "Enable Vaultwarden service";
 
-    image = mkOption {
-      type = types.str;
-      default = "vaultwarden/server";
-    };
     data_dir = mkOption {
       type = types.str;
       default = cfg.data_dir;
@@ -35,8 +31,9 @@ in {
       services.vaultwarden = {
       
       enable = true;
-      backupDir = "/var/local/vaultwarden/backup";
-      dataDir = lib.mkForce cfg.data_dir;
+      configureNginx = true;
+      backupDir = cfg.data_dir;
+      #dataDir = lib.mkForce cfg.data_dir;
       # in order to avoid having  ADMIN_TOKEN in the nix store it can be also set with the help of an environment file
       # be aware that this file must be created by hand (or via secrets management like sops)
       environmentFile = cofnig.secrets.age.vaultwarden.path;
