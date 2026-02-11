@@ -4,7 +4,7 @@
   lib,
   ...
 }: 
-let 
+with lib; let 
   cfg = config.analytics;
  in {
   option.analytics = {
