@@ -20,7 +20,7 @@ in {
     };
     domain = mkOption {
       type = types.str;
-      default = "vault.chaosdam.net";
+      default = "vault.davidwild.ch";
     };
     signups_allowed = mkOption {
       type = types.bool;
@@ -59,19 +59,23 @@ in {
           SSO_ONLY="false"; # Set to true to disable email+master password login and require SSO
           SSO_SIGNUPS_MATCH_EMAIL="true"; # Match fi
 
-          # SSO_CLIENT_ID=<client_id>
-          # SSO_CLIENT_SECRET=<client_secret>
-
+          host = "smtp.autistici.org";
+          port = 587;
+          username = "davidoff@bastardi.net";
+          use_tls = true;
+          use_ssl = false;
           # This example assumes a mailserver running on localhost,
           # thus without transport encryption.
           # If you use an external mail server, follow:
           #   https://github.com/dani-garcia/vaultwarden/wiki/SMTP-configuration
-          # SMTP_HOST = "127.0.0.1";
-          # SMTP_PORT = 25;
-          # SMTP_SSL = false;
+          SMTP_HOST = "smtp.autistici.org";
+          SMTP_PORT = 587;
+          SMTP_SSL = false;
+          SMTP_USERNAME = "davidoff@bastardi.net";
+          SMTP_SECURITY="starttls";
 
-          # SMTP_FROM = "admin@bitwarden.example.com";
-          # SMTP_FROM_NAME = "example.com Bitwarden server";
+          SMTP_FROM = "davidoff@bastardi.net";
+          SMTP_FROM_NAME = "davidwild.ch Bitwarden server";
       };
   };
 
