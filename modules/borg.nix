@@ -43,7 +43,7 @@ in {
     };
   };
   config = mkIf cfg.enable {
-    services.borgbackup.jobs."Immich" = {
+    services.borgbackup.jobs."bernina" = {
       paths = cfg.paths;
       repo = "${cfg.repo_host}:${cfg.repo_dir}";
       startAt = "04:00";
