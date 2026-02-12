@@ -23,7 +23,11 @@
       "doc"
       "devdoc"
     ];
+    sessionVariables = {
+    # This assumes everyone uses the same socket location we found earlier
+    SSH_AUTH_SOCK = "/home/\${user}/.bitwarden-ssh-agent.sock";
   };
+};
 
   # disable manuals as nmd fails to build often
   manual = {

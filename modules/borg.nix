@@ -44,7 +44,7 @@ in {
   };
   config = mkIf cfg.enable {
     services.borgbackup.jobs."Immich" = {
-      paths = config.services.immich.mediaLocation;
+      paths = cfg.paths;
       repo = "${cfg.repo_host}:${cfg.repo_dir}";
       startAt = "04:00";
       compression = "zstd";

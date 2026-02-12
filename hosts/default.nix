@@ -211,6 +211,13 @@
           };
           borg = {
             enable = true;
+            paths = [
+                config.services.immich.mediaLocation
+                vaultwarden.data_dir
+                cloud.data_dir
+                vikunja.db_path
+                audiobookshelf.data_dir
+              ];
             repo_host = "david@kaepfnach";
             repo_dir = "/data1/";
           };
