@@ -212,7 +212,7 @@
           borg = {
             enable = true;
             paths = [
-                config.services.immich.mediaLocation
+                "/data1/immich/"
                 "/data1/vaultwarden"
                 "/data1/opencloud/"
                 "/data1/vikunja/db/vikunja.db"
