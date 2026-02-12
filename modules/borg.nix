@@ -8,11 +8,11 @@
 }:
 with lib; let
   borgDefaults = {
-    paths = [
-      "/var/lib/ocis"
-      "/var/lib/vikunja"
-      "/var/lib/vaultwarden"
-    ];
+    # paths = [
+    #   "/var/lib/ocis"
+    #   "/var/lib/vikunja"
+    #   "/var/lib/vaultwarden"
+    # ];
     repo_host = "root@kaepfnach";
     repo_dir = "/data1/";
     startAt = "daily";
