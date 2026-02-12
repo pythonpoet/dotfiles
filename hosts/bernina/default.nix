@@ -115,6 +115,7 @@ let
           git
           helix
           hugo
+          jq
           inputs.agenix.packages.${pkgs.system}.default
         ];
 
