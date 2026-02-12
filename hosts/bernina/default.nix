@@ -116,6 +116,7 @@ let
           helix
           hugo
           jq
+          bitwarden-cli
           inputs.agenix.packages.${pkgs.system}.default
         ];
 
