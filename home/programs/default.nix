@@ -24,6 +24,7 @@
   baobab
   beeper
   bitwarden-desktop
+  bitwarden-cli
   brave
   ente-auth
   calibre
