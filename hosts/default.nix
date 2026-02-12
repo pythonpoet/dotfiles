@@ -213,10 +213,10 @@
             enable = true;
             paths = [
                 config.services.immich.mediaLocation
-                vaultwarden.data_dir
-                cloud.data_dir
-                vikunja.db_path
-                audiobookshelf.data_dir
+                "/data1/vaultwarden"
+                "/data1/opencloud/"
+                "/data1/vikunja/db/vikunja.db"
+                "/data1/audiobookshelf"
               ];
             repo_host = "david@kaepfnach";
             repo_dir = "/data1/";
