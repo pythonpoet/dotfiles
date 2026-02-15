@@ -49,6 +49,7 @@
   inotify-tools
   meld
   mission-center
+  morgen
   newsflash
   nodejs_20
   openssl
