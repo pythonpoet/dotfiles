@@ -260,15 +260,10 @@ in {
 
         "/caldav/" = mkIf cfg.enable_radicale {
           proxyPass = "http://127.0.0.1:5232/";
-          extraConfig = ''
+          extraConfig = "
+            proxy_set_header X-Remote-User $remote_user; # provide username to CalDAV
             proxy_set_header X-Script-Name /caldav;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Remote-User $remote_user;
-            
-            # Ensure auth headers are passed through
-            proxy_set_header Authorization $http_authorization;
-            proxy_pass_header Authorization;
-          '';
+          ";
         };
 
         "/.well-known/caldav" = mkIf cfg.enable_radicale {
