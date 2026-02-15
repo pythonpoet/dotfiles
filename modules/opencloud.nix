@@ -261,33 +261,35 @@ in {
         "/caldav/" = mkIf cfg.enable_radicale {
           proxyPass = "http://127.0.0.1:5232/";
           extraConfig = ''
-            proxy_set_header X-Remote-User $remote_user;
             proxy_set_header X-Script-Name /caldav;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Remote-User $remote_user;
+            
+            # Ensure auth headers are passed through
+            proxy_set_header Authorization $http_authorization;
+            proxy_pass_header Authorization;
           '';
         };
 
         "/.well-known/caldav" = mkIf cfg.enable_radicale {
-          proxyPass = "http://127.0.0.1:5232/";
-          extraConfig = ''
-            proxy_set_header X-Remote-User $remote_user;
-            proxy_set_header X-Script-Name /caldav;
-          '';
+          return = "301 $scheme://$host/caldav/";
         };
 
         "/carddav/" = mkIf cfg.enable_radicale {
-          proxyPass = "http://127.0.0.1:5232/";
+          proxyPass = "http://127.0.0.1:5232/"; # The trailing slash here is important!
           extraConfig = ''
-            proxy_set_header X-Remote-User $remote_user;
             proxy_set_header X-Script-Name /carddav;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Remote-User $remote_user;
+            
+            # Ensure auth headers are passed through
+            proxy_set_header Authorization $http_authorization;
+            proxy_pass_header Authorization;
           '';
         };
 
         "/.well-known/carddav" = mkIf cfg.enable_radicale {
-          proxyPass = "http://127.0.0.1:5232/";
-          extraConfig = ''
-            proxy_set_header X-Remote-User $remote_user;
-            proxy_set_header X-Script-Name /carddav;
-          '';
+          return = "301 $scheme://$host/carddav/";
         };
       }; # End of locations
     };
