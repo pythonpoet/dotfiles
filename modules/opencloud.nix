@@ -277,6 +277,13 @@ in {
             proxy_set_header X-Script-Name /caldav;
           ";
         };
+        "/radicale/" = mkIf cfg.enable_radicale {
+          proxyPass = "http://127.0.0.1:5232/";
+          extraConfig = "
+            proxy_set_header X-Remote-User $remote_user; # provide username to CalDAV
+            proxy_set_header X-Script-Name /caldav;
+          ";
+        };
 
         "/.well-known/carddav" = mkIf cfg.enable_radicale {
           return = "301 $scheme://$host/carddav/";
@@ -332,9 +339,9 @@ in {
         auth = {
           type = "http_x_remote_user"; # disable authentication, and use the username that OpenCloud provides is
         };
-        web = {
-          type = "none";
-        };
+        # web = {
+        #   type = "none";
+        # };
         storage = {
           filesystem_folder = "${cfg.path_radicale}/collections";
         };
