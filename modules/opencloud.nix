@@ -281,7 +281,7 @@ in {
           proxyPass = "http://127.0.0.1:5232/";
           extraConfig = "
             proxy_set_header X-Remote-User $remote_user; # provide username to CalDAV
-            proxy_set_header X-Script-Name /caldav;
+            proxy_set_header X-Script-Name /radicale;
           ";
         };
 
