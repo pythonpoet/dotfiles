@@ -49,6 +49,13 @@ in
     locations."/" = {
         proxyPass = "http://127.0.0.1:${toString cfg.port}";
         proxyWebsockets = true;
+        # configure recommended settings, increase upload size
+        extraConfig = ''
+        proxy_read_timeout   600s;
+        proxy_send_timeout   600s;
+        send_timeout         600s;
+        client_max_body_size 32G;
+      '';
     };
   };  
   services.immich = {
