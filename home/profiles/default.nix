@@ -17,6 +17,10 @@
     ../.
     ./alpakabook-gnome
   ];
+  "david@alpakapro-cosmic" = [
+    ../.
+    ./alpakapro-cosmic
+  ];
 
   server = [
     ../.
