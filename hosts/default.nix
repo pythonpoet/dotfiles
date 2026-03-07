@@ -54,13 +54,13 @@
           #"${mod}/core/lanzaboote.nix"
           "${self}/modules/fhs.nix"
 
-          "${self}/home/programs/gnome/default.nix"
+          #"${self}/home/programs/gnome/default.nix"
 
           # "${mod}/network/spotify.nix"
           "${mod}/network/syncthing.nix"
 
           # "${mod}/services/kanata"
-          "${mod}/services/gnome-services.nix"
+          #"${mod}/services/gnome-services.nix"
           "${mod}/services/location.nix"
           {
             home-manager = {

@@ -57,6 +57,8 @@
           # openFirewall = true;
         };
     };
+    services.displayManager.cosmic-greeter.enable = true;
+    services.desktopManager.cosmic.enable = true;
 
     nix.buildMachines = [
     { hostName = "localhost";

@@ -53,6 +53,10 @@
     };
 
     nixpkgs.url = "github:pythonpoet/nixpkgs/master";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # rest of inputs, alphabetical order
 
@@ -68,6 +72,14 @@
 
     anyrun.url = "github:fufexan/anyrun/launch-prefix";
     deploy-rs.url = "github:serokell/deploy-rs";
+
+    cosmic-manager = {
+      url = "github:HeitorAugustoLN/cosmic-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
 
     chaotic.url = "https://flakehub.com/f/chaotic-cx/nyx/*.tar.gz";
 

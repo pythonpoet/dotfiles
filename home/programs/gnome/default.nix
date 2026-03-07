@@ -30,52 +30,52 @@
     simple-scan
     celluloid
 ]);
- home-manager.users.david = 
-    let
-      # Define the packages here so they are in scope for the 'david' module
-      opencloud-nautilus = pkgs.opencloud-desktop-shell-integration-nautilus;
-      opencloud-resources = pkgs.opencloud-desktop-shell-integration-resources;
+#  home-manager.users.david = 
+#     let
+#       # Define the packages here so they are in scope for the 'david' module
+#       opencloud-nautilus = pkgs.opencloud-desktop-shell-integration-nautilus;
+#       opencloud-resources = pkgs.opencloud-desktop-shell-integration-resources;
 
-      nautEnv = pkgs.buildEnv {
-        name = "nautilus-env";
-        paths = with pkgs; [
-          nautilus
-          nautilus-python
-          gvfs
-          opencloud-nautilus
-          opencloud-resources
-          (python3.withPackages (p: with p; [ 
-            nautilus-open-any-terminal 
-            pygobject3 
-          ]))
-        ];
-      };
-    in {
-      # Now the 'david' attribute set starts
-      home.packages = [ nautEnv ];
+#       nautEnv = pkgs.buildEnv {
+#         name = "nautilus-env";
+#         paths = with pkgs; [
+#           nautilus
+#           nautilus-python
+#           gvfs
+#           opencloud-nautilus
+#           opencloud-resources
+#           (python3.withPackages (p: with p; [ 
+#             nautilus-open-any-terminal 
+#             pygobject3 
+#           ]))
+#         ];
+#       };
+#     in {
+#       # Now the 'david' attribute set starts
+#       home.packages = [ nautEnv ];
 
-      home.sessionVariables = {
-        NAUTILUS_4_EXTENSION_DIR = "${nautEnv}/lib/nautilus/extensions-4";
-        NAUTILUS_PYTHON_PATH = "${nautEnv}/share/nautilus-python/extensions";
-        XDG_DATA_DIRS = "$XDG_DATA_DIRS:${nautEnv}/share";
-        GIO_EXTRA_MODULES = "${nautEnv}/lib/gio/modules";
-      };
+#       home.sessionVariables = {
+#         NAUTILUS_4_EXTENSION_DIR = "${nautEnv}/lib/nautilus/extensions-4";
+#         NAUTILUS_PYTHON_PATH = "${nautEnv}/share/nautilus-python/extensions";
+#         XDG_DATA_DIRS = "$XDG_DATA_DIRS:${nautEnv}/share";
+#         GIO_EXTRA_MODULES = "${nautEnv}/lib/gio/modules";
+#       };
 
-      dconf = {
-        enable = true;
-        settings = {
-          "org/gnome/shell" = {
-            disable-user-extensions = false;
-            enabled-extensions = with pkgs.gnomeExtensions; [
-              blur-my-shell.extensionUuid
-              tiling-shell.extensionUuid
-              system-monitor.extensionUuid
-              pano.extensionUuid
-            ];
-          };
-          "org/gnome/desktop/interface".color-scheme = "prefer-dark";
-          "org/gnome/desktop/wm/preferences"."button-layout" = ":minimize,maximize,close";
-        };
-      };
-    };
+#       dconf = {
+#         enable = true;
+#         settings = {
+#           "org/gnome/shell" = {
+#             disable-user-extensions = false;
+#             enabled-extensions = with pkgs.gnomeExtensions; [
+#               blur-my-shell.extensionUuid
+#               tiling-shell.extensionUuid
+#               system-monitor.extensionUuid
+#               pano.extensionUuid
+#             ];
+#           };
+#           "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+#           "org/gnome/desktop/wm/preferences"."button-layout" = ":minimize,maximize,close";
+#         };
+#       };
+#     };
 }

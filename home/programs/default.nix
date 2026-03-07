@@ -27,21 +27,21 @@
   bitwarden-cli
   brave
   ente-auth
-  calibre
+  #calibre
   cheese
   dconf-editor
   elixir_1_18
   element-desktop
   gephi
   glow
-  gnome-calculator
-  gnome-control-center
-  gnomeExtensions.blur-my-shell
-  gnomeExtensions.pano
-  gnomeExtensions.system-monitor
-  gnomeExtensions.tiling-shell
-  gnomeExtensions.user-themes
-  gnome-software
+  # gnome-calculator
+  # gnome-control-center
+  # gnomeExtensions.blur-my-shell
+  # gnomeExtensions.pano
+  # gnomeExtensions.system-monitor
+  # gnomeExtensions.tiling-shell
+  # gnomeExtensions.user-themes
+  # gnome-software
   gsound
   halloy
   immich-cli
@@ -55,7 +55,7 @@
   openssl
   owncloud-client
   opencloud-desktop
-  opencloud-desktop-shell-integration-nautilus
+  #opencloud-desktop-shell-integration-nautilus
 
   overskride
   geckodriver
