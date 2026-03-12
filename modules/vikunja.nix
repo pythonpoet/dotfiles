@@ -76,15 +76,16 @@ in {
           local.enabled = true;
           openid = {
             enabled = true;
-            providers = [
-              {
-                name = "Login with Authentik";
-                authurl = "https://auth.davidwild.ch/application/o/vikunja/"; 
+            providers = {
+              authentik = {
+                name = "authentik";
+                authurl = "https://auth.davidwild.ch/application/o/vikunja/";
+                logouturl = "https://auth.davidwild.ch/application/o/vikunja/end-session/";
                 clientid = "NYytqakPqAeNuCcDmHcRcge10ADMm7o4yrxUGDau";
                 clientsecret = "{client_secret}";
                 scope = "openid profile email";
-              }
-            ];
+              };
+            }
           };
         };
         database.path = lib.mkForce "/data1/vikunja/db/vikunja.db";

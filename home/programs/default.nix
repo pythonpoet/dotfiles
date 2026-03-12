@@ -26,6 +26,7 @@
   bitwarden-desktop
   bitwarden-cli
   brave
+  dioxus-cli
   ente-auth
   #calibre
   cheese
@@ -34,6 +35,7 @@
   element-desktop
   gephi
   glow
+  gnome-calendar
   # gnome-calculator
   # gnome-control-center
   # gnomeExtensions.blur-my-shell
@@ -52,8 +54,8 @@
   morgen
   newsflash
   nodejs_20
+  organicmaps
   openssl
-  owncloud-client
   opencloud-desktop
   #opencloud-desktop-shell-integration-nautilus
 
