@@ -8,7 +8,7 @@
     enable = true;
     settings = {
       default = {
-        default_calendar = "991722ac-4c42-4236-aeaf-7d1cfe78f30f";
+        default_calendar = "caldav";
         timedelta = "7d";
         highlight_event_days = true;
       };
@@ -39,7 +39,7 @@
   accounts.calendar = {
     basePath = ".calendars";
 
-    accounts."caldev" = {
+    accounts."caldav" = {
       primary = true;
 
       local.type = "filesystem";
