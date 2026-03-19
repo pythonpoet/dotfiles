@@ -7,11 +7,11 @@
   programs.khal = {
     enable = true;
     settings = {
-      # default = {
-      #   default_calendar = "caldav1";
-      #   timedelta = "7d";
-      #   highlight_event_days = true;
-      # };
+      default = {
+        default_calendar = pkgs.lib.mkForce "991722ac-4c42-4236-aeaf-7d1cfe78f30f";
+        timedelta = "7d";
+        highlight_event_days = true;
+      };
       locale = {
         timeformat = "%H:%M";
         dateformat = "%Y-%m-%d";
