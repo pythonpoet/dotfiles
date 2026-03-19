@@ -4,8 +4,10 @@
   home.packages = with pkgs; [ vdirsyncer khal libsecret ];
 
   # ── khal ──────────────────────────────────────────────────────────────────
-  home.file."config".source =~/dotfiles/.config/khal/config;
-  home.file."vdirsync".sourece =~/dotfiles/.config/vdirsync/config;
+  home.file.".config/vdirsyncer/config".source =~/Documents/dotfiles/home/david/vdirsyncer;
+  home.file.".config/khal/config".source =~/Documents/dotfiles/home/david/config;
+  # home.file."home/david/Documents/dotfiles/home/david/config".source ="home/david/Documents/dotfiles/.config/khal/config";
+  # home.file."vdirsync".source ="home/david/Documents/dotfiles.config/vdirsync/config";
   programs.khal = {
     enable = true;
     # settings = {
