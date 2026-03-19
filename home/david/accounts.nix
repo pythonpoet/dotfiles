@@ -5,13 +5,13 @@
 
   # ── khal ──────────────────────────────────────────────────────────────────
   programs.khal = {
-    enable = true;
+    enable = false;
     settings = {
-      default = {
-        default_calendar = "caldav";
-        timedelta = "7d";
-        highlight_event_days = true;
-      };
+      # default = {
+      #   default_calendar = "caldav1";
+      #   timedelta = "7d";
+      #   highlight_event_days = true;
+      # };
       locale = {
         timeformat = "%H:%M";
         dateformat = "%Y-%m-%d";
