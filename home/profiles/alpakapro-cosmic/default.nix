@@ -1,5 +1,7 @@
 {inputs, ...}: {
   imports = [
+    # accounts
+    ../../david/accounts.nix
     # editors
     ../../editors/helix
 
