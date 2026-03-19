@@ -36,7 +36,8 @@
   gephi
   glow
   gnome-calendar
-  # gnome-calculator
+  gnome-calculator
+  libsecret
   # gnome-control-center
   # gnomeExtensions.blur-my-shell
   # gnomeExtensions.pano
