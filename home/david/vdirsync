@@ -1,0 +1,38 @@
+[general]
+status_path = "/home/david/.local/share/vdirsyncer/status"
+
+### Pairs
+
+[pair calendar_caldav]
+a = "calendar_caldav_remote"
+b = "calendar_caldav_local"
+collections = ["from a", "from b"]
+conflict_resolution = "a wins"
+metadata = ["displayname", "color"]
+
+
+### Local storages
+
+[storage calendar_caldav_local]
+fileext = ".ics"
+path = "/home/david/.calendars/caldav"
+type = "filesystem"
+
+### Remote storages
+
+[storage calendar_caldav_remote]
+item_types = ["VEVENT"]
+password.fetch = ["command", "secret-tool", "lookup", "service", "cloud.davidwild.ch", "username", "david"]
+type = "caldav"
+url = "https://cloud.davidwild.ch/caldav/"
+username = "david"
+
+
+[storage for_google_calendar]
+type = "google_calendar"
+token_file = "/home/david/Downloads/client_secret_2_700701637525-t0h5ifs098v12hd85l9o5a16ti8t9rds.apps.googleusercontent.com.json"
+#client_id = "..."
+#client_secret = "..."
+#start_date = null
+#end_date = null
+item_types = ["VEVENT"]

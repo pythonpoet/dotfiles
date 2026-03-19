@@ -1,0 +1,35 @@
+[calendars]
+
+  [[caldav]]
+    path = ~/home/david/.calendars/caldav/*
+    color = light blue
+    
+  [[ncjj]]
+    path = ~/calendars/nextcloud/jj
+    color = light red
+
+  [[ncjudit]]
+    path = ~/calendars/nextcloud/73E541D6-F11B-41E5-BFDF-D88B557F19BA_shared_by_judit
+    color = light gray
+    
+  [[tvv_vst]]
+    path = ~/calendars/nextcloud_tvv/vorstand_shared_by_Ulf
+    color = light magenta
+
+[default]
+default_calendar=caldav1
+timedelta = 5d
+highlight_event_days = true
+
+[view]
+dynamic_days = false
+
+[locale]
+local_timezone= Europe/Amsterdam
+default_timezone= Europe/Amsterdam
+timeformat= %H:%M
+dateformat = %Y-%m-%d
+longdateformat = %Y-%m-%d %a
+datetimeformat = %Y-%m-%d %H:%M
+longdatetimeformat = %Y-%m-%d %H:%M
+weeknumbers = right
