@@ -5,7 +5,7 @@
 
   # ── khal ──────────────────────────────────────────────────────────────────
   programs.khal = {
-    enable = false;
+    enable = true;
     settings = {
       # default = {
       #   default_calendar = "caldav1";
