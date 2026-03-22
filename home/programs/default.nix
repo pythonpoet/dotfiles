@@ -37,7 +37,8 @@
   glow
   gnome-calendar
   gnome-calculator
-  libsecret
+  himalaya
+  
   # gnome-control-center
   # gnomeExtensions.blur-my-shell
   # gnomeExtensions.pano
@@ -50,6 +51,7 @@
   immich-cli
   inkscape
   inotify-tools
+  libsecret
   meld
   mission-center
   morgen

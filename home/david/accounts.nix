@@ -4,12 +4,12 @@
   home.packages = with pkgs; [ vdirsyncer khal libsecret ];
 
   # ── khal ──────────────────────────────────────────────────────────────────
-  home.file.".config/vdirsyncer/config".source =~/Documents/dotfiles/home/david/vdirsyncer;
-  home.file.".config/khal/config".source =~/Documents/dotfiles/home/david/config;
+  home.file.".config/vdirsyncer/config".source =./vdirsyncer;
+  home.file.".config/khal/config".source =./config;
   # home.file."home/david/Documents/dotfiles/home/david/config".source ="home/david/Documents/dotfiles/.config/khal/config";
   # home.file."vdirsync".source ="home/david/Documents/dotfiles.config/vdirsync/config";
   programs.khal = {
-    enable = true;
+    enable = false;
     # settings = {
     #     default_calendar = pkgs.lib.mkForce "991722ac-4c42-4236-aeaf-7d1cfe78f30f";
     #     timedelta = "7d";
@@ -31,7 +31,7 @@
   };
 
   # ── vdirsyncer systemd timer ──────────────────────────────────────────────
-  programs.vdirsyncer.enable = true;
+  programs.vdirsyncer.enable = false;
   services.vdirsyncer = {
     
     enable = true;

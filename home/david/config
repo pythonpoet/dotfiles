@@ -1,23 +1,23 @@
 [calendars]
 
   [[caldav]]
-    path = ~/home/david/.calendars/caldav/*
+    path = ~/.calendars/caldav/991722ac-4c42-4236-aeaf-7d1cfe78f30f
     color = light blue
     
-  [[ncjj]]
-    path = ~/calendars/nextcloud/jj
-    color = light red
+  [[The_Amazing_Language_Tool]]
+    path = ~/.calendars/google/b44872c90bbbe89196e261bb32121265c712ddd253c0c0cf05799075bc0a69ce@group.calendar.google.com
+    color = light magenta
 
-  [[ncjudit]]
-    path = ~/calendars/nextcloud/73E541D6-F11B-41E5-BFDF-D88B557F19BA_shared_by_judit
-    color = light gray
+  [[uni]]
+    path = ~/.calendars/google/boajqp772oulnfd57um3gutskckrn8io@import.calendar.google.com
+    color = light red
     
-  [[tvv_vst]]
-    path = ~/calendars/nextcloud_tvv/vorstand_shared_by_Ulf
+  [[google]]
+    path = ~/.calendars/google/biobrotmithonig@gmail.com
     color = light magenta
 
 [default]
-default_calendar=caldav1
+#default_calendar=caldav
 timedelta = 5d
 highlight_event_days = true
 
