@@ -29,9 +29,7 @@
     "big-parallel" 
     "nixos-test"
     "kvm"
-    "gccarch-armv8-a"
   ];
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   environment = {
     variables = { FLAKE = "/home/david/Documents/dotfiles";};
 
@@ -59,14 +57,6 @@
     };
     services.displayManager.cosmic-greeter.enable = true;
     services.desktopManager.cosmic.enable = true;
-
-    nix.buildMachines = [
-    { hostName = "localhost";
-      systems = [ "aarch64-linux" "armv7l-linux" ] ;
-      supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
-      maxJobs = 4;
-      protocol = null;
-    }];
 
   };
 }

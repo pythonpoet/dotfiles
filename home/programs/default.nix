@@ -26,7 +26,7 @@
   bitwarden-desktop
   bitwarden-cli
   brave
-  dioxus-cli
+  #dioxus-cli
   ente-auth
   #calibre
   cheese
@@ -54,7 +54,7 @@
   libsecret
   meld
   mission-center
-  morgen
+  
   newsflash
   nodejs_20
   organicmaps
@@ -67,9 +67,7 @@
   #flatpak
   popcorntime
   postgresql_17
-  swi-prolog
-  R
-  readest
+  # readest
   resources
   signal-desktop
   telegram-desktop
@@ -77,10 +75,10 @@
   typst
   v4l-utils
   webtorrent_desktop
-  wineWowPackages.wayland
-  weka
+  #wineWowPackages.wayland
   zotero
   zulu11
+  tree
 ];
 
 

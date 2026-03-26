@@ -16,7 +16,7 @@ in {
     LESSHISTFILE = "${cache}/less/history";
     LESSKEY = "${conf}/less/lesskey";
 
-    WINEPREFIX = "${data}/wine";
+    #WINEPREFIX = "${data}/wine";
     XAUTHORITY = "$XDG_RUNTIME_DIR/Xauthority";
 
     EDITOR = "hx";

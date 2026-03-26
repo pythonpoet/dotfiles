@@ -136,7 +136,7 @@
     };
 
     nixos-hardware = {
-      url = "github:pythonpoet/nixos-hardware/master";
+      url = "github:NixOS/nixos-hardware/master";
     };
     nixos-raspberrypi.url = "github:pythonpoet/nixos-raspberrypi/main";
     vscode-server = {
