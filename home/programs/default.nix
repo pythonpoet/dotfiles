@@ -68,6 +68,8 @@
   popcorntime
   postgresql_17
   # readest
+  vja
+  surrealist
   resources
   signal-desktop
   telegram-desktop
