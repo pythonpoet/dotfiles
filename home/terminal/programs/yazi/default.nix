@@ -2,8 +2,10 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
-}: {
+}:
+{
   imports = [
     ./theme/filetype.nix
     ./theme/icons.nix
@@ -12,20 +14,25 @@
   ];
 
   # general file info
-  home.packages = [pkgs.exiftool];
+  home.packages = [ pkgs.exiftool ];
 
   # yazi file manager
   programs.yazi = {
     enable = true;
-    #Stop building yazi upstream
-    #package = inputs.yazi.packages.${pkgs.system}.default;
+
+    #package = inputs.yazi.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     enableBashIntegration = config.programs.bash.enable;
     enableZshIntegration = config.programs.zsh.enable;
+    shellWrapperName = "y";
 
     settings = {
       manager = {
-        layout = [1 4 3];
+        layout = [
+          1
+          4
+          3
+        ];
         sort_by = "alphabetical";
         sort_sensitive = true;
         sort_reverse = false;
@@ -42,5 +49,13 @@
         cache_dir = config.xdg.cacheHome;
       };
     };
+
+    # Run ripdrag when pressing C-n
+    keymap.manager.prepend_keymap = [
+      {
+        on = [ "<C-n>" ];
+        run = ''shell '${lib.getExe pkgs.ripdrag} "$@" -x 2>/dev/null &' --confirm'';
+      }
+    ];
   };
 }

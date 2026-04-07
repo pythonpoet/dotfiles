@@ -12,7 +12,7 @@
     #package = inputs.helix.packages.${pkgs.system}.default;
     extraPackages = with pkgs; [
       markdown-oxide
-      nodePackages.vscode-langservers-extracted
+      vscode-langservers-extracted
       shellcheck
       ltex-ls
       tinymist

@@ -11,7 +11,7 @@
       };
 
       prettier = lang: {
-        command = lib.getExe pkgs.nodePackages.prettier;
+        command = lib.getExe pkgs.prettier;
         args = ["--parser" lang];
       };
       prettierLangs = map (e: {
@@ -137,7 +137,7 @@
       };
 
       typescript-language-server = {
-        command = lib.getExe pkgs.nodePackages.typescript-language-server;
+        command = lib.getExe pkgs.typescript-language-server;
         args = ["--stdio"];
         config = {
           typescript-language-server.source = {
@@ -151,7 +151,7 @@
       };
 
       vscode-css-language-server = {
-        command = "${pkgs.nodePackages.vscode-langservers-extracted}/bin/vscode-css-languageserver";
+        command = "${pkgs.vscode-langservers-extracted}/bin/vscode-css-languageserver";
         args = ["--stdio"];
         config = {
           provideFormatter = true;

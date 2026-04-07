@@ -55,15 +55,15 @@ with lib; let
               # nickel.packages.${pkgs.system}.default
               (python3.withPackages (ps: with ps; [python-lsp-server] ++ python-lsp-server.optional-dependencies.all))
               nil # Nix
-              nodePackages.bash-language-server # Bash
-              nodePackages.dockerfile-language-server-nodejs
-              nodePackages.pyright # Python
-              nodePackages.stylelint
+              pkgs.bash-language-server # Bash
+              pkgs.dockerfile-language-server-nodejs
+              pkgs.pyright # Python
+              pkgs.stylelint
               # nodePackages.svelte-language-server # Svelte
-              nodePackages.vls
-              nodePackages.vim-language-server
-              nodePackages.vscode-langservers-extracted
-              nodePackages.yaml-language-server # YAML / JSON
+              pkgs.vls
+              pkgs.vim-language-server
+              pkgs.vscode-langservers-extracted
+              pkgs.yaml-language-server # YAML / JSON
               # ocamlPackages.ocaml-lsp # Ocaml
               # ocamlPackages.dune_3 # Ocaml
               # opam # Ocaml
@@ -93,7 +93,7 @@ with lib; let
               documentFormatting = true;
               languages = lib.genAttrs ["typescript" "javascript" "typescriptreact" "javascriptreact" "vue" "json" "markdown"] (_: [
                 {
-                  formatCommand = "${nodePackages.prettier}/bin/prettier --stdin-filepath \${INPUT}";
+                  formatCommand = "${prettier}/bin/prettier --stdin-filepath \${INPUT}";
                   formatStdin = true;
                 }
               ]);
@@ -132,8 +132,8 @@ with lib; let
           };
 
           typescript-language-server = {
-            command = "${nodePackages.typescript-language-server}/bin/typescript-language-server";
-            args = ["--stdio" "--tsserver-path=${nodePackages.typescript}/lib/node_modules/typescript/lib"];
+            command = "${typescript-language-server}/bin/typescript-language-server";
+            args = ["--stdio" "--tsserver-path=${typescript}/lib/node_modules/typescript/lib"];
             config.documentFormatting = false;
           };
 
