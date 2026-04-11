@@ -24,7 +24,7 @@
       }: {
         devShells.default = pkgs.mkShell {
           packages = [
-            pkgs.nodePackages.prettier
+            pkgs.prettier
             config.packages.repl
           ];
           name = "dots";

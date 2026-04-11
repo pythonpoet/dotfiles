@@ -41,6 +41,8 @@ username = "david"
 
 
 [storage calendar_google_remote]
+# if access token is expired delete google_token.json and run `vdirsyncer discover
+# go to https://calendar.google.com/calendar/u/0/syncselect to manage google chalendars
 type = "google_calendar"
 token_file = "/home/david/.config/vdirsyncer/google_token.json"
 
