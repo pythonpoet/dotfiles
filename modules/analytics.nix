@@ -29,8 +29,8 @@ with lib; let
     };
     portLoki = mkOption{
       type = types.port;
-      default = 3105;
-    }
+      default = 3100;
+    };
     };
 
   config = mkIf cfg.enable {
