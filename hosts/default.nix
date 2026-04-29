@@ -185,17 +185,17 @@
             data_dir = "/data1/ocis/";
             config_file = "/data1/ocis/config/";
           };
-          vikunja = {
-            enable = false;
-            db_path = "/data1/vikunja/db/vikunja.db";
-            files_path = "/data1/vikunja/files";
-            #secretConfigFile = age.secrets.vikunja-config.path;
-          };
-          vaultwarden = {
-            enable = true;
-            domain = "vault.davidwild.ch";
-            data_dir = "/data1/vaultwarden";
-          };
+          # vikunja = {
+          #   enable = false;
+          #   db_path = "/data1/vikunja/db/vikunja.db";
+          #   files_path = "/data1/vikunja/files";
+          #   #secretConfigFile = age.secrets.vikunja-config.path;
+          # };
+          # vaultwarden = {
+          #   enable = true;
+          #   domain = "vault.davidwild.ch";
+          #   data_dir = "/data1/vaultwarden";
+          # };
           # jitsi = {
           #   enable = false;
           #   domain = "jitsi.davidwild.ch";
