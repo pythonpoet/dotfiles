@@ -85,7 +85,7 @@ in {
                 clientsecret = "{client_secret}";
                 scope = "openid profile email";
               };
-            }
+            }; 
           };
         };
         database.path = lib.mkForce "/data1/vikunja/db/vikunja.db";
