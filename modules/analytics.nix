@@ -27,6 +27,10 @@ with lib; let
       type = types.str;
       default = "/data1/grafana";
     };
+    portLoki = mkOption{
+      type = types.port;
+      default = 3105;
+    }
     };
 
   config = mkIf cfg.enable {
@@ -106,7 +110,13 @@ with lib; let
 
   services.loki = {
     enable = true;
-    configFile = "${self}/modules/loki-local-config.yaml";
+    configuration = {
+      server = {
+        http_listen_port = cfg.portLoki;
+        http_listen_address = "0.0.0.0";
+      };
+      # ... rest of your loki config
+    };
   };
   users.users.promtail.extraGroups = ["nginx"];
   services.promtail = {
