@@ -186,7 +186,7 @@
             config_file = "/data1/ocis/config/";
           };
           vikunja = {
-            enable = true;
+            enable = false;
             db_path = "/data1/vikunja/db/vikunja.db";
             files_path = "/data1/vikunja/files";
             #secretConfigFile = age.secrets.vikunja-config.path;
