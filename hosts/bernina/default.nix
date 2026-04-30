@@ -153,11 +153,11 @@ in
     ];
   boot = {
     #binfmt.emulatedSystems = [ "armv7l-linux" ];
-     loader = {
-       raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;    
-       raspberryPi.bootloader = "kernel";
+    #  loader = {
+    #    raspberryPi.firmwarePackage = pkgs.linuxAndFirmware.v6_12_34.raspberrypifw;    
+    #    raspberryPi.bootloader = "kernel";
       
-     };
+    #  };
     # Tailscale exidnode config: Enable IP forwarding for the exit node to function
     kernel.sysctl = {
       "net.ipv4.ip_forward" = 1;
