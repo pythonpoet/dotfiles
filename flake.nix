@@ -86,7 +86,7 @@
     helix.url = "github:helix-editor/helix";
 
     hm = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
