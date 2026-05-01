@@ -108,16 +108,46 @@ with lib; let
     };
   };
 
-  services.loki = {
-    enable = true;
-    configuration = {
-      server = {
-        http_listen_port = cfg.portLoki;
-        http_listen_address = "0.0.0.0";
+services.loki = {
+  enable = true;
+  configuration = {
+    server = {
+      http_listen_port = cfg.portLoki;
+      http_listen_address = "0.0.0.0";
+    };
+
+    auth_enabled = false;
+
+    common = {
+      instance_addr = "127.0.0.1";
+      path_prefix = cfg.dataDir + "/loki";
+      storage.filesystem = {
+        chunks_directory = cfg.dataDir + "/loki/chunks";
+        rules_directory  = cfg.dataDir + "/loki/rules";
       };
-      # ... rest of your loki config
+      replication_factor = 1;
+      ring.kvstore.store = "inmemory";
+    };
+
+    schema_config.configs = [
+      {
+        from = "2020-01-01";
+        store = "tsdb";
+        object_store = "filesystem";
+        schema = "v13";
+        index = {
+          prefix = "index_";
+          period = "24h";
+        };
+      }
+    ];
+
+    query_range.results_cache.cache.embedded_cache = {
+      enabled = true;
+      max_size_mb = 100;
     };
   };
+};
   users.users.promtail.extraGroups = ["nginx"];
   services.promtail = {
     enable = true;
