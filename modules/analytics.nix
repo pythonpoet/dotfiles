@@ -110,6 +110,7 @@ with lib; let
 
 services.loki = {
   enable = true;
+  dataDir = cfg.dataDir + "/loki";
   configuration = {
     server = {
       http_listen_port = cfg.portLoki;
