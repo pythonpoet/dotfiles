@@ -121,10 +121,10 @@ services.loki = {
 
     common = {
       instance_addr = "127.0.0.1";
-      path_prefix = cfg.dataDir + "/loki";
+      path_prefix = "/data1/loki";
       storage.filesystem = {
-        chunks_directory = cfg.dataDir + "/loki/chunks";
-        rules_directory  = cfg.dataDir + "/loki/rules";
+        chunks_directory = "/data1/loki/chunks";
+        rules_directory  = "/data1/loki/rules";
       };
       replication_factor = 1;
       ring.kvstore.store = "inmemory";
