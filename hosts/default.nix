@@ -267,10 +267,10 @@
             users.david.imports = homeImports."minimal";
             extraSpecialArgs = specialArgs;
           };
-          postgresql = {
-            enable = false;
-            data_dir = "/backup/databases";
-          };
+          # postgresql = {
+          #   enable = false;
+          #   data_dir = "/backup/databases";
+          # };
           pgbackrestRepo = {
             enable = true;
           };
