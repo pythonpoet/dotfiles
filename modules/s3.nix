@@ -3,6 +3,7 @@
 {
     services.garage = {
         enable = true;
+        package = pkgs.garage;
         settings = {
             replication_factor = 1;
 
@@ -13,12 +14,12 @@
 
             s3_api = {
                 s3_region = "zurich";
-                api_bind_addr = "[::]:9000"; # same port as minio
+                api_bind_addr = "0.0.0.0:9000"; # same port as minio
                 root_domain = ".s3.local";
             };
 
             admin = {
-                api_bind_addr = "[::]:3903";
+                api_bind_addr = "0.0.0.0:3903";
             };
 
             data_dir = [{ path = "/data1/garage/data"; capacity = "1T"; }];
