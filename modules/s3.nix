@@ -1,15 +1,31 @@
 { config, pkgs, lib, ... }:
 
 {
-    services.minio = {
+    services.garage = {
         enable = true;
-        region = "zurich";
-        dataDir = [ "/data1/minio/data" ];
-        configDir = "/data1/minio/config";
-        # Set credentials via environment file (don't hardcode secrets)
-        rootCredentialsFile = "/run/keys/mino-credentials";
+        settings = {
+            replication_factor = 1;
+
+            rpc_bind_addr = "[::]:3901";
+            # Generate with: openssl rand -hex 32
+            # and store in a secret file, then reference it here
+            rpc_secret_file = "/run/secrets/garage-rpc-secret";
+
+            s3_api = {
+                s3_region = "zurich";
+                api_bind_addr = "[::]:9000"; # same port as minio
+                root_domain = ".s3.local";
+            };
+
+            admin = {
+                api_bind_addr = "[::]:3903";
+            };
+
+            data_dir = [{ path = "/data1/garage/data"; capacity = "1T"; }];
+            metadata_dir = "/data1/garage/meta";
+        };
     };
 
     # Open firewall if needed
-    networking.firewall.allowedTCPPorts = [ 9000 9001 ]; # 9000 = API, 9001 = web console
+    networking.firewall.allowedTCPPorts = [ 9000 3901 ]; # 9000 = S3 API, 3901 = RPC
 }
