@@ -9,7 +9,7 @@
             rpc_bind_addr = "[::]:3901";
             # Generate with: openssl rand -hex 32
             # and store in a secret file, then reference it here
-            rpc_secret_file = "/run/secrets/garage-rpc-secret";
+            rpc_secret_file = "/run/keys/garage-rpc-secret";
 
             s3_api = {
                 s3_region = "zurich";
