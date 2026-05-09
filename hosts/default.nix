@@ -36,6 +36,7 @@
       "${self}/modules/authenitk.nix"
       "${self}/modules/analytics.nix"
       #"${self}/modules/email.nix"
+      "${self}/modules/pgbackrest.nix"
     ];
 
     # get these into the module system
@@ -269,6 +270,9 @@
             enable = false;
             data_dir = "/backup/databases";
           };
+          pgbackrestRepo = {
+            enable = true;
+          }
         }
         
         inputs.chaotic.nixosModules.default
