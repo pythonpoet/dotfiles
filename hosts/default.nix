@@ -272,7 +272,7 @@
           };
           pgbackrestRepo = {
             enable = true;
-          }
+          };
         }
         
         inputs.chaotic.nixosModules.default
