@@ -260,7 +260,7 @@
         "${mod}/nix"
         "${mod}/programs/zsh.nix"
         "${mod}/programs/home-manager.nix"
-        "${self}/modules/pgbackrest.nix"
+        "${self}/modules/s3.nix"
 
         {
           home-manager = {
@@ -271,9 +271,9 @@
           #   enable = false;
           #   data_dir = "/backup/databases";
           # };
-          pgbackrestRepo = {
-            enable = true;
-          };
+          # pgbackrestRepo = {
+          #   enable = true;
+          # };
         }
         
         inputs.chaotic.nixosModules.default
