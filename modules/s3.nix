@@ -31,13 +31,14 @@
     networking.firewall.allowedTCPPorts = [ 9000 3901 ]; # 9000 = S3 API, 3901 = RPC
 
     systemd.services.garage.serviceConfig.DynamicUser = lib.mkForce false;
-    
+
     systemd.services.garage.serviceConfig.User = "garage";
     systemd.services.garage.serviceConfig.Group = "garage";
 
     users.users.garage = {
         isSystemUser = true;
         group = "garage";
+        extraGroups = [ "keys" ];
     };
     users.groups.garage = {};
 
