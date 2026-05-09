@@ -36,7 +36,7 @@
       "${self}/modules/authenitk.nix"
       "${self}/modules/analytics.nix"
       #"${self}/modules/email.nix"
-      "${self}/modules/pgbackrest.nix"
+      
     ];
 
     # get these into the module system
@@ -254,12 +254,13 @@
     kaepfnach = nixosSystem {
       inherit specialArgs;
       system.stateVersion = 25.05;
-      modules = cloud ++ [
+      modules = [
         ./kaepfnach
         "${mod}/core/users.nix"
         "${mod}/nix"
         "${mod}/programs/zsh.nix"
         "${mod}/programs/home-manager.nix"
+        "${self}/modules/pgbackrest.nix"
 
         {
           home-manager = {
