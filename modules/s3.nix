@@ -46,4 +46,13 @@
         "d /data1/garage/data 0700 garage garage -"
         "d /data1/garage/meta 0700 garage garage -"
     ];
+    services.caddy = {
+        enable = true;
+        virtualHosts."kaepfnach:9000" = {
+            extraConfig = ''
+            tls internal
+            reverse_proxy localhost:9000
+            '';
+        };
+    };
 }
