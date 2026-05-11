@@ -43,6 +43,7 @@
 
   # fix dbus error
   services.resolved.enable = true;
+  networking.networkmanager.dns = "systemd-resolved";
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
