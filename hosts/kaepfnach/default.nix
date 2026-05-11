@@ -41,8 +41,8 @@
 
   # Select internationalisation properties.
 
-  
-
+  # fix dbus error
+  services.resolved.enable = true;
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
