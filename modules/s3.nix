@@ -48,7 +48,7 @@
     ];
     services.caddy = {
         enable = true;
-        virtualHosts."100.106.1.128:9001" = {
+        virtualHosts."kaepfnach:9001" = {
             extraConfig = ''
             tls internal
             reverse_proxy localhost:9000
