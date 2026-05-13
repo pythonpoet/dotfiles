@@ -144,11 +144,11 @@
     };
   };
   nixConfig = {
-  # extra-substituters = [
-  #   "https://nixos-raspberrypi.cachix.org"
-  # ];
-  # extra-trusted-public-keys = [
-  #   "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
-  # ];
+  extra-substituters = [
+    "https://dotfiles-531547cf7bf4caaaad33.cachix.org"
+  ];
+  extra-trusted-public-keys = [
+    "dotfiles-531547cf7bf4caaaad33.cachix.org-1:UrNj/PHpwuuMA+uETnNnUoV+clGG2Evu6e+duxFP4HA="
+  ];
 };
 }

@@ -38,6 +38,8 @@
   gnome-calendar
   gnome-calculator
   himalaya
+  claude-code
+  opencode
   
   # gnome-control-center
   # gnomeExtensions.blur-my-shell

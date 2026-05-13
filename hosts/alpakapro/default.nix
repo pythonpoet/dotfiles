@@ -17,8 +17,11 @@
   config = {
     hardware.microsoft-surface = {
       kernelVersion = "stable";
-
     };
+
+    # Ensure SOF firmware is always present — prevents audio breakage after kernel updates
+    # SP8 uses Tiger Lake SOF DSP (snd_sof_pci_intel_tgl)
+    hardware.firmware = with pkgs; [ sof-firmware linux-firmware ];
 
     
     networking.hostName = "alpakapro";

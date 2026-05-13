@@ -5,28 +5,23 @@
 # https://github.com/petm5/linux -> claims to have merged the patchs from the user who fixed the cameras
 { config, lib, pkgs, modulesPath, ... }:
 
-# let
-#   myCustomKernel = pkgs.callPackage
-#     ({ stdenv, fetchFromGitHub, buildLinux, ... }:
-#       buildLinux rec {
-#         version = "6.17.2";
-#         modDirVersion = version;
-#         src = fetchFromGitHub {
-#           owner = "petm5";
-#           repo = "linux";
-#           rev = "sp9-camera-enablement-6.17.2";
-#           sha256 = "sha256-VUkihnNE38iFHBP2H68+kgmV4dhalmYeC9ocfP5hvuw=";
-#         };
+let
+  surfacePro8Kernel = pkgs.callPackage
+    ({ stdenv, fetchFromGitHub, buildLinux, ... }:
+      buildLinux rec {
+        version = "6.17.2";
+        modDirVersion = version;
+        src = fetchFromGitHub {
+          owner = "petm5";
+          repo = "linux";
+          rev = "sp9-camera-enablement-6.17.2";
+          sha256 = "sha256-VUkihnNE38iFHBP2H68+kgmV4dhalmYeC9ocfP5hvuw=";
+        };
 
-#         defconfig = "x86_64_defconfig"; # adjust for your arch if needed
-
-#         # Optionally apply NixOS config fragments
-#         extraMeta.branch = "6.17";
-#         # structuredExtraConfig = with lib.kernel; {
-#         #   DEBUG_KERNEL = no;
-#         # };
-#       }) {};
-# in
+        defconfig = "x86_64_defconfig";
+        extraMeta.branch = "6.17";
+      }) {};
+in
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
@@ -41,7 +36,7 @@
                           "v4l2-common"   # V4L2 common functions
                           "v4l2-async"    # V4L2 async framework
                           "mc"     ];
-  #boot.kernelPackages = pkgs.linuxPackagesFor myCustomKernel;
+  boot.kernelPackages = pkgs.linuxPackagesFor surfacePro8Kernel;
   
 
   fileSystems."/" =
