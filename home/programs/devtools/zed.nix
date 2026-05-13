@@ -5,7 +5,7 @@
 }: {
   programs.zed-editor = {
     enable = true;
-    extensions = ["nix" "toml" "elixir" "make"];
+    extensions = ["nix" "toml" "elixir" "make" "python" "rust"];
 
     ## everything inside of these brackets are Zed options.
     userSettings = {
