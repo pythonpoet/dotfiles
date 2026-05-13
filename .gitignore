@@ -1,4 +1,2 @@
 .direnv
 .pre-commit-config.yaml
-*.lock
-flake.lock
